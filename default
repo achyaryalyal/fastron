@@ -1,39 +1,39 @@
 # the zone that limit max 5 requests/sec from 1 single IP address and the zone can hold up to 10 MB of data
 limit_req_zone $binary_remote_addr zone=one:10m rate=5r/s;
 
-server {
-    # server move non-www to www
-    listen 80;
-    listen 443;
-    server_name smarttukang.com;
-    # force https
-    if ($scheme = http) { return 301 https://www.smarttukang.com$request_uri; }
-    if ($scheme = https) { return 301 https://www.smarttukang.com$request_uri; }
-}
+#####server {
+#####    # server move non-www to www
+#####    listen 80;
+#####    listen 443;
+#####    server_name smarttukang.com;
+#####    # force https
+#####    if ($scheme = http) { return 301 https://www.smarttukang.com$request_uri; }
+#####    if ($scheme = https) { return 301 https://www.smarttukang.com$request_uri; }
+#####}
 
 server {
     # server with www
     listen 127.0.0.1;
     listen 80;
     listen [::]:80 ipv6only=on;
-    listen 443 default_server ssl http2;
+    #####listen 443 default_server ssl http2;
     root /var/www/main;
     index index.php;
     charset utf-8;
     server_name www.smarttukang.com;
     # force https
-    if ($scheme = http) { return 301 https://www.smarttukang.com$request_uri; }
+    #####if ($scheme = http) { return 301 https://www.smarttukang.com$request_uri; }
     # ssl
-    ssl_certificate /etc/letsencrypt/live/smarttukang.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/smarttukang.com/privkey.pem;
-    ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
-    ssl_prefer_server_ciphers on;
-    ssl_ciphers ECDH+ECDSA+AESGCM:DH+AESGCM:ECDH+ECDSA+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!eNULL:!LOW:!EXPORT:!MD5:!DSS:!PSK:!SRP:!CAMELLIA:!RC4:!SEED;
-    ssl_session_tickets on;
-    ssl_dhparam /etc/letsencrypt/dh.pem;
-    ssl_buffer_size 16k;
-    ssl_session_cache shared:SSL:30m;
-    ssl_session_timeout 60m;
+    #####ssl_certificate /etc/letsencrypt/live/smarttukang.com/fullchain.pem;
+    #####ssl_certificate_key /etc/letsencrypt/live/smarttukang.com/privkey.pem;
+    #####ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    #####ssl_prefer_server_ciphers on;
+    #####ssl_ciphers ECDH+ECDSA+AESGCM:DH+AESGCM:ECDH+ECDSA+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!eNULL:!LOW:!EXPORT:!MD5:!DSS:!PSK:!SRP:!CAMELLIA:!RC4:!SEED;
+    #####ssl_session_tickets on;
+    #####ssl_dhparam /etc/letsencrypt/dh.pem;
+    #####ssl_buffer_size 16k;
+    #####ssl_session_cache shared:SSL:30m;
+    #####ssl_session_timeout 60m;
     #ssl_stapling on;
     #ssl_stapling_verify on;
     #ssl_trusted_certificate /etc/letsencrypt/live/smarttukang.com/fullchain.pem;
