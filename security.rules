@@ -26,7 +26,6 @@ if ($args ~* "..") { return 406; } # obvious probe
 if ($args ~* "etc/passwd") { return 406; } # obvious probe
 if ($args ~* "c:") { return 406; } # obvious windows path
 if ($args ~* "cmd.exe") { return 406; } # obvious probe
-if ($args ~* "\\") { return 406; } # obvious probe
 ## Cross Site Scripting
 if ($args ~* "(<|%3C|>|%3E|[|]|~|`)") { return 406; }
 ## Evading tricks
