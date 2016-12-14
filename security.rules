@@ -1,0 +1,33 @@
+## Block common exploits
+location ~ /\.ht { deny all; }
+if ($args ~* "(base64|encode|decode|globals|localhost|loopback|proc|self|environ|i18n|a2billing|sessionid|opentype)") { return 406; }
+if ($request_method ~* "^(TRACE|DELETE|TRACK)") { return 406; }
+if ($args ~* "mosConfig_[a-zA-Z_]{1,21}(=|%3D)") { return 406; }
+if ($args ~* "(bash|git|hg|log|svn|swp|cvs)") { return 406; }
+if ($args ~* "(GLOBALS|_REQUEST)") { return 406; }
+if ($args ~* "boot.ini") { return 406; }
+## Block SQL injections
+if ($args ~* "(request|select|update|delete|insert|drop|concat|union|table|from|ascii|hex|unhex|declare)") { return 406; }
+if ($args ~* "(0x|\/\*|\*\/|\||&&|--|\'|,|#|@@)") { return 406; }
+## Block obvious RFI
+if ($args ~* "http:") { return 406; }
+if ($args ~* "https:") { return 406; }
+if ($args ~* "ftp:") { return 406; }
+if ($args ~* "php:") { return 406; }
+if ($args ~* "sftp:") { return 406; }
+if ($args ~* "zlib:") { return 406; }
+if ($args ~* "data:") { return 406; }
+if ($args ~* "glob:") { return 406; }
+if ($args ~* "phar:") { return 406; }
+if ($args ~* "file:") { return 406; }
+if ($args ~* "gopher:") { return 406; }
+## Block directory traversal
+if ($args ~* "..") { return 406; } # obvious probe
+if ($args ~* "etc/passwd") { return 406; } # obvious probe
+if ($args ~* "c:") { return 406; } # obvious windows path
+if ($args ~* "cmd.exe") { return 406; } # obvious probe
+if ($args ~* "\\") { return 406; } # obvious probe
+## Cross Site Scripting
+if ($args ~* "(<|%3C|>|%3E|[|]|~|`)") { return 406; }
+## Evading tricks
+if ($args ~* "(&#|%U)") { return 406; }
