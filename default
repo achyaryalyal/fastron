@@ -47,7 +47,7 @@ server {
         error_page 406 /406;
         include security.rules;
         rewrite ^/(.*)/$ /$1 permanent;
-        include /var/www/main/app/router.php;
+        #####include /var/www/main/app/router.php;
     }
     include php.conf;
     include cache.conf;
