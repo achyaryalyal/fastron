@@ -40,8 +40,7 @@ server {
         try_files $uri $uri/ =404;
         error_page 404 /404;
         error_page 406 /406;
-        include /etc/nginx/security.rules;
-        include /etc/nginx/blockips.conf;
+        include security.rules;
         rewrite ^/(.*)/$ /$1 permanent;
         include /etc/nginx/sites-available/opensimka/app/router.php;
     }
