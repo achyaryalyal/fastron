@@ -19,7 +19,7 @@ server {
     server_name www.smarttukang.com;
     # force https
     if ($scheme = http) { return 301 https://www.smarttukang.com$request_uri; }
-
+    # ssl
     ssl_certificate /etc/letsencrypt/live/smarttukang.com/fullchain.pem;
     ssl_certificate_key /etc/letsencrypt/live/smarttukang.com/privkey.pem;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
@@ -35,19 +35,16 @@ server {
     #ssl_trusted_certificate /etc/letsencrypt/live/smarttukang.com/fullchain.pem;
     #resolver 8.8.4.4 8.8.8.8 valid=300s;
     #resolver_timeout 10s;
-
     location / {
         try_files $uri $uri/ =404;
         error_page 404 /404;
         error_page 406 /406;
         include security.rules;
         rewrite ^/(.*)/$ /$1 permanent;
-        include /etc/nginx/sites-available/opensimka/app/router.php;
+        include /var/www/main/app/router.php;
     }
-
     include php.conf;
     include cache.conf;
-
     location = /robots.txt {
 	      allow all;
 	      log_not_found off;
