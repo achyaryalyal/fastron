@@ -1,3 +1,6 @@
+# the zone that limit max 5 requests/sec from 1 single IP address and the zone can hold up to 10 MB of data
+limit_req_zone $binary_remote_addr zone=one:10m rate=5r/s;
+
 server {
     # server move non-www to www
     listen 80;
@@ -7,6 +10,7 @@ server {
     if ($scheme = http) { return 301 https://www.smarttukang.com$request_uri; }
     if ($scheme = https) { return 301 https://www.smarttukang.com$request_uri; }
 }
+
 server {
     # server with www
     listen 127.0.0.1;
@@ -36,6 +40,8 @@ server {
     #resolver 8.8.4.4 8.8.8.8 valid=300s;
     #resolver_timeout 10s;
     location / {
+        # limit zone request with a burst of 50
+	limit_req zone=one burst=50 nodelay;
         try_files $uri $uri/ =404;
         error_page 404 /404;
         error_page 406 /406;
