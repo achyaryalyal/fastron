@@ -1,4 +1,4 @@
-# the zone that limit max 5 requests/sec from 1 single IP address and the zone can hold up to 10 MB of data
+# the zone that limit max 5 requests/sec from 1 single IP address and hold up to 10 MB of data
 limit_req_zone $binary_remote_addr zone=dev:10m rate=5r/s;
 
 server {
