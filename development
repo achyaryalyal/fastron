@@ -1,1 +1,55 @@
+# the zone that limit max 5 requests/sec from 1 single IP address and the zone can hold up to 10 MB of data
+limit_req_zone $binary_remote_addr zone=dev:10m rate=5r/s;
 
+server {
+    # server with [dev].
+    listen 80;
+    #####listen 443 ssl http2;
+    root /var/www/development;
+    index index.php;
+    charset utf-8;
+    server_name dev.smarttukang.com;
+    # force https
+    #####if ($scheme = http) { return 301 https://dev.opensimka.com$request_uri; }
+    # ssl
+    #####ssl_certificate /etc/letsencrypt/live/smarttukang.com/fullchain.pem;
+    #####ssl_certificate_key /etc/letsencrypt/live/smarttukang.com/privkey.pem;
+    #####ssl_protocols TLSv1 TLSv1.1 TLSv1.2;
+    #####ssl_prefer_server_ciphers on;
+    #####ssl_ciphers ECDH+ECDSA+AESGCM:DH+AESGCM:ECDH+ECDSA+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:RSA+3DES:!aNULL:!eNULL:!LOW:!EXPORT:!MD5:!DSS:!PSK:!SRP:!CAMELLIA:!RC4:!SEED;
+    #####ssl_session_tickets on;
+    #####ssl_dhparam /etc/letsencrypt/dh.pem;
+    #####ssl_buffer_size 16k;
+    #####ssl_session_cache shared:SSL:30m;
+    #####ssl_session_timeout 60m;
+    #ssl_stapling on;
+    #ssl_stapling_verify on;
+    #ssl_trusted_certificate /etc/letsencrypt/live/smarttukang.com/fullchain.pem;
+    #resolver 8.8.4.4 8.8.8.8 valid=300s;
+    #resolver_timeout 10s;
+    location / {
+        # limit zone request with a burst of 50
+	      limit_req zone=dev burst=50 nodelay;
+        try_files $uri $uri/ =404;
+        error_page 404 /404;
+        error_page 406 /406;
+        include security.rules;
+        rewrite ^/(.*)/$ /$1 permanent;
+        #####include /var/www/main/development/router.php;
+    }
+    include php.conf;
+    include cache.conf;
+    location = /robots.txt {
+	      allow all;
+	      log_not_found off;
+	      access_log off;
+    }
+    location ^~ /.well-known/acme-challenge/ {
+        default_type "text/plain";
+        root /var/www/dev;
+        try_files $uri /$1;
+    }
+    location = /.well-known/acme-challenge/ {
+        return 404;
+    }
+}
