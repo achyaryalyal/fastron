@@ -1,6 +1,6 @@
 ## Block common exploits
 location ~ /\.ht { deny all; }
-if ($args ~* "(base64|encode|decode|globals|localhost|loopback|proc|self|environ|sessionid|opentype|ini_set|magic_quotes)") { return 406; }
+if ($args ~* "(base64|encode|decode|globals|localhost|loopback|proc|self|environ|sessionid|opentype|ini_set|magic_quotes|soap|webdav)") { return 406; }
 if ($request_method ~* "^(TRACE|DELETE|TRACK)") { return 406; }
 if ($args ~* "mosConfig_[a-zA-Z_]{1,21}(=|%3D)") { return 406; }
 if ($args ~* "(bash|git|hg|log|svn|swp|cvs)") { return 406; }
