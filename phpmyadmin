@@ -1,3 +1,6 @@
+# the zone that limit max 5 requests/sec from 1 single IP address and the zone can hold up to 10 MB of data
+limit_req_zone $binary_remote_addr zone=data:10m rate=5r/s;
+
 server {
     # server with [data].
     listen 80;
@@ -26,6 +29,8 @@ server {
     #resolver 8.8.4.4 8.8.8.8 valid=300s;
     #resolver_timeout 10s;
     location / {
+        # limit zone request with a burst of 50
+	limit_req zone=data burst=50 nodelay;
         try_files $uri $uri/ /index.php?$args;
         include security.rules;
     }
