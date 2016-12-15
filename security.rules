@@ -1,7 +1,8 @@
 ## Block common exploits
-location ~ /\.ht { deny all; }
+location ~* /(assets|files|uploads|tmp)/.*\.php$ { deny all; }
+location ~* \.(pl|cgi|py|sh|lua|exe)$ { return 406; }
+if ($request_method !~ ^(GET|HEAD|POST)$ ) { return 405; }
 if ($args ~* "(base64|encode|decode|engine|environ|globals|ini_set|localhost|loopback|magic_quotes|opentype|proc|root|self|sessionid|soap|webdav)") { return 406; }
-if ($request_method ~* "^(TRACE|DELETE|TRACK)") { return 406; }
 if ($args ~* "mosConfig_[a-zA-Z_]{1,21}(=|%3D)") { return 406; }
 if ($args ~* "(bash|git|hg|log|svn|swp|cvs)") { return 406; }
 if ($args ~* "(GLOBALS|_REQUEST)") { return 406; }
