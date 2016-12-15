@@ -4,7 +4,8 @@ limit_req_zone $binary_remote_addr zone=one:10m rate=5r/s;
 server {
     # server with [data].
     listen 80;
-    #####listen 443 ssl spdy;
+    listen [::]:80 ipv6only=on;
+    #####listen 443 ssl http2;
     access_log off;
     root /var/www/phpmyadmin;
     index index.php;
