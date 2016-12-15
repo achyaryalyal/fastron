@@ -22,7 +22,7 @@ server {
     include cache.conf;
     location ^~ /.well-known/acme-challenge/ {
         default_type "text/plain";
-        root /var/www/dev;
+        root /var/www/development;
         try_files $uri /$1;
     }
     location = /.well-known/acme-challenge/ {
