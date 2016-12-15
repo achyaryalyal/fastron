@@ -2,7 +2,7 @@
 limit_req_zone $binary_remote_addr zone=one:10m rate=5r/s;
 
 #####server {
-#####    # server move non-www to www
+#####    # server move non-www to [www].
 #####    listen 80;
 #####    listen 443;
 #####    server_name smarttukang.com;
@@ -12,7 +12,7 @@ limit_req_zone $binary_remote_addr zone=one:10m rate=5r/s;
 #####}
 
 server {
-    # server with www
+    # server with [www].
     listen 127.0.0.1;
     listen 80;
     listen [::]:80 ipv6only=on;
