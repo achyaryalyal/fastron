@@ -1,30 +1,30 @@
 # the zone that limit max 5 requests/sec from 1 single IP address and hold up to 10 MB of data
-limit_req_zone $binary_remote_addr zone=main:10m rate=5r/s;
+limit_req_zone $binary_remote_addr zone=master:10m rate=5r/s;
 
 server {
     # server with [www].
     listen 127.0.0.1;
     listen 80;
     listen [::]:80 ipv6only=on;
-    root /var/www/main;
+    root /var/www/master;
     index index.php;
     charset utf-8;
     server_name www.smarttukang.com;
     location / {
         # limit zone request with a burst of 50
-	limit_req zone=main burst=50 nodelay;
+	limit_req zone=master burst=50 nodelay;
         try_files $uri $uri/ =404;
         error_page 404 /404;
         error_page 406 /406;
         include security.rules;
         rewrite ^/(.*)/$ /$1 permanent;
-        #####include /var/www/main/app/router.php;
+        #####include /var/www/master/app/router.php;
     }
     include php.conf;
     include cache.conf;
     location ^~ /.well-known/acme-challenge/ {
         default_type "text/plain";
-        root /var/www/main;
+        root /var/www/master;
         try_files $uri /$1;
     }
     location = /.well-known/acme-challenge/ {
