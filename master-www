@@ -5,7 +5,7 @@ server {
     # server with [www].
     listen 127.0.0.1;
     listen 80;
-    root /var/www/master;
+    root /usr/share/fastron/master;
     index index.php;
     charset utf-8;
     server_name www.smarttukang.com;
@@ -17,13 +17,13 @@ server {
         error_page 406 /406;
         include security.rules;
         rewrite ^/(.*)/$ /$1 permanent;
-        #####include /var/www/master/app/router.php;
+        #####include /usr/share/fastron/master/app/router.php;
     }
     include php.conf;
     include cache.conf;
     location ^~ /.well-known/acme-challenge/ {
         default_type "text/plain";
-        root /var/www/master;
+        root /usr/share/fastron/master;
         try_files $uri /$1;
     }
     location = /.well-known/acme-challenge/ {
