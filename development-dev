@@ -4,7 +4,7 @@ limit_req_zone $binary_remote_addr zone=dev:10m rate=5r/s;
 server {
     # server with [dev].
     listen 80;
-    root /var/www/development;
+    root /usr/share/fastron/development;
     index index.php;
     charset utf-8;
     server_name dev.smarttukang.com;
@@ -16,13 +16,13 @@ server {
         error_page 406 /406;
         include security.rules;
         rewrite ^/(.*)/$ /$1 permanent;
-        #####include /var/www/main/development/router.php;
+        #####include /usr/share/fastron/main/development/router.php;
     }
     include php.conf;
     include cache.conf;
     location ^~ /.well-known/acme-challenge/ {
         default_type "text/plain";
-        root /var/www/development;
+        root /usr/share/fastron/development;
         try_files $uri /$1;
     }
     location = /.well-known/acme-challenge/ {
