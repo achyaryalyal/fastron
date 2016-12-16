@@ -5,7 +5,6 @@ server {
     # server with [www].
     listen 127.0.0.1;
     listen 80;
-    listen [::]:80 ipv6only=on;
     root /var/www/master;
     index index.php;
     charset utf-8;
