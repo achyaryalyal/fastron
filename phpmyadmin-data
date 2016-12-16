@@ -5,7 +5,7 @@ server {
     # server with [data].
     listen 80;
     access_log off;
-    root /var/www/phpmyadmin;
+    root /usr/share/fastron/phpmyadmin;
     index index.php;
     charset utf-8;
     server_name data.smarttukang.com;
@@ -19,7 +19,7 @@ server {
     include cache.conf;
     location ^~ /.well-known/acme-challenge/ {
         default_type "text/plain";
-        root /var/www/phpmyadmin;
+        root /usr/share/fastron/phpmyadmin;
         try_files $uri /$1;
     }
     location = /.well-known/acme-challenge/ {
