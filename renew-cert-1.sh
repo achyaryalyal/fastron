@@ -4,7 +4,7 @@ WEB_SERVICE='Fastron'
 LE_PATH='/opt/letsencrypt'
 EXP_LIMIT=60;
 DOMAIN='smarttukang.com'
-WEBROOT_PATH="-w /var/www/main -d $DOMAIN -d www.$DOMAIN -w /var/www/phpmyadmin -d data.$DOMAIN -w /var/www/development -d dev.$DOMAIN"
+WEBROOT_PATH="-w /usr/share/fastron/master -d $DOMAIN -d www.$DOMAIN -w /usr/share/fastron/phpmyadmin -d data.$DOMAIN -w /usr/share/fastron/development -d dev.$DOMAIN"
 CERT_FILE="/etc/letsencrypt/live/$DOMAIN/fullchain.pem"
 
 if [ ! -f $CERT_FILE ]; then
