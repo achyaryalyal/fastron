@@ -18,8 +18,8 @@ MX-10-[YOUR_DOMAIN].          --------------> important
 TXT-@-"v=spf1 a mx -all"      --------------> important
 TXT-_dmarc-"v=DMARC1; p=none" --------------> important
 ### other record
-TXT-mail._domainkey-[isi teks tergantung isi file dari generate opendkim]
-TXT-_domainkey-[isi teks tergantung isi file dari generate opendkim]
+TXT-mail._domainkey-[text content depending on the content of the generated file by opendkim]
+TXT-_domainkey-[text content depending on the content of the generated file by opendkim]
 ### digital ocean nameserver
 NS-ns1.digitalocean.com.
 NS-ns2.digitalocean.com.
