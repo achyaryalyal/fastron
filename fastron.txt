@@ -8,7 +8,7 @@
 ----------------------------------------------------------------------------
 # SET DNS RECORD
 ### important record
-A-@-[YOUR_IP_SERVER]		      --------------> important
+A-@-[YOUR_IP_SERVER]          --------------> important
 A-data-[YOUR_IP_SERVER]       --------------> important
 A-dev-[YOUR_IP_SERVER]        --------------> important
 A-mail-[YOUR_IP_SERVER]       --------------> important
