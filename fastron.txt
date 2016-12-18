@@ -74,7 +74,7 @@ bash -c 'echo "deb http://nginx.org/packages/mainline/ubuntu/ xenial nginx" > /e
 sed -i '$ a deb-src http://nginx.org/packages/mainline/ubuntu/ xenial nginx' /etc/apt/sources.list.d/nginx-mainline.list
 apt-get update
 
-### 2
+###2
 apt-get build-dep -y nginx
 apt-get source nginx
 ls
