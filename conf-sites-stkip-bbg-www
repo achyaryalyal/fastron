@@ -1,0 +1,51 @@
+server {
+    listen 80;
+    root /etc/nginx/sites-available/situs/stkip-bbg/www.stkipgetsempena.ac.id;
+    index index.php;
+    charset utf-8;
+    server_name www.stkipgetsempena.ac.id;
+    # if ($allowed_country = no) { return 444; }
+    if ($bad_referer) { return 403; }
+
+    add_header "Strict-Transport-Security" "max-age=31536000";
+    add_header "Cache-Control" "max-age=0, no-cache, no-store, must-revalidate";
+    add_header "Pragma" "no-cache";
+    add_header "Expires" "-1";
+    add_header "X-XSS-Protection" "1; mode=block";
+    add_header "X-Content-Type-Options" "nosniff";
+    add_header "X-Download-Options" "noopen";
+    add_header "X-Permitted-Cross-Domain-Policies" "master-only";
+
+    include php.conf;
+    # Add support for subdirectory structure in WordPress Multisite
+    #if (!-e $request_filename) {
+    #    rewrite /wp-admin$ $scheme://$host$uri/ permanent;
+    #    rewrite ^(/[^/]+)?(/wp-.*) $2 last;
+    #    rewrite ^(/[^/]+)?(/.*\.php) $2 last;
+    #}
+    # Structure in WordPress single site
+    if (!-e $request_filename) {
+        rewrite ^.*$ /index.php last;
+    }
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+        include /etc/nginx/security.rules;
+        #include /etc/nginx/blockips.conf;
+        rewrite ^/(.*)/$ /$1 permanent;
+        # Block user enumeration
+        if ($query_string ~ "(^|&)author=") { rewrite ^(.*)$ http://$server_name/? redirect; }
+        if ($query_string ~* "(author=\d+)") { return 403; }
+    }
+    location ~* \.(jpg|jpeg|gif|png|css|js|ico|pdf|zip|rar|swf|ttf|woff|woff2|eot|xml|rss|atom)$ {
+        access_log off;
+        log_not_found off;
+        expires 30d;
+    }
+    location /info$ { # Block user enumeration
+        rewrite ^/info/author/(.*)$ http://$server_name/?404=$1 redirect;
+    }
+    rewrite /wp-admin$ $scheme://$host$uri/index.php permanent;
+    location ~ /(.|wp-config.php|wp-comments-post.php|readme.html|license.txt) { deny all; }
+    location ~* \.(inc|info|install|make|module|profile|test|po|sh|.*sql|theme|tpl(\.php)?|xtmpl)$|^(\..*|Entries.*|Repository|Root|Tag|Template)$|\.php_ { return 444; }
+
+}
