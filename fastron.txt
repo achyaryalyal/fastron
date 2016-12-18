@@ -303,7 +303,10 @@ mkdir -p /usr/share/fastron/phpmyadmin && cd /usr/share/fastron/phpmyadmin && wg
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/phpmyadmin-data.conf > /etc/nginx/conf.d/phpmyadmin-data.conf && chown -R www-data:www-data /usr/share/fastron && nginx -t && service nginx restart
 
 ###2
-sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = 'spalDing46muLti99Balkans';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /usr/share/fastron/phpmyadmin/config.inc.php && sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /usr/share/fastron/phpmyadmin/config.inc.php
+sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = 'spalDing46muLti99Balkans';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /usr/share/fastron/phpmyadmin/config.inc.php
+sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /usr/share/fastron/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /usr/share/fastron/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /usr/share/fastron/phpmyadmin/config.inc.php
 
 ###3 login data.[DOMAIN_NAME]
 
