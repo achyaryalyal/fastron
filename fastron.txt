@@ -263,7 +263,11 @@ fail2ban-allstatus.sh
 ===========================================================================
 
 # INSTALL MARIADB (BASIC) ~ 3 MIN
-apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://kartolo.sby.datautama.net.id/mariadb/repo/10.1/ubuntu xenial main' && apt-get update && apt-get install -y mariadb-server
+apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://kartolo.sby.datautama.net.id/mariadb/repo/10.1/ubuntu xenial main' && apt-get update && apt-get install -y mariadb-server && mysql_secure_installation
+### Remove anonymous users? Y
+### Disallow root login remotely? Y
+### Remove test database and access to it? Y
+### Reload privilege tables now? Y
 
 # INSTALL PHPMYADMIN
 mkdir -p /usr/share/fastron/phpmyadmin && cd /usr/share/fastron/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.6.5.2/phpMyAdmin-4.6.5.2-english.zip && unzip phpMyAdmin-4.6.5.2-english.zip && mv phpMyAdmin-4.6.5.2-english*/* . && rm phpMyAdmin-4.6.5.2-english.zip && mv config.sample.inc.php config.inc.php
