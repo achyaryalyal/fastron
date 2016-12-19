@@ -112,7 +112,7 @@ apt-get install -y php5.6 php5.6-fpm
 
 ###2 switch php7.0 to php5.6
 update-alternatives --set php /usr/bin/php5.6
-apt-get install -y php-gettext php-xdebug php5.6-mbstring php5.6-curl php5.6-gd php5.6-ldap php5.6-mysql php5.6-sqlite php5.6-soap php5.6-mcrypt php5.6-zip php5.6-xml php5.6-xmlrpc libgd-tools libmcrypt-dev mcrypt && php -v
+apt-get install -y php-gettext php-xdebug php5.6-mbstring php5.6-curl php5.6-gd php5.6-imagick php5.6-ldap php5.6-mysql php5.6-sqlite php5.6-soap php5.6-mcrypt php5.6-zip php5.6-xml php5.6-xmlrpc libgd-tools libmcrypt-dev mcrypt && php -v
 
 ###3
 curl -sSL https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/conf.d/globalblacklist.conf > /etc/nginx/conf.d/globalblacklist.conf
