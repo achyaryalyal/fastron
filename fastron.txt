@@ -298,7 +298,7 @@ cd major-MySQLTuner-perl-*
 mysqlcheck -u panglima -p --auto-repair -o --optimize --all-databases
 
 # INSTALL PHPMYADMIN
-mkdir -p /usr/share/fastron/phpmyadmin && cd /usr/share/fastron/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.6.5.2/phpMyAdmin-4.6.5.2-english.zip && unzip phpMyAdmin-4.6.5.2-english.zip && mv phpMyAdmin-4.6.5.2-english*/* . && rm phpMyAdmin-4.6.5.2-english.zip && mv config.sample.inc.php config.inc.php
+mkdir -p /usr/share/fastron/phpmyadmin && cd /usr/share/fastron/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.6.5.2/phpMyAdmin-4.6.5.2-english.zip && unzip phpMyAdmin-4.6.5.2-english.zip && mv phpMyAdmin-4.6.5.2-english*/* . && rm -r -f phpMyAdmin-* && mv config.sample.inc.php config.inc.php
 
 ###1
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/phpmyadmin-data.conf > /etc/nginx/conf.d/phpmyadmin-data.conf
