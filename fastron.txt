@@ -367,7 +367,7 @@ crontab -e
 =========== Okay, Let's Encrypt has been installed successfully ===========
 ===========================================================================
 
-# INSTALL WORDPRESS 4.7
+# INSTALL WORDPRESS 4.7 WITH NO SSL
 ###1
 cd /usr/share/fastron
 wget https://id.wordpress.org/wordpress-4.7-id_ID.tar.gz
