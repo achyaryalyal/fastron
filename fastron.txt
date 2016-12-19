@@ -366,3 +366,52 @@ crontab -e
 ===========================================================================
 =========== Okay, Let's Encrypt has been installed successfully ===========
 ===========================================================================
+
+# INSTALL WORDPRESS 4.7
+###1
+cd /usr/share/fastron
+wget https://id.wordpress.org/wordpress-4.7-id_ID.tar.gz
+tar xvf wordpress-4.7-id_ID.tar.gz
+rm wordpress-4.7-id_ID.tar.gz
+chown -R www-data:www-data /usr/share/fastron
+ls
+
+###2 create a database and user for your WordPress Site
+# login phpmyadmin
+# create new database "wordpress" with collation "utfmb4_general_ci"
+# back to localhost, click menu "User accounts" and then "Add user"
+	???
+	localhost
+	???
+	???
+	# check all global privileges
+# click submenu "database"
+# click databse "wordpress" and Go
+# check all Database-specific privileges
+
+###3
+cd /usr/share/fastron/wordpress
+cp wp-config-sample.php wp-config.php
+nano wp-config.php
+# set DB_NAME, DB_USER, DB_PASSWORD and DB_COLLATE'
+
+###4
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/wordpress-blog.conf > /etc/nginx/conf.d/wordpress-blog.conf
+curl -sSL https://downloads.wordpress.org/plugin/captcha.4.2.8.zip > /usr/share/fastron/wordpress/wp-content/plugins/captcha.zip
+cd /usr/share/fastron/wordpress/wp-content/plugins
+unzip captcha.zip
+rm captcha.zip
+chown -R www-data:www-data /usr/share/fastron
+chmod -R 775 /usr/share/fastron/wordpress/wp-content/uploads
+nginx -t && service nginx restart
+
+###5 grab secure values from the WordPress secret key generator
+curl -s https://api.wordpress.org/secret-key/1.1/salt/
+
+###6 copy the output and paste here
+nano /usr/share/fastron/wordpress/wp-config.php
+
+###6 Finish the WordPress Installation in Your Browser
+http://server_domain_or_IP
+
+###7 Login & Activate Captcha plugin
