@@ -415,3 +415,16 @@ nano /usr/share/fastron/wordpress/wp-config.php
 http://server_domain_or_IP
 
 ###7 Login & Activate Captcha plugin
+
+# INSTALL FASTRON IDE
+###
+cd /usr/share/fastron/master
+wget https://github.com/achyaryalyal/fastron/raw/master/fastron-ide.tar.gz
+tar -zxvf fastron-ide.tar.gz -C /usr/share/fastron/master/
+rm fastron-ide.tar.gz
+chown -R www-data:www-data /usr/share/fastron
+
+### edit username
+nano /usr/share/fastron/master/ide/data/users.php
+
+### login [DOMAIN_NAME]/ide
