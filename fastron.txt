@@ -326,7 +326,7 @@ sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /usr/sh
 apt-get install -y letsencrypt
 
 ###2
-letsencrypt certonly --webroot -w /usr/share/fastron/master -d smarttukang.com -d www.smarttukang.com -w /usr/share/fastron/development -d dev.smarttukang.com -w /usr/share/fastron/phpmyadmin -d data.smarttukang.com
+letsencrypt certonly --agree-tos --email aymarxp@gmail.com --webroot -w /usr/share/fastron/master -d smarttukang.com -d www.smarttukang.com -w /usr/share/fastron/development -d dev.smarttukang.com -w /usr/share/fastron/phpmyadmin -d data.smarttukang.com
 # enter your email
 # agree
 
