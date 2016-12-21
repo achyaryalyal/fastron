@@ -25,6 +25,11 @@ TXT-_domainkey-[text content depending on the content of the generated file by o
 NS-ns1.digitalocean.com.
 NS-ns2.digitalocean.com.
 NS-ns3.digitalocean.com.
+### send email via terminal
+echo "From: fastron@smarttukang.com
+To: web-0y54m@mail-tester.com
+Subject: Test email
+This is a test email."| sendmail -t
 
 # UPDATE, UPGRADE AND REBOOT ~ 10 MIN
 apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && reboot
