@@ -8,16 +8,16 @@
 ----------------------------------------------------------------------------
 # SET DNS RECORD
 ### important record
-A-@-[YOUR_IP_SERVER]          --------------> important
-A-blog-[YOUR_IP_SERVER]       --------------> important
-A-data-[YOUR_IP_SERVER]       --------------> important
-A-dev-[YOUR_IP_SERVER]        --------------> important
-A-mail-[YOUR_IP_SERVER]       --------------> important
-CNAME-www-[YOUR_DOMAIN].      --------------> important
-MX-10-mail.[YOUR_DOMAIN].     --------------> important
-MX-10-[YOUR_DOMAIN].          --------------> important
-TXT-@-"v=spf1 a mx -all"      --------------> important
-TXT-_dmarc-"v=DMARC1; p=none" --------------> important
+A-@-[YOUR_IP_SERVER]
+A-blog-[YOUR_IP_SERVER]
+A-data-[YOUR_IP_SERVER]
+A-dev-[YOUR_IP_SERVER]
+A-mail-[YOUR_IP_SERVER]
+CNAME-www-[YOUR_DOMAIN].
+MX-10-mail.[YOUR_DOMAIN].
+MX-10-[YOUR_DOMAIN].
+TXT-@-"v=spf1 a mx include:_spf.google.com ~all"
+TXT-_dmarc-"v=DMARC1;p=none;pct=100;"
 ### other record
 TXT-mail._domainkey-[text content depending on the content of the generated file by opendkim]
 TXT-_domainkey-[text content depending on the content of the generated file by opendkim]
