@@ -18,9 +18,6 @@ MX-10-mail.[YOUR_DOMAIN].
 MX-10-[YOUR_DOMAIN].
 TXT-@-"v=spf1 mx ~all"
 TXT-_dmarc-"v=DMARC1;p=none;pct=100;"
-### other record
-TXT-mail._domainkey-[text content depending on the content of the generated file by opendkim]
-TXT-_domainkey-[text content depending on the content of the generated file by opendkim]
 ### digital ocean nameserver
 NS-ns1.digitalocean.com.
 NS-ns2.digitalocean.com.
