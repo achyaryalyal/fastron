@@ -117,7 +117,19 @@ apt-get install -y php5.6 php5.6-fpm
 
 ###2 switch php7.0 to php5.6
 update-alternatives --set php /usr/bin/php5.6
-apt-get install -y php-gettext php-xdebug php5.6-mbstring php5.6-curl php5.6-gd php5.6-imagick php5.6-common php5.6-json php5.6-cli php5.6-intl php5.6-ldap php5.6-mysql php5.6-sqlite php5.6-soap php5.6-mcrypt php5.6-zip php5.6-xml php5.6-xmlrpc libgd-tools libmcrypt-dev mcrypt && php -v
+apt-get install -y php5.6-common php5.6-dev php5.6-xdebug php5.6-mbstring php5.6-curl php5.6-gd php5.6-imagick php5.6-common php5.6-json php5.6-cli php5.6-intl php5.6-sybase php5.6-ldap php5.6-mysql php5.6-sqlite php5.6-soap php5.6-mcrypt php5.6-zip php5.6-xml php5.6-xmlrpc php-pear libgd-tools libmcrypt-dev mcrypt
+php -v
+pear channel-update pear.php.net
+pear list
+pear list-all
+pear install --alldeps pear/Mail_Mime
+pear install --alldeps pear/Net_SMTP
+pear install --alldeps pear/Net_Socket
+pear install --alldeps pear/Net_IDNA2-0.1.1
+pear install --alldeps pear/Auth_SASL
+pear install --alldeps pear/Net_Sieve
+pear install --alldeps pear/Crypt_GPG
+pear install --alldeps pear/Net_LDAP2
 
 ###3
 curl -sSL https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/conf.d/globalblacklist.conf > /etc/nginx/conf.d/globalblacklist.conf
