@@ -35,7 +35,7 @@ This is a test email."| sendmail -t
 apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && reboot
 
 # INSTALL IMPORTANT PACKAGES ~ 8 MIN
-apt-get install -y build-essential software-properties-common python-software-properties checkinstall dpkg-dev nano sed wget curl ufw fail2ban sendmail zip unzip git openssl libpcre3 zlib1g host geoip-bin geoip-database bc ntp && sendmail -d0.1 -bv root
+apt-get install -y build-essential software-properties-common python-software-properties checkinstall dpkg-dev nano sed wget curl ufw fail2ban sendmail dnsutils zip unzip git openssl libpcre3 zlib1g host geoip-bin geoip-database bc ntp && sendmail -d0.1 -bv root
 
 # INITIAL SERVER SETUP, ADD NEW USER WITH ROOT PRIVILEGES ~ 30 SEC
 
