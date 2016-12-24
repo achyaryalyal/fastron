@@ -17,7 +17,7 @@ CNAME-www-[YOUR_DOMAIN].
 MX-10-mail.[YOUR_DOMAIN].
 MX-10-[YOUR_DOMAIN].
 TXT-@-"v=spf1 a mx -all"
-TXT-_dmarc-"v=DMARC1;p=none;pct=100;"
+TXT-_dmarc-"v=DMARC1;p=none;"
 ### digital ocean nameserver
 NS-ns1.digitalocean.com.
 NS-ns2.digitalocean.com.
