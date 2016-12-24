@@ -16,7 +16,7 @@ A-mail-[YOUR_IP_SERVER]
 CNAME-www-[YOUR_DOMAIN].
 MX-10-mail.[YOUR_DOMAIN].
 MX-10-[YOUR_DOMAIN].
-TXT-@-"v=spf1 a mx include:_spf.google.com ~all"
+TXT-@-"v=spf1 mx ~all"
 TXT-_dmarc-"v=DMARC1;p=none;pct=100;"
 ### other record
 TXT-mail._domainkey-[text content depending on the content of the generated file by opendkim]
