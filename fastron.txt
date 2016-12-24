@@ -16,7 +16,7 @@ A-mail-[YOUR_IP_SERVER]
 CNAME-www-[YOUR_DOMAIN].
 MX-10-mail.[YOUR_DOMAIN].
 MX-10-[YOUR_DOMAIN].
-TXT-@-"v=spf1 mx ~all"
+TXT-@-"v=spf1 a mx -all"
 TXT-_dmarc-"v=DMARC1;p=none;pct=100;"
 ### digital ocean nameserver
 NS-ns1.digitalocean.com.
