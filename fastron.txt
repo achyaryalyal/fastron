@@ -282,6 +282,7 @@ chown -R www-data:www-data /usr/share/fastron
 
 mkdir -p /usr/share/fastron/websession && chmod 700 -R /usr/share/fastron/websession
 mkdir -p /usr/share/fastron/webmail
+mkdir -p /usr/share/fastron/mail
 
 nginx -t && service nginx restart
 
@@ -467,7 +468,7 @@ sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /usr/sh
 apt-get install -y letsencrypt
 
 ###2
-letsencrypt certonly --agree-tos --email aymarxp@gmail.com --webroot -w /usr/share/fastron/master -d smarttukang.com -d www.smarttukang.com -w /usr/share/fastron/development -d dev.smarttukang.com -w /usr/share/fastron/phpmyadmin -d data.smarttukang.com -w /usr/share/fastron/webmail -d webmail.smarttukang.com
+letsencrypt certonly --agree-tos --email aymarxp@gmail.com --webroot -w /usr/share/fastron/master -d smarttukang.com -d www.smarttukang.com -w /usr/share/fastron/development -d dev.smarttukang.com -w /usr/share/fastron/phpmyadmin -d data.smarttukang.com -w /usr/share/fastron/webmail -d webmail.smarttukang.com -w /usr/share/fastron/mail -d mail.smarttukang.com
 # enter your email
 # agree
 
