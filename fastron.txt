@@ -42,9 +42,12 @@ reboot
 
 # INSTALL OPENDKIM
 ### Setup it
-apt-get install nano postfix opendkim opendkim-tools
+apt-get install -y nano
+###
+apt-get install -y postfix
 ### General type of mail configuration: Internet Site. If not appears, run: dpkg-reconfigure postfix
 ### System mail name: smarttukang.com
+apt-get install -y opendkim opendkim-tools
 
 ###
 gpasswd -a postfix opendkim
@@ -101,7 +104,7 @@ sudo nano /etc/opendkim/trusted.hosts
 localhost
 *.smarttukang.com
 
-sudo mkdir /etc/opendkim/keys/your-domain.com
+sudo mkdir /etc/opendkim/keys/smarttukang.com
 
 sudo opendkim-genkey -b 2048 -d smarttukang.com -D /etc/opendkim/keys/smarttukang.com -s default -v
 
