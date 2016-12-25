@@ -274,15 +274,25 @@ mkdir -p /usr/share/fastron/master
 bash -c 'echo "<?php echo \"<h1>It works #www</h1>\";" > /usr/share/fastron/master/index.php'
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/master-www.conf > /etc/nginx/conf.d/master-www.conf
 rm -r -f /etc/nginx/conf.d/default.conf /usr/share/html
+
 mkdir -p /usr/share/fastron/development
 
 bash -c 'echo "<?php echo \"<h1>It works #dev</h1>\";" > /usr/share/fastron/development/index.php'
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/development-dev.conf > /etc/nginx/conf.d/development-dev.conf
-chown -R www-data:www-data /usr/share/fastron
+
+mkdir -p /usr/share/fastron/mail
+
+bash -c 'echo "<?php echo \"<h1>It works #mail</h1>\";" > /usr/share/fastron/mail/index.php'
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/mail-mail.conf > /etc/nginx/conf.d/mail-mail.conf
+
+mkdir -p /usr/share/fastron/webmail
+
+bash -c 'echo "<?php echo \"<h1>It works #webmail</h1>\";" > /usr/share/fastron/webmail/index.php'
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/webmail-webmail.conf > /etc/nginx/conf.d/webmail-webmail.conf
 
 mkdir -p /usr/share/fastron/websession && chmod 700 -R /usr/share/fastron/websession
-mkdir -p /usr/share/fastron/webmail
-mkdir -p /usr/share/fastron/mail
+
+chown -R www-data:www-data /usr/share/fastron
 
 nginx -t && service nginx restart
 
@@ -468,7 +478,7 @@ sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /usr/sh
 apt-get install -y letsencrypt
 
 ###2
-letsencrypt certonly --agree-tos --email aymarxp@gmail.com --webroot -w /usr/share/fastron/master -d smarttukang.com -d www.smarttukang.com -w /usr/share/fastron/development -d dev.smarttukang.com -w /usr/share/fastron/phpmyadmin -d data.smarttukang.com -w /usr/share/fastron/webmail -d webmail.smarttukang.com -w /usr/share/fastron/mail -d mail.smarttukang.com
+letsencrypt certonly --agree-tos --email aymarxp@gmail.com --webroot -w /usr/share/fastron/master -d smarttukang.com -d www.smarttukang.com -w /usr/share/fastron/development -d dev.smarttukang.com -w /usr/share/fastron/phpmyadmin -d data.smarttukang.com -w /usr/share/fastron/mail -d mail.smarttukang.com -w /usr/share/fastron/webmail -d webmail.smarttukang.com
 # enter your email
 # agree
 
