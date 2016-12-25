@@ -8,25 +8,22 @@
 ----------------------------------------------------------------------------
 # SET DNS RECORD
 ### important record
-A-@-[YOUR_IP_SERVER]
-A-blog-[YOUR_IP_SERVER]
-A-data-[YOUR_IP_SERVER]
-A-dev-[YOUR_IP_SERVER]
-A-mail-[YOUR_IP_SERVER]
-CNAME-www-[YOUR_DOMAIN].
-MX-10-mail.[YOUR_DOMAIN].
-MX-10-[YOUR_DOMAIN].
-TXT-@-"v=spf1 a mx -all"
-TXT-_dmarc-"v=DMARC1;p=none;"
+A-----@-----[YOUR_IP_SERVER]
+A-----blog-----[YOUR_IP_SERVER]
+A-----data-----[YOUR_IP_SERVER]
+A-----dev-----[YOUR_IP_SERVER]
+A-----mail-----[YOUR_IP_SERVER]
+CNAME-----www-----[YOUR_DOMAIN].
+MX-----10-----mail.[YOUR_DOMAIN].
+MX-----10-----[YOUR_DOMAIN].
+TXT-----@-----"v=spf1 a mx -all"
+TXT-----_dmarc-----"v=DMARC1;p=none;"
+### other record
+TXT-----default._domainkey-----"v=DKIM1;k=rsa;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7EU3x893fvYbk79/5hqHolU0H10u2hFKzvn9YzMOrc0FWSWpUC3UO7G2DAMkk5OGCATywPrlA1QUl7aoCVXXpZ5N/FHMORmW3iXo5MuRIyczYSDz9OqZ8aImXampX5Qap3j7tejNg2cCRqteZVpJS8OrF5yg38NeNKVbtyXKDS4VCTR3kQHiuAPX2UIkjOWyOixSYb7qqHpFMOoWms2me/c/uP/GQLet+TT2MX+7gNtZg+cR2IiZWiO6jJjp0ILDU97Cv5USoiLdqZC+9HfVTlEJ4tJhmcfu3QbldQ57mJ1zY1mS22HN7TMu/Olb9eSFSu9gyDdbNvuk7E+7dtWMKwIDAQAB"
 ### digital ocean nameserver
 NS-ns1.digitalocean.com.
 NS-ns2.digitalocean.com.
 NS-ns3.digitalocean.com.
-### send email via terminal
-echo "From: fastron@smarttukang.com
-To: web-0y54m@mail-tester.com
-Subject: Test email
-This is a test email."| sendmail -t
 
 # UPDATE, UPGRADE AND REBOOT ~ 10 MIN
 apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
@@ -37,20 +34,126 @@ apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y
 ### Reboot OS
 reboot
 
-# INSTALL IMPORTANT PACKAGES ~ 8 MIN
-apt-get install -y build-essential software-properties-common python-software-properties checkinstall dpkg-dev nano sed wget curl ufw zip unzip git openssl libpcre3 zlib1g host geoip-bin geoip-database bc ntp nmap dnsutils sendmail
+# INSTALL OPENDKIM
+### Setup it
+apt-get install nano postfix opendkim opendkim-tools
+### General type of mail configuration: Internet Site. If not appears, run: dpkg-reconfigure postfix
+### System mail name: smarttukang.com
 
-# ENABLE SENDMAIL TO USE STARTTLS ~ 1 MIN
-nano /etc/mail/sendmail.mc
-### paste to end of file:
-	include(`/etc/mail/tls/starttls.m4')dnl
-nano /etc/mail/submit.mc
-### paste before define(`_USE_ETC_MAIL_')dnl:
-	include(`/etc/mail/tls/starttls.m4')dnl
-### reconfigure
-sendmailconfig
-### restart sendmail
-service sendmail restart
+###
+gpasswd -a postfix opendkim
+nano /etc/opendkim.conf
+
+### Uncomment and add value like this:
+		Canonicalization   simple
+		Mode               sv
+		SubDomains         no
+
+###  Replace simple with relaxed/simple in "Canonicalization"
+		Canonicalization   relaxed/simple
+
+### Add the following lines after "#ADSPAction" or before "SubDomains"
+		AutoRestart         yes
+		AutoRestartRate     10/1M
+		Background          yes
+		DNSTimeout          5
+		SignatureAlgorithm  rsa-sha256
+
+### Add the following lines at the end of this the file
+		#OpenDKIM user
+		# Remember to add user postfix to group opendkim
+		UserID             opendkim
+		# Map domains in From addresses to keys used to sign messages
+		KeyTable           /etc/opendkim/key.table
+		SigningTable       refile:/etc/opendkim/signing.table
+		# Hosts to ignore when verifying signatures
+		ExternalIgnoreList  /etc/opendkim/trusted.hosts
+		InternalHosts       /etc/opendkim/trusted.hosts
+
+sudo mkdir /etc/opendkim
+
+sudo mkdir /etc/opendkim/keys
+
+sudo chown -R opendkim:opendkim /etc/opendkim
+
+sudo chmod go-rw /etc/opendkim/keys
+
+sudo nano /etc/opendkim/signing.table
+
+### Paste it
+*@smarttukang.com default._domainkey.smarttukang.com
+
+sudo nano /etc/opendkim/key.table
+
+### Paste it
+default._domainkey.smarttukang.com smarttukang.com:default:/etc/opendkim/keys/smarttukang.com/default.private
+
+sudo nano /etc/opendkim/trusted.hosts
+
+### Add the following lines to the newly created file
+127.0.0.1
+localhost
+*.smarttukang.com
+
+sudo mkdir /etc/opendkim/keys/your-domain.com
+
+sudo opendkim-genkey -b 2048 -d smarttukang.com -D /etc/opendkim/keys/smarttukang.com -s default -v
+
+sudo chown opendkim:opendkim /etc/opendkim/keys/smarttukang.com/default.private
+
+sudo cat /etc/opendkim/keys/smarttukang.com/default.txt
+
+### Copy everything in the parentheses and paste into the value field. Delete all double quotes and white spaces.
+
+### Add DNS TXT record with name "default._domainkey" and paste to it's value.
+
+### Test your configuration
+sudo opendkim-testkey -d smarttukang.com -s default -vvv
+
+### If everything is OK, you will see: "key OK"
+
+### Connect Postfix to OpenDKIM
+sudo mkdir /var/spool/postfix/opendkim
+
+sudo chown opendkim:postfix /var/spool/postfix/opendkim
+
+sudo nano /etc/default/opendkim
+
+### Replace first SOCKET with the following line
+SOCKET="local:/var/spool/postfix/opendkim/opendkim.sock"
+
+sudo nano /etc/postfix/main.cf
+
+### Add the following lines after smtpd_relay_restriction section
+		# Milter configuration
+		# OpenDKIM
+		milter_default_action = accept
+		milter_protocol = 2
+		smtpd_milters = local:/opendkim/opendkim.sock
+		non_smtpd_milters = local:/opendkim/opendkim.sock
+
+sudo service opendkim restart
+
+sudo service postfix restart
+
+### DKIM Check
+echo "From: root@smarttukang.com
+To: aymarxp@gmail.com
+Subject: Test email
+This is a test email."| sendmail -t
+
+### If you click the show original button in Gmail, you should see "dkim=pass"
+
+### Test to mail-tester.com
+echo "From: root@smarttukang.com
+To: ......<paste_here>......
+Subject: Test email
+This is a test email."| sendmail -t
+
+Note: Mail Tester Result may be 8.8 and it's maximal score for you because Cloud Kilat has not rDNS.
+
+# INSTALL INITIAL PACKAGES ~ 8 MIN
+apt-get install -y build-essential software-properties-common python-software-properties checkinstall dpkg-dev sed wget curl ufw zip unzip git openssl libpcre3 zlib1g host geoip-bin geoip-database bc ntp nmap dnsutils
 
 # INITIAL SERVER SETUP, ADD NEW USER WITH ROOT PRIVILEGES ~ 30 SEC
 
