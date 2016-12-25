@@ -235,6 +235,8 @@ dpkg -i nginx_*.deb
 a2enmod proxy_fcgi setenvif
 update-rc.d -f apache2 remove
 apt-get remove -y --purge apache2
+
+###8
 systemctl start nginx
 nginx -t && service nginx restart && nginx -v
 
