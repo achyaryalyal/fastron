@@ -325,9 +325,6 @@ sed -i "s/pm.max_spare_servers =.*/pm.max_spare_servers = 6/" /etc/php/5.6/fpm/p
 sed -i "s/;pm.max_requests =.*/pm.max_requests = 50000/" /etc/php/5.6/fpm/pool.d/www.conf
 service php5.6-fpm restart
 
-# TESTING
-# OPEN [IP_SERVER] or [DOMAIN_NAME] ON YOUR BROWSER
-
 # HARDEN NETWORK WITH SYSCTL SETTINGS
 sed -i '$ a net.ipv4.conf.default.rp_filter=1' /etc/sysctl.conf
 sed -i '$ a net.ipv4.conf.all.rp_filter=1' /etc/sysctl.conf
@@ -445,22 +442,19 @@ cd major-MySQLTuner-perl-*
 mysqlcheck -u panglima -p --auto-repair -o --optimize --all-databases
 
 # INSTALL PHPMYADMIN
+###1
 mkdir -p /usr/share/fastron/phpmyadmin && cd /usr/share/fastron/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.6.5.2/phpMyAdmin-4.6.5.2-english.zip && unzip phpMyAdmin-4.6.5.2-english.zip && mv phpMyAdmin-4.6.5.2-english*/* . && rm -r -f phpMyAdmin-* && mv config.sample.inc.php config.inc.php
 
-###1
+###2
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/phpmyadmin-data.conf > /etc/nginx/conf.d/phpmyadmin-data.conf
 chown -R www-data:www-data /usr/share/fastron
 nginx -t && service nginx restart
 
-###2
+###3
 sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = 'spalDing46muLti99Balkans';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /usr/share/fastron/phpmyadmin/config.inc.php
 sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /usr/share/fastron/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /usr/share/fastron/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /usr/share/fastron/phpmyadmin/config.inc.php
-
-###3 login data.[DOMAIN_NAME]
-
-###4 set Server Connection Collation to "utf8mb4_general_ci"
 
 ===========================================================================
 ======= Okay, MariaDB & phpMyAdmin have been installed successfully =======
@@ -473,7 +467,7 @@ sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /usr/sh
 apt-get install -y letsencrypt
 
 ###2
-letsencrypt certonly --agree-tos --email aymarxp@gmail.com --webroot -w /usr/share/fastron/master -d smarttukang.com -d www.smarttukang.com -w /usr/share/fastron/development -d dev.smarttukang.com -w /usr/share/fastron/phpmyadmin -d data.smarttukang.com -w /usr/share/fastron/webmail -d mail.smarttukang.com
+letsencrypt certonly --agree-tos --email aymarxp@gmail.com --webroot -w /usr/share/fastron/master -d smarttukang.com -d www.smarttukang.com -w /usr/share/fastron/development -d dev.smarttukang.com -w /usr/share/fastron/phpmyadmin -d data.smarttukang.com -w /usr/share/fastron/webmail -d webmail.smarttukang.com
 # enter your email
 # agree
 
@@ -513,55 +507,6 @@ crontab -e
 ===========================================================================
 =========== Okay, Let's Encrypt has been installed successfully ===========
 ===========================================================================
-
-# INSTALL WORDPRESS 4.7 WITH NO SSL
-###1
-cd /usr/share/fastron
-wget https://id.wordpress.org/wordpress-4.7-id_ID.tar.gz
-tar xvf wordpress-4.7-id_ID.tar.gz
-rm wordpress-4.7-id_ID.tar.gz
-chown -R www-data:www-data /usr/share/fastron
-ls
-
-###2 create a database and user for your WordPress Site
-# login phpmyadmin
-# create new database "wordpress" with collation "utfmb4_general_ci"
-# back to localhost, click menu "User accounts" and then "Add user"
-	???
-	localhost
-	???
-	???
-	# check all global privileges
-# click submenu "database"
-# click databse "wordpress" and Go
-# check all Database-specific privileges
-
-###3
-cd /usr/share/fastron/wordpress
-cp wp-config-sample.php wp-config.php
-nano wp-config.php
-# set DB_NAME, DB_USER, DB_PASSWORD and DB_COLLATE'
-
-###4
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/wordpress-blog.conf > /etc/nginx/conf.d/wordpress-blog.conf
-curl -sSL https://downloads.wordpress.org/plugin/captcha.4.2.8.zip > /usr/share/fastron/wordpress/wp-content/plugins/captcha.zip
-cd /usr/share/fastron/wordpress/wp-content/plugins
-unzip captcha.zip
-rm captcha.zip
-chown -R www-data:www-data /usr/share/fastron
-chmod -R 775 /usr/share/fastron/wordpress/wp-content/uploads
-nginx -t && service nginx restart
-
-###5 grab secure values from the WordPress secret key generator
-curl -s https://api.wordpress.org/secret-key/1.1/salt/
-
-###6 copy the output and paste here
-nano /usr/share/fastron/wordpress/wp-config.php
-
-###6 Finish the WordPress Installation in Your Browser
-http://server_domain_or_IP
-
-###7 Login & Activate Captcha plugin
 
 **************************************
 # BONUS: INSTALL FASTRON IDE
