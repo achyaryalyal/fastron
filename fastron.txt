@@ -340,7 +340,7 @@ letsencrypt certonly --agree-tos --email aymarxp@gmail.com --webroot -w /usr/sha
 # agree
 
 ###3
-mkdir -p /usr/share/cert & cd /usr/share/cert && openssl dhparam -out dh.pem 2048 && ls
+mkdir -p /usr/share/cert & cd /usr/share/cert && openssl dhparam -out dh.pem 2048 && chmod 600 /usr/share/cert/dh.pem && ls
 
 ###4
 sed -i "s/###https###/ /" /etc/nginx/conf.d/master-www.conf
