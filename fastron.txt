@@ -169,7 +169,9 @@ apt-get install -y build-essential software-properties-common python-software-pr
 ###1
 adduser fastron && gpasswd -a fastron sudo && gpasswd -a fastron www-data
 
-###2
+###2 TYPE root password and just ENTER when fill user profile
+
+###3
 groupadd admin && usermod -a -G admin fastron && dpkg-statoverride --update --add root admin 4750 /bin/su
 
 # GENERATE PUBLIC KEY AUTHENTICATION ~ 1 MIN
@@ -209,24 +211,25 @@ apt-get update
 
 ###2
 apt-get build-dep -y nginx
-apt-get source nginx
-ls
 
 ###3
+apt-get source nginx && ls
+
+###4
 # No Problem
 # The 'W: Can't drop privileges' warning here is a known Apt bug (link is external) that doesn't affect successful delivery of our Nginx code
 # Lanjut aja terus gan
 cd /opt/buildfastron/nginx-* && ls
 
-###4
+###5
 sed -i "s/static char ngx_http_server_string\[\] =.*/static char ngx_http_server_string\[\] = \"Server\: FASTRON\" CRLF;/" /opt/buildfastron/nginx-*/src/http/ngx_http_header_filter_module.c
 sed -i "s/static char ngx_http_server_full_string\[\] =.*/static char ngx_http_server_full_string\[\] = \"Server\: FASTRON\" CRLF;/" /opt/buildfastron/nginx-*/src/http/ngx_http_header_filter_module.c
 sed -i "s/\"<hr><center>.*/\"\<hr\>\<center\>\<h2\>\<span id=\\\\\"g\\\\\"\>FA\<\/span\>\<span id=\\\\\"w\\\\\"\>STR\<\/span\>\<span id=\\\\\"s\\\\\"\>ON\<\/span\>\<\/h2\>\<\/center\>\<style\>h1\{color\:#777;font\:36px arial,sans-serif;margin\:30px 0;\} h2\{font\:20px arial,sans-serif;font-weight\:bold;margin\:5px 0;\} hr\{height\:5px;margin\:0;background\:#4285F4;\} \#g\{color\:\#EA4335;\} \#w\{color\:\#FBBC05;\} \#s\{color\:\#44B063;\}\<\/style\>\" CRLF/" /opt/buildfastron/nginx-*/src/http/ngx_http_special_response.c
 
-###5
+###6
 cd /opt/buildfastron/nginx-* && dpkg-buildpackage -b
 
-###6
+###7
 cd /opt/buildfastron && ls
 dpkg -i nginx_*.deb
 a2enmod proxy_fcgi setenvif
