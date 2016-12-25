@@ -8,16 +8,17 @@
 ----------------------------------------------------------------------------
 # SET DNS RECORD
 ### important record
-A-----@-----[YOUR_IP_SERVER]
-A-----blog-----[YOUR_IP_SERVER]
-A-----data-----[YOUR_IP_SERVER]
-A-----dev-----[YOUR_IP_SERVER]
-A-----mail-----[YOUR_IP_SERVER]
-CNAME-----www-----[YOUR_DOMAIN].
-MX-----10-----mail.[YOUR_DOMAIN].
-MX-----10-----[YOUR_DOMAIN].
-TXT-----@-----"v=spf1 a mx -all"
-TXT-----_dmarc-----"v=DMARC1;p=none;"
+A-------@--------[YOUR_IP_SERVER]
+A-------blog-----[YOUR_IP_SERVER]
+A-------data-----[YOUR_IP_SERVER]
+A-------dev------[YOUR_IP_SERVER]
+A-------mail-----[YOUR_IP_SERVER]
+A-------webmail--[YOUR_IP_SERVER]
+CNAME---www------[YOUR_DOMAIN]
+MX------mail-----mail.[YOUR_DOMAIN]-----10
+MX------@--------[YOUR_DOMAIN]-----10
+TXT-----@--------"v=spf1 a mx -all"
+TXT-----_dmarc---"v=DMARC1;p=none;"
 ### other record
 TXT-----default._domainkey-----"v=DKIM1;k=rsa;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7EU3x893fvYbk79/5hqHolU0H10u2hFKzvn9YzMOrc0FWSWpUC3UO7G2DAMkk5OGCATywPrlA1QUl7aoCVXXpZ5N/FHMORmW3iXo5MuRIyczYSDz9OqZ8aImXampX5Qap3j7tejNg2cCRqteZVpJS8OrF5yg38NeNKVbtyXKDS4VCTR3kQHiuAPX2UIkjOWyOixSYb7qqHpFMOoWms2me/c/uP/GQLet+TT2MX+7gNtZg+cR2IiZWiO6jJjp0ILDU97Cv5USoiLdqZC+9HfVTlEJ4tJhmcfu3QbldQ57mJ1zY1mS22HN7TMu/Olb9eSFSu9gyDdbNvuk7E+7dtWMKwIDAQAB"
 ### cloud kilat nameserver
