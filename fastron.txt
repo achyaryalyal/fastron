@@ -388,6 +388,8 @@ dpkg-reconfigure tzdata && date
 # INSTALL FAIL2BAN ~ 1 MINUTE
 ###1
 apt-get install -y fail2ban
+
+###2
 cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/jail.local > /etc/fail2ban/jail.local
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx-dos.conf > /etc/fail2ban/filter.d/nginx-dos.conf
@@ -397,7 +399,7 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx-no
 cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf
 service fail2ban restart && fail2ban-client status
 
-###2 show status of all fail2ban jails at once
+###3 show status of all fail2ban jails at once
 curl -sSL https://gist.githubusercontent.com/kamermans/1076290/raw/335a8cb96724542404b6a03bd40af58849cdd30b/fail2ban-allstatus.sh > /etc/fail2ban/fail2ban-allstatus.sh
 chmod 755 /etc/fail2ban/fail2ban-allstatus.sh
 cp /etc/fail2ban/fail2ban-allstatus.sh /usr/bin/.
