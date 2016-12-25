@@ -486,9 +486,13 @@ mkdir -p /usr/share/cert && openssl dhparam -out /usr/share/cert/dh.pem 2048 && 
 ###4
 sed -i "s/###https###/ /" /etc/nginx/conf.d/master-www.conf
 sed -i "s/###https###/ /" /etc/nginx/conf.d/development-dev.conf
+sed -i "s/listen 80;###/ /" /etc/nginx/conf.d/development-dev.conf
 sed -i "s/###https###/ /" /etc/nginx/conf.d/phpmyadmin-data.conf
+sed -i "s/listen 80;###/ /" /etc/nginx/conf.d/phpmyadmin-data.conf
 sed -i "s/###https###/ /" /etc/nginx/conf.d/mail-mail.conf
+sed -i "s/listen 80;###/ /" /etc/nginx/conf.d/mail-mail.conf
 sed -i "s/###https###/ /" /etc/nginx/conf.d/webmail-webmail.conf
+sed -i "s/listen 80;###/ /" /etc/nginx/conf.d/webmail-webmail.conf
 nginx -t && service nginx restart
 
 ###5 just perform a renewal test using "dry-run" option
