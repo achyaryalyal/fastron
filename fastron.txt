@@ -32,7 +32,19 @@ This is a test email."| sendmail -t
 apt-get update && apt-get upgrade -y && apt-get dist-upgrade -y && reboot
 
 # INSTALL IMPORTANT PACKAGES ~ 8 MIN
-apt-get install -y build-essential software-properties-common python-software-properties checkinstall dpkg-dev nano sed wget curl ufw fail2ban sendmail dnsutils zip unzip git openssl libpcre3 zlib1g host geoip-bin geoip-database bc ntp && sendmail -d0.1 -bv root
+apt-get install -y build-essential software-properties-common python-software-properties checkinstall dpkg-dev nano sed wget curl ufw zip unzip git openssl libpcre3 zlib1g host geoip-bin geoip-database bc ntp nmap dnsutils sendmail
+
+# ENABLE SENDMAIL TO USE STARTTLS ~ 1 MIN
+nano /etc/mail/sendmail.mc
+### paste to end of file:
+	include(`/etc/mail/tls/starttls.m4')dnl
+nano /etc/mail/submit.mc
+### paste before define(`_USE_ETC_MAIL_')dnl:
+	include(`/etc/mail/tls/starttls.m4')dnl
+### reconfigure
+sendmailconfig
+### restart sendmail
+service sendmail restart
 
 # INITIAL SERVER SETUP, ADD NEW USER WITH ROOT PRIVILEGES ~ 30 SEC
 
@@ -250,8 +262,9 @@ dpkg-reconfigure tzdata && date
 # Buang komen di bawah ini, jika mau buat swap:
 #sudo fallocate -l 1G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile && sudo sh -c 'echo "/swapfile none swap sw 0 0" >> /etc/fstab'
 
-# CONFIGURE FAIL2BAN ~ 1 MINUTE
+# INSTALL FAIL2BAN ~ 1 MINUTE
 ###1
+apt-get install -y fail2ban
 cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/jail.local > /etc/fail2ban/jail.local
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx-dos.conf > /etc/fail2ban/filter.d/nginx-dos.conf
