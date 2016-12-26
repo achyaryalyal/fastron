@@ -589,3 +589,23 @@ nginx -t && service nginx restart
 ###10 Activate Captcha plugin & configure it to just use operasi Tambahan (+) dan Angka saja
 
 ###11 Add this "/%category%/%postname%.html" in the custom structure of permalink settings and add "." in category base then update the settings
+
+*********************************
+# BONUS: INSTALL RAINLOOP WEBMAIL
+*********************************
+###1
+cd /usr/share/fastron && wget -qO- https://repository.rainloop.net/installer.php | php
+###2
+mv index.php data rainloop /usr/share/fastron/webmail && cd /usr/share/fastron/webmail && ls
+###3
+find . -type d -exec chmod 755 {} \;
+###4
+find . -type f -exec chmod 644 {} \;
+###5
+chown -R www-data:www-data /usr/share/fastron/webmail
+###6
+nginx -t && service nginx restart
+###7 Access admin panel---> https://webmail.smartukang.com/?admin
+###8 Default login is "admin", password is "12345"
+###9 Update new password for admin
+###10 Add Domain in menu Domains
