@@ -15,8 +15,8 @@ A-------dev------[YOUR_IP_SERVER]
 A-------mail-----[YOUR_IP_SERVER]
 A-------webmail--[YOUR_IP_SERVER]
 CNAME---www------[YOUR_DOMAIN]
-MX------mail-----[YOUR_DOMAIN]-----10
 MX------@--------[YOUR_DOMAIN]-----10
+MX------mail-----[YOUR_DOMAIN]-----10
 TXT-----@--------"v=spf1 a mx -all"
 TXT-----_dmarc---"v=DMARC1;p=none;"
 ### other record
