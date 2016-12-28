@@ -44,9 +44,11 @@ reboot
 ### Setup it
 apt-get install -y nano
 ###
+apt-get remove --purge postfix
+###
 apt-get install -y postfix
-### General type of mail configuration: Internet Site. If not appears, run: dpkg-reconfigure postfix
-### System mail name: smarttukang.com
+### General type of mail configuration: Internet Site
+### System mail name: opensimka.com
 apt-get install -y opendkim opendkim-tools
 
 ###
@@ -62,11 +64,11 @@ nano /etc/opendkim.conf
 		Canonicalization   relaxed/simple
 
 ### Add the following lines after "#ADSPAction" or before "SubDomains"
-		AutoRestart         yes
-		AutoRestartRate     10/1M
-		Background          yes
-		DNSTimeout          5
-		SignatureAlgorithm  rsa-sha256
+		AutoRestart             yes
+		AutoRestartRate         10/1M
+		Background              yes
+		DNSTimeout              5
+		SignatureAlgorithm      rsa-sha256
 
 ### Add the following lines at the end of this the file
 		#OpenDKIM user
@@ -90,12 +92,12 @@ sudo chmod go-rw /etc/opendkim/keys
 sudo nano /etc/opendkim/signing.table
 
 ### Paste it
-*@smarttukang.com default._domainkey.smarttukang.com
+*@smarttukang.com mail._domainkey.smarttukang.com
 
 sudo nano /etc/opendkim/key.table
 
 ### Paste it
-default._domainkey.smarttukang.com smarttukang.com:default:/etc/opendkim/keys/smarttukang.com/default.private
+mail._domainkey.smarttukang.com smarttukang.com:mail:/etc/opendkim/keys/smarttukang.com/mail.private
 
 sudo nano /etc/opendkim/trusted.hosts
 
@@ -106,18 +108,18 @@ localhost
 
 sudo mkdir /etc/opendkim/keys/smarttukang.com
 
-sudo opendkim-genkey -b 2048 -d smarttukang.com -D /etc/opendkim/keys/smarttukang.com -s default -v
+sudo opendkim-genkey -b 2048 -d smarttukang.com -D /etc/opendkim/keys/smarttukang.com -s mail -v
 
-sudo chown opendkim:opendkim /etc/opendkim/keys/smarttukang.com/default.private
+sudo chown opendkim:opendkim /etc/opendkim/keys/smarttukang.com/mail.private
 
-sudo cat /etc/opendkim/keys/smarttukang.com/default.txt
+sudo cat /etc/opendkim/keys/smarttukang.com/mail.txt
 
 ### Copy everything in the parentheses and paste into the value field. Delete all double quotes and white spaces.
 
-### Add DNS TXT record with name "default._domainkey" and paste to it's value.
+### Add DNS TXT record with name "mail._domainkey" and paste to it's value.
 
 ### Test your configuration
-sudo opendkim-testkey -d smarttukang.com -s default -vvv
+sudo opendkim-testkey -d smarttukang.com -s mail -vvv
 
 ### If everything is OK, you will see: "key OK"
 
