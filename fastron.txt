@@ -514,11 +514,15 @@ nano /etc/sudoers
 ###8 process certificates renewal
 letsencrypt renew --agree-tos --email aymarxp@gmail.com
 
-###9 cron it
+###9 edit crontab
 crontab -e
 
-###10 set up the cron job to run every day at 02:00 AM for instance
-0 2 * * * /usr/bin/letsencrypt renew --agree-tos --email aymarxp@gmail.com && sudo service nginx reload
+###10 paste it to cronjob
+# Set up the cron job to run every day at 02:00, 02:01, 02:02, 02:03 AM for instance
+0 2 * * * /usr/bin/letsencrypt renew --agree-tos --email aymarxp@gmail.com
+1 2 * * * /etc/init.d/nginx restart
+2 2 * * * root /etc/init.d/nginx restart
+3 2 * * * sudo service nginx restart
 
 # TESTING YOUR
 # SSL GRADE at https://www.ssllabs.com/ssltest
