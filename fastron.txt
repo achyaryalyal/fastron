@@ -239,6 +239,12 @@ update-rc.d -f apache2 remove
 apt-get remove -y --purge apache2
 
 ###8
+nano /etc/nginx/nginx.conf
+
+###9 replace first line to: user www-data;
+
+###10
+chown www-data:www-data /var/log/nginx/*
 systemctl start nginx
 nginx -t && service nginx restart && nginx -v
 
