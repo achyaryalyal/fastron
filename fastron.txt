@@ -315,7 +315,7 @@ sed -i "s/post_max_size =.*/post_max_size = 20M/" /etc/php/5.6/fpm/php.ini
 sed -i "s/max_file_uploads =.*/max_file_uploads = 100/" /etc/php/5.6/fpm/php.ini
 sed -i "s/;realpath_cache_size =.*/realpath_cache_size = 256k/" /etc/php/5.6/fpm/php.ini
 sed -i "s/;realpath_cache_ttl =.*/realpath_cache_ttl = 600/" /etc/php/5.6/fpm/php.ini
-sed -i "s/disable_functions =.*/disable_functions = pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,show_source,system,shell_exec,passthru,exec,phpinfo,popen,proc_open,curl_exec,curl_multi_exec,parse_ini_file/" /etc/php/5.6/fpm/php.ini
+sed -i "s/disable_functions =.*/disable_functions = pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,show_source,system,shell_exec,passthru,exec,phpinfo,popen,proc_open,curl_multi_exec,parse_ini_file/" /etc/php/5.6/fpm/php.ini
 sed -i "s/;session.cookie_secure =.*/session.cookie_secure = 1/" /etc/php/5.6/fpm/php.ini
 sed -i "s/session.use_only_cookies =.*/session.use_only_cookies = 1/" /etc/php/5.6/fpm/php.ini
 sed -i "s/session.name =.*/session.name = fastron/" /etc/php/5.6/fpm/php.ini
