@@ -578,7 +578,12 @@ cp wp-config-sample.php wp-config.php
 ###4 grab secure values from the WordPress secret key generator
 curl -s https://api.wordpress.org/secret-key/1.1/salt/
 
-###5 copy the output and paste here
+###5 paste that salt key and this value under that
+define('WP_DEBUG',           false);
+define('WP_POST_REVISIONS',  false);
+define('DISALLOW_FILE_EDIT', true);
+
+###6 copy the output and paste here
 nano /usr/share/fastron/wordpress/wp-config.php
 
 ###6 set DB_NAME, DB_USER, DB_PASSWORD and DB_COLLATE
