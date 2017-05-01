@@ -212,7 +212,7 @@ port     = 10022
 filter   = sshd
 logpath  = /var/log/auth.*
 maxretry = 3
-bantime  = 3600
+bantime  = -1
 
 [sshd-ddos]
 # This jail corresponds to the standard configuration in Fail2ban.
