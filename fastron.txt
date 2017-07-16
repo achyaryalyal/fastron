@@ -423,7 +423,7 @@ fail2ban-allstatus.sh
 
 ===========================================================================
 ========= Okay, NGINX & PHP-FPM have been installed successfully ==========
-================= Next, install MariaDB & phpMyAdmin ======================
+=============== Next, install MariaDB, Monit & phpMyAdmin =================
 ===========================================================================
 
 # INSTALL MARIADB (BASIC) ~ 3 MIN
@@ -460,6 +460,32 @@ cd major-MySQLTuner-perl-*
 ###6 optimize and repair databases, sometimes MariaDB database tables get crashed quite easily, especially when unexpected server shut down, sudden file system corruption or during copy operation, when database is still accessed. Surprisingly, there is a free open source tool called 'mysqlcheck', which automatically check, repair and optimize databases of all tables in Linux
 mysqlcheck -u panglima -p --auto-repair -o --optimize --all-databases
 
+# INSTALL MONIT ~ 2 MIN
+###1
+sudo apt-get install monit
+
+###2
+nano /etc/monit/monitrc
+
+###3 make sure set httpd uncommented with following lines
+set httpd port 2812 and
+  use address localhost
+  allow localhost
+  allow admin:monit
+  allow @monit
+  allow @users readonly
+
+###4 add MySQL server in Monit configuration file to monitor it
+check process mysqld with pidfile /var/run/mysqld/mysqld.pid
+  start program = "/etc/init.d/mysql start"
+  stop program = "/etc/init.d/mysql stop"
+
+###5 
+monit -t
+service monit restart
+monit summary
+monit status
+
 # INSTALL PHPMYADMIN
 ###1
 mkdir -p /usr/share/fastron/phpmyadmin && cd /usr/share/fastron/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.6.5.2/phpMyAdmin-4.6.5.2-english.zip && unzip phpMyAdmin-4.6.5.2-english.zip && mv phpMyAdmin-4.6.5.2-english*/* . && rm -r -f phpMyAdmin-* && mv config.sample.inc.php config.inc.php
@@ -476,7 +502,7 @@ sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /usr/share/fastron/phpmyadmin/con
 sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /usr/share/fastron/phpmyadmin/config.inc.php
 
 ===========================================================================
-======= Okay, MariaDB & phpMyAdmin have been installed successfully =======
+=== Okay, MariaDB, Monit & phpMyAdmin have been installed successfully ====
 ====================== Next, install Let's Encrypt ========================
 ===========================================================================
 
