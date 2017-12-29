@@ -674,6 +674,9 @@ chmod 0755 /clamscan_daily.sh
 	# Check to make sure that the hard link was created:
 	# ls -li /etc/cron.daily/clamscan_daily
 ###7 troubleshoting.
-	#If you get the following error: LibClamAV Error: cli_loaddb(): No supported database files found in /var/lib/clamav/
+	# If you get the following error: LibClamAV Error: cli_loaddb(): No supported database files found in /var/lib/clamav/
 	# So update the database manually:
 	freshclam -v
+	# If you get the following error: Clamd was NOT notified
+	# So restart the daemon
+	service clamav-daemon restart
