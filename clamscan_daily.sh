@@ -1,9 +1,9 @@
 #!/bin/bash
 LOGFILE="/var/log/clamav/clamav-$(date +'%Y-%m-%d').log";
 EMAIL_MSG="Please see the log file attached.";
-EMAIL_FROM="clamav-daily@example.com";
-EMAIL_TO="username@example.com";
-DIRTOSCAN="/var/www /var/vmail";
+EMAIL_FROM="no-reply@opensimka.com";
+EMAIL_TO="aymarxp@gmail.com";
+DIRTOSCAN="/usr/share/fastron/master";
 
 for S in ${DIRTOSCAN}; do
  DIRSIZE=$(du -sh "$S" 2>/dev/null | cut -f1);
@@ -19,7 +19,11 @@ for S in ${DIRTOSCAN}; do
  # if the value is not equal to zero, send an email with the log file attached
  if [ "$MALWARE" -ne "0" ];then
  # using heirloom-mailx below
- echo "$EMAIL_MSG"|mail -a "$LOGFILE" -s "Malware Found" -r "$EMAIL_FROM" "$EMAIL_TO";
+ 
+ echo "From: $EMAIL_FROM
+To: $EMAIL_TO
+Subject: Malware Found Alert
+$EMAIL_MSG"| sendmail -t;
  fi 
 done
 
