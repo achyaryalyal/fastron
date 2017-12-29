@@ -658,8 +658,8 @@ nginx -t && service nginx restart
 *********************************
 ###1
 sudo apt-get install clamav clamav-daemon clamav-freshclam
-###2
-service clamav-freshclam start
+###2 check version
+clamdscan -V
 ###3
 sudo /etc/init.d/clamav-freshclam stop
 sudo freshclam
@@ -673,7 +673,7 @@ chmod 0755 /clamscan_daily.sh
 	ln /clamscan_daily.sh /etc/cron.daily/clamscan_daily
 	# Check to make sure that the hard link was created:
 	# ls -li /etc/cron.daily/clamscan_daily
-###7 troubleshoting.
+###7 troubleshoting
 	# If you get the following error: LibClamAV Error: cli_loaddb(): No supported database files found in /var/lib/clamav/
 	# So update the database manually:
 	freshclam -v
