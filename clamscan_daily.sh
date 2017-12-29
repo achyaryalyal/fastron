@@ -5,26 +5,29 @@ EMAIL_FROM="no-reply@opensimka.com";
 EMAIL_TO="aymarxp@gmail.com";
 DIRTOSCAN="/usr/share/fastron/master";
 
-for S in ${DIRTOSCAN}; do
- DIRSIZE=$(du -sh "$S" 2>/dev/null | cut -f1);
+# Update ClamAV database
+echo "Looking for ClamAV database updates...";
+freshclam --quiet;
 
- echo "Starting a daily scan of "$S" directory.
- Amount of data to be scanned is "$DIRSIZE".";
+DIRSIZE=$(du -sh "$DIRTOSCAN" 2>/dev/null | cut -f1);
 
- clamscan -ri "$S" >> "$LOGFILE";
+echo "Starting a daily scan of "$DIRTOSCAN" directory.
+Amount of data to be scanned is "$DIRSIZE".";
 
- # get the value of "Infected lines"
- MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3);
+clamscan -ri "$DIRTOSCAN" >> "$LOGFILE";
 
- # if the value is not equal to zero, send an email with the log file attached
- if [ "$MALWARE" -ne "0" ];then
- # using heirloom-mailx below
- 
- echo "From: $EMAIL_FROM
-To: $EMAIL_TO
-Subject: Malware Found Alert
-$EMAIL_MSG"| sendmail -t;
- fi 
+# get the value of "Infected lines"
+MALWARE=$(tail "$LOGFILE"|grep Infected|cut -d" " -f3);
+
+# if the value is not equal to zero, send an email with the log file attached
+if [ "$MALWARE" -ne "0" ];then
+#echo "From: $EMAIL_FROM
+#To: $EMAIL_TO
+#Subject: Malware Found Alert
+#$EMAIL_MSG"| sendmail -t;
+echo "$EMAIL_MSG"| mail -a "$LOGFILE" -s "Malware Found" -r "$EMAIL_FROM" "$EMAIL_TO";
+fi 
+
 done
 
 exit 0
