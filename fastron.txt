@@ -428,7 +428,7 @@ fail2ban-allstatus.sh
 
 # INSTALL MARIADB (BASIC) ~ 3 MIN
 ###1
-apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://kodeterbuka.beritagar.id/mariadb/repo/10.1/ubuntu xenial main' && apt-get update && apt-get install -y mariadb-server
+apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://sumberterbuka.beritagar.id/mariadb/repo/10.2/ubuntu xenial main' && apt-get update && apt-get install -y mariadb-server
 
 ###2
 mysql_secure_installation
