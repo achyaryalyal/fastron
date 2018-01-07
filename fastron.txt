@@ -485,6 +485,8 @@ monit -t
 service monit restart
 monit summary
 monit status
+# if there is many error: Include failed
+# don't worry, this is because in monitrc file, 'conf.d' and 'conf-enabled' folders are included, which are now actually empty
 
 # INSTALL PHPMYADMIN
 ###1
