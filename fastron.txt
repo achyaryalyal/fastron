@@ -63,7 +63,7 @@ nano /etc/opendkim.conf
 ###  Replace simple with relaxed/simple in "Canonicalization"
 		Canonicalization   relaxed/simple
 
-### Add the following lines after "#ADSPAction" or before "SubDomains"
+### Add the following lines before "SubDomains"
 		AutoRestart             yes
 		AutoRestartRate         10/1M
 		Background              yes
