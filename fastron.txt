@@ -475,7 +475,7 @@ set httpd port 2812 and
   allow @monit
   allow @users readonly
 
-###4 add MySQL server in Monit configuration file to monitor it
+###4 add MySQL server in Monit configuration file to monitor it before "## Includes"
 check process mysqld with pidfile /var/run/mysqld/mysqld.pid
   start program = "/etc/init.d/mysql start"
   stop program = "/etc/init.d/mysql stop"
