@@ -46,7 +46,7 @@ apt-get install -y nano
 ###
 apt-get remove --purge postfix
 ###
-apt-get install -y postfix bsd-mailx
+apt-get install -y bsd-mailx postfix
 ### General type of mail configuration: Internet Site
 ### System mail name: opensimka.com
 apt-get install -y opendkim opendkim-tools
