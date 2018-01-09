@@ -362,7 +362,7 @@ sed -i '$ a nospoof on' /etc/host.conf
 cd /etc/init.d && sudo update-rc.d -f rpcbind remove
 
 # REMOVE SOFTWARE LIKE THE DHCP CLIENT AND FTP
-apt-get remove -y isc-dhcp-client ftp info eject
+####apt-get remove -y isc-dhcp-client ftp info eject
 
 # DISABLE IPV6 (IF NOT BEING USED)
 sudo ip6tables -P INPUT DROP
