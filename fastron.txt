@@ -475,18 +475,23 @@ set httpd port 2812 and
   allow @monit
   allow @users readonly
 
-###4 add MySQL server in Monit configuration file to monitor it before "## Includes"
+###4 add Nginx in Monit configuration file to monitor it before "## Includes"
+check process nginx with pidfile /var/run/nginx.pid
+  start program = "/etc/init.d/nginx start"
+  stop program = "/etc/init.d/nginx stop"
+
+###5 add MySQL server in Monit configuration file to monitor it before "## Includes"
 check process mysqld with pidfile /var/run/mysqld/mysqld.pid
   start program = "/etc/init.d/mysql start"
   stop program = "/etc/init.d/mysql stop"
 
-###5 
+###6 
 monit -t
 service monit restart
 monit summary
 monit status
 # if there is many error: Include failed
-# don't worry, this is because in monitrc file, 'conf.d' and 'conf-enabled' folders are included, which are now actually empty
+# DONT WORRY! this is because in monitrc file, 'conf.d' and 'conf-enabled' folders are included, which are now actually empty
 
 # INSTALL PHPMYADMIN
 ###1
