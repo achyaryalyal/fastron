@@ -121,7 +121,7 @@ filter = %(__name__)s
 
 # Destination email address used solely for the interpolations in
 # jail.{conf,local,d/*} configuration files.
-destemail = aymarxp@gmail.com
+destemail = velozarkovic@gmail.com
 
 # Sender email address used solely for some actions
 sender = root@localhost
