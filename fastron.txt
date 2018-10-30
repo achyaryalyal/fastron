@@ -578,7 +578,7 @@ crontab -e
 ###1
 cd /var/www/html/master
 wget https://github.com/achyaryalyal/fastron/raw/master/fastron-ide.tar.gz
-tar -zxvf fastron-ide.tar.gz -C //var/www/html/master/
+tar -zxvf fastron-ide.tar.gz -C /var/www/html/master/
 rm fastron-ide.tar.gz
 chown -R www-data:www-data /var/www/html
 
