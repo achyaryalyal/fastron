@@ -1,11 +1,11 @@
 ===========================================================================
                  "Server tuning, is an art, not a science"
 ===========================================================================
-----------------------------------------------------------------------------
-----------------------------------------------------------------------------
-      # 50 MINUTES INSTALL FASTRON IN UBUNTU SERVER 16.04 XENIAL XERUS
-----------------------------------------------------------------------------
-----------------------------------------------------------------------------
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
+     # 50 MINUTES INSTALL FASTRON IN UBUNTU SERVER 18.04 BIONIC BEAVER
+---------------------------------------------------------------------------
+---------------------------------------------------------------------------
 # SET DNS RECORD
 ### important record
 A-------@--------[YOUR_IP_SERVER]
@@ -201,178 +201,176 @@ exit
 
 ###5 login ssh with new user created
 
-# GET AND CONFIGURE THE LATEST VERSION OF NGINX ~ 5 MIN
+# INSTALL NGINX ~ 5 MIN
+###start-here
+apt update
+apt install nginx
 
-###1
-mkdir -p /opt/buildfastron && cd /opt/buildfastron
-wget http://nginx.org/keys/nginx_signing.key
-apt-key add nginx_signing.key
-bash -c 'echo "deb http://nginx.org/packages/mainline/ubuntu/ xenial nginx" > /etc/apt/sources.list.d/nginx-mainline.list'
-sed -i '$ a deb-src http://nginx.org/packages/mainline/ubuntu/ xenial nginx' /etc/apt/sources.list.d/nginx-mainline.list
-apt-get update
+		# JUST SKIP IT #
+		# GET AND CONFIGURE THE LATEST VERSION OF NGINX ~ 5 MIN
+		###1
+		mkdir -p /opt/buildfastron && cd /opt/buildfastron
+		wget http://nginx.org/keys/nginx_signing.key
+		apt-key add nginx_signing.key
+		bash -c 'echo "deb http://nginx.org/packages/mainline/ubuntu/ bionic nginx" > /etc/apt/sources.list.d/nginx-mainline.list'
+		sed -i '$ a deb-src http://nginx.org/packages/mainline/ubuntu/ bionic nginx' /etc/apt/sources.list.d/nginx-mainline.list
+		apt-get update
+		###2
+		apt-get build-dep -y nginx
+		###3
+		apt-get source nginx && ls
+		###4
+		# No Problem
+		# The 'W: Can't drop privileges' warning here is a known Apt bug (link is external) that doesn't affect successful delivery of our Nginx code
+		# Lanjut aja terus gan
+		cd /opt/buildfastron/nginx-* && ls
+		###5
+		sed -i "s/static char ngx_http_server_string\[\] =.*/static char ngx_http_server_string\[\] = \"Server\: FASTRON\" CRLF;/" /opt/buildfastron/nginx-*/src/http/ngx_http_header_filter_module.c
+		sed -i "s/static char ngx_http_server_full_string\[\] =.*/static char ngx_http_server_full_string\[\] = \"Server\: FASTRON\" CRLF;/" /opt/buildfastron/nginx-*/src/http/ngx_http_header_filter_module.c
+		sed -i "s/\"<hr><center>.*/\"\<hr\>\<center\>\<h2\>\<span id=\\\\\"g\\\\\"\>FA\<\/span\>\<span id=\\\\\"w\\\\\"\>STR\<\/span\>\<span id=\\\\\"s\\\\\"\>ON\<\/span\>\<\/h2\>\<\/center\>\<style\>h1\{color\:#777;font\:36px arial,sans-serif;margin\:30px 0;\} h2\{font\:20px arial,sans-serif;font-weight\:bold;margin\:5px 0;\} hr\{height\:5px;margin\:0;background\:#4285F4;\} \#g\{color\:\#EA4335;\} \#w\{color\:\#FBBC05;\} \#s\{color\:\#44B063;\}\<\/style\>\" CRLF/" /opt/buildfastron/nginx-*/src/http/ngx_http_special_response.c
+		###6
+		cd /opt/buildfastron/nginx-* && dpkg-buildpackage -b
+		###7
+		cd /opt/buildfastron && ls
+		dpkg -i nginx_*.deb
+		a2enmod proxy_fcgi setenvif
+		update-rc.d -f apache2 remove
+		apt-get remove -y --purge apache2
 
-###2
-apt-get build-dep -y nginx
-
-###3
-apt-get source nginx && ls
-
-###4
-# No Problem
-# The 'W: Can't drop privileges' warning here is a known Apt bug (link is external) that doesn't affect successful delivery of our Nginx code
-# Lanjut aja terus gan
-cd /opt/buildfastron/nginx-* && ls
-
-###5
-sed -i "s/static char ngx_http_server_string\[\] =.*/static char ngx_http_server_string\[\] = \"Server\: FASTRON\" CRLF;/" /opt/buildfastron/nginx-*/src/http/ngx_http_header_filter_module.c
-sed -i "s/static char ngx_http_server_full_string\[\] =.*/static char ngx_http_server_full_string\[\] = \"Server\: FASTRON\" CRLF;/" /opt/buildfastron/nginx-*/src/http/ngx_http_header_filter_module.c
-sed -i "s/\"<hr><center>.*/\"\<hr\>\<center\>\<h2\>\<span id=\\\\\"g\\\\\"\>FA\<\/span\>\<span id=\\\\\"w\\\\\"\>STR\<\/span\>\<span id=\\\\\"s\\\\\"\>ON\<\/span\>\<\/h2\>\<\/center\>\<style\>h1\{color\:#777;font\:36px arial,sans-serif;margin\:30px 0;\} h2\{font\:20px arial,sans-serif;font-weight\:bold;margin\:5px 0;\} hr\{height\:5px;margin\:0;background\:#4285F4;\} \#g\{color\:\#EA4335;\} \#w\{color\:\#FBBC05;\} \#s\{color\:\#44B063;\}\<\/style\>\" CRLF/" /opt/buildfastron/nginx-*/src/http/ngx_http_special_response.c
-
-###6
-cd /opt/buildfastron/nginx-* && dpkg-buildpackage -b
-
-###7
-cd /opt/buildfastron && ls
-dpkg -i nginx_*.deb
-a2enmod proxy_fcgi setenvif
-update-rc.d -f apache2 remove
-apt-get remove -y --purge apache2
-
+###continue-here
 ###8
 nano /etc/nginx/nginx.conf
 
 ###9 replace first line to: user www-data;
 
-###10
+###10 hide version: server_tokens off;
+
+###11
 chown www-data:www-data /var/log/nginx/*
 systemctl start nginx
-nginx -t && service nginx restart && nginx -v
+nginx -t && service nginx restart && nginx -v && curl -I 127.0.0.1
 
-# INSTALL PHP5.6-FPM AND SECURING OS ~ 12 MIN
-
+# INSTALL PHP7.2-FPM ~ 5 MIN
 ###1
-apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C && add-apt-repository -y ppa:ondrej/php
 apt-get update
-apt-get install -y php5.6 php5.6-fpm
+apt-get install -y php7.2-fpm php7.2-common php7.2-opcache php7.2-readline php7.2-json php7.2-cli php7.2-curl php7.2-dev php7.2-gd php-imagick php7.2-intl php7.2-ldap php7.2-mbstring php7.2-mysql php7.2-soap php7.2-sqlite3 php7.2-sybase php-xdebug php7.2-xml php7.2-xmlrpc php7.2-zip libgd-tools libmcrypt-dev mcrypt && php -v
+###2 make sure php conf is enabled in nginx sites available conf
+	location ~ \.php$ {
+                include snippets/fastcgi-php.conf;
+                fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+        }
 
-###2 switch php7.0 to php5.6
-update-alternatives --set php /usr/bin/php5.6
-apt-get install -y php5.6-common php5.6-opcache php5.6-readline php5.6-dev php5.6-xdebug php5.6-mbstring php5.6-curl php5.6-gd php5.6-imagick php5.6-common php5.6-json php5.6-cli php5.6-intl php5.6-sybase php5.6-ldap php5.6-mysql php5.6-sqlite php5.6-soap php5.6-mcrypt php5.6-zip php5.6-xml php5.6-xmlrpc libgd-tools libmcrypt-dev mcrypt && php -v
+		# JUST SKIP IT #
+		# INSTALL PHP5.6-FPM AND SECURING OS ~ 12 MIN
+		###1
+		apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4F4EA0AAE5267A6C && add-apt-repository -y ppa:ondrej/php
+		apt-get update
+		apt-get install -y php5.6 php5.6-fpm
+		###2 switch php7.0 to php5.6
+		update-alternatives --set php /usr/bin/php5.6
+		apt-get install -y php5.6-common php5.6-opcache php5.6-readline php5.6-dev php5.6-xdebug php5.6-mbstring php5.6-curl php5.6-gd php5.6-imagick php5.6-common php5.6-json php5.6-cli php5.6-intl php5.6-sybase php5.6-ldap php5.6-mysql php5.6-sqlite php5.6-soap php5.6-mcrypt php5.6-zip php5.6-xml php5.6-xmlrpc libgd-tools libmcrypt-dev mcrypt && php -v
+		###3
+		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/globalblacklist.conf > /etc/nginx/conf.d/globalblacklist.conf
+		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.conf > /etc/nginx/security.conf
+		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php.conf > /etc/nginx/php.conf
+		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/cache.conf > /etc/nginx/cache.conf
+		rm -r -f /etc/nginx/nginx.conf/default.conf
+		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx.conf > /etc/nginx/nginx.conf
+		sed -i '$ a # Custom parameters' /etc/nginx/fastcgi_params
+		sed -i '$ a fastcgi_connect_timeout 180s;' /etc/nginx/fastcgi_params
+		sed -i '$ a fastcgi_send_timeout 600s;' /etc/nginx/fastcgi_params
+		sed -i '$ a fastcgi_read_timeout 600s;' /etc/nginx/fastcgi_params
+		sed -i '$ a fastcgi_intercept_errors on;' /etc/nginx/fastcgi_params
+		sed -i '$ a fastcgi_max_temp_file_size 0;' /etc/nginx/fastcgi_params
+		sed -i '$ a fastcgi_pass 127.0.0.1:9000;' /etc/nginx/fastcgi_params
+		sed -i '$ a fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;' /etc/nginx/fastcgi_params
+		sed -i '$ a fastcgi_index index.php;' /etc/nginx/fastcgi_params
+		###4
+		mkdir -p /var/www/html/master
+		bash -c 'echo "<?php echo \"<h1>It works #www</h1>\";" > /var/www/html/master/index.php'
+		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/master-www.conf > /etc/nginx/conf.d/master-www.conf
+		rm -r -f /etc/nginx/conf.d/default.conf /var/www/html
+		mkdir -p /var/www/html/development
+		bash -c 'echo "<?php echo \"<h1>It works #dev</h1>\";" > /var/www/html/development/index.php'
+		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/development-dev.conf > /etc/nginx/conf.d/development-dev.conf
+		mkdir -p /var/www/html/mail
+		bash -c 'echo "<?php echo \"<h1>It works #mail</h1>\";" > /var/www/html/mail/index.php'
+		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/mail-mail.conf > /etc/nginx/conf.d/mail-mail.conf
+		mkdir -p /var/www/html/webmail
+		bash -c 'echo "<?php echo \"<h1>It works #webmail</h1>\";" > /var/www/html/webmail/index.php'
+		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/webmail-webmail.conf > /etc/nginx/conf.d/webmail-webmail.conf
+		mkdir -p /var/www/html/websession && chmod 700 -R /var/www/html/websession
+		chown -R www-data:www-data /var/www/html
+		nginx -t && service nginx restart
+		###5
+		sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/;date.timezone =.*/date.timezone = Asia\/Jakarta/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/;default_charset =.*/default_charset = \"UTF-8\"/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/display_errors =.*/display_errors = On/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/display_startup_errors =.*/display_startup_errors = On/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/;error_log =.*/error_log = \/var\/log\/php.log/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/expose_php =.*/expose_php = Off/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/max_execution_time =.*/max_execution_time = 60/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/;max_input_vars =.*/max_input_vars = 5000/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/memory_limit =.*/memory_limit = 512M/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/;upload_tmp_dir =.*/upload_tmp_dir = \/tmp/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/post_max_size =.*/post_max_size = 20M/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/max_file_uploads =.*/max_file_uploads = 100/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/;realpath_cache_size =.*/realpath_cache_size = 256k/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/;realpath_cache_ttl =.*/realpath_cache_ttl = 600/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/disable_functions =.*/disable_functions = pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,show_source,system,shell_exec,passthru,exec,phpinfo,popen,proc_open,curl_multi_exec/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/;session.cookie_secure =.*/session.cookie_secure = 1/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/session.use_only_cookies =.*/session.use_only_cookies = 1/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/session.name =.*/session.name = fastron/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/session.cookie_lifetime =.*/session.cookie_lifetime = 0/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/session.cookie_httponly =.*/session.cookie_httponly = 1/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/session.use_trans_sid =.*/session.use_trans_sid = 0/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/session.hash_function =.*/session.hash_function = sha512/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/session.hash_bits_per_character =.*/session.hash_bits_per_character = 5/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/;session.entropy_length =.*/session.entropy_length = 128/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/;session.entropy_file =.*/session.entropy_file = \/dev\/urandom/" /etc/php/5.6/fpm/php.ini
+		sed -i "s/listen.owner =.*/listen.owner = www-data/" /etc/php/5.6/fpm/pool.d/www.conf
+		sed -i "s/listen.group =.*/listen.group = www-data/" /etc/php/5.6/fpm/pool.d/www.conf
+		sed -i "s/;listen.mode =.*/listen.mode = 0660/" /etc/php/5.6/fpm/pool.d/www.conf
+		sed -i "s/listen =.*/listen = 127.0.0.1:9000/" /etc/php/5.6/fpm/pool.d/www.conf
+		sed -i "s/pm =.*/pm = dynamic/" /etc/php/5.6/fpm/pool.d/www.conf
+		sed -i "s/pm.max_children =.*/pm.max_children = 4000/" /etc/php/5.6/fpm/pool.d/www.conf
+		sed -i "s/pm.start_servers =.*/pm.start_servers = 4/" /etc/php/5.6/fpm/pool.d/www.conf
+		sed -i "s/pm.min_spare_servers =.*/pm.min_spare_servers = 2/" /etc/php/5.6/fpm/pool.d/www.conf
+		sed -i "s/pm.max_spare_servers =.*/pm.max_spare_servers = 6/" /etc/php/5.6/fpm/pool.d/www.conf
+		sed -i "s/;pm.max_requests =.*/pm.max_requests = 50000/" /etc/php/5.6/fpm/pool.d/www.conf
+		service php5.6-fpm restart
 
-###3
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/globalblacklist.conf > /etc/nginx/conf.d/globalblacklist.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.conf > /etc/nginx/security.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php.conf > /etc/nginx/php.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/cache.conf > /etc/nginx/cache.conf
-rm -r -f /etc/nginx/nginx.conf/default.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx.conf > /etc/nginx/nginx.conf
-sed -i '$ a # Custom parameters' /etc/nginx/fastcgi_params
-sed -i '$ a fastcgi_connect_timeout 180s;' /etc/nginx/fastcgi_params
-sed -i '$ a fastcgi_send_timeout 600s;' /etc/nginx/fastcgi_params
-sed -i '$ a fastcgi_read_timeout 600s;' /etc/nginx/fastcgi_params
-sed -i '$ a fastcgi_intercept_errors on;' /etc/nginx/fastcgi_params
-sed -i '$ a fastcgi_max_temp_file_size 0;' /etc/nginx/fastcgi_params
-sed -i '$ a fastcgi_pass 127.0.0.1:9000;' /etc/nginx/fastcgi_params
-sed -i '$ a fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;' /etc/nginx/fastcgi_params
-sed -i '$ a fastcgi_index index.php;' /etc/nginx/fastcgi_params
+		# HARDEN NETWORK WITH SYSCTL SETTINGS
+		sed -i '$ a net.ipv4.conf.default.rp_filter=1' /etc/sysctl.conf
+		sed -i '$ a net.ipv4.conf.all.rp_filter=1' /etc/sysctl.conf
+		sed -i '$ a net.ipv4.conf.all.accept_source_route = 0' /etc/sysctl.conf
+		sed -i '$ a net.ipv6.conf.all.accept_source_route = 0' /etc/sysctl.conf
+		sed -i '$ a net.ipv4.conf.all.accept_redirects = 0' /etc/sysctl.conf
+		sed -i '$ a net.ipv6.conf.all.accept_redirects = 0' /etc/sysctl.conf
+		sed -i '$ a net.ipv4.conf.all.send_redirects = 0' /etc/sysctl.conf
+		sed -i '$ a net.ipv4.tcp_syncookies=1' /etc/sysctl.conf
+		sysctl -p
 
-###4
-mkdir -p /usr/share/fastron/master
+		# PREVENT IP SPOOFING
+		sed -i '$ a nospoof on' /etc/host.conf
 
-bash -c 'echo "<?php echo \"<h1>It works #www</h1>\";" > /usr/share/fastron/master/index.php'
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/master-www.conf > /etc/nginx/conf.d/master-www.conf
-rm -r -f /etc/nginx/conf.d/default.conf /usr/share/html
+		# DISABLE RPCBIND (PORTMAPPER)
+		cd /etc/init.d && sudo update-rc.d -f rpcbind remove
 
-mkdir -p /usr/share/fastron/development
+		# REMOVE SOFTWARE LIKE THE DHCP CLIENT AND FTP
+		####apt-get remove -y isc-dhcp-client ftp info eject
 
-bash -c 'echo "<?php echo \"<h1>It works #dev</h1>\";" > /usr/share/fastron/development/index.php'
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/development-dev.conf > /etc/nginx/conf.d/development-dev.conf
-
-mkdir -p /usr/share/fastron/mail
-
-bash -c 'echo "<?php echo \"<h1>It works #mail</h1>\";" > /usr/share/fastron/mail/index.php'
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/mail-mail.conf > /etc/nginx/conf.d/mail-mail.conf
-
-mkdir -p /usr/share/fastron/webmail
-
-bash -c 'echo "<?php echo \"<h1>It works #webmail</h1>\";" > /usr/share/fastron/webmail/index.php'
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/webmail-webmail.conf > /etc/nginx/conf.d/webmail-webmail.conf
-
-mkdir -p /usr/share/fastron/websession && chmod 700 -R /usr/share/fastron/websession
-
-chown -R www-data:www-data /usr/share/fastron
-
-nginx -t && service nginx restart
-
-###5
-sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/5.6/fpm/php.ini
-sed -i "s/;date.timezone =.*/date.timezone = Asia\/Jakarta/" /etc/php/5.6/fpm/php.ini
-sed -i "s/;default_charset =.*/default_charset = \"UTF-8\"/" /etc/php/5.6/fpm/php.ini
-sed -i "s/display_errors =.*/display_errors = On/" /etc/php/5.6/fpm/php.ini
-sed -i "s/display_startup_errors =.*/display_startup_errors = On/" /etc/php/5.6/fpm/php.ini
-sed -i "s/;error_log =.*/error_log = \/var\/log\/php.log/" /etc/php/5.6/fpm/php.ini
-sed -i "s/expose_php =.*/expose_php = Off/" /etc/php/5.6/fpm/php.ini
-sed -i "s/max_execution_time =.*/max_execution_time = 60/" /etc/php/5.6/fpm/php.ini
-sed -i "s/;max_input_vars =.*/max_input_vars = 5000/" /etc/php/5.6/fpm/php.ini
-sed -i "s/memory_limit =.*/memory_limit = 512M/" /etc/php/5.6/fpm/php.ini
-sed -i "s/;upload_tmp_dir =.*/upload_tmp_dir = \/tmp/" /etc/php/5.6/fpm/php.ini
-sed -i "s/upload_max_filesize =.*/upload_max_filesize = 20M/" /etc/php/5.6/fpm/php.ini
-sed -i "s/post_max_size =.*/post_max_size = 20M/" /etc/php/5.6/fpm/php.ini
-sed -i "s/max_file_uploads =.*/max_file_uploads = 100/" /etc/php/5.6/fpm/php.ini
-sed -i "s/;realpath_cache_size =.*/realpath_cache_size = 256k/" /etc/php/5.6/fpm/php.ini
-sed -i "s/;realpath_cache_ttl =.*/realpath_cache_ttl = 600/" /etc/php/5.6/fpm/php.ini
-sed -i "s/disable_functions =.*/disable_functions = pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,show_source,system,shell_exec,passthru,exec,phpinfo,popen,proc_open,curl_multi_exec/" /etc/php/5.6/fpm/php.ini
-sed -i "s/;session.cookie_secure =.*/session.cookie_secure = 1/" /etc/php/5.6/fpm/php.ini
-sed -i "s/session.use_only_cookies =.*/session.use_only_cookies = 1/" /etc/php/5.6/fpm/php.ini
-sed -i "s/session.name =.*/session.name = fastron/" /etc/php/5.6/fpm/php.ini
-sed -i "s/session.cookie_lifetime =.*/session.cookie_lifetime = 0/" /etc/php/5.6/fpm/php.ini
-sed -i "s/session.cookie_httponly =.*/session.cookie_httponly = 1/" /etc/php/5.6/fpm/php.ini
-sed -i "s/session.use_trans_sid =.*/session.use_trans_sid = 0/" /etc/php/5.6/fpm/php.ini
-sed -i "s/session.hash_function =.*/session.hash_function = sha512/" /etc/php/5.6/fpm/php.ini
-sed -i "s/session.hash_bits_per_character =.*/session.hash_bits_per_character = 5/" /etc/php/5.6/fpm/php.ini
-sed -i "s/;session.entropy_length =.*/session.entropy_length = 128/" /etc/php/5.6/fpm/php.ini
-sed -i "s/;session.entropy_file =.*/session.entropy_file = \/dev\/urandom/" /etc/php/5.6/fpm/php.ini
-sed -i "s/listen.owner =.*/listen.owner = www-data/" /etc/php/5.6/fpm/pool.d/www.conf
-sed -i "s/listen.group =.*/listen.group = www-data/" /etc/php/5.6/fpm/pool.d/www.conf
-sed -i "s/;listen.mode =.*/listen.mode = 0660/" /etc/php/5.6/fpm/pool.d/www.conf
-sed -i "s/listen =.*/listen = 127.0.0.1:9000/" /etc/php/5.6/fpm/pool.d/www.conf
-sed -i "s/pm =.*/pm = dynamic/" /etc/php/5.6/fpm/pool.d/www.conf
-sed -i "s/pm.max_children =.*/pm.max_children = 4000/" /etc/php/5.6/fpm/pool.d/www.conf
-sed -i "s/pm.start_servers =.*/pm.start_servers = 4/" /etc/php/5.6/fpm/pool.d/www.conf
-sed -i "s/pm.min_spare_servers =.*/pm.min_spare_servers = 2/" /etc/php/5.6/fpm/pool.d/www.conf
-sed -i "s/pm.max_spare_servers =.*/pm.max_spare_servers = 6/" /etc/php/5.6/fpm/pool.d/www.conf
-sed -i "s/;pm.max_requests =.*/pm.max_requests = 50000/" /etc/php/5.6/fpm/pool.d/www.conf
-service php5.6-fpm restart
-
-# HARDEN NETWORK WITH SYSCTL SETTINGS
-sed -i '$ a net.ipv4.conf.default.rp_filter=1' /etc/sysctl.conf
-sed -i '$ a net.ipv4.conf.all.rp_filter=1' /etc/sysctl.conf
-sed -i '$ a net.ipv4.conf.all.accept_source_route = 0' /etc/sysctl.conf
-sed -i '$ a net.ipv6.conf.all.accept_source_route = 0' /etc/sysctl.conf
-sed -i '$ a net.ipv4.conf.all.accept_redirects = 0' /etc/sysctl.conf
-sed -i '$ a net.ipv6.conf.all.accept_redirects = 0' /etc/sysctl.conf
-sed -i '$ a net.ipv4.conf.all.send_redirects = 0' /etc/sysctl.conf
-sed -i '$ a net.ipv4.tcp_syncookies=1' /etc/sysctl.conf
-sysctl -p
-
-# PREVENT IP SPOOFING
-sed -i '$ a nospoof on' /etc/host.conf
-
-# DISABLE RPCBIND (PORTMAPPER)
-cd /etc/init.d && sudo update-rc.d -f rpcbind remove
-
-# REMOVE SOFTWARE LIKE THE DHCP CLIENT AND FTP
-####apt-get remove -y isc-dhcp-client ftp info eject
-
-# DISABLE IPV6 (IF NOT BEING USED)
-sudo ip6tables -P INPUT DROP
-sudo ip6tables -P OUTPUT DROP
-sudo ip6tables -P FORWARD DROP
-sed -i '$ a net.ipv6.conf.all.disable_ipv6 = 1' /etc/sysctl.conf
-sed -i '$ a net.ipv6.conf.default.disable_ipv6 = 1' /etc/sysctl.conf
-sed -i '$ a net.ipv6.conf.lo.disable_ipv6 = 1' /etc/sysctl.conf
-sysctl -p
-ifconfig
+		# DISABLE IPV6 (IF NOT BEING USED)
+		sudo ip6tables -P INPUT DROP
+		sudo ip6tables -P OUTPUT DROP
+		sudo ip6tables -P FORWARD DROP
+		sed -i '$ a net.ipv6.conf.all.disable_ipv6 = 1' /etc/sysctl.conf
+		sed -i '$ a net.ipv6.conf.default.disable_ipv6 = 1' /etc/sysctl.conf
+		sed -i '$ a net.ipv6.conf.lo.disable_ipv6 = 1' /etc/sysctl.conf
+		sysctl -p
+		ifconfig
 
 # CONFIGURE ALLOWED PORT
 
@@ -428,7 +426,11 @@ fail2ban-allstatus.sh
 
 # INSTALL MARIADB (BASIC) ~ 3 MIN
 ###1
-apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://sumberterbuka.beritagar.id/mariadb/repo/10.2/ubuntu xenial main' && apt-get update && apt-get install -y mariadb-server
+curl -sS https://downloads.mariadb.com/MariaDB/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version=mariadb-10.3 && apt-get update && apt-get install -y mariadb-server
+
+		# Just Skip It #
+		###1
+		apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && add-apt-repository 'deb [arch=amd64,i386,ppc64el] http://sumberterbuka.beritagar.id/mariadb/repo/10.2/ubuntu xenial main' && apt-get update && apt-get install -y mariadb-server
 
 ###2
 mysql_secure_installation
@@ -495,18 +497,18 @@ monit status
 
 # INSTALL PHPMYADMIN
 ###1
-mkdir -p /usr/share/fastron/phpmyadmin && cd /usr/share/fastron/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.7.7/phpMyAdmin-4.7.7-english.zip && unzip phpMyAdmin-4.7.7-english.zip && mv phpMyAdmin-4.7.7-english*/* . && rm -r -f phpMyAdmin-* && mv config.sample.inc.php config.inc.php
+mkdir -p /var/www/html/phpmyadmin && cd /var/www/html/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-english.zip && unzip phpMyAdmin-4.8.3-english.zip && mv phpMyAdmin-4.8.3-english*/* . && rm -r -f phpMyAdmin-* && mv config.sample.inc.php config.inc.php
 
 ###2
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/phpmyadmin-data.conf > /etc/nginx/conf.d/phpmyadmin-data.conf
-chown -R www-data:www-data /usr/share/fastron
+chown -R www-data:www-data /var/www/html
 nginx -t && service nginx restart
 
 ###3
-sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = 'spalDing46muLti99Balkans';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /usr/share/fastron/phpmyadmin/config.inc.php
-sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /usr/share/fastron/phpmyadmin/config.inc.php
-sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /usr/share/fastron/phpmyadmin/config.inc.php
-sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /usr/share/fastron/phpmyadmin/config.inc.php
+sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = 'spalDing46muLti99Balkans';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /var/www/html/phpmyadmin/config.inc.php
+sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /var/www/html/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/html/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/html/phpmyadmin/config.inc.php
 
 ===========================================================================
 === Okay, MariaDB, Monit & phpMyAdmin have been installed successfully ====
@@ -519,7 +521,7 @@ sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /usr/sh
 apt-get install -y letsencrypt
 
 ###2
-letsencrypt certonly --agree-tos --email aymarxp@gmail.com --webroot -w /usr/share/fastron/master -d smarttukang.com -d www.smarttukang.com -w /usr/share/fastron/development -d dev.smarttukang.com -w /usr/share/fastron/phpmyadmin -d data.smarttukang.com -w /usr/share/fastron/mail -d mail.smarttukang.com -w /usr/share/fastron/webmail -d webmail.smarttukang.com
+letsencrypt certonly --agree-tos --email aymarxp@gmail.com --webroot -w /var/www/html/master -d smarttukang.com -d www.smarttukang.com -w /var/www/html/development -d dev.smarttukang.com -w /var/www/html/phpmyadmin -d data.smarttukang.com -w /var/www/html/mail -d mail.smarttukang.com -w /var/www/html/webmail -d webmail.smarttukang.com
 
 ###3
 mkdir -p /usr/share/cert && openssl dhparam -out /usr/share/cert/dh.pem 2048 && chmod 600 /usr/share/cert/dh.pem
@@ -574,14 +576,14 @@ crontab -e
 # BONUS: INSTALL FASTRON IDE
 **************************************
 ###1
-cd /usr/share/fastron/master
+cd /var/www/html/master
 wget https://github.com/achyaryalyal/fastron/raw/master/fastron-ide.tar.gz
-tar -zxvf fastron-ide.tar.gz -C /usr/share/fastron/master/
+tar -zxvf fastron-ide.tar.gz -C //var/www/html/master/
 rm fastron-ide.tar.gz
-chown -R www-data:www-data /usr/share/fastron
+chown -R www-data:www-data /var/www/html
 
 ###2 Edit username to ...
-nano /usr/share/fastron/master/ide/data/users.php
+nano /var/www/html/master/ide/data/users.php
 
 ###3 Login [DOMAIN_NAME]/ide
 
@@ -589,11 +591,11 @@ nano /usr/share/fastron/master/ide/data/users.php
 # BONUS: INSTALL WORDPRESS 4.7 WITH NO SSL
 **********************************************************
 ###1
-cd /usr/share/fastron
+cd /var/www/html
 wget https://id.wordpress.org/wordpress-4.7-id_ID.tar.gz
 tar xvf wordpress-4.7-id_ID.tar.gz
 rm wordpress-4.7-id_ID.tar.gz
-chown -R www-data:www-data /usr/share/fastron
+chown -R www-data:www-data /var/www/html
 ls
 
 ###2 create a database and user for your WordPress Site
@@ -605,7 +607,7 @@ ls
 # check all Database-specific privileges
 
 ###3
-cd /usr/share/fastron/wordpress
+cd /var/www/html/wordpress
 cp wp-config-sample.php wp-config.php
 
 ###4 grab secure values from the WordPress secret key generator
@@ -617,19 +619,19 @@ define('WP_POST_REVISIONS',  false);
 define('DISALLOW_FILE_EDIT', true);
 
 ###6 copy the output and paste here
-nano /usr/share/fastron/wordpress/wp-config.php
+nano /var/www/html/wordpress/wp-config.php
 
 ###6 set DB_NAME, DB_USER, DB_PASSWORD and DB_COLLATE
 
 ###7
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/wordpress-blog.conf > /etc/nginx/conf.d/wordpress-blog.conf
-curl -sSL https://downloads.wordpress.org/plugin/captcha.4.2.8.zip > /usr/share/fastron/wordpress/wp-content/plugins/captcha.zip
-cd /usr/share/fastron/wordpress/wp-content/plugins
+curl -sSL https://downloads.wordpress.org/plugin/captcha.4.2.8.zip > /var/www/html/wordpress/wp-content/plugins/captcha.zip
+cd /var/www/html/wordpress/wp-content/plugins
 unzip captcha.zip
 rm captcha.zip
-chown -R www-data:www-data /usr/share/fastron
-mkdir -p /usr/share/fastron/wordpress/wp-content/uploads
-chmod -R 775 /usr/share/fastron/wordpress/wp-content/uploads
+chown -R www-data:www-data /var/www/html
+mkdir -p /var/www/html/wordpress/wp-content/uploads
+chmod -R 775 /var/www/html/wordpress/wp-content/uploads
 nginx -t && service nginx restart
 
 ###8 Finish the installation at blog.[DOMAIN_NAME]
@@ -644,15 +646,15 @@ nginx -t && service nginx restart
 # BONUS: INSTALL RAINLOOP WEBMAIL
 *********************************
 ###1
-cd /usr/share/fastron && wget -qO- https://repository.rainloop.net/installer.php | php
+cd /var/www/html && wget -qO- https://repository.rainloop.net/installer.php | php
 ###2
-mv index.php data rainloop /usr/share/fastron/webmail && cd /usr/share/fastron/webmail && ls
+mv index.php data rainloop /var/www/html/webmail && cd /var/www/html/webmail && ls
 ###3
 find . -type d -exec chmod 755 {} \;
 ###4
 find . -type f -exec chmod 644 {} \;
 ###5
-chown -R www-data:www-data /usr/share/fastron/webmail
+chown -R www-data:www-data /var/www/html/webmail
 ###6
 nginx -t && service nginx restart
 ###7 Access admin panel---> https://webmail.smartukang.com/?admin
