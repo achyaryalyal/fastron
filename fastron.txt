@@ -591,29 +591,27 @@ crontab -e
 # BONUS: INSTALL CODIAD
 **************************************
 ###1
-cd /var/www/html && wget https://github.com/Codiad/Codiad/archive/v.2.8.4.zip && unzip v.2.8.4.zip && mv Codiad-v.2.8.4 ide && rm -rf v.2.8.4.zip && chown -R www-data:www-data ide && chmod -R 775 ide && cd ide && wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/logo.png && nano index.php
+cd /var/www/html && wget https://github.com/Codiad/Codiad/archive/v.2.8.4.zip && unzip v.2.8.4.zip && mv Codiad-v.2.8.4 ide && rm -rf v.2.8.4.zip && chown -R www-data:www-data ide && chmod -R 775 ide && nano ide/index.php
 
-###2 Go to [DOMAIN_NAME]/codiad/index.php and setup it, fill `Absolute Path` with folder path you want to manage
-
-###3 Test login & logout
-
-###4 Add this to index.php line 2:
+###2 Add this to index.php line 2:
 	if(!isset($_GET['key']) && !isset($_GET['token'])) {exit;}
 
-###5 Edit index.php, find replace line 30: <title><?php i18n("CODIAD"); ?></title>
+###3 Edit index.php, find replace line 30: <title><?php i18n("CODIAD"); ?></title>
 	<title>IDE</title>
 
-###6 find replace label input username and label input password on line 128-132:
+###4 find replace label input username and label input password on line 128-132:
 	<label style="display:none;"><span class="icon-user login-icon"></span> <?php i18n("Username"); ?></label>
 	<input type="password" name="username" autofocus="autofocus" autocomplete="off" style="color:#2f2f2f;border-bottom:2px solid #343434;">
 	<label style="display:none;"><span class="icon-lock login-icon"></span> <?php i18n("Password"); ?></label>
 	<input type="password" name="password" style="color:#2f2f2f;border-bottom:2px solid #343434;">
 
-###7 add display none to line 161: <button><?php i18n("Login"); ?></button>
+###5 add display none to line 161: <button><?php i18n("Login"); ?></button>
 	<button style="display:none;"><?php i18n("Login"); ?></button>
 
-###8 add display none to line 163: <a class="show-language-selector"><?php i18n("More"); ?></a>
+###6 add display none to line 163: <a class="show-language-selector"><?php i18n("More"); ?></a>
 	<a class="show-language-selector" style="display:none;"><?php i18n("More"); ?></a>
+
+###7 Go to [DOMAIN_NAME]/codiad/index.php with key & token. Then setup it, fill `Absolute Path` with folder path you want to manage
 
 **********************************************************
 # BONUS: INSTALL WORDPRESS WITH NO SSL
