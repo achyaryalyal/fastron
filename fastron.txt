@@ -286,21 +286,21 @@ apt-get install -y php7.2-fpm php7.2-common php7.2-opcache php7.2-readline php7.
 		sed -i '$ a fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;' /etc/nginx/fastcgi_params
 		sed -i '$ a fastcgi_index index.php;' /etc/nginx/fastcgi_params
 		###4
-		mkdir -p /var/www/html/master
-		bash -c 'echo "<?php echo \"<h1>It works #www</h1>\";" > /var/www/html/master/index.php'
+		mkdir -p /var/www/master
+		bash -c 'echo "<?php echo \"<h1>It works #www</h1>\";" > /var/www/master/index.php'
 		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/master-www.conf > /etc/nginx/conf.d/master-www.conf
-		rm -rf /etc/nginx/conf.d/default.conf /var/www/html
-		mkdir -p /var/www/html/development
-		bash -c 'echo "<?php echo \"<h1>It works #dev</h1>\";" > /var/www/html/development/index.php'
+		rm -rf /etc/nginx/conf.d/default.conf /var/www
+		mkdir -p /var/www/development
+		bash -c 'echo "<?php echo \"<h1>It works #dev</h1>\";" > /var/www/development/index.php'
 		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/development-dev.conf > /etc/nginx/conf.d/development-dev.conf
-		mkdir -p /var/www/html/mail
-		bash -c 'echo "<?php echo \"<h1>It works #mail</h1>\";" > /var/www/html/mail/index.php'
+		mkdir -p /var/www/mail
+		bash -c 'echo "<?php echo \"<h1>It works #mail</h1>\";" > /var/www/mail/index.php'
 		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/mail-mail.conf > /etc/nginx/conf.d/mail-mail.conf
-		mkdir -p /var/www/html/webmail
-		bash -c 'echo "<?php echo \"<h1>It works #webmail</h1>\";" > /var/www/html/webmail/index.php'
+		mkdir -p /var/www/webmail
+		bash -c 'echo "<?php echo \"<h1>It works #webmail</h1>\";" > /var/www/webmail/index.php'
 		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/webmail-webmail.conf > /etc/nginx/conf.d/webmail-webmail.conf
-		mkdir -p /var/www/html/websession && chmod 700 -R /var/www/html/websession
-		chown -R www-data:www-data /var/www/html
+		mkdir -p /var/www/websession && chmod 700 -R /var/www/websession
+		chown -R www-data:www-data /var/www
 		nginx -t && service nginx restart
 		###5
 		sed -i "s/;cgi.fix_pathinfo=1/cgi.fix_pathinfo=0/" /etc/php/5.6/fpm/php.ini
@@ -497,18 +497,18 @@ monit status
 
 # INSTALL PHPMYADMIN
 ###1
-mkdir -p /var/www/html/phpmyadmin && cd /var/www/html/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-english.zip && unzip phpMyAdmin-4.8.3-english.zip && mv phpMyAdmin-4.8.3-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php
+mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-english.zip && unzip phpMyAdmin-4.8.3-english.zip && mv phpMyAdmin-4.8.3-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php
 
 ###2
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/phpmyadmin-data.conf > /etc/nginx/conf.d/phpmyadmin-data.conf
-chown -R www-data:www-data /var/www/html
+chown -R www-data:www-data /var/www
 nginx -t && service nginx restart
 
 ###3
-sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = 'spalDing46muLti99Balkans';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /var/www/html/phpmyadmin/config.inc.php
-sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /var/www/html/phpmyadmin/config.inc.php
-sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/html/phpmyadmin/config.inc.php
-sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/html/phpmyadmin/config.inc.php
+sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = 'spalDing46muLti99Balkans';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /var/www/phpmyadmin/config.inc.php
+sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/phpmyadmin/config.inc.php
 
 ===========================================================================
 === Okay, MariaDB, Monit & phpMyAdmin have been installed successfully ====
@@ -521,7 +521,7 @@ sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/ww
 apt-get install -y letsencrypt
 
 ###2
-letsencrypt certonly --agree-tos --email aymarxp@gmail.com --webroot -w /var/www/html/master -d smarttukang.com -d www.smarttukang.com -w /var/www/html/development -d dev.smarttukang.com -w /var/www/html/phpmyadmin -d data.smarttukang.com -w /var/www/html/mail -d mail.smarttukang.com -w /var/www/html/webmail -d webmail.smarttukang.com
+letsencrypt certonly --agree-tos --email aymarxp@gmail.com --webroot -w /var/www/master -d smarttukang.com -d www.smarttukang.com -w /var/www/development -d dev.smarttukang.com -w /var/www/phpmyadmin -d data.smarttukang.com -w /var/www/mail -d mail.smarttukang.com -w /var/www/webmail -d webmail.smarttukang.com
 
 ###3
 mkdir -p /usr/share/cert && openssl dhparam -out /usr/share/cert/dh.pem 2048 && chmod 600 /usr/share/cert/dh.pem
@@ -576,14 +576,14 @@ crontab -e
 		# BONUS: INSTALL FASTRON IDE
 		**************************************
 		###1
-		cd /var/www/html/master
+		cd /var/www/master
 		wget https://github.com/achyaryalyal/fastron/raw/master/fastron-ide.tar.gz
-		tar -zxvf fastron-ide.tar.gz -C /var/www/html/master/
+		tar -zxvf fastron-ide.tar.gz -C /var/www/master/
 		rm fastron-ide.tar.gz
-		chown -R www-data:www-data /var/www/html
+		chown -R www-data:www-data /var/www
 
 		###2 Edit username to ...
-		nano /var/www/html/master/ide/data/users.php
+		nano /var/www/master/ide/data/users.php
 
 		###3 Login [DOMAIN_NAME]/ide
 
@@ -591,7 +591,7 @@ crontab -e
 # BONUS: INSTALL CODIAD
 **************************************
 ###1
-cd /var/www/html && wget https://github.com/Codiad/Codiad/archive/v.2.8.4.zip && unzip v.2.8.4.zip && mv Codiad-v.2.8.4 ide && rm -rf v.2.8.4.zip && chown -R www-data:www-data ide && chmod -R 775 ide && nano ide/index.php
+cd /var/www/master && wget https://github.com/Codiad/Codiad/archive/v.2.8.4.zip && unzip v.2.8.4.zip && mv Codiad-v.2.8.4 ide && rm -rf v.2.8.4.zip && chown -R www-data:www-data ide && chmod -R 775 ide && nano ide/index.php
 
 ###2 Add this to index.php line 2:
 	if(!isset($_GET['key']) && !isset($_GET['token'])) {exit;}
@@ -617,7 +617,7 @@ cd /var/www/html && wget https://github.com/Codiad/Codiad/archive/v.2.8.4.zip &&
 # BONUS: INSTALL WORDPRESS WITH NO SSL
 **********************************************************
 ###1
-cd /var/www/html && wget https://wordpress.org/latest.zip && unzip latest.zip && rm -rf latest.zip && chown -R www-data:www-data wordpress && chmod -R 775 wordpress && ls
+cd /var/www && wget https://wordpress.org/latest.zip && unzip latest.zip && rm -rf latest.zip && chown -R www-data:www-data wordpress && chmod -R 775 wordpress && ls
 
 ###2 create a database and user for your WordPress Site
 # login phpmyadmin
@@ -628,7 +628,7 @@ cd /var/www/html && wget https://wordpress.org/latest.zip && unzip latest.zip &&
 # check all Database-specific privileges
 
 ###3
-cd /var/www/html/wordpress
+cd /var/www/wordpress
 cp wp-config-sample.php wp-config.php
 
 ###4 grab secure values from the WordPress secret key generator
@@ -640,19 +640,19 @@ define('WP_POST_REVISIONS',  false);
 define('DISALLOW_FILE_EDIT', true);
 
 ###6 copy the output and paste here
-nano /var/www/html/wordpress/wp-config.php
+nano /var/www/wordpress/wp-config.php
 
 ###6 set DB_NAME, DB_USER, DB_PASSWORD and DB_COLLATE
 
 ###7
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/wordpress-blog.conf > /etc/nginx/conf.d/wordpress-blog.conf
-curl -sSL https://downloads.wordpress.org/plugin/captcha.4.2.8.zip > /var/www/html/wordpress/wp-content/plugins/captcha.zip
-cd /var/www/html/wordpress/wp-content/plugins
+curl -sSL https://downloads.wordpress.org/plugin/captcha.4.2.8.zip > /var/www/wordpress/wp-content/plugins/captcha.zip
+cd /var/www/wordpress/wp-content/plugins
 unzip captcha.zip
 rm captcha.zip
-chown -R www-data:www-data /var/www/html
-mkdir -p /var/www/html/wordpress/wp-content/uploads
-chmod -R 775 /var/www/html/wordpress/wp-content/uploads
+chown -R www-data:www-data /var/www
+mkdir -p /var/www/wordpress/wp-content/uploads
+chmod -R 775 /var/www/wordpress/wp-content/uploads
 nginx -t && service nginx restart
 
 ###8 Finish the installation at blog.[DOMAIN_NAME]
@@ -667,15 +667,15 @@ nginx -t && service nginx restart
 # BONUS: INSTALL RAINLOOP WEBMAIL
 *********************************
 ###1
-cd /var/www/html && wget -qO- https://repository.rainloop.net/installer.php | php
+cd /var/www && wget -qO- https://repository.rainloop.net/installer.php | php
 ###2
-mv index.php data rainloop /var/www/html/webmail && cd /var/www/html/webmail && ls
+mv index.php data rainloop /var/www/webmail && cd /var/www/webmail && ls
 ###3
 find . -type d -exec chmod 755 {} \;
 ###4
 find . -type f -exec chmod 644 {} \;
 ###5
-chown -R www-data:www-data /var/www/html/webmail
+chown -R www-data:www-data /var/www/webmail
 ###6
 nginx -t && service nginx restart
 ###7 Access admin panel---> https://webmail.smartukang.com/?admin
