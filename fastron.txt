@@ -274,7 +274,7 @@ apt-get install -y php7.2-fpm php7.2-common php7.2-opcache php7.2-readline php7.
 		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.conf > /etc/nginx/security.conf
 		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php.conf > /etc/nginx/php.conf
 		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/cache.conf > /etc/nginx/cache.conf
-		rm -r -f /etc/nginx/nginx.conf/default.conf
+		rm -rf /etc/nginx/nginx.conf/default.conf
 		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx.conf > /etc/nginx/nginx.conf
 		sed -i '$ a # Custom parameters' /etc/nginx/fastcgi_params
 		sed -i '$ a fastcgi_connect_timeout 180s;' /etc/nginx/fastcgi_params
@@ -289,7 +289,7 @@ apt-get install -y php7.2-fpm php7.2-common php7.2-opcache php7.2-readline php7.
 		mkdir -p /var/www/html/master
 		bash -c 'echo "<?php echo \"<h1>It works #www</h1>\";" > /var/www/html/master/index.php'
 		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/master-www.conf > /etc/nginx/conf.d/master-www.conf
-		rm -r -f /etc/nginx/conf.d/default.conf /var/www/html
+		rm -rf /etc/nginx/conf.d/default.conf /var/www/html
 		mkdir -p /var/www/html/development
 		bash -c 'echo "<?php echo \"<h1>It works #dev</h1>\";" > /var/www/html/development/index.php'
 		curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/development-dev.conf > /etc/nginx/conf.d/development-dev.conf
@@ -441,7 +441,7 @@ mysql_secure_installation
 	# Reload privilege tables now? Y
 
 ###3
-rm -r -f /etc/mysql/my.cnf
+rm -rf /etc/mysql/my.cnf
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/my.cnf > /etc/mysql/my.cnf
 service mysql restart
 
@@ -497,7 +497,7 @@ monit status
 
 # INSTALL PHPMYADMIN
 ###1
-mkdir -p /var/www/html/phpmyadmin && cd /var/www/html/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-english.zip && unzip phpMyAdmin-4.8.3-english.zip && mv phpMyAdmin-4.8.3-english*/* . && rm -r -f phpMyAdmin-* && mv config.sample.inc.php config.inc.php
+mkdir -p /var/www/html/phpmyadmin && cd /var/www/html/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-english.zip && unzip phpMyAdmin-4.8.3-english.zip && mv phpMyAdmin-4.8.3-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php
 
 ###2
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/phpmyadmin-data.conf > /etc/nginx/conf.d/phpmyadmin-data.conf
@@ -572,31 +572,33 @@ crontab -e
 =========== Okay, Let's Encrypt has been installed successfully ===========
 ===========================================================================
 
+		**************************************
+		# BONUS: INSTALL FASTRON IDE
+		**************************************
+		###1
+		cd /var/www/html/master
+		wget https://github.com/achyaryalyal/fastron/raw/master/fastron-ide.tar.gz
+		tar -zxvf fastron-ide.tar.gz -C /var/www/html/master/
+		rm fastron-ide.tar.gz
+		chown -R www-data:www-data /var/www/html
+
+		###2 Edit username to ...
+		nano /var/www/html/master/ide/data/users.php
+
+		###3 Login [DOMAIN_NAME]/ide
+
 **************************************
-# BONUS: INSTALL FASTRON IDE
+# BONUS: INSTALL CODIAD
 **************************************
 ###1
-cd /var/www/html/master
-wget https://github.com/achyaryalyal/fastron/raw/master/fastron-ide.tar.gz
-tar -zxvf fastron-ide.tar.gz -C /var/www/html/master/
-rm fastron-ide.tar.gz
-chown -R www-data:www-data /var/www/html
-
-###2 Edit username to ...
-nano /var/www/html/master/ide/data/users.php
-
-###3 Login [DOMAIN_NAME]/ide
+cd /var/www/html && wget https://github.com/Codiad/Codiad/archive/v.2.8.4.zip && unzip v.2.8.4.zip && mv Codiad-v.2.8.4 codiad && rm -rf v.2.8.4.zip && chown -R www-data:www-data codiad && chmod -R 775 codiad && ls
+###2 Go to [DOMAIN_NAME]/codiad
 
 **********************************************************
-# BONUS: INSTALL WORDPRESS 4.7 WITH NO SSL
+# BONUS: INSTALL WORDPRESS WITH NO SSL
 **********************************************************
 ###1
-cd /var/www/html
-wget https://id.wordpress.org/wordpress-4.7-id_ID.tar.gz
-tar xvf wordpress-4.7-id_ID.tar.gz
-rm wordpress-4.7-id_ID.tar.gz
-chown -R www-data:www-data /var/www/html
-ls
+cd /var/www/html && wget https://wordpress.org/latest.zip && unzip latest.zip && rm -rf latest.zip && chown -R www-data:www-data wordpress && chmod -R 775 wordpress && ls
 
 ###2 create a database and user for your WordPress Site
 # login phpmyadmin
