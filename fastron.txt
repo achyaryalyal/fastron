@@ -592,7 +592,10 @@ crontab -e
 **************************************
 ###1
 cd /var/www/html && wget https://github.com/Codiad/Codiad/archive/v.2.8.4.zip && unzip v.2.8.4.zip && mv Codiad-v.2.8.4 codiad && rm -rf v.2.8.4.zip && chown -R www-data:www-data codiad && chmod -R 775 codiad && ls
-###2 Go to [DOMAIN_NAME]/codiad
+
+###2 Go to [DOMAIN_NAME]/codiad/index.php
+
+###3 fill `Absolute Path` with folder path you want to manage
 
 **********************************************************
 # BONUS: INSTALL WORDPRESS WITH NO SSL
