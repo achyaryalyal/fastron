@@ -721,15 +721,21 @@ cd /home/fastron/
 	wget https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download
 	# for 32 bit
 	wget https://docs.google.com/uc?id=0B3X9GlR6EmbnLV92dHBpTkFhTEU&export=download
-###2 rename dan install
-mv uc\?id\=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA gdrive
-chmod +x gdrive		
+###2 rename
+mv uc\?id\=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA gdrive && chmod +x gdrive
+###3 insert verification code
+./gdrive about
+###4 install
 sudo install gdrive /usr/local/bin/gdrive
-###3 view version
+###5 view version
 gdrive version
-###4 view list
+###6 view list
 gdrive list
-###5 upload file
+###7 download file
+gdrive download fileId
+###8 create directory
+gdrive mkdir dirname
+###9 upload file
 gdrive upload --parent 0B5OXKPi9IW05Tko0am8wWkFmZHM filename.tar.gz
-	# NOTE: 0B5OXKPi9IW05Tko0am8wWkFmZHM menunjukkan ID folder di google drive.
-	# Cara untuk melihat ID folder, jalankan gdrive list.
+	# NOTE: 0B5OXKPi9IW05Tko0am8wWkFmZHM is the folder ID in google drive
+	# To see folder ID, just run: gdrive list
