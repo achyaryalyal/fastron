@@ -28,7 +28,7 @@ export HISTSIZE=10000
 wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -qO- | sh
 
 # open_files limits
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/limits.conf > /etc/security/limits.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.limits.conf > /etc/security/limits.conf
 
 # secure shared memory
 > /etc/fstab && echo "none /run/shm tmpfs defaults,ro 0 0" >>/etc/fstab
@@ -97,7 +97,7 @@ sudo mv /var/lib/mysql/ib_logfile0 /var/lib/mysql/ib_logfile0.bak
 sudo mv /var/lib/mysql/ib_logfile1 /var/lib/mysql/ib_logfile1.bak
 
 # increase mariadb open_files_limit
-curl -sSL https://raw.githubusercontent.com/VirtuBox/ubuntu-nginx-web-server/master/etc/systemd/system/mariadb.service.d/limits.conf > /etc/systemd/system/mariadb.service.d/limits.conf
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb.service.d.limits.conf > /etc/systemd/system/mariadb.service.d/limits.conf
 
 # reload daemon
 systemctl daemon-reload
