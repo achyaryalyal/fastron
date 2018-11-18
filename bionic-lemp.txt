@@ -137,3 +137,27 @@ sudo service nginx reload
 ##################################
 # Add fail2ban configurations
 ##################################
+
+
+
+##################################
+# Install Let's Encrypt
+##################################
+sudo apt-get install software-properties-common && sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update && sudo apt-get install -y letsencrypt
+
+# HTTPS: create Diffie-Hellman keys
+openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
+
+# HTTPS: create ACME-challenge common directory
+mkdir -p /var/www/_letsencrypt && chown -R www-data:www-data /var/www/_letsencrypt
+
+# HTTPS: certbot (obtain certificates)
+# disable before first run: ssl_certificate, ssl_certificate_key, ssl_trusted_certificate
+certbot certonly --webroot -d example.com -d www.example.com -d dev.example.com -d data.example.com -d mail.example.com -d webmail.example.com --email info@example.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
+
+# Configure nginx
+# to perform SSL
+
+# Testing SSL grade
+# open https://www.ssllabs.com/ssltest
