@@ -18,11 +18,8 @@ sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && ap
 ##################################
 sudo apt-get install -y haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database
 
-# ntp time
-sudo systemctl enable ntp
-
 # configure timezone. Select: Asia->Jakarta
-dpkg-reconfigure tzdata && date
+sudo systemctl enable ntp && dpkg-reconfigure tzdata && date
 
 # increase history size
 export HISTSIZE=10000
@@ -30,10 +27,19 @@ export HISTSIZE=10000
 # nanorc - Improved Nano Syntax Highlighting Files
 wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -qO- | sh
 
+# open_files limits
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/limits.conf > /etc/security/limits.conf
+
+# secure shared memory
+> /etc/fstab && echo "none /run/shm tmpfs defaults,ro 0 0" >>/etc/fstab
+
+# IP hardening
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-sec.conf > /etc/sysctl.d/50-ip-sec.conf && sudo sysctl --system
+
 ##################################
 # ufw
 ##################################
-sudo apt-get install ufw 
+sudo apt-get install -y ufw
 
 # define firewall rules
 sudo ufw logging low
@@ -69,41 +75,10 @@ sudo ufw enable
 service ssh restart
 
 ##################################
-# Sysctl tweaks +  open_files limits
-##################################
-rm -rf /etc/sysctl.d/60-ubuntu-nginx-web-server.conf && curl -sSL https://raw.githubusercontent.com/VirtuBox/ubuntu-nginx-web-server/master/etc/sysctl.d/60-ubuntu-nginx-web-server.conf > /etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-sysctl -e -p /etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-rm -rf /etc/security/limits.conf && curl -sSL https://raw.githubusercontent.com/VirtuBox/ubuntu-nginx-web-server/master/etc/security/limits.conf > /etc/security/limits.conf
-
-# Redis transparent_hugepage
-echo never >/sys/kernel/mm/transparent_hugepage/enabled
-
-# disable ip forwarding if docker is not installed
-echo "" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-echo "# Disables packet forwarding" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-echo "net.ipv4.ip_forward = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-echo "net.ipv4.conf.all.forwarding = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-echo "net.ipv4.conf.default.forwarding = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-echo "net.ipv6.conf.all.forwarding = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-echo "net.ipv6.conf.default.forwarding = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-
-# additional systcl configuration with network interface name
-# get network interface names like eth0, ens18 or eno1
-# for each interface found, add the following configuration to sysctl
-NET_INTERFACES_WAN=$(ip -4 route get 8.8.8.8 | grep -oP "dev [^[:space:]]+ " | cut -d ' ' -f 2)
-echo "" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-echo "# do not autoconfigure IPv6 on $NET_INTERFACES_WAN" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-echo "net.ipv6.conf.$NET_INTERFACES_WAN.autoconf = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-echo "net.ipv6.conf.$NET_INTERFACES_WAN.accept_ra = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-echo "net.ipv6.conf.$NET_INTERFACES_WAN.accept_ra = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-echo "net.ipv6.conf.$NET_INTERFACES_WAN.autoconf = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-echo "net.ipv6.conf.$NET_INTERFACES_WAN.accept_ra_defrtr = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
-
-##################################
 # MariaDB 10.3 install
 ##################################
 wget -qO mariadb_repo_setup https://downloads.mariadb.com/MariaDB/mariadb_repo_setup && chmod +x mariadb_repo_setup && ./mariadb_repo_setup --mariadb-server-version=10.3 --skip-maxscale -y && rm mariadb_repo_setup && sudo apt-get update && sudo apt-get install -y mariadb-server
-rm -rf /etc/mysql/my.cnf && curl -sSL https://raw.githubusercontent.com/VirtuBox/ubuntu-nginx-web-server/master/etc/mysql/my.cnf > /etc/mysql/conf.d/my.cnf
+curl -sSL https://raw.githubusercontent.com/VirtuBox/ubuntu-nginx-web-server/master/etc/mysql/my.cnf > /etc/mysql/conf.d/my.cnf
 mysql_secure_installation
   	# Change the root password? n
   	# Remove anonymous users? Y
@@ -122,7 +97,7 @@ sudo mv /var/lib/mysql/ib_logfile0 /var/lib/mysql/ib_logfile0.bak
 sudo mv /var/lib/mysql/ib_logfile1 /var/lib/mysql/ib_logfile1.bak
 
 # increase mariadb open_files_limit
-rm -rf /etc/systemd/system/mariadb.service.d/limits.conf && curl -sSL https://raw.githubusercontent.com/VirtuBox/ubuntu-nginx-web-server/master/etc/systemd/system/mariadb.service.d/limits.conf > /etc/systemd/system/mariadb.service.d/limits.conf
+curl -sSL https://raw.githubusercontent.com/VirtuBox/ubuntu-nginx-web-server/master/etc/systemd/system/mariadb.service.d/limits.conf > /etc/systemd/system/mariadb.service.d/limits.conf
 
 # reload daemon
 systemctl daemon-reload
@@ -144,16 +119,14 @@ mysqlcheck -u panglima -p --auto-repair -o --optimize --all-databases
 # Install php7.2-fpm
 ##################################
 sudo apt-get install -y php7.2-fpm php7.2-common php7.2-opcache php7.2-readline php7.2-json php7.2-bcmath php7.2-bz2 php7.2-cli php7.2-curl php7.2-dev php7.2-gd php-imagick php7.2-intl php7.2-ldap php7.2-mbstring php7.2-mysql php7.2-soap php7.2-sqlite3 php7.2-sybase php-xdebug php7.2-xml php7.2-xmlrpc php7.2-xsl php7.2-zip
-rm -rf /etc/php/7.2/fpm/php.ini && curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php.ini > /etc/php/7.2/fpm/php.ini
-rm -rf /etc/php/7.2/fpm/pool.d/www.conf && curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/www.conf > /etc/php/7.2/fpm/pool.d/www.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php.ini > /etc/php/7.2/fpm/php.ini
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/www.conf > /etc/php/7.2/fpm/pool.d/www.conf
 sudo service php7.2-fpm restart && php -v
 
 ##################################
 # Install nginx
 ##################################
 sudo apt-get install -y nginx && nginx -v
-
-# ....
 
 # checking nginx configuration
 nginx -t
