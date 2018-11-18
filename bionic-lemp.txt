@@ -1,0 +1,165 @@
+##################################
+# Be root
+##################################
+sudo -i
+
+##################################
+# Make sure you have properly installed your public key in $HOME/.ssh/authorized_keys
+# Make sure you have properly secured SSH config
+##################################
+
+##################################
+# Update packages
+##################################
+sudo apt update
+    #sudo apt upgrade -y
+sudo apt autoremove -y --purge
+sudo apt autoclean -y
+
+##################################
+# Useful packages
+##################################
+sudo apt install haveged curl git unzip zip fail2ban htop nload nmon ntp gnupg gnupg2 wget pigz tree ccze mycli -y
+
+# ntp time
+sudo systemctl enable ntp
+
+# increase history size
+export HISTSIZE=10000
+
+##################################
+# ufw
+##################################
+sudo apt install ufw -y
+
+# define firewall rules
+sudo ufw logging low
+sudo ufw default allow outgoing
+sudo ufw default deny incoming
+
+# ssh
+CURRENT_SSH_PORT=$(grep "Port" /etc/ssh/sshd_config | awk -F " " '{print $2}')
+sudo ufw allow $CURRENT_SSH_PORT
+
+# smtp
+sudo ufw allow 25
+    #sudo ufw allow 465
+    #sudo ufw allow 587
+
+# pop3
+sudo ufw allow 110
+    #sudo ufw allow 995
+
+# imap
+sudo ufw allow 143
+    #sudo ufw allow 993
+
+# nginx
+sudo ufw allow http
+sudo ufw allow https
+
+#ntp
+sudo ufw allow 123
+
+echo "y" | sudo ufw enable
+
+##################################
+# Sysctl tweaks +  open_files limits
+##################################
+rm -rf /etc/sysctl.d/60-ubuntu-nginx-web-server.conf && curl -sSL https://raw.githubusercontent.com/VirtuBox/ubuntu-nginx-web-server/master/etc/sysctl.d/60-ubuntu-nginx-web-server.conf > /etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+sysctl -e -p /etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+rm -rf /etc/security/limits.conf && curl -sSL https://raw.githubusercontent.com/VirtuBox/ubuntu-nginx-web-server/master/etc/security/limits.conf > /etc/security/limits.conf
+
+# Redis transparent_hugepage
+echo never >/sys/kernel/mm/transparent_hugepage/enabled
+
+# disable ip forwarding if docker is not installed
+echo "" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+echo "# Disables packet forwarding" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+echo "net.ipv4.ip_forward = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+echo "net.ipv4.conf.all.forwarding = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+echo "net.ipv4.conf.default.forwarding = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+echo "net.ipv6.conf.all.forwarding = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+echo "net.ipv6.conf.default.forwarding = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+
+# additional systcl configuration with network interface name
+# get network interface names like eth0, ens18 or eno1
+# for each interface found, add the following configuration to sysctl
+NET_INTERFACES_WAN=$(ip -4 route get 8.8.8.8 | grep -oP "dev [^[:space:]]+ " | cut -d ' ' -f 2)
+echo "" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+echo "# do not autoconfigure IPv6 on $NET_INTERFACES_WAN" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+echo "net.ipv6.conf.$NET_INTERFACES_WAN.autoconf = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+echo "net.ipv6.conf.$NET_INTERFACES_WAN.accept_ra = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+echo "net.ipv6.conf.$NET_INTERFACES_WAN.accept_ra = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+echo "net.ipv6.conf.$NET_INTERFACES_WAN.autoconf = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+echo "net.ipv6.conf.$NET_INTERFACES_WAN.accept_ra_defrtr = 0" >>/etc/sysctl.d/60-ubuntu-nginx-web-server.conf
+
+##################################
+# Add MariaDB 10.3 repository
+##################################
+wget -qO mariadb_repo_setup https://downloads.mariadb.com/MariaDB/mariadb_repo_setup && chmod +x mariadb_repo_setup && ./mariadb_repo_setup --mariadb-server-version=$mariadb_version_install --skip-maxscale -y && rm mariadb_repo_setup && sudo apt update
+
+##################################
+# MariaDB 10.3 install
+##################################
+apt install -y mariadb-server
+rm -rf /etc/mysql/my.cnf && curl -sSL https://raw.githubusercontent.com/VirtuBox/ubuntu-nginx-web-server/master/etc/mysql/my.cnf > /etc/mysql/conf.d/my.cnf
+mysql_secure_installation
+  	# Change the root password? n
+  	# Remove anonymous users? Y
+  	# Disallow root login remotely? Y
+  	# Remove test database and access to it? Y
+  	# Reload privilege tables now? Y
+
+##################################
+# MariaDB tweaks
+##################################
+# stop mysql service to apply new InnoDB log file size
+sudo service mysql stop
+
+# mv previous log file
+sudo mv /var/lib/mysql/ib_logfile0 /var/lib/mysql/ib_logfile0.bak
+sudo mv /var/lib/mysql/ib_logfile1 /var/lib/mysql/ib_logfile1.bak
+
+# increase mariadb open_files_limit
+rm -rf /etc/systemd/system/mariadb.service.d/limits.conf &&
+curl -sSL https://raw.githubusercontent.com/VirtuBox/ubuntu-nginx-web-server/master/etc/systemd/system/mariadb.service.d/limits.conf > /etc/systemd/system/mariadb.service.d/limits.conf
+
+# reload daemon
+systemctl daemon-reload
+
+# restart mysql
+service mysql start
+
+# change default `root` username to `panglima`
+mysql -u root -p
+show databases;
+use mysql;
+update user set user='panglima' where user='root';
+flush privileges;
+exit;
+
+# check performance tuning
+mkdir /opt/mysql-tuner && cd /opt/mysql-tuner && wget https://github.com/major/MySQLTuner-perl/tarball/master && tar xf master && cd major-MySQLTuner-perl-* && ./mysqltuner.pl
+
+# optimize and repair databases
+mysqlcheck -u panglima -p --auto-repair -o --optimize --all-databases
+
+##################################
+# Install php7.2-fpm
+##################################
+sudo apt install php7.2-fpm php7.2-xml php7.2-bz2 php7.2-zip php7.2-mysql php7.2-intl php7.2-gd php7.2-curl php7.2-soap php7.2-mbstring php7.2-xsl php7.2-bcmath -y
+
+# config files
+rm -rf /etc/php/7.2/fpm/php.ini && curl -sSL https://github.com/VirtuBox/ubuntu-nginx-web-server/raw/master/etc/php/7.2/fpm/php.ini > /etc/php/7.2/fpm/php.ini
+rm -rf /etc/php/7.2/fpm/pool.d/www-sock.conf && curl -sSL https://github.com/VirtuBox/ubuntu-nginx-web-server/raw/master/etc/php/7.2/fpm/pool.d/www-sock.conf > /etc/php/7.2/fpm/pool.d/www-sock.conf
+???rm -rf /etc/php/7.2/fpm/pool.d/www-two-sock..conf && curl -sSL https://github.com/VirtuBox/ubuntu-nginx-web-server/raw/master/etc/php/7.2/fpm/pool.d/www-two-sock..conf > /etc/php/7.2/fpm/pool.d/www-two-sock..conf
+rm -rf /etc/php/7.2/fpm/pool.d/www.conf && curl -sSL https://github.com/VirtuBox/ubuntu-nginx-web-server/raw/master/etc/php/7.2/fpm/pool.d/www.conf > /etc/php/7.2/fpm/pool.d/www.conf
+sudo service php7.2-fpm restart
+
+##################################
+# Install nginx
+##################################
+sudo apt install nginx
+
+
