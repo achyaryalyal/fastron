@@ -134,6 +134,7 @@ nano nginx.conf
 
 # create server block: master
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/general.conf > /etc/nginx/general.conf
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/security.conf > /etc/nginx/security.conf
 rm -rf /var/www/html /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
 mkdir -p /var/www/master && echo "<html><body><h2>Welcome to Nginx! My name is $(hostname).</h2></body></html>" | sudo tee -a /var/www/master/index.php
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/master-www.conf > /etc/nginx/sites-available/master-www.conf && sudo ln -s /etc/nginx/sites-available/master-www.conf /etc/nginx/sites-enabled/
@@ -164,7 +165,7 @@ mkdir -p /var/www/_letsencrypt && chown -R www-data:www-data /var/www/_letsencry
 
 # HTTPS: certbot (obtain certificates)
 # disable before first run: ssl_certificate, ssl_certificate_key, ssl_trusted_certificate
-certbot certonly --webroot -d example.com -d www.example.com -d dev.example.com -d data.example.com -d mail.example.com -d webmail.example.com --email info@example.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
+certbot certonly --webroot -d example.com -d www.example.com -d dev.example.com -d data.example.com --email info@example.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
 
 # Configure nginx
 # to perform SSL
