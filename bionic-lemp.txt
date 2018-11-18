@@ -78,7 +78,7 @@ service ssh restart
 # MariaDB 10.3 install
 ##################################
 wget -qO mariadb_repo_setup https://downloads.mariadb.com/MariaDB/mariadb_repo_setup && chmod +x mariadb_repo_setup && ./mariadb_repo_setup --mariadb-server-version=10.3 --skip-maxscale -y && rm mariadb_repo_setup && sudo apt-get update && sudo apt-get install -y mariadb-server
-curl -sSL https://raw.githubusercontent.com/VirtuBox/ubuntu-nginx-web-server/master/etc/mysql/my.cnf > /etc/mysql/conf.d/my.cnf
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/my.cnf > /etc/mysql/conf.d/my.cnf
 mysql_secure_installation
   	# Change the root password? n
   	# Remove anonymous users? Y
