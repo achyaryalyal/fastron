@@ -4,9 +4,26 @@
 sudo -i
 
 ##################################
-# Make sure you have properly installed your public key in $HOME/.ssh/authorized_keys
-# Make sure you have properly secured SSH config
+# Add new user with root privilages
 ##################################
+adduser <New_User> && gpasswd -a <New_User> sudo && gpasswd -a <New_User> www-data
+# TYPE root password and just ENTER when fill user profile
+groupadd admin && usermod -a -G admin <New_User> && dpkg-statoverride --update --add root admin 4750 /bin/su
+
+##################################
+# Generate ssh public key
+##################################
+mkdir -p /home/<New_User>/.ssh && chmod 700 /home/<New_User>/.ssh
+cd /home/<New_User>/.ssh && ssh-keygen -t rsa
+# type: <New_User>
+# just empty the passphrase
+mv <New_User>.pub authorized_keys && chmod 600 authorized_keys && rm /home/<New_User>/.ssh/<New_User>
+sed -i "s/Port 22/Port 10022/" /etc/ssh/sshd_config
+sed -i "s/LogLevel INFO/LogLevel VERBOSE/" /etc/ssh/sshd_config
+sed -i "s/LoginGraceTime 120/LoginGraceTime 10/" /etc/ssh/sshd_config
+sed -i "s/PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
+sed -i "s/X11Forwarding yes/X11Forwarding no/" /etc/ssh/sshd_config
+service ssh restart && echo "Please login ssh with new user created" && exit
 
 ##################################
 # Update packages
