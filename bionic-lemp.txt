@@ -171,3 +171,8 @@ certbot certonly --webroot -d example.com -d www.example.com -d dev.example.com 
 
 # Testing SSL grade
 # open https://www.ssllabs.com/ssltest
+
+# Let’s Encrypt certs expire after 90 days
+# Since Ubuntu 17.10, Certbot will automatically run twice a day and renew any certificate that is within thirty days of expiration
+# To test the renewal process is working correctly, you can use "dry-run" option:
+certbot renew --dry-run
