@@ -132,7 +132,8 @@ sudo apt-get install -y nginx nginx-extras && nginx -v
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf && cat /proc/cpuinfo | grep processor
 nano nginx.conf
 
-# general configuration
+# add bad bot blocker & general configuration
+curl -sSL https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/conf.d/globalblacklist.conf > /etc/nginx/conf.d/globalblacklist.conf
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/general.conf > /etc/nginx/general.conf
 
 # create new index.php file
@@ -156,8 +157,8 @@ sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|informati
 sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/phpmyadmin/config.inc.php
 
-# create server block: phpmyadmin-data
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/phpmyadmin-data > /etc/nginx/sites-available/phpmyadmin-data && sudo ln -s /etc/nginx/sites-available/phpmyadmin-data /etc/nginx/sites-enabled/
+# create server block: data-phpmyadmin
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/data-phpmyadmin > /etc/nginx/sites-available/data-phpmyadmin && sudo ln -s /etc/nginx/sites-available/data-phpmyadmin /etc/nginx/sites-enabled/
 
 # check, then reload
 nginx -t
