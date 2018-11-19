@@ -1,0 +1,19 @@
+server {
+    listen 80 default_server;
+    root /var/www/html;
+    index index.php;
+    server_name _;
+
+    location / {
+        try_files $uri $uri/ /index.php?$args;
+    }
+
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        
+        # make sure same with [listen] value in www.conf in php
+        #fastcgi_pass 127.0.0.1:9000;
+        fastcgi_pass unix:/var/run/php/php7.2-fpm.sock;
+    }
+
+}
