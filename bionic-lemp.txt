@@ -132,17 +132,36 @@ sudo apt-get install -y nginx nginx-extras && nginx -v
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf && cat /proc/cpuinfo | grep processor
 nano nginx.conf
 
-# create server block: master
+# general configuration
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/general.conf > /etc/nginx/general.conf
-rm -rf /var/www/html /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default
-mkdir -p /var/www/master && echo "<html><body><h2>Welcome to Nginx! My name is $(hostname).</h2></body></html>" | sudo tee -a /var/www/master/index.php
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/master-www.conf > /etc/nginx/sites-available/master-www.conf && sudo ln -s /etc/nginx/sites-available/master-www.conf /etc/nginx/sites-enabled/
 
-# checking nginx configuration
+# create new index.php file
+rm -rf /var/www/html /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default && mkdir -p /var/www/master && echo "<html><body><h2>Welcome to Nginx! My name is $(hostname).</h2></body></html>" | sudo tee -a /var/www/master/index.php
+
+# create server block: master-www
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/master-www > /etc/nginx/sites-available/master-www && sudo ln -s /etc/nginx/sites-available/master-www /etc/nginx/sites-enabled/
+
+# check, then reload
 nginx -t
+service nginx reload
 
-# reload nginx configuration
-sudo service nginx reload
+##################################
+# Install PhpMyAdmin
+##################################
+mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-english.zip && unzip phpMyAdmin-4.8.3-english.zip && mv phpMyAdmin-4.8.3-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php && chown -R www-data:www-data /var/www/phpmyadmin
+
+# custom config
+sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = 'spalDing46muLti99Balkans';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /var/www/phpmyadmin/config.inc.php
+sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/phpmyadmin/config.inc.php
+
+# create server block: phpmyadmin-data
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/phpmyadmin-data > /etc/nginx/sites-available/phpmyadmin-data && sudo ln -s /etc/nginx/sites-available/phpmyadmin-data /etc/nginx/sites-enabled/
+
+# check, then reload
+nginx -t
+service nginx reload
 
 ##################################
 # Add fail2ban configurations
@@ -166,13 +185,89 @@ mkdir -p /var/www/_letsencrypt && chown -R www-data:www-data /var/www/_letsencry
 # disable before first run: ssl_certificate, ssl_certificate_key, ssl_trusted_certificate
 certbot certonly --webroot -d example.com -d www.example.com -d dev.example.com -d data.example.com --email info@example.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
 
-# Configure nginx
+# configure nginx
 # to perform SSL
 
-# Testing SSL grade
+# testing SSL grade
 # open https://www.ssllabs.com/ssltest
 
 # Let’s Encrypt certs expire after 90 days
-# Since Ubuntu 17.10, Certbot will automatically run twice a day and renew any certificate that is within thirty days of expiration
-# To test the renewal process is working correctly, you can use "dry-run" option:
+# since Ubuntu 17.10, Certbot will automatically run twice a day and renew any certificate that is within thirty days of expiration
+# to test the renewal process is working correctly, you can use "dry-run" option:
 certbot renew --dry-run
+
+##################################
+# Install Codiad
+##################################
+cd /var/www/master && rm -rf ide && wget https://github.com/Codiad/Codiad/archive/v.2.8.4.zip && unzip v.2.8.4.zip && mv Codiad-v.2.8.4 ide && rm -rf v.2.8.4.zip && chown -R www-data:www-data ide && chmod -R 775 ide && nano ide/index.php
+
+# add this to index.php line 2:
+	if(!isset($_GET['key']) && !isset($_GET['token'])) {exit;}
+
+# edit index.php, find replace line 30: <title><?php i18n("CODIAD"); ?></title>
+	<title>IDE</title>
+
+# find replace label input username and label input password on line 128-132:
+	<label style="display:none;"><span class="icon-user login-icon"></span> <?php i18n("Username"); ?></label>
+	<input type="password" name="username" autofocus="autofocus" autocomplete="off" style="color:#2f2f2f;border-bottom:2px solid #343434;">
+	<label style="display:none;"><span class="icon-lock login-icon"></span> <?php i18n("Password"); ?></label>
+	<input type="password" name="password" style="color:#2f2f2f;border-bottom:2px solid #343434;">
+
+# add display none to line 161: <button><?php i18n("Login"); ?></button>
+	<button style="display:none;"><?php i18n("Login"); ?></button>
+
+# add display none to line 163: <a class="show-language-selector"><?php i18n("More"); ?></a>
+	<a class="show-language-selector" style="display:none;"><?php i18n("More"); ?></a>
+
+# Go to [IP_OR_DOMAIN]/codiad/index.php with key & token params. Setup it and fill `Absolute Path` with folder path you want to manage
+
+##################################
+# Install Google Drive (64 bit)
+##################################
+cd / && wget https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download && mv uc\?id\=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA gdrive && chmod +x gdrive
+
+# insert verification code
+./gdrive about
+
+# install
+sudo install gdrive /usr/local/bin/gdrive && gdrive version
+
+# view list
+gdrive list
+
+# download file
+gdrive download fileId
+
+# create directory
+gdrive mkdir dirname
+
+# upload file
+gdrive upload --parent <Folder_ID> filename.tar.gz
+
+# To see <Folder_ID>, just run: gdrive list
+
+##################################
+# Install Clamav
+##################################
+sudo apt-get install clamav clamav-daemon clamav-freshclam && clamdscan -V
+sudo /etc/init.d/clamav-freshclam stop
+sudo freshclam
+sudo /etc/init.d/clamav-freshclam start
+
+# enable notify and schedule the scan
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/clamscan_daily.sh > /clamscan_daily.sh
+chmod +x /clamscan_daily.sh && chmod 0755 /clamscan_daily.sh
+
+# add script to crontab
+	# Let’s create a hard link as below:
+	ln /clamscan_daily.sh /etc/cron.daily/clamscan_daily
+	# Check to make sure that the hard link was created:
+	# ls -li /etc/cron.daily/clamscan_daily
+
+# if you get the following error: LibClamAV Error: cli_loaddb(): No supported database files found in /var/lib/clamav/
+# just update the database manually:
+freshclam -v
+
+# if you get the following error: Clamd was NOT notified
+# just restart the daemon
+service clamav-daemon restart
