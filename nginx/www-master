@@ -1,8 +1,8 @@
 ###https###server {
-    # server block: master no [www]
+    # server block: master [no www]
     ###https###listen 80;
     ###https###server_name example.com;
-    # force http no www to https with www
+    # force http [no www] to https [www]
     ###https###listen 443;
     ###https###if ($scheme = "http") { return 301 https://www.example.com$request_uri; }
     ###https###if ($scheme = "https") { return 301 https://www.example.com$request_uri; }
