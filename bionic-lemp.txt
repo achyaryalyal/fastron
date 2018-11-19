@@ -37,6 +37,13 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-sec.conf > /etc/sysctl.d/50-ip-sec.conf && sudo sysctl --system
 
 ##################################
+# Install DKIM and Postfix
+# https://github.com/achyaryalyal/fastron/blob/master/fastron.txt
+# https://devanswers.co/how-to-get-php-mail-working-on-ubuntu-16-04-digitalocean-droplet/
+# https://mladenadamovic.wordpress.com/2018/01/17/how-to-install-and-configure-dkim-with-postfix-on-ubuntu-xenial-16-04-lts/
+##################################
+
+##################################
 # ufw
 ##################################
 sudo apt-get install -y ufw
@@ -75,7 +82,7 @@ sudo ufw enable
 service ssh restart
 
 ##################################
-# MariaDB 10.3 install
+# Install MariaDB 10.3
 ##################################
 wget -qO mariadb_repo_setup https://downloads.mariadb.com/MariaDB/mariadb_repo_setup && chmod +x mariadb_repo_setup && ./mariadb_repo_setup --mariadb-server-version=10.3 --skip-maxscale -y && rm mariadb_repo_setup && sudo apt-get update && sudo apt-get install -y mariadb-server
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/my.cnf > /etc/mysql/conf.d/my.cnf
@@ -86,9 +93,6 @@ mysql_secure_installation
   	# Remove test database and access to it? Y
   	# Reload privilege tables now? Y
 
-##################################
-# MariaDB tweaks
-##################################
 # stop mysql service to apply new InnoDB log file size
 sudo service mysql stop
 
@@ -147,7 +151,7 @@ nginx -t
 service nginx reload
 
 ##################################
-# Install PhpMyAdmin
+# Install PhpMyAdmin 4.8.3
 ##################################
 mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-english.zip && unzip phpMyAdmin-4.8.3-english.zip && mv phpMyAdmin-4.8.3-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php && chown -R www-data:www-data /var/www/phpmyadmin
 
@@ -198,7 +202,7 @@ certbot certonly --webroot -d example.com -d www.example.com -d dev.example.com 
 certbot renew --dry-run
 
 ##################################
-# Install Codiad
+# Install Codiad 2.8.4
 ##################################
 cd /var/www/master && rm -rf ide && wget https://github.com/Codiad/Codiad/archive/v.2.8.4.zip && unzip v.2.8.4.zip && mv Codiad-v.2.8.4 ide && rm -rf v.2.8.4.zip && chown -R www-data:www-data ide && chmod -R 775 ide && nano ide/index.php
 
