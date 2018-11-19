@@ -243,6 +243,13 @@ cd /var/www/master && rm -rf ide && wget https://github.com/Codiad/Codiad/archiv
 
 # Go to [IP_OR_DOMAIN]/codiad/index.php with key & token params. Setup it and fill `Absolute Path` with folder path you want to manage
 
+# Editor Settings
+    ## Theme: Monokai
+    ## Font Size: 15px
+
+# System Settings
+    ## Filemanager Trigger: Single Click
+
 ##################################
 # Install Google Drive (64 bit)
 ##################################
