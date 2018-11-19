@@ -138,8 +138,8 @@ curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/general.conf 
 # create new index.php file
 rm -rf /var/www/html /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default && mkdir -p /var/www/master && echo "<html><body><h2>Welcome to Nginx! My name is $(hostname).</h2></body></html>" | sudo tee -a /var/www/master/index.php
 
-# create server block: master-www
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/master-www > /etc/nginx/sites-available/master-www && sudo ln -s /etc/nginx/sites-available/master-www /etc/nginx/sites-enabled/
+# create server block: www-master
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/www-master > /etc/nginx/sites-available/www-master && sudo ln -s /etc/nginx/sites-available/www-master /etc/nginx/sites-enabled/
 
 # check, then reload
 nginx -t
