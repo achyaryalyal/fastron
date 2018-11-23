@@ -246,6 +246,8 @@ cd /var/www/master && rm -rf ide && wget https://github.com/Codiad/Codiad/archiv
 # Editor Settings
     ## Theme: Monokai
     ## Font Size: 15px
+    ## Wrap Lines: Wrap Lines
+    ## Soft Tabs: Yes
 
 # System Settings
     ## Filemanager Trigger: Single Click
