@@ -178,12 +178,20 @@ sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|informati
 sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/phpmyadmin/config.inc.php
 
+# modificate auth
+nano /var/www/phpmyadmin/libraries/plugins/auth/AuthenticationCookie.php
+
+# paste key & token params, after: $header->disableWarnings();
+if(!strpos($myurl,'key') !== FALSE && !strpos($myurl,'token') !== FALSE) {exit;}
+
 # create server block: data-phpmyadmin
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/data-phpmyadmin > /etc/nginx/sites-available/data-phpmyadmin && sudo ln -s /etc/nginx/sites-available/data-phpmyadmin /etc/nginx/sites-enabled/
 
 # check, then reload
 nginx -t
 service nginx reload
+
+# Go to data.[DOMAIN]/index.php with key & token params
 
 ##################################
 # Add fail2ban configurations
