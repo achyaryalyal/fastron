@@ -181,8 +181,8 @@ sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/ww
 # modificate auth
 nano /var/www/phpmyadmin/libraries/plugins/auth/AuthenticationCookie.php
 
-# paste key & token params, after: $header->disableWarnings();
-if(!strpos($myurl,'key') !== FALSE && !strpos($myurl,'token') !== FALSE) {exit;}
+# paste key & token params checker, after line 87: $header->disableWarnings();
+if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
 
 # create server block: data-phpmyadmin
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/data-phpmyadmin > /etc/nginx/sites-available/data-phpmyadmin && sudo ln -s /etc/nginx/sites-available/data-phpmyadmin /etc/nginx/sites-enabled/
