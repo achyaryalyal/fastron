@@ -144,6 +144,12 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-f
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-fpm/www.conf > /etc/php/7.3/fpm/pool.d/www.conf
 sudo service php7.3-fpm restart && php -v
 
+# if you want to switch the default version to other php version
+update-alternatives --config php
+
+# check default php version you've picked
+php -v
+
 ##################################
 # Install nginx
 ##################################
