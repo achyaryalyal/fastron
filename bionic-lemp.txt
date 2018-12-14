@@ -30,6 +30,8 @@ service ssh restart && echo "Please login ssh with new user created" && exit
 ##################################
 sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && apt-get autoclean -y
 
+# configuring openssh-server? choose "Keep the local version currently installed"
+
 ##################################
 # Useful packages
 ##################################
