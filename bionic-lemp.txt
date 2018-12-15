@@ -108,18 +108,20 @@ Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for 
 ##################################
 # Add new user with root privilages
 ##################################
-adduser <New_User> && gpasswd -a <New_User> sudo && gpasswd -a <New_User> www-data
+adduser [NEW_USER] && gpasswd -a <New_User> sudo && gpasswd -a [NEW_USER] www-data
 # TYPE root password and just ENTER when fill user profile
-groupadd admin && usermod -a -G admin <New_User> && dpkg-statoverride --update --add root admin 4750 /bin/su
+groupadd admin
+usermod -a -G admin [NEW_USER]
+dpkg-statoverride --update --add root admin 4750 /bin/su
 
 ##################################
 # Generate ssh public key
 ##################################
-mkdir -p /home/<New_User>/.ssh && chmod 700 /home/<New_User>/.ssh
-cd /home/<New_User>/.ssh && ssh-keygen -t rsa
-# type: <New_User>
+mkdir -p /home/[NEW_USER]/.ssh && chmod 700 /home/[NEW_USER]/.ssh
+cd /home/[NEW_USER]/.ssh && ssh-keygen -t rsa
+# type: [NEW_USER]
 # just empty the passphrase
-mv <New_User>.pub authorized_keys && chmod 600 authorized_keys && rm /home/<New_User>/.ssh/<New_User>
+mv [NEW_USER].pub authorized_keys && chmod 600 authorized_keys && rm /home/[NEW_USER]/.ssh/[NEW_USER]
 sed -i "s/Port 22/Port 10022/" /etc/ssh/sshd_config
 sed -i "s/LogLevel INFO/LogLevel VERBOSE/" /etc/ssh/sshd_config
 sed -i "s/LoginGraceTime 120/LoginGraceTime 10/" /etc/ssh/sshd_config
