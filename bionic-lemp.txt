@@ -299,10 +299,22 @@ service nginx reload
 # Go to data.[DOMAIN]/index.php with key & token params
 
 ##################################
-# Add fail2ban configurations
+# Configure fail2ban
 ##################################
+cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/jail.local > /etc/fail2ban/jail.local
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-dos.conf > /etc/fail2ban/filter.d/nginx-dos.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-req-limit.conf > /etc/fail2ban/filter.d/nginx-req-limit.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-badrequests.conf > /etc/fail2ban/filter.d/nginx-badrequests.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-noproxy.conf > /etc/fail2ban/filter.d/nginx-noproxy.conf
+cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf
+service fail2ban restart && fail2ban-client status
 
-
+# show status of all fail2ban jails at once
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/fail2ban-allstatus.sh > /etc/fail2ban/fail2ban-allstatus.sh
+chmod 755 /etc/fail2ban/fail2ban-allstatus.sh
+cp /etc/fail2ban/fail2ban-allstatus.sh /usr/bin/.
+fail2ban-allstatus.sh
 
 ##################################
 # Install Let's Encrypt
