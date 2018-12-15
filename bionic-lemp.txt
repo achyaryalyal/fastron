@@ -318,7 +318,7 @@ mkdir -p /var/www/_letsencrypt && chown -R www-data:www-data /var/www/_letsencry
 
 # HTTPS: certbot (obtain certificates)
 # disable before first run: ssl_certificate, ssl_certificate_key, ssl_trusted_certificate
-certbot certonly --webroot -d example.com -d www.example.com -d dev.example.com -d data.example.com --email info@example.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
+certbot certonly --webroot -d [YOUR_DOMAIN] -d www.[YOUR_DOMAIN] -d dev.[YOUR_DOMAIN] -d data.[YOUR_DOMAIN] --email aymarxp@gmail.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
 
 # configure nginx
 # to perform SSL
