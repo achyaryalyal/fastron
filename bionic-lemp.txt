@@ -13,6 +13,8 @@ TXT-----@--------v=spf1 a mx -all
 TXT-----_dmarc---v=DMARC1;p=none
 # DKIM record will provide at next step
 
+hanya ini MXnya: @-MX-mail.acehunited.com
+
 ##################################
 # Be root
 ##################################
@@ -29,81 +31,140 @@ hostnamectl set-hostname mail.[YOUR_DOMAIN] && hostname
 sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && apt-get autoclean -y
 # configuring openssh-server? choose "Keep the local version currently installed"
 
-##################################
-# Install OpenDKIM
-##################################
-apt-get install sendmail opendkim opendkim-tools -y && nano /etc/opendkim.conf
+nano /etc/hosts
 
-# replace all with this:
-AutoRestart Yes
-UMask 002
-Syslog yes
-AutoRestartRate 10/1h
-Canonicalization relaxed/simple
-ExternalIgnoreList refile:/etc/opendkim/TrustedHosts
-InternalHosts refile:/etc/opendkim/TrustedHosts
-KeyTable refile:/etc/opendkim/KeyTable
-SigningTable refile:/etc/opendkim/SigningTable
-LogWhy Yes
-Mode sv
-PidFile /var/run/opendkim/opendkim.pid
-SignatureAlgorithm rsa-sha256
-Socket inet:8891@localhost
-SyslogSuccess Yes
-TemporaryDirectory /var/tmp
-UserID opendkim:opendkim
+# edit 127.* line with your domain:
+127.0.0.1 mail.acehunited.com localhost
+127.0.1.1 mail.acehunited.com mail
 
-mkdir -p /etc/opendkim/keys/[YOUR_DOMAIN] && cd /etc/opendkim/keys/[YOUR_DOMAIN] && opendkim-genkey -s mail -d [YOUR_DOMAIN] && chown opendkim:opendkim mail.* && chmod 600 mail.private && nano /etc/opendkim/TrustedHosts
+cd /opt && wget https://bitbucket.org/zhb/iredmail/downloads/iRedMail-0.9.8.tar.bz2 && tar xvf iRedMail-0.9.8.tar.bz2 && cd iRedMail-0.9.8/ && chmod +x iRedMail.sh && bash iRedMail.sh
 
-# replace all with this:
-127.0.0.1
-localhost
-192.168.0.1/24
-*.[YOUR_DOMAIN]
+# select "Yes" and press Enter
+# you can use the default one "/var/vmail", so simply press Enter
+# by default, Nginx web server is selected, so you can simply press Enter
+# chose MariaDB. Press up and down arrow key and press the space bar to select
+# if you selected MariaDB or MySQL, then you will need to set the MySQL root password
+# next, enter your-domain.com here, without sub-domain
+# next, set a password for the mail domain administrator
+# choose optional components. By default, 4 items are selected
+# now you can review your configurations. Type "y" to begin the installation of all mail server components
+# at the end of installation, choose "y" to use firewall rules provided by iRedMail and restart firewall
 
-nano /etc/opendkim/KeyTable
+********************************************************************
+* URLs of installed web applications:
+*
+* - Roundcube webmail: https://mail.acehunited.com/mail/
+* - netdata (monitor): https://mail.acehunited.com/netdata/
+*
+* - Web admin panel (iRedAdmin): https://mail.acehunited.com/iredadmin/
+*
+* You can login to above links with below credential:
+*
+* - Username: postmaster@acehunited.com
+* - Password: k2566964
+*
+*
+********************************************************************
+* Congratulations, mail server setup completed successfully. Please
+* read below file for more information:
+*
+*   - /opt/iRedMail-0.9.8/iRedMail.tips
+*
+* And it's sent to your mail account postmaster@acehunited.com.
+*
+********************* WARNING **************************************
+*
+* Please reboot your system to enable all mail services.
+*
+********************************************************************
 
-# replace all with this:
-mail._domainkey.[YOUR_DOMAIN] [YOUR_DOMAIN]:mail:/etc/opendkim/keys/[YOUR_DOMAIN]/mail.private
+reboot
 
-nano /etc/opendkim/SigningTable
+mv /var/www/html /var/www/mail && nano /etc/nginx/sites-available/00-default-ssl.conf
 
-# replace all with this:
-*@[YOUR_DOMAIN] mail._domainkey.[YOUR_DOMAIN]
+# edit root:
+root /var/www/mail;
 
-nano /etc/mail/sendmail.mc
+nginx -t
+systemctl reload nginx
 
-# add this line:
-include(`/etc/mail/tls/starttls.m4')dnl
-INPUT_MAIL_FILTER(`opendkim', `S=inet:8891@localhost')dnl
+..
+..
+..
 
-echo -e "127.0.0.1 [YOUR_DOMAIN]" >> /etc/hosts && echo -e "::1 [YOUR_DOMAIN]" >> /etc/hosts
+apt install -y software-properties-common && add-apt-repository ppa:certbot/certbot && apt install -y certbot && openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
 
-sendmailconfig
-# press "Y" for all
+certbot certonly --webroot --agree-tos --force-renewal --email aymarxp@gmail.com -d acehunited.com www.acehunited.com -w /var/www/master/ -d mail.acehunited.com -w /var/www/mail/ -d data.acehunited.com -w /var/www/data/ -d dev.acehunited.com -w /var/www/development/
 
-service opendkim restart && service sendmail restart && nano -$ mail.txt
+nano /etc/nginx/templates/ssl.tmpl
 
-### Copy everything and paste into the value field. Delete all double quotes and white spaces
+# replace last 2 line with:
+ssl_certificate /etc/letsencrypt/live/mail.acehunited.com/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/mail.acehunited.com/privkey.pem;
 
-### Add DNS TXT record with name "mail._domainkey" and paste to it's value
-TXT-----mail._domainkey-----v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAraQm0eytpsm9CekqwVVQzl68TeHOcVchNL7o8usFFooa465XnZdmv0tRRoSuNrDjO4uJjFNCoY9NSpcjCHZJT3GLRA9u28cS7fNqG6Kbx4j5DhI0n5szAKlgLhTUSx9wbNfYYmaXWJGdl5uR13m2CvfU+dTJ3wytCuhLnjHSNS6cocws5Zypbo3A90v+6XJvoN2MjpoeyN1zJrr4W9KgsPH20mgX+QFNGNKCBsfbZ7P9lXGkZxMxT0ODtvYYWqdrVAL0y4/a/B4s+GV5LLZZped5wO9DrUQPwxc7TMe+oLKIEAi0r6GrJ9/vetBylssQ64FhE7jBjcmpSkW7+J+mqQIDAQAB
+nginx -t
+systemctl reload nginx
 
-### Check DKIM status in Gmail inbox
-echo "From: root@[YOUR_DOMAIN]
-To: aymarxp@gmail.com
-Subject: Test email
-This is a test email."| sendmail -t
+# visit iRedMail admin panel, your web browser won’t warn you any more because Nginx is now using a valid TLS certificate
 
-### If you click the show original button in Gmail, you should see "dkim=pass"
+https://mail.acehunited.com/iredadmin/
 
-### Test to mail-tester.com
-echo "From: root@[YOUR_DOMAIN]
-To: ......<paste_here>......
-Subject: Test email
-This is a test email."| sendmail -t
+nano /etc/postfix/main.cf
 
-Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for you because your domain isn't listed in Pyzor Whitelist and Cloud Kilat hasn't rDNS
+# find the following 3 lines. (line 95, 96, 97), replace with:
+smtpd_tls_key_file = /etc/letsencrypt/live/mail.acehunited.com/privkey.pem
+smtpd_tls_cert_file = /etc/letsencrypt/live/mail.acehunited.com/cert.pem
+smtpd_tls_CAfile = /etc/letsencrypt/live/mail.acehunited.com/chain.pem
+
+systemctl reload postfix
+
+nano /etc/dovecot/dovecot.conf
+
+# find the following 2 lines. (line 47, 48), replace with:
+ssl_cert = </etc/letsencrypt/live/mail.acehunited.com/fullchain.pem
+ssl_key = </etc/letsencrypt/live/mail.acehunited.com/privkey.pem
+
+systemctl reload dovecot
+
+# log into iredadmin panel with the postmaster mail account. In the Add tab, you can add additional domains or email addresses
+
+https://mail.acehunited.com/iredadmin/
+
+# after you create a user, you can visit the Roundcube webmail address and login with the new mail user account
+
+https://mail.acehunited.com/mail/
+
+####################################################################
+Using Mail Clients on Your Computer or Mobile Device
+Incoming: IMAP
+	server: mail.acehunited.com
+	port: 993
+	security: SSL/TLS
+	authentication: Normal password
+Outgoing: SMTP
+	server: mail.acehunited.com
+	port: 587
+	security: STARTTLS
+	authentication: Normal password
+####################################################################
+
+# check the PTR record for an IP address, run this command:
+dig -x [IP_ADDR] +short
+# or
+host [IP_ADDR]
+
+# add SPF to DNS Record
+TXT-----@--------v=spf1 a mx -all
+
+# add DMARC to DNS Record
+TXT-----_dmarc---v=DMARC1;p=none
+
+# get DKIM
+nano /opt/iRedMail-0.9.8/iRedMail.tips
+# add DKIM to DNS record
+TXT-----dkim._domainkey-----v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC06rxesAKWvjciTjBRyHYY0q9mFsy2FYs7Rj9RDoanggyD18lOjSdB2hujbtZH8yGODI7QH3G0oHcz/iqPXGNjrt5o5WnQhHvpyeJskbot0lOw1BraIoXRMLWVfMPm3n0su/sm7OYsQ4cLDscADqBQoU4ve4veaSxLpAvR2NhH2QIDAQAB
+
+# try to send email from an iredmail account to a gmail account. If you click the show original button in Gmail, you should see "dkim=pass"
 
 ##################################
 # Add new user with root privilages
