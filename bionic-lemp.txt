@@ -1,7 +1,109 @@
 ##################################
+# Set DNS Record
+##################################
+A-------@--------[YOUR_IP_SERVER]
+A-------data-----[YOUR_IP_SERVER]
+A-------dev------[YOUR_IP_SERVER]
+A-------mail-----[YOUR_IP_SERVER]
+A-------webmail--[YOUR_IP_SERVER]
+CNAME---www------[YOUR_DOMAIN]
+MX------@--------[YOUR_DOMAIN]-----10
+MX------mail-----[YOUR_DOMAIN]-----10
+TXT-----@--------v=spf1 a mx -all
+TXT-----_dmarc---v=DMARC1;p=none
+# DKIM record will provide at next step
+
+##################################
 # Be root
 ##################################
 sudo -i
+
+##################################
+# Set hostname
+##################################
+hostnamectl set-hostname [YOUR_DOMAIN] && hostname
+
+##################################
+# Update packages
+##################################
+sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && apt-get autoclean -y
+# configuring openssh-server? choose "Keep the local version currently installed"
+
+##################################
+# Install OpenDKIM
+##################################
+apt-get install sendmail opendkim opendkim-tools -y && nano /etc/opendkim.conf
+
+# replace all with this:
+AutoRestart Yes
+UMask 002
+Syslog yes
+AutoRestartRate 10/1h
+Canonicalization relaxed/simple
+ExternalIgnoreList refile:/etc/opendkim/TrustedHosts
+InternalHosts refile:/etc/opendkim/TrustedHosts
+KeyTable refile:/etc/opendkim/KeyTable
+SigningTable refile:/etc/opendkim/SigningTable
+LogWhy Yes
+Mode sv
+PidFile /var/run/opendkim/opendkim.pid
+SignatureAlgorithm rsa-sha256
+Socket inet:8891@localhost
+SyslogSuccess Yes
+TemporaryDirectory /var/tmp
+UserID opendkim:opendkim
+
+mkdir -p /etc/opendkim/keys/[YOUR_DOMAIN] && cd /etc/opendkim/keys/[YOUR_DOMAIN] && opendkim-genkey -s mail -d [YOUR_DOMAIN] && chown opendkim:opendkim mail.* && chmod 600 mail.private && nano /etc/opendkim/TrustedHosts
+
+# replace all with this:
+127.0.0.1
+localhost
+192.168.0.1/24
+*.[YOUR_DOMAIN]
+
+nano /etc/opendkim/KeyTable
+
+# replace all with this:
+mail._domainkey.[YOUR_DOMAIN] [YOUR_DOMAIN]:mail:/etc/opendkim/keys/[YOUR_DOMAIN]/mail.private
+
+nano /etc/opendkim/SigningTable
+
+# replace all with this:
+*@[YOUR_DOMAIN] mail._domainkey.[YOUR_DOMAIN]
+
+nano /etc/mail/sendmail.mc
+
+# add this line:
+include(`/etc/mail/tls/starttls.m4')dnl
+INPUT_MAIL_FILTER(`opendkim', `S=inet:8891@localhost')dnl
+
+echo -e "127.0.0.1 [YOUR_DOMAIN]" >> /etc/hosts && echo -e "::1 [YOUR_DOMAIN]" >> /etc/hosts
+
+sendmailconfig
+# press "Y" for all
+
+service opendkim restart && service sendmail restart && nano -$ mail.txt
+
+### Copy everything and paste into the value field. Delete all double quotes and white spaces
+
+### Add DNS TXT record with name "mail._domainkey" and paste to it's value
+TXT-----mail._domainkey-----v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAraQm0eytpsm9CekqwVVQzl68TeHOcVchNL7o8usFFooa465XnZdmv0tRRoSuNrDjO4uJjFNCoY9NSpcjCHZJT3GLRA9u28cS7fNqG6Kbx4j5DhI0n5szAKlgLhTUSx9wbNfYYmaXWJGdl5uR13m2CvfU+dTJ3wytCuhLnjHSNS6cocws5Zypbo3A90v+6XJvoN2MjpoeyN1zJrr4W9KgsPH20mgX+QFNGNKCBsfbZ7P9lXGkZxMxT0ODtvYYWqdrVAL0y4/a/B4s+GV5LLZZped5wO9DrUQPwxc7TMe+oLKIEAi0r6GrJ9/vetBylssQ64FhE7jBjcmpSkW7+J+mqQIDAQAB
+
+### Check DKIM status in Gmail inbox
+echo "From: root@[YOUR_DOMAIN]
+To: aymarxp@gmail.com
+Subject: Test email
+This is a test email."| sendmail -t
+
+### If you click the show original button in Gmail, you should see "dkim=pass"
+
+### Test to mail-tester.com
+echo "From: root@[YOUR_DOMAIN]
+To: ......<paste_here>......
+Subject: Test email
+This is a test email."| sendmail -t
+
+Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for you because your domain isn't listed in Pyzor Whitelist and Cloud Kilat hasn't rDNS
 
 ##################################
 # Add new user with root privilages
@@ -24,13 +126,6 @@ sed -i "s/LoginGraceTime 120/LoginGraceTime 10/" /etc/ssh/sshd_config
 sed -i "s/PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
 sed -i "s/X11Forwarding yes/X11Forwarding no/" /etc/ssh/sshd_config
 service ssh restart && echo "Please login ssh with new user created" && exit
-
-##################################
-# Update packages
-##################################
-sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && apt-get autoclean -y
-
-# configuring openssh-server? choose "Keep the local version currently installed"
 
 ##################################
 # Useful packages
