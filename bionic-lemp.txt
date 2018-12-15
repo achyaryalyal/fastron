@@ -21,7 +21,7 @@ sudo -i
 ##################################
 # Set hostname
 ##################################
-hostnamectl set-hostname [YOUR_DOMAIN] && hostname
+hostnamectl set-hostname mail.[YOUR_DOMAIN] && hostname
 
 ##################################
 # Update packages
