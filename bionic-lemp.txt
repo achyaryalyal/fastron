@@ -299,7 +299,7 @@ service nginx reload
 # Go to data.[DOMAIN]/index.php with key & token params
 
 ##################################
-# Configure fail2ban
+# Configure Fail2ban
 ##################################
 cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/jail.local > /etc/fail2ban/jail.local
@@ -330,7 +330,7 @@ mkdir -p /var/www/_letsencrypt && chown -R www-data:www-data /var/www/_letsencry
 
 # HTTPS: certbot (obtain certificates)
 # disable before first run: ssl_certificate, ssl_certificate_key, ssl_trusted_certificate
-certbot certonly --webroot -d [YOUR_DOMAIN] -d www.[YOUR_DOMAIN] -d dev.[YOUR_DOMAIN] -d data.[YOUR_DOMAIN] --email aymarxp@gmail.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
+certbot certonly --webroot -d [YOUR_DOMAIN] -d www.[YOUR_DOMAIN] -d dev.[YOUR_DOMAIN] -d data.[YOUR_DOMAIN] -d mail.[YOUR_DOMAIN] -d webmail.[YOUR_DOMAIN] --email aymarxp@gmail.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
 
 # configure nginx
 # to perform SSL
