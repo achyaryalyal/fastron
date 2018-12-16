@@ -1,0 +1,555 @@
+##################################
+# Set DNS Record
+##################################
+A-------@--------[YOUR_IP_SERVER]
+A-------data-----[YOUR_IP_SERVER]
+A-------dev------[YOUR_IP_SERVER]
+A-------mail-----[YOUR_IP_SERVER]
+CNAME---www------[YOUR_DOMAIN]
+MX------@--------mail.[YOUR_DOMAIN]-----10
+
+##################################
+# Be root
+##################################
+sudo -i
+
+##################################
+# Set hostname
+##################################
+hostnamectl set-hostname mail.[YOUR_DOMAIN] && hostname
+
+##################################
+# Update packages
+##################################
+sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && apt-get autoclean -y
+# configuring openssh-server? choose "Keep the local version currently installed"
+
+##################################
+# Useful packages
+##################################
+sudo apt-get install -y haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database
+
+# configure timezone. Select: Asia->Jakarta
+sudo systemctl enable ntp && dpkg-reconfigure tzdata && date
+
+# increase history size
+export HISTSIZE=10000
+
+# nanorc - Improved Nano Syntax Highlighting Files
+wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -qO- | sh
+
+# open_files limits
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.limits.conf > /etc/security/limits.conf
+
+# secure shared memory
+> /etc/fstab && echo "none /run/shm tmpfs defaults,ro 0 0" >>/etc/fstab
+
+# IP hardening
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-sec.conf > /etc/sysctl.d/50-ip-sec.conf && sudo sysctl --system
+
+##################################
+# Install iRedMail
+##################################
+nano /etc/hosts
+
+# edit 127.* line with your domain:
+127.0.0.1 mail.acehunited.com localhost
+127.0.1.1 mail.acehunited.com mail
+
+cd /opt && wget https://bitbucket.org/zhb/iredmail/downloads/iRedMail-0.9.8.tar.bz2 && tar xvf iRedMail-0.9.8.tar.bz2 && cd iRedMail-0.9.8/ && chmod +x iRedMail.sh && bash iRedMail.sh
+
+# select "Yes" and press Enter
+# you can use the default one "/var/vmail", so simply press Enter
+# by default, Nginx web server is selected, so you can simply press Enter
+# chose MariaDB. Press up and down arrow key and press the space bar to select
+# if you selected MariaDB or MySQL, then you will need to set the MySQL root password
+# next, enter your-domain.com here, without sub-domain
+# next, set a password for the mail domain administrator
+# choose optional components. By default, 4 items are selected
+# now you can review your configurations. Type "y" to begin the installation of all mail server components
+# at the end of installation, choose "y" to use firewall rules provided by iRedMail and restart firewall
+
+********************************************************************
+* URLs of installed web applications:
+*
+* - Roundcube webmail: https://mail.acehunited.com/mail/
+* - netdata (monitor): https://mail.acehunited.com/netdata/
+*
+* - Web admin panel (iRedAdmin): https://mail.acehunited.com/iredadmin/
+*
+* You can login to above links with below credential:
+*
+* - Username: postmaster@acehunited.com
+* - Password: ........
+*
+*
+********************************************************************
+* Congratulations, mail server setup completed successfully. Please
+* read below file for more information:
+*
+*   - /opt/iRedMail-0.9.8/iRedMail.tips
+*
+* And it's sent to your mail account postmaster@acehunited.com.
+*
+********************* WARNING **************************************
+*
+* Please reboot your system to enable all mail services.
+*
+********************************************************************
+
+# before reboot, edit ssh configuration
+nano /etc/ssh/sshd_config
+
+# uncomment line for:
+Port
+Hostkey
+SyslogFacility
+LogLevel
+PermitRootLogin
+StrictModes
+PubkeyAuthentication
+PasswordAuthentication
+PermitEmptyPasswords
+ChallengeResponseAuthentication
+UsePAM
+X11Forwarding
+PrintMotd
+AcceptEnv
+Subsystem
+
+systemctl restart ssh
+
+reboot
+
+##################################
+# Configure php7.2-fpm
+##################################
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.2-fpm/php.ini > /etc/php/7.2/fpm/php.ini
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.2-fpm/www.conf > /etc/php/7.2/fpm/pool.d/www.conf
+systemctl restart php7.2-fpm && php -v
+
+##################################
+# Configure nginx
+##################################
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf && cat /proc/cpuinfo | grep processor
+# configure worker_processes ===> cat /proc/cpuinfo | grep processor
+nano nginx.conf
+
+nano /etc/nginx/templates/fastcgi_php
+# replace the php_workers with tcp address on line 13
+fastcgi_pass 127.0.0.1:9000;
+
+# add bad bot blocker & general configuration
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/general.conf > /etc/nginx/general.conf
+curl -sSL https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/conf.d/globalblacklist.conf > /etc/nginx/conf.d/globalblacklist.conf
+mkdir -p /etc/nginx/bots.d
+curl -sSL https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/bots.d/blacklist-user-agents.conf > /etc/nginx/bots.d/blacklist-user-agents.conf
+curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/whitelist-domains.conf > /etc/nginx/bots.d/whitelist-domains.conf
+curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/bad-referrer-words.conf > /etc/nginx/bots.d/bad-referrer-words.conf
+curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/custom-bad-referrers.conf > /etc/nginx/bots.d/custom-bad-referrers.conf
+curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/whitelist-ips.conf > /etc/nginx/bots.d/whitelist-ips.conf
+curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/blacklist-ips.conf > /etc/nginx/bots.d/blacklist-ips.conf
+
+# create directory: master
+mkdir -p /var/www/master && cd /var/www/master && echo "<h1>It works! #master</h1>" > index.php && chown -R www-data:www-data /var/www/master
+# create server block: www-master
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/01-www-master.conf > /etc/nginx/sites-available/01-www-master.conf && sudo ln -s /etc/nginx/sites-available/01-www-master.conf /etc/nginx/sites-enabled/
+# edit server_name with your domain
+nano /etc/nginx/sites-available/01-www-master.conf
+nginx -t
+systemctl reload nginx
+curl -l http://acehunited.com
+curl -l http://www.acehunited.com
+
+# create directory: development
+mkdir -p /var/www/development && cd /var/www/development && echo "<h1>It works! #development</h1>" > index.php && chown -R www-data:www-data /var/www/development
+# create server block: dev-development
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/02-dev-development.conf > /etc/nginx/sites-available/02-dev-development.conf && sudo ln -s /etc/nginx/sites-available/02-dev-development.conf /etc/nginx/sites-enabled/
+# edit server_name with your domain
+nano /etc/nginx/sites-available/02-dev-development.conf
+nginx -t
+systemctl reload nginx
+curl -l http://dev.acehunited.com
+
+# create directory: data
+mkdir -p /var/www/data && cd /var/www/data && echo "<h1>It works! #phpmyadmin</h1>" > index.php && chown -R www-data:www-data /var/www/data
+# create server block: data-phpmyadmin
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/03-data-phpmyadmin.conf > /etc/nginx/sites-available/03-data-phpmyadmin.conf && sudo ln -s /etc/nginx/sites-available/03-data-phpmyadmin.conf /etc/nginx/sites-enabled/
+# edit server_name with your domain
+nano /etc/nginx/sites-available/03-data-phpmyadmin.conf
+nginx -t
+systemctl reload nginx
+curl -l http://data.acehunited.com
+
+# create directory: mail
+mkdir -p /var/www/mail && cd /var/www/mail && echo "<h1>It works! #mail</h1>" > index.php && chown -R www-data:www-data /var/www/mail
+# create server block: mail default
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/00-default.conf > /etc/nginx/sites-available/00-default.conf && sudo ln -s /etc/nginx/sites-available/00-default.conf /etc/nginx/sites-enabled/
+# edit server_name with your domain
+nano /etc/nginx/sites-available/00-default.conf
+nginx -t
+systemctl reload nginx
+curl -l http://mail.acehunited.com
+
+##################################
+# Install Let's Encrypt
+##################################
+apt install -y software-properties-common && add-apt-repository ppa:certbot/certbot && apt install -y certbot && openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
+
+certbot certonly --force-renewal --agree-tos --email aymarxp@gmail.com -a webroot --expand --webroot-path=/var/www/master/ -d acehunited.com -d www.acehunited.com --webroot-path=/var/www/mail/ -d mail.acehunited.com --webroot-path=/var/www/development/ -d dev.acehunited.com --webroot-path=/var/www/data/ -d data.acehunited.com
+
+nano /etc/nginx/templates/ssl.tmpl
+
+# replace last 2 line with:
+ssl_certificate /etc/letsencrypt/live/acehunited.com/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/acehunited.com/privkey.pem;
+
+nano /etc/nginx/sites-available/00-default.conf
+# after server_name add this line:
+return 301 https://$host$request_uri;
+
+nginx -t
+systemctl reload nginx
+
+# visit iRedMail admin panel:
+# https://mail.acehunited.com/iredadmin/
+# your web browser won’t warn you any more because Nginx is now using a valid TLS certificate
+
+##################################
+# Configure postfix & dovecot
+##################################
+nano /etc/postfix/main.cf
+
+# find the following 3 lines. (line 95, 96, 97), replace with:
+smtpd_tls_key_file = /etc/letsencrypt/live/acehunited.com/privkey.pem
+smtpd_tls_cert_file = /etc/letsencrypt/live/acehunited.com/cert.pem
+smtpd_tls_CAfile = /etc/letsencrypt/live/acehunited.com/chain.pem
+
+systemctl reload postfix
+
+nano /etc/dovecot/dovecot.conf
+
+# find the following 2 lines. (line 47, 48), replace with:
+ssl_cert = </etc/letsencrypt/live/acehunited.com/fullchain.pem
+ssl_key = </etc/letsencrypt/live/acehunited.com/privkey.pem
+
+systemctl reload dovecot
+
+# log into iredadmin panel with the postmaster mail account
+# https://mail.acehunited.com/iredadmin/
+# in the Add tab, you can add additional domains or email addresses
+# after you create a user, you can visit the Roundcube webmail address and login with the new mail user account
+
+https://mail.acehunited.com/mail/
+
+####################################################################
+Using Mail Clients on Your Computer or Mobile Device
+Incoming: IMAP
+	server: mail.acehunited.com
+	port: 993
+	security: SSL/TLS
+	authentication: Normal password
+Outgoing: SMTP
+	server: mail.acehunited.com
+	port: 587
+	security: STARTTLS
+	authentication: Normal password
+####################################################################
+
+##################################
+# Show PTR record
+##################################
+dig -x [IP_ADDR] +short
+# or
+host [IP_ADDR]
+
+##################################
+# Add SPF to DNS record
+##################################
+TXT-----@--------v=spf1 a mx -all
+
+##################################
+# Add DMARC to DNS record
+##################################
+TXT-----_dmarc---v=DMARC1;p=none
+
+##################################
+# Add DKIM to DNS record
+##################################
+nano /opt/iRedMail-0.9.8/iRedMail.tips
+# copy DKIM, add to DNS record
+TXT-----dkim._domainkey-----v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVc0gNXsWsX+SqnTPSFkYxmD/Kr9kQ8uUBiUDqTa0CCJCkcg1GkdJmKjD/0JUgtHBFD8DoQIvj4Kr1lyBLFEUZJgjevbJfG0CzzIjLZZEhvqFy6ff6MYsl8FQRJMv8MOfJy9Z9Rj9P03TlLLrrbUVcKKtllUNMYq/O5nAFSQpM7QIDAQAB
+
+# try to send email from an iredmail account to a gmail account. If you click the show original button in Gmail, you should see "dkim=pass"
+
+----------------------------------
+
+##################################
+# Add new user with root privilages
+##################################
+adduser [NEW_USER] && gpasswd -a <New_User> sudo && gpasswd -a [NEW_USER] www-data
+# TYPE root password and just ENTER when fill user profile
+groupadd admin
+usermod -a -G admin [NEW_USER]
+dpkg-statoverride --update --add root admin 4750 /bin/su
+
+##################################
+# Generate ssh public key
+##################################
+mkdir -p /home/[NEW_USER]/.ssh && chmod 700 /home/[NEW_USER]/.ssh
+cd /home/[NEW_USER]/.ssh && ssh-keygen -t rsa
+# type: [NEW_USER]
+# just empty the passphrase
+mv [NEW_USER].pub authorized_keys && chmod 600 authorized_keys && rm /home/[NEW_USER]/.ssh/[NEW_USER]
+sed -i "s/Port 22/Port 10022/" /etc/ssh/sshd_config
+sed -i "s/LogLevel INFO/LogLevel VERBOSE/" /etc/ssh/sshd_config
+sed -i "s/LoginGraceTime 120/LoginGraceTime 10/" /etc/ssh/sshd_config
+sed -i "s/PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
+sed -i "s/X11Forwarding yes/X11Forwarding no/" /etc/ssh/sshd_config
+service ssh restart && echo "Please login ssh with new user created" && exit
+
+##################################
+# ufw
+##################################
+sudo apt-get install -y ufw
+
+# define firewall rules
+sudo ufw logging low
+sudo ufw default allow outgoing
+sudo ufw default deny incoming
+
+# ssh
+CURRENT_SSH_PORT=$(grep "Port" /etc/ssh/sshd_config | awk -F " " '{print $2}') && echo $CURRENT_SSH_PORT
+sudo ufw allow ??
+
+# smtp
+sudo ufw allow 25
+    #sudo ufw allow 465
+    #sudo ufw allow 587
+
+# pop3
+sudo ufw allow 110
+    #sudo ufw allow 995
+
+# imap
+sudo ufw allow 143
+    #sudo ufw allow 993
+
+# nginx
+sudo ufw allow http
+sudo ufw allow https
+
+#ntp
+sudo ufw allow 123
+
+sudo ufw show added
+sudo ufw enable
+service ssh restart
+
+##################################
+# Install MariaDB 10.3
+##################################
+wget -qO mariadb_repo_setup https://downloads.mariadb.com/MariaDB/mariadb_repo_setup && chmod +x mariadb_repo_setup && ./mariadb_repo_setup --mariadb-server-version=10.3 --skip-maxscale -y && rm mariadb_repo_setup && sudo apt-get update && sudo apt-get install -y mariadb-server
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/my.cnf > /etc/mysql/conf.d/my.cnf
+mysql_secure_installation
+  	# Change the root password? n
+  	# Remove anonymous users? Y
+  	# Disallow root login remotely? Y
+  	# Remove test database and access to it? Y
+  	# Reload privilege tables now? Y
+
+# stop mysql service to apply new InnoDB log file size
+sudo service mysql stop
+
+# mv previous log file
+sudo mv /var/lib/mysql/ib_logfile0 /var/lib/mysql/ib_logfile0.bak
+sudo mv /var/lib/mysql/ib_logfile1 /var/lib/mysql/ib_logfile1.bak
+
+# increase mariadb open_files_limit
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/limits.conf > /etc/systemd/system/mariadb.service.d/limits.conf
+
+# reload daemon
+systemctl daemon-reload
+
+# restart mysql
+service mysql start
+
+# change default `root` username to `panglima`
+mysql -u root -p
+show databases; use mysql; update user set user='panglima' where user='root'; flush privileges; exit;
+
+# check performance tuning
+mkdir /opt/mysql-tuner && cd /opt/mysql-tuner && wget https://github.com/major/MySQLTuner-perl/tarball/master && tar xf master && cd major-MySQLTuner-perl-* && ./mysqltuner.pl
+
+# optimize and repair databases
+mysqlcheck -u panglima -p --auto-repair -o --optimize --all-databases
+
+##################################
+# Install php7.3-fpm
+##################################
+sudo apt-get install -y php7.3-fpm php7.3-common php7.3-opcache php7.3-readline php7.3-json php7.3-bcmath php7.3-bz2 php7.3-cli php7.3-curl php7.3-dev php7.3-gd php-imagick php7.3-intl php7.3-ldap php7.3-mbstring php7.3-mysql php7.3-soap php7.3-sqlite3 php7.3-sybase php-xdebug php7.3-xml php7.3-xmlrpc php7.3-xsl php7.3-zip
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-fpm/php.ini > /etc/php/7.3/fpm/php.ini
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-fpm/www.conf > /etc/php/7.3/fpm/pool.d/www.conf
+sudo service php7.3-fpm restart && php -v
+
+# if you want to switch the default version to other php version
+update-alternatives --config php
+
+# check default php version you've picked
+php -v
+
+##################################
+# Install PhpMyAdmin 4.8.3
+##################################
+mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.8.3/phpMyAdmin-4.8.3-english.zip && unzip phpMyAdmin-4.8.3-english.zip && mv phpMyAdmin-4.8.3-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php && chown -R www-data:www-data /var/www/phpmyadmin
+
+# custom config
+sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = 'spalDing46muLti99Balkans';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /var/www/phpmyadmin/config.inc.php
+sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/phpmyadmin/config.inc.php
+
+# modificate auth
+nano /var/www/phpmyadmin/libraries/plugins/auth/AuthenticationCookie.php
+
+# paste key & token params checker, after line 87: $header->disableWarnings();
+if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
+
+# create server block: data-phpmyadmin
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/data-phpmyadmin > /etc/nginx/sites-available/data-phpmyadmin && sudo ln -s /etc/nginx/sites-available/data-phpmyadmin /etc/nginx/sites-enabled/
+
+# check, then reload
+nginx -t
+service nginx reload
+
+# Go to data.[DOMAIN]/index.php with key & token params
+
+##################################
+# Configure Fail2ban
+##################################
+cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/jail.local > /etc/fail2ban/jail.local
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-dos.conf > /etc/fail2ban/filter.d/nginx-dos.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-req-limit.conf > /etc/fail2ban/filter.d/nginx-req-limit.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-badrequests.conf > /etc/fail2ban/filter.d/nginx-badrequests.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-noproxy.conf > /etc/fail2ban/filter.d/nginx-noproxy.conf
+cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf
+service fail2ban restart && fail2ban-client status
+
+# show status of all fail2ban jails at once
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/fail2ban-allstatus.sh > /etc/fail2ban/fail2ban-allstatus.sh
+chmod 755 /etc/fail2ban/fail2ban-allstatus.sh
+cp /etc/fail2ban/fail2ban-allstatus.sh /usr/bin/.
+fail2ban-allstatus.sh
+
+##################################
+# Install Let's Encrypt
+##################################
+sudo apt-get install software-properties-common && sudo add-apt-repository ppa:certbot/certbot
+sudo apt-get update && sudo apt-get install -y letsencrypt
+
+# HTTPS: create Diffie-Hellman keys
+openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
+
+# HTTPS: create ACME-challenge common directory
+mkdir -p /var/www/_letsencrypt && chown -R www-data:www-data /var/www/_letsencrypt
+
+# HTTPS: certbot (obtain certificates)
+# disable before first run: ssl_certificate, ssl_certificate_key, ssl_trusted_certificate
+certbot certonly --webroot -d [YOUR_DOMAIN] -d www.[YOUR_DOMAIN] -d dev.[YOUR_DOMAIN] -d data.[YOUR_DOMAIN] -d mail.[YOUR_DOMAIN] -d webmail.[YOUR_DOMAIN] --email aymarxp@gmail.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
+
+# configure nginx
+# to perform SSL
+
+# testing SSL grade
+# open https://www.ssllabs.com/ssltest
+
+# Let’s Encrypt certs expire after 90 days
+# since Ubuntu 17.10, Certbot will automatically run twice a day and renew any certificate that is within thirty days of expiration
+# to test the renewal process is working correctly, you can use "dry-run" option:
+certbot renew --dry-run
+
+##################################
+# Install Codiad 2.8.4
+##################################
+cd /var/www/master && rm -rf ide && wget https://github.com/Codiad/Codiad/archive/v.2.8.4.zip && unzip v.2.8.4.zip && mv Codiad-v.2.8.4 ide && rm -rf v.2.8.4.zip && chown -R www-data:www-data ide && chmod -R 775 ide && nano ide/index.php
+
+# add this to index.php line 2:
+	if(!isset($_GET['key']) && !isset($_GET['token'])) {exit;}
+
+# edit index.php, find replace line 30: <title><?php i18n("CODIAD"); ?></title>
+	<title>IDE</title>
+
+# find replace label input username and label input password on line 128-132:
+	<label style="display:none;"><span class="icon-user login-icon"></span> <?php i18n("Username"); ?></label>
+	<input type="password" name="username" autofocus="autofocus" autocomplete="off" style="color:#2f2f2f;border-bottom:2px solid #343434;">
+	<label style="display:none;"><span class="icon-lock login-icon"></span> <?php i18n("Password"); ?></label>
+	<input type="password" name="password" style="color:#2f2f2f;border-bottom:2px solid #343434;">
+
+# add display none to line 161: <button><?php i18n("Login"); ?></button>
+	<button style="display:none;"><?php i18n("Login"); ?></button>
+
+# add display none to line 163: <a class="show-language-selector"><?php i18n("More"); ?></a>
+	<a class="show-language-selector" style="display:none;"><?php i18n("More"); ?></a>
+
+# Go to [IP_OR_DOMAIN]/codiad/index.php with key & token params. Setup it and fill `Absolute Path` with folder path you want to manage
+
+# Editor Settings
+    ## Theme: Monokai
+    ## Font Size: 15px
+    ## Wrap Lines: Wrap Lines
+    ## Soft Tabs: Yes
+
+# System Settings
+    ## Filemanager Trigger: Single Click
+
+##################################
+# Install Google Drive (64 bit)
+##################################
+cd / && wget https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download && mv uc\?id\=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA gdrive && chmod +x gdrive
+
+# insert verification code
+./gdrive about
+
+# install
+sudo install gdrive /usr/local/bin/gdrive && gdrive version
+
+# view list
+gdrive list
+
+# download file
+gdrive download fileId
+
+# create directory
+gdrive mkdir dirname
+
+# upload file
+gdrive upload --parent <Folder_ID> filename.tar.gz
+
+# To see <Folder_ID>, just run: gdrive list
+
+##################################
+# Install Clamav
+##################################
+sudo apt-get install clamav clamav-daemon clamav-freshclam && clamdscan -V
+sudo /etc/init.d/clamav-freshclam stop
+sudo freshclam
+sudo /etc/init.d/clamav-freshclam start
+
+# enable notify and schedule the scan
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/clamscan_daily.sh > /clamscan_daily.sh
+chmod +x /clamscan_daily.sh && chmod 0755 /clamscan_daily.sh
+
+# add script to crontab
+	# Let’s create a hard link as below:
+	ln /clamscan_daily.sh /etc/cron.daily/clamscan_daily
+	# Check to make sure that the hard link was created:
+	# ls -li /etc/cron.daily/clamscan_daily
+
+# if you get the following error: LibClamAV Error: cli_loaddb(): No supported database files found in /var/lib/clamav/
+# just update the database manually:
+freshclam -v
+
+# if you get the following error: Clamd was NOT notified
+# just restart the daemon
+service clamav-daemon restart
