@@ -151,9 +151,10 @@ curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/m
 curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/whitelist-ips.conf > /etc/nginx/bots.d/whitelist-ips.conf
 curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/blacklist-ips.conf > /etc/nginx/bots.d/blacklist-ips.conf
 
-# create directory: master
+[MASTER]
+# create directory
 mkdir -p /var/www/master && cd /var/www/master && echo "<h1>It works! #master</h1>" > index.php && chown -R www-data:www-data /var/www/master
-# create server block: www-master
+# create server block
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/01-www-master.conf > /etc/nginx/sites-available/01-www-master.conf && sudo ln -s /etc/nginx/sites-available/01-www-master.conf /etc/nginx/sites-enabled/
 # edit server_name with your domain
 nano /etc/nginx/sites-available/01-www-master.conf
@@ -162,42 +163,45 @@ systemctl reload nginx
 curl -l http://acehunited.com
 curl -l http://www.acehunited.com
 
-# create directory: development
+[DEVELOPMENT]
+# create directory
 mkdir -p /var/www/development && cd /var/www/development && echo "<h1>It works! #development</h1>" > index.php && chown -R www-data:www-data /var/www/development
-# create server block: dev-development
+# create server block
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/02-dev-development.conf > /etc/nginx/sites-available/02-dev-development.conf && sudo ln -s /etc/nginx/sites-available/02-dev-development.conf /etc/nginx/sites-enabled/
-# edit server_name with your domain
+# edit server_name with valid subdomain
 nano /etc/nginx/sites-available/02-dev-development.conf
 nginx -t
 systemctl reload nginx
 curl -l http://dev.acehunited.com
 
-# create directory: data
+[DATA]
+# create directory
 mkdir -p /var/www/data && cd /var/www/data && echo "<h1>It works! #phpmyadmin</h1>" > index.php && chown -R www-data:www-data /var/www/data
-# create server block: data-phpmyadmin
+# create server block
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/03-data-phpmyadmin.conf > /etc/nginx/sites-available/03-data-phpmyadmin.conf && sudo ln -s /etc/nginx/sites-available/03-data-phpmyadmin.conf /etc/nginx/sites-enabled/
-# edit server_name with your domain
+# edit server_name with valid subdomain
 nano /etc/nginx/sites-available/03-data-phpmyadmin.conf
 nginx -t
 systemctl reload nginx
 curl -l http://data.acehunited.com
 
-https://github.com/achyaryalyal/fastron/blob/master/nginx/00-webmail.conf
-# create directory: webmail
+[WEBMAIL]
+# create directory
 mkdir -p /var/www/webmail && cd /var/www/webmail && echo "<h1>It works! #webmail</h1>" > index.php && chown -R www-data:www-data /var/www/webmail
-# modify server block: webmail-default
+# modify server block
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/00-webmail.conf > /etc/nginx/sites-available/00-webmail.conf && sudo ln -s /etc/nginx/sites-available/00-webmail.conf /etc/nginx/sites-enabled/
-# edit server_name with your domain
+# edit server_name with valid subdomain
 nano /etc/nginx/sites-available/00-webmail.conf
 nginx -t
 systemctl reload nginx
 curl -l http://webmail.acehunited.com
 
-# create directory: mail
+[MAIL]
+# create directory
 mkdir -p /var/www/mail && cd /var/www/mail && echo "<h1>It works! #mail</h1>" > index.php && chown -R www-data:www-data /var/www/mail
-# modify server block: mail-default
+# modify server block
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/00-default.conf > /etc/nginx/sites-available/00-default.conf && sudo ln -s /etc/nginx/sites-available/00-default.conf /etc/nginx/sites-enabled/
-# edit server_name with your domain
+# edit server_name with valid subdomain
 nano /etc/nginx/sites-available/00-default.conf
 nginx -t
 systemctl reload nginx
@@ -217,8 +221,10 @@ ssl_certificate /etc/letsencrypt/live/acehunited.com/fullchain.pem;
 ssl_certificate_key /etc/letsencrypt/live/acehunited.com/privkey.pem;
 
 nano /etc/nginx/sites-available/00-default.conf
-# after server_name add this line:
-return 301 https://$host$request_uri;
+# uncomment line "return 301"
+
+nano /etc/nginx/sites-available/00-webmail.conf
+# uncomment line "return 301", just in listen 80 server block
 
 nginx -t
 systemctl reload nginx
