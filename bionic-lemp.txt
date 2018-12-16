@@ -24,6 +24,32 @@ hostnamectl set-hostname mail.[YOUR_DOMAIN] && hostname
 sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && apt-get autoclean -y
 # configuring openssh-server? choose "Keep the local version currently installed"
 
+##################################
+# Useful packages
+##################################
+sudo apt-get install -y haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database
+
+# configure timezone. Select: Asia->Jakarta
+sudo systemctl enable ntp && dpkg-reconfigure tzdata && date
+
+# increase history size
+export HISTSIZE=10000
+
+# nanorc - Improved Nano Syntax Highlighting Files
+wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -qO- | sh
+
+# open_files limits
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.limits.conf > /etc/security/limits.conf
+
+# secure shared memory
+> /etc/fstab && echo "none /run/shm tmpfs defaults,ro 0 0" >>/etc/fstab
+
+# IP hardening
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-sec.conf > /etc/sysctl.d/50-ip-sec.conf && sudo sysctl --system
+
+##################################
+# Install iRedMail
+##################################
 nano /etc/hosts
 
 # edit 127.* line with your domain:
@@ -95,21 +121,76 @@ systemctl restart ssh
 
 reboot
 
-mv /var/www/html /var/www/mail && nano /etc/nginx/sites-available/00-default-ssl.conf
+##################################
+# Configure php7.2-fpm
+##################################
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.2-fpm/php.ini > /etc/php/7.2/fpm/php.ini
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.2-fpm/www.conf > /etc/php/7.2/fpm/pool.d/www.conf
+systemctl restart php7.2-fpm && php -v
 
-# edit root:
-root /var/www/mail;
+##################################
+# Configure nginx
+##################################
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf && cat /proc/cpuinfo | grep processor
+# configure worker_processes ===> cat /proc/cpuinfo | grep processor
+nano nginx.conf
+
+nano /etc/nginx/templates/fastcgi_php
+# replace the php_workers with tcp address on line 13
+fastcgi_pass 127.0.0.1:9000;
+
+# add bad bot blocker & general configuration
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/general.conf > /etc/nginx/general.conf
+curl -sSL https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/conf.d/globalblacklist.conf > /etc/nginx/conf.d/globalblacklist.conf
+mkdir -p /etc/nginx/bots.d
+curl -sSL https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/bots.d/blacklist-user-agents.conf > /etc/nginx/bots.d/blacklist-user-agents.conf
+curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/whitelist-domains.conf > /etc/nginx/bots.d/whitelist-domains.conf
+curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/bad-referrer-words.conf > /etc/nginx/bots.d/bad-referrer-words.conf
+curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/custom-bad-referrers.conf > /etc/nginx/bots.d/custom-bad-referrers.conf
+curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/whitelist-ips.conf > /etc/nginx/bots.d/whitelist-ips.conf
+curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/blacklist-ips.conf > /etc/nginx/bots.d/blacklist-ips.conf
+
+# change mail-webmail directory
+mv /var/www/html /var/www/webmail && nano /etc/nginx/sites-available/00-default-ssl.conf
+# edit server block: mail-webmail
+root /var/www/webmail;
+
+# create directory: master
+mkdir -p /var/www/master && cd /var/www/master && echo "<h1>It works! #master</h1>" > index.php && chown -R www-data:www-data /var/www/master
+# create server block: www-master
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/01-www-master.conf > /etc/nginx/sites-available/01-www-master.conf && sudo ln -s /etc/nginx/sites-available/01-www-master.conf /etc/nginx/sites-enabled/
+# edit server_name with your domain
+nano /etc/nginx/sites-available/01-www-master.conf
+
+# create directory: development
+mkdir -p /var/www/development && cd /var/www/development && echo "<h1>It works! #development</h1>" > index.php && chown -R www-data:www-data /var/www/development
+# create server block: dev-development
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/02-dev-development.conf > /etc/nginx/sites-available/02-dev-development.conf && sudo ln -s /etc/nginx/sites-available/02-dev-development.conf /etc/nginx/sites-enabled/
+# edit server_name with your domain
+nano /etc/nginx/sites-available/02-dev-development.conf
+
+# create directory: phpmyadmin
+mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && echo "<h1>It works! #phpmyadmin</h1>" > index.php && chown -R www-data:www-data /var/www/phpmyadmin
+# create server block: data-phpmyadmin
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/03-data-phpmyadmin.conf > /etc/nginx/sites-available/03-data-phpmyadmin.conf && sudo ln -s /etc/nginx/sites-available/03-data-phpmyadmin.conf /etc/nginx/sites-enabled/
+# edit server_name with your domain
+nano /etc/nginx/sites-available/03-data-phpmyadmin.conf
+
+###############
+# create server block: redirect-webmail
+#curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/04-redirect-webmail.conf > /etc/nginx/sites-available/04-redirect-webmail.conf && sudo ln -s /etc/nginx/sites-available/04-redirect-webmail.conf /etc/nginx/sites-enabled/
+# edit server_name with your domain
+#nano /etc/nginx/sites-available/04-redirect-webmail.conf
+###############
 
 nginx -t
 systemctl reload nginx
 
-..
-..
-..
-
 apt install -y software-properties-common && add-apt-repository ppa:certbot/certbot && apt install -y certbot && openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
 
-certbot certonly --webroot --agree-tos --force-renewal --email aymarxp@gmail.com -d acehunited.com www.acehunited.com -w /var/www/master/ -d mail.acehunited.com -w /var/www/mail/ -d data.acehunited.com -w /var/www/data/ -d dev.acehunited.com -w /var/www/development/
+certbot certonly --webroot --agree-tos --email aymarxp@gmail.com -d acehunited.com www.acehunited.com -w /var/www/master/ -d mail.acehunited.com -w /var/www/webmail/ -d dev.acehunited.com -w /var/www/development/ -d data.acehunited.com -w /var/www/phpmyadmin/
+
+certbot certonly --force-renewal -a webroot -w /var/www/onlinedegreedatabase.com/public_html -d www.onlinedegreedatabase.com -w /var/www/onlinedegreedatabase.com/public_html -d onlinedegreedatabase.com
 
 nano /etc/nginx/templates/ssl.tmpl
 
@@ -205,28 +286,21 @@ sed -i "s/PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
 sed -i "s/X11Forwarding yes/X11Forwarding no/" /etc/ssh/sshd_config
 service ssh restart && echo "Please login ssh with new user created" && exit
 
-##################################
-# Useful packages
-##################################
-sudo apt-get install -y haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database
 
-# configure timezone. Select: Asia->Jakarta
-sudo systemctl enable ntp && dpkg-reconfigure tzdata && date
 
-# increase history size
-export HISTSIZE=10000
 
-# nanorc - Improved Nano Syntax Highlighting Files
-wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -qO- | sh
 
-# open_files limits
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.limits.conf > /etc/security/limits.conf
 
-# secure shared memory
-> /etc/fstab && echo "none /run/shm tmpfs defaults,ro 0 0" >>/etc/fstab
 
-# IP hardening
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-sec.conf > /etc/sysctl.d/50-ip-sec.conf && sudo sysctl --system
+
+
+
+
+
+
+
+
+
 
 ##################################
 # Install DKIM and Postfix
@@ -324,29 +398,6 @@ update-alternatives --config php
 
 # check default php version you've picked
 php -v
-
-##################################
-# Install nginx
-##################################
-sudo apt-get install -y nginx nginx-extras && nginx -v
-
-# configure worker_processes ===> cat /proc/cpuinfo | grep processor
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf && cat /proc/cpuinfo | grep processor
-nano nginx.conf
-
-# add bad bot blocker & general configuration
-curl -sSL https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/conf.d/globalblacklist.conf > /etc/nginx/conf.d/globalblacklist.conf
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/general.conf > /etc/nginx/general.conf
-
-# create new index.php file
-rm -rf /var/www/html /etc/nginx/sites-available/default /etc/nginx/sites-enabled/default && mkdir -p /var/www/master && echo "<html><body><h2>Welcome to Nginx! My name is $(hostname).</h2></body></html>" | sudo tee -a /var/www/master/index.php
-
-# create server block: www-master
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/www-master > /etc/nginx/sites-available/www-master && sudo ln -s /etc/nginx/sites-available/www-master /etc/nginx/sites-enabled/
-
-# check, then reload
-nginx -t
-service nginx reload
 
 ##################################
 # Install PhpMyAdmin 4.8.3
