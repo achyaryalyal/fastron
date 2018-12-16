@@ -133,6 +133,16 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.2-f
 systemctl restart php7.2-fpm && php -v
 
 ##################################
+# Configure MariaDB
+##################################
+mysql_secure_installation
+  	# Change the root password? n
+  	# Remove anonymous users? Y
+  	# Disallow root login remotely? Y
+  	# Remove test database and access to it? Y
+  	# Reload privilege tables now? Y
+
+##################################
 # Configure nginx
 ##################################
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf && cat /proc/cpuinfo | grep processor
@@ -272,19 +282,21 @@ systemctl reload dovecot
 
 https://mail.acehunited.com/mail/
 
-####################################################################
+------------------------------------------------------------------------
 Using Mail Clients on Your Computer or Mobile Device
+------------------------------------------------------------------------
 Incoming: IMAP
 	server: mail.acehunited.com
 	port: 993
 	security: SSL/TLS
 	authentication: Normal password
+------------------------------------------------------------------------
 Outgoing: SMTP
 	server: mail.acehunited.com
 	port: 587
 	security: STARTTLS
 	authentication: Normal password
-####################################################################
+------------------------------------------------------------------------
 
 ##################################
 # Show PTR record
@@ -313,46 +325,32 @@ TXT-----dkim._domainkey-----v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVc0
 # try to send email from an iredmail account to a gmail account. If you click the show original button in Gmail, you should see "dkim=pass"
 
 ##################################
-# Configure MariaDB 10.1
+# Install PhpMyAdmin 4.8.4
 ##################################
-mysql_secure_installation
-  	# Change the root password? n
-  	# Remove anonymous users? Y
-  	# Disallow root login remotely? Y
-  	# Remove test database and access to it? Y
-  	# Reload privilege tables now? Y
+mkdir -p /var/www/data && cd /var/www/data && wget https://files.phpmyadmin.net/phpMyAdmin/4.8.4/phpMyAdmin-4.8.4-english.zip && unzip phpMyAdmin-4.8.4-english.zip && mv phpMyAdmin-4.8.4-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php && chown -R www-data:www-data /var/www/data
 
-# stop mysql service to apply new InnoDB log file size
-sudo service mysql stop
+# custom config
+sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = 'spalDing46muLti99Balkans';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /var/www/data/config.inc.php
+sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /var/www/data/config.inc.php
+sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/data/config.inc.php
+sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/data/config.inc.php
 
-# mv previous log file
-sudo mv /var/lib/mysql/ib_logfile0 /var/lib/mysql/ib_logfile0.bak
-sudo mv /var/lib/mysql/ib_logfile1 /var/lib/mysql/ib_logfile1.bak
+# modificate auth
+nano /var/www/data/libraries/plugins/auth/AuthenticationCookie.php
 
-# increase mariadb open_files_limit
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/limits.conf > /etc/systemd/system/mariadb.service.d/limits.conf
+# paste key & token params checker, after line 87: $header->disableWarnings();
+if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
 
-# reload daemon
-systemctl daemon-reload
+nginx -t
+service nginx reload
 
-# restart mysql
-service mysql start
-
-# change default `root` username to `panglima`
-mysql -u root -p
-show databases; use mysql; update user set user='panglima' where user='root'; flush privileges; exit;
-
-# check performance tuning
-mkdir /opt/mysql-tuner && cd /opt/mysql-tuner && wget https://github.com/major/MySQLTuner-perl/tarball/master && tar xf master && cd major-MySQLTuner-perl-* && ./mysqltuner.pl
-
-# optimize and repair databases
-mysqlcheck -u panglima -p --auto-repair -o --optimize --all-databases
+# go to data.[DOMAIN]/index.php with key & token params
 
 
 
+------------------------------------------------------------------------
 
 
-----------------------------------
 
 ##################################
 # Add new user with root privilages
