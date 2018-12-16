@@ -128,6 +128,7 @@ reboot
 ##################################
 # Configure php7.2-fpm
 ##################################
+sudo mount -o rw,remount /
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.2-fpm/php.ini > /etc/php/7.2/fpm/php.ini
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.2-fpm/www.conf > /etc/php/7.2/fpm/pool.d/www.conf
 systemctl restart php7.2-fpm && php -v
