@@ -33,20 +33,8 @@ sudo apt-get install -y zip unzip ntp geoip-bin geoip-database
 # configure timezone. Select: Asia->Jakarta
 sudo systemctl enable ntp && dpkg-reconfigure tzdata && date
 
-# increase history size
-export HISTSIZE=10000
-
 # nanorc - Improved Nano Syntax Highlighting Files
 wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -qO- | sh
-
-# open_files limits
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.limits.conf > /etc/security/limits.conf
-
-# secure shared memory
-> /etc/fstab && echo "none /run/shm tmpfs defaults,ro 0 0" >>/etc/fstab
-
-# IP hardening
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-sec.conf > /etc/sysctl.d/50-ip-sec.conf && sudo sysctl --system
 
 ##################################
 # Install iRedMail
