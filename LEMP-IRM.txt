@@ -226,6 +226,10 @@ nano /etc/nginx/sites-available/00-default.conf
 nano /etc/nginx/sites-available/00-webmail.conf
 # uncomment line "return 301", just in listen 80 server block
 
+nano /etc/nginx/sites-available/00-default-ssl.conf
+# change root to:
+root /opt/www/roundcubemail;
+
 nginx -t
 systemctl reload nginx
 
