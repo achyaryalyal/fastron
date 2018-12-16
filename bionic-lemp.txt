@@ -61,7 +61,7 @@ cd /opt && wget https://bitbucket.org/zhb/iredmail/downloads/iRedMail-0.9.8.tar.
 * You can login to above links with below credential:
 *
 * - Username: postmaster@acehunited.com
-* - Password: k2566964
+* - Password: ........
 *
 *
 ********************************************************************
@@ -77,6 +77,28 @@ cd /opt && wget https://bitbucket.org/zhb/iredmail/downloads/iRedMail-0.9.8.tar.
 * Please reboot your system to enable all mail services.
 *
 ********************************************************************
+
+# before reboot, edit ssh configuration
+nano /etc/ssh/sshd_config
+
+# uncomment line for:
+Port
+Hostkey
+SyslogFacility
+LogLevel
+PermitRootLogin
+StrictModes
+PubkeyAuthentication
+PasswordAuthentication
+PermitEmptyPasswords
+ChallengeResponseAuthentication
+UsePAM
+X11Forwarding
+PrintMotd
+AcceptEnv
+Subsystem
+
+systemctl restart ssh
 
 reboot
 
