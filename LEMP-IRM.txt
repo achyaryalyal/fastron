@@ -116,7 +116,7 @@ reboot
 ##################################
 # Configure php7.2-fpm
 ##################################
-sudo mount -o rw,remount /
+## if read only, run: sudo mount -o rw,remount /
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.2-fpm/php.ini > /etc/php/7.2/fpm/php.ini
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.2-fpm/www.conf > /etc/php/7.2/fpm/pool.d/www.conf
 systemctl restart php7.2-fpm && php -v
@@ -134,11 +134,13 @@ mysql_secure_installation
 ##################################
 # Configure nginx
 ##################################
+# install nginx-extras intead of nginx-full
+apt-get install -y nginx-extras
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf && cat /proc/cpuinfo | grep processor
 # configure worker_processes ===> cat /proc/cpuinfo | grep processor
-nano nginx.conf
+nano /etc/nginx/nginx.conf
 
-nano /etc/nginx/templates/fastcgi_php
+nano /etc/nginx/templates/fastcgi_php.tmpl
 # replace the php_workers with tcp address on line 13
 fastcgi_pass 127.0.0.1:9000;
 
@@ -154,21 +156,16 @@ curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/m
 curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/blacklist-ips.conf > /etc/nginx/bots.d/blacklist-ips.conf
 
 [MASTER]
-# create directory
 mkdir -p /var/www/master && cd /var/www/master && echo "<h1>It works! #master</h1>" > index.php && chown -R www-data:www-data /var/www/master
-# create server block
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/01-www-master.conf > /etc/nginx/sites-available/01-www-master.conf && sudo ln -s /etc/nginx/sites-available/01-www-master.conf /etc/nginx/sites-enabled/
 # edit server_name with your domain
 nano /etc/nginx/sites-available/01-www-master.conf
 nginx -t
 systemctl reload nginx
 curl -l http://acehunited.com
-curl -l http://www.acehunited.com
 
 [DEVELOPMENT]
-# create directory
 mkdir -p /var/www/development && cd /var/www/development && echo "<h1>It works! #development</h1>" > index.php && chown -R www-data:www-data /var/www/development
-# create server block
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/02-dev-development.conf > /etc/nginx/sites-available/02-dev-development.conf && sudo ln -s /etc/nginx/sites-available/02-dev-development.conf /etc/nginx/sites-enabled/
 # edit server_name with valid subdomain
 nano /etc/nginx/sites-available/02-dev-development.conf
@@ -177,9 +174,7 @@ systemctl reload nginx
 curl -l http://dev.acehunited.com
 
 [DATA]
-# create directory
 mkdir -p /var/www/data && cd /var/www/data && echo "<h1>It works! #phpmyadmin</h1>" > index.php && chown -R www-data:www-data /var/www/data
-# create server block
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/03-data-phpmyadmin.conf > /etc/nginx/sites-available/03-data-phpmyadmin.conf && sudo ln -s /etc/nginx/sites-available/03-data-phpmyadmin.conf /etc/nginx/sites-enabled/
 # edit server_name with valid subdomain
 nano /etc/nginx/sites-available/03-data-phpmyadmin.conf
@@ -188,9 +183,7 @@ systemctl reload nginx
 curl -l http://data.acehunited.com
 
 [WEBMAIL]
-# create directory
 mkdir -p /var/www/webmail && cd /var/www/webmail && echo "<h1>It works! #webmail</h1>" > index.php && chown -R www-data:www-data /var/www/webmail
-# modify server block
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/00-webmail.conf > /etc/nginx/sites-available/00-webmail.conf && sudo ln -s /etc/nginx/sites-available/00-webmail.conf /etc/nginx/sites-enabled/
 # edit server_name with valid subdomain
 nano /etc/nginx/sites-available/00-webmail.conf
@@ -199,9 +192,7 @@ systemctl reload nginx
 curl -l http://webmail.acehunited.com
 
 [MAIL]
-# create directory
 mkdir -p /var/www/mail && cd /var/www/mail && echo "<h1>It works! #mail</h1>" > index.php && chown -R www-data:www-data /var/www/mail
-# modify server block
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/00-default.conf > /etc/nginx/sites-available/00-default.conf && sudo ln -s /etc/nginx/sites-available/00-default.conf /etc/nginx/sites-enabled/
 # edit server_name with valid subdomain
 nano /etc/nginx/sites-available/00-default.conf
@@ -213,8 +204,11 @@ curl -l http://mail.acehunited.com
 # Install Let's Encrypt
 ##################################
 apt install -y software-properties-common && add-apt-repository ppa:certbot/certbot && apt install -y certbot && openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
+# press [ENTER]
 
 certbot certonly --force-renewal --agree-tos --email aymarxp@gmail.com -a webroot --expand --webroot-path=/var/www/master/ -d acehunited.com -d www.acehunited.com --webroot-path=/var/www/mail/ -d mail.acehunited.com --webroot-path=/var/www/webmail/ -d webmail.acehunited.com --webroot-path=/var/www/development/ -d dev.acehunited.com --webroot-path=/var/www/data/ -d data.acehunited.com
+
+# would you like to receive EFF news? "n"
 
 nano /etc/nginx/templates/ssl.tmpl
 
@@ -309,8 +303,8 @@ TXT-----_dmarc---v=DMARC1;p=none
 ##################################
 nano /opt/iRedMail-0.9.8/iRedMail.tips
 # copy DKIM, add to DNS record
-TXT-----dkim._domainkey-----v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVc0gNXsWsX+SqnTPSFkYxmD/Kr9kQ8uUBiUDqTa0CCJCkcg1GkdJmKjD/0JUgtHBFD8DoQIvj4Kr1lyBLFEUZJgjevbJfG0CzzIjLZZEhvqFy6ff6MYsl8FQRJMv8MOfJy9Z9Rj9P03TlLLrrbUVcKKtllUNMYq/O5nAFSQpM7QIDAQAB
-
+TXT-----dkim._domainkey-----v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCW8yLoCLYtV995QzRPYjcg9kxdO2yi7JaB2DJkkBRMmeA3jwUTuJ9t61ockNpVPRa7b1BjaCAbfHcfhm+UXEpffBXSNHvwakxt1HJx7Omqcok3xMB3yyU8fEWh3WFAucnUWHmy/EipgL8D4QkKTRMl6tNH+eaPmGSHeKhdb4y5xwIDAQAB
+  
 # try to send email from an iredmail account to a gmail account. If you click the show original button in Gmail, you should see "dkim=pass"
 
 ##################################
@@ -325,13 +319,12 @@ sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/data/config.inc.php
 sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/data/config.inc.php
 
 # modificate auth
-nano /var/www/data/libraries/plugins/auth/AuthenticationCookie.php
+nano /var/www/data/libraries/classes/Plugins/Auth/AuthenticationCookie.php
 
-# paste key & token params checker, after line 87: $header->disableWarnings();
+# paste key & token params checker
+# after: public function showLoginForm() {
+# before: global $conn_error;
 if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
-
-nginx -t
-service nginx reload
 
 # go to data.[DOMAIN]/index.php with key & token params
 
@@ -431,9 +424,12 @@ systemctl daemon-reload
 # restart mysql
 service mysql start
 
-# change default `root` username to `panglima`
+# add new user `panglima`
 mysql -u root -p
-show databases; use mysql; update user set user='panglima' where user='root'; flush privileges; exit;
+CREATE USER 'panglima'@'localhost' IDENTIFIED BY 'yourpassword';
+GRANT ALL PRIVILEGES ON *.* TO 'panglima'@'localhost';
+flush privileges;
+exit;
 
 # check performance tuning
 mkdir /opt/mysql-tuner && cd /opt/mysql-tuner && wget https://github.com/major/MySQLTuner-perl/tarball/master && tar xf master && cd major-MySQLTuner-perl-* && ./mysqltuner.pl
