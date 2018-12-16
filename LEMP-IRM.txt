@@ -71,7 +71,7 @@ cd /opt && wget https://bitbucket.org/zhb/iredmail/downloads/iRedMail-0.9.8.tar.
 # at the end of installation, choose "y" to use firewall rules provided by iRedMail and restart firewall
 # if you get the ClamAV error
 # just update the database manually
-systemctl stop clamav-freshclam.service && freshclam -v
+systemctl stop clamav-freshclam.service && freshclam -v && systemctl start clamav-freshclam.service
 
 ********************************************************************
 * URLs of installed web applications:
