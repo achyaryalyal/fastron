@@ -150,17 +150,16 @@ curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/m
 curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/whitelist-ips.conf > /etc/nginx/bots.d/whitelist-ips.conf
 curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/blacklist-ips.conf > /etc/nginx/bots.d/blacklist-ips.conf
 
-# change mail-webmail directory
-mv /var/www/html /var/www/webmail && nano /etc/nginx/sites-available/00-default-ssl.conf
-# edit server block: mail-webmail
-root /var/www/webmail;
-
 # create directory: master
 mkdir -p /var/www/master && cd /var/www/master && echo "<h1>It works! #master</h1>" > index.php && chown -R www-data:www-data /var/www/master
 # create server block: www-master
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/01-www-master.conf > /etc/nginx/sites-available/01-www-master.conf && sudo ln -s /etc/nginx/sites-available/01-www-master.conf /etc/nginx/sites-enabled/
 # edit server_name with your domain
 nano /etc/nginx/sites-available/01-www-master.conf
+nginx -t
+systemctl reload nginx
+curl -l http://acehunited.com
+curl -l http://www.acehunited.com
 
 # create directory: development
 mkdir -p /var/www/development && cd /var/www/development && echo "<h1>It works! #development</h1>" > index.php && chown -R www-data:www-data /var/www/development
@@ -168,64 +167,77 @@ mkdir -p /var/www/development && cd /var/www/development && echo "<h1>It works! 
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/02-dev-development.conf > /etc/nginx/sites-available/02-dev-development.conf && sudo ln -s /etc/nginx/sites-available/02-dev-development.conf /etc/nginx/sites-enabled/
 # edit server_name with your domain
 nano /etc/nginx/sites-available/02-dev-development.conf
+nginx -t
+systemctl reload nginx
+curl -l http://dev.acehunited.com
 
-# create directory: phpmyadmin
-mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && echo "<h1>It works! #phpmyadmin</h1>" > index.php && chown -R www-data:www-data /var/www/phpmyadmin
+# create directory: data
+mkdir -p /var/www/data && cd /var/www/data && echo "<h1>It works! #phpmyadmin</h1>" > index.php && chown -R www-data:www-data /var/www/data
 # create server block: data-phpmyadmin
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/03-data-phpmyadmin.conf > /etc/nginx/sites-available/03-data-phpmyadmin.conf && sudo ln -s /etc/nginx/sites-available/03-data-phpmyadmin.conf /etc/nginx/sites-enabled/
 # edit server_name with your domain
 nano /etc/nginx/sites-available/03-data-phpmyadmin.conf
-
-###############
-# create server block: redirect-webmail
-#curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/04-redirect-webmail.conf > /etc/nginx/sites-available/04-redirect-webmail.conf && sudo ln -s /etc/nginx/sites-available/04-redirect-webmail.conf /etc/nginx/sites-enabled/
-# edit server_name with your domain
-#nano /etc/nginx/sites-available/04-redirect-webmail.conf
-###############
-
 nginx -t
 systemctl reload nginx
+curl -l http://data.acehunited.com
 
+# create directory: mail
+mkdir -p /var/www/mail && cd /var/www/mail && echo "<h1>It works! #mail</h1>" > index.php && chown -R www-data:www-data /var/www/mail
+# create server block: mail default
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/00-default.conf > /etc/nginx/sites-available/00-default.conf && sudo ln -s /etc/nginx/sites-available/00-default.conf /etc/nginx/sites-enabled/
+# edit server_name with your domain
+nano /etc/nginx/sites-available/00-default.conf
+nginx -t
+systemctl reload nginx
+curl -l http://mail.acehunited.com
+
+##################################
+# Install Let's Encrypt
+##################################
 apt install -y software-properties-common && add-apt-repository ppa:certbot/certbot && apt install -y certbot && openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
 
-certbot certonly --webroot --agree-tos --email aymarxp@gmail.com -d acehunited.com www.acehunited.com -w /var/www/master/ -d mail.acehunited.com -w /var/www/webmail/ -d dev.acehunited.com -w /var/www/development/ -d data.acehunited.com -w /var/www/phpmyadmin/
-
-certbot certonly --force-renewal -a webroot -w /var/www/onlinedegreedatabase.com/public_html -d www.onlinedegreedatabase.com -w /var/www/onlinedegreedatabase.com/public_html -d onlinedegreedatabase.com
+certbot certonly --force-renewal --agree-tos --email aymarxp@gmail.com -a webroot --expand --webroot-path=/var/www/master/ -d acehunited.com -d www.acehunited.com --webroot-path=/var/www/mail/ -d mail.acehunited.com --webroot-path=/var/www/development/ -d dev.acehunited.com --webroot-path=/var/www/data/ -d data.acehunited.com
 
 nano /etc/nginx/templates/ssl.tmpl
 
 # replace last 2 line with:
-ssl_certificate /etc/letsencrypt/live/mail.acehunited.com/fullchain.pem;
-ssl_certificate_key /etc/letsencrypt/live/mail.acehunited.com/privkey.pem;
+ssl_certificate /etc/letsencrypt/live/acehunited.com/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/acehunited.com/privkey.pem;
+
+nano /etc/nginx/sites-available/00-default.conf
+# after server_name add this line:
+return 301 https://$host$request_uri;
 
 nginx -t
 systemctl reload nginx
 
-# visit iRedMail admin panel, your web browser won’t warn you any more because Nginx is now using a valid TLS certificate
+# visit iRedMail admin panel:
+# https://mail.acehunited.com/iredadmin/
+# your web browser won’t warn you any more because Nginx is now using a valid TLS certificate
 
-https://mail.acehunited.com/iredadmin/
-
+##################################
+# Configure postfix & dovecot
+##################################
 nano /etc/postfix/main.cf
 
 # find the following 3 lines. (line 95, 96, 97), replace with:
-smtpd_tls_key_file = /etc/letsencrypt/live/mail.acehunited.com/privkey.pem
-smtpd_tls_cert_file = /etc/letsencrypt/live/mail.acehunited.com/cert.pem
-smtpd_tls_CAfile = /etc/letsencrypt/live/mail.acehunited.com/chain.pem
+smtpd_tls_key_file = /etc/letsencrypt/live/acehunited.com/privkey.pem
+smtpd_tls_cert_file = /etc/letsencrypt/live/acehunited.com/cert.pem
+smtpd_tls_CAfile = /etc/letsencrypt/live/acehunited.com/chain.pem
 
 systemctl reload postfix
 
 nano /etc/dovecot/dovecot.conf
 
 # find the following 2 lines. (line 47, 48), replace with:
-ssl_cert = </etc/letsencrypt/live/mail.acehunited.com/fullchain.pem
-ssl_key = </etc/letsencrypt/live/mail.acehunited.com/privkey.pem
+ssl_cert = </etc/letsencrypt/live/acehunited.com/fullchain.pem
+ssl_key = </etc/letsencrypt/live/acehunited.com/privkey.pem
 
 systemctl reload dovecot
 
-# log into iredadmin panel with the postmaster mail account. In the Add tab, you can add additional domains or email addresses
-
-https://mail.acehunited.com/iredadmin/
-
+# log into iredadmin panel with the postmaster mail account
+# https://mail.acehunited.com/iredadmin/
+# in the Add tab, you can add additional domains or email addresses
 # after you create a user, you can visit the Roundcube webmail address and login with the new mail user account
 
 https://mail.acehunited.com/mail/
@@ -244,23 +256,33 @@ Outgoing: SMTP
 	authentication: Normal password
 ####################################################################
 
-# check the PTR record for an IP address, run this command:
+##################################
+# Show PTR record
+##################################
 dig -x [IP_ADDR] +short
 # or
 host [IP_ADDR]
 
-# add SPF to DNS Record
+##################################
+# Add SPF to DNS record
+##################################
 TXT-----@--------v=spf1 a mx -all
 
-# add DMARC to DNS Record
+##################################
+# Add DMARC to DNS record
+##################################
 TXT-----_dmarc---v=DMARC1;p=none
 
-# get DKIM
+##################################
+# Add DKIM to DNS record
+##################################
 nano /opt/iRedMail-0.9.8/iRedMail.tips
-# add DKIM to DNS record
-TXT-----dkim._domainkey-----v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC06rxesAKWvjciTjBRyHYY0q9mFsy2FYs7Rj9RDoanggyD18lOjSdB2hujbtZH8yGODI7QH3G0oHcz/iqPXGNjrt5o5WnQhHvpyeJskbot0lOw1BraIoXRMLWVfMPm3n0su/sm7OYsQ4cLDscADqBQoU4ve4veaSxLpAvR2NhH2QIDAQAB
+# copy DKIM, add to DNS record
+TXT-----dkim._domainkey-----v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVc0gNXsWsX+SqnTPSFkYxmD/Kr9kQ8uUBiUDqTa0CCJCkcg1GkdJmKjD/0JUgtHBFD8DoQIvj4Kr1lyBLFEUZJgjevbJfG0CzzIjLZZEhvqFy6ff6MYsl8FQRJMv8MOfJy9Z9Rj9P03TlLLrrbUVcKKtllUNMYq/O5nAFSQpM7QIDAQAB
 
 # try to send email from an iredmail account to a gmail account. If you click the show original button in Gmail, you should see "dkim=pass"
+
+----------------------------------
 
 ##################################
 # Add new user with root privilages
@@ -285,29 +307,6 @@ sed -i "s/LoginGraceTime 120/LoginGraceTime 10/" /etc/ssh/sshd_config
 sed -i "s/PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
 sed -i "s/X11Forwarding yes/X11Forwarding no/" /etc/ssh/sshd_config
 service ssh restart && echo "Please login ssh with new user created" && exit
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-##################################
-# Install DKIM and Postfix
-# https://github.com/achyaryalyal/fastron/blob/master/fastron.txt
-# https://devanswers.co/how-to-get-php-mail-working-on-ubuntu-16-04-digitalocean-droplet/
-# https://mladenadamovic.wordpress.com/2018/01/17/how-to-install-and-configure-dkim-with-postfix-on-ubuntu-xenial-16-04-lts/
-##################################
 
 ##################################
 # ufw
