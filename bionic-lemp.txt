@@ -5,15 +5,8 @@ A-------@--------[YOUR_IP_SERVER]
 A-------data-----[YOUR_IP_SERVER]
 A-------dev------[YOUR_IP_SERVER]
 A-------mail-----[YOUR_IP_SERVER]
-A-------webmail--[YOUR_IP_SERVER]
 CNAME---www------[YOUR_DOMAIN]
-MX------@--------[YOUR_DOMAIN]-----10
-MX------mail-----[YOUR_DOMAIN]-----10
-TXT-----@--------v=spf1 a mx -all
-TXT-----_dmarc---v=DMARC1;p=none
-# DKIM record will provide at next step
-
-hanya ini MXnya: @-MX-mail.acehunited.com
+MX------@--------mail.[YOUR_DOMAIN]-----10
 
 ##################################
 # Be root
