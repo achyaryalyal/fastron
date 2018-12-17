@@ -1,0 +1,81 @@
+##################################
+# Be root
+##################################
+sudo -i
+
+##################################
+# Set hostname
+##################################
+hostnamectl set-hostname mail.[YOUR_DOMAIN] && hostname
+
+##################################
+# Update packages
+##################################
+sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && apt-get autoclean -y
+# configuring openssh-server? choose "Keep the local version currently installed"
+
+##################################
+# Useful packages
+##################################
+sudo apt-get install -y zip unzip ntp geoip-bin geoip-database
+
+# configure timezone. Select: Asia->Jakarta
+sudo systemctl enable ntp && dpkg-reconfigure tzdata && date
+
+# nanorc - Improved Nano Syntax Highlighting Files
+wget https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh -qO- | sh
+
+##################################
+# Install Modoboa
+##################################
+cd /opt && git clone https://github.com/modoboa/modoboa-installer && sudo apt-get install -y python-virtualenv python-pip && cd modoboa-installer
+
+sudo ./run.py --stop-after-configfile-check acehunited.com
+
+sudo nano installer.cfg
+
+type = letsencrypt
+email = aymarxp@gmail.com
+
+sudo ./run.py --interactive acehunited.com
+
+# Do you confirm? (Y/n) "y"
+
+# Wait untill finished
+
+# Go to https://mail.acehunited.com
+
+# admin:password
+
+# Admin -> Settings -> Profile to change the password
+
+# Go to Domains tab and click Add button to add a new domain
+	Name	: acehunited.com
+	Type	: Domain
+	Quota	: 0
+	DMQ		: 0
+	Alias	: 
+	Enabled	: v
+	DNS 	: v
+	DKIM	: v
+	KS		: dkim
+	KL		: 2048
+	Create a domain administrator	: Yes
+	Name							: postmaster
+	Random password					: Yes
+	With a mailbox					: Yes
+	Create aliases					: Yes
+	Virus filter					: Yes
+	Spam filter						: Yes
+	Banner filter					: Yes
+	# Submit
+
+# Go to Domains tab and click your domain name, show DKIM key and add to your DNS
+TXT-----dkim._domainkey-----v=DKIM1;k=rsa;p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA1okKr5cESsBb9QNZKithZuB+8iksWLAVg0FyiISd83Qnl3KTjvtWmNZbAtdwSgVxUBQojtGlzakWztb/z75t7UtJXN938OkJvzBv/5qqI5utKJo5e6SyJ5G8CiphLbDMOX4Y/5hfVugLYps0FSEc93xt5DUOJUchdHTu/i8LoVkmIdwousgXdTIGGaBpKWtZ48x24MQiRFQ/GXN0UnGq/GUspXjMfSr1TOaJmuRzzM8UmY2C+zXguy8w1cNqlDOnGFmryr5m/T/N+vFUZ3o6q49skXlEDtp2WvnSwSJrx8ABd0SY/L8X9Vds1Fd/j3jqElVsuS89KbLDaupPhQTxcwIDAQAB
+
+# Go to Identities tab and click your domain name to add new account
+	Role		: Simple user
+	Username	: syakir@acehunited.com
+	First name 	: Syakir
+	Last name 	: Sulaiman
+
