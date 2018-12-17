@@ -7,6 +7,13 @@ A-------dev------[YOUR_IP_SERVER]
 A-------mail-----[YOUR_IP_SERVER]
 CNAME---www------[YOUR_DOMAIN]
 MX------@--------mail.[YOUR_DOMAIN]-----10
+TXT-----@--------v=spf1 a mx -all
+TXT-----_dmarc---v=DMARC1;p=none
+### cloud kilat nameserver
+NS-----ns1.kilatdomain.net
+NS-----ns2.kilatdomain.net
+NS-----ns3.kilatdomain.net
+NS-----ns4.kilatdomain.net
 
 ##################################
 # Be root
@@ -48,243 +55,6 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-sec.conf > /etc/sysctl.d/50-ip-sec.conf && sudo sysctl --system
 
 ##################################
-# Install iRedMail
-##################################
-nano /etc/hosts
-
-# edit 127.* line with your domain:
-127.0.0.1 mail.acehunited.com localhost
-127.0.1.1 mail.acehunited.com mail
-
-cd /opt && wget https://bitbucket.org/zhb/iredmail/downloads/iRedMail-0.9.8.tar.bz2 && tar xvf iRedMail-0.9.8.tar.bz2 && cd iRedMail-0.9.8/ && chmod +x iRedMail.sh && bash iRedMail.sh
-
-# select "Yes" and press Enter
-# you can use the default one "/var/vmail", so simply press Enter
-# by default, Nginx web server is selected, so you can simply press Enter
-# chose MariaDB. Press up and down arrow key and press the space bar to select
-# if you selected MariaDB or MySQL, then you will need to set the MySQL root password
-# next, enter your-domain.com here, without sub-domain
-# next, set a password for the mail domain administrator
-# choose optional components. By default, 4 items are selected
-# now you can review your configurations. Type "y" to begin the installation of all mail server components
-# at the end of installation, choose "y" to use firewall rules provided by iRedMail and restart firewall
-
-********************************************************************
-* URLs of installed web applications:
-*
-* - Roundcube webmail: https://mail.acehunited.com/mail/
-* - netdata (monitor): https://mail.acehunited.com/netdata/
-*
-* - Web admin panel (iRedAdmin): https://mail.acehunited.com/iredadmin/
-*
-* You can login to above links with below credential:
-*
-* - Username: postmaster@acehunited.com
-* - Password: ........
-*
-*
-********************************************************************
-* Congratulations, mail server setup completed successfully. Please
-* read below file for more information:
-*
-*   - /opt/iRedMail-0.9.8/iRedMail.tips
-*
-* And it's sent to your mail account postmaster@acehunited.com.
-*
-********************* WARNING **************************************
-*
-* Please reboot your system to enable all mail services.
-*
-********************************************************************
-
-# before reboot, edit ssh configuration
-nano /etc/ssh/sshd_config
-
-# uncomment line for:
-Port
-Hostkey
-SyslogFacility
-LogLevel
-PermitRootLogin
-StrictModes
-PubkeyAuthentication
-PasswordAuthentication
-PermitEmptyPasswords
-ChallengeResponseAuthentication
-UsePAM
-X11Forwarding
-PrintMotd
-AcceptEnv
-Subsystem
-
-systemctl restart ssh
-
-reboot
-
-##################################
-# Configure php7.2-fpm
-##################################
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.2-fpm/php.ini > /etc/php/7.2/fpm/php.ini
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.2-fpm/www.conf > /etc/php/7.2/fpm/pool.d/www.conf
-systemctl restart php7.2-fpm && php -v
-
-##################################
-# Configure nginx
-##################################
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf && cat /proc/cpuinfo | grep processor
-# configure worker_processes ===> cat /proc/cpuinfo | grep processor
-nano nginx.conf
-
-nano /etc/nginx/templates/fastcgi_php
-# replace the php_workers with tcp address on line 13
-fastcgi_pass 127.0.0.1:9000;
-
-# add bad bot blocker & general configuration
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/general.conf > /etc/nginx/general.conf
-curl -sSL https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/conf.d/globalblacklist.conf > /etc/nginx/conf.d/globalblacklist.conf
-mkdir -p /etc/nginx/bots.d
-curl -sSL https://raw.githubusercontent.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/master/bots.d/blacklist-user-agents.conf > /etc/nginx/bots.d/blacklist-user-agents.conf
-curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/whitelist-domains.conf > /etc/nginx/bots.d/whitelist-domains.conf
-curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/bad-referrer-words.conf > /etc/nginx/bots.d/bad-referrer-words.conf
-curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/custom-bad-referrers.conf > /etc/nginx/bots.d/custom-bad-referrers.conf
-curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/whitelist-ips.conf > /etc/nginx/bots.d/whitelist-ips.conf
-curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/blacklist-ips.conf > /etc/nginx/bots.d/blacklist-ips.conf
-
-# create directory: master
-mkdir -p /var/www/master && cd /var/www/master && echo "<h1>It works! #master</h1>" > index.php && chown -R www-data:www-data /var/www/master
-# create server block: www-master
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/01-www-master.conf > /etc/nginx/sites-available/01-www-master.conf && sudo ln -s /etc/nginx/sites-available/01-www-master.conf /etc/nginx/sites-enabled/
-# edit server_name with your domain
-nano /etc/nginx/sites-available/01-www-master.conf
-nginx -t
-systemctl reload nginx
-curl -l http://acehunited.com
-curl -l http://www.acehunited.com
-
-# create directory: development
-mkdir -p /var/www/development && cd /var/www/development && echo "<h1>It works! #development</h1>" > index.php && chown -R www-data:www-data /var/www/development
-# create server block: dev-development
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/02-dev-development.conf > /etc/nginx/sites-available/02-dev-development.conf && sudo ln -s /etc/nginx/sites-available/02-dev-development.conf /etc/nginx/sites-enabled/
-# edit server_name with your domain
-nano /etc/nginx/sites-available/02-dev-development.conf
-nginx -t
-systemctl reload nginx
-curl -l http://dev.acehunited.com
-
-# create directory: data
-mkdir -p /var/www/data && cd /var/www/data && echo "<h1>It works! #phpmyadmin</h1>" > index.php && chown -R www-data:www-data /var/www/data
-# create server block: data-phpmyadmin
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/03-data-phpmyadmin.conf > /etc/nginx/sites-available/03-data-phpmyadmin.conf && sudo ln -s /etc/nginx/sites-available/03-data-phpmyadmin.conf /etc/nginx/sites-enabled/
-# edit server_name with your domain
-nano /etc/nginx/sites-available/03-data-phpmyadmin.conf
-nginx -t
-systemctl reload nginx
-curl -l http://data.acehunited.com
-
-# create directory: mail
-mkdir -p /var/www/mail && cd /var/www/mail && echo "<h1>It works! #mail</h1>" > index.php && chown -R www-data:www-data /var/www/mail
-# create server block: mail default
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/00-default.conf > /etc/nginx/sites-available/00-default.conf && sudo ln -s /etc/nginx/sites-available/00-default.conf /etc/nginx/sites-enabled/
-# edit server_name with your domain
-nano /etc/nginx/sites-available/00-default.conf
-nginx -t
-systemctl reload nginx
-curl -l http://mail.acehunited.com
-
-##################################
-# Install Let's Encrypt
-##################################
-apt install -y software-properties-common && add-apt-repository ppa:certbot/certbot && apt install -y certbot && openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
-
-certbot certonly --force-renewal --agree-tos --email aymarxp@gmail.com -a webroot --expand --webroot-path=/var/www/master/ -d acehunited.com -d www.acehunited.com --webroot-path=/var/www/mail/ -d mail.acehunited.com --webroot-path=/var/www/development/ -d dev.acehunited.com --webroot-path=/var/www/data/ -d data.acehunited.com
-
-nano /etc/nginx/templates/ssl.tmpl
-
-# replace last 2 line with:
-ssl_certificate /etc/letsencrypt/live/acehunited.com/fullchain.pem;
-ssl_certificate_key /etc/letsencrypt/live/acehunited.com/privkey.pem;
-
-nano /etc/nginx/sites-available/00-default.conf
-# after server_name add this line:
-return 301 https://$host$request_uri;
-
-nginx -t
-systemctl reload nginx
-
-# visit iRedMail admin panel:
-# https://mail.acehunited.com/iredadmin/
-# your web browser won’t warn you any more because Nginx is now using a valid TLS certificate
-
-##################################
-# Configure postfix & dovecot
-##################################
-nano /etc/postfix/main.cf
-
-# find the following 3 lines. (line 95, 96, 97), replace with:
-smtpd_tls_key_file = /etc/letsencrypt/live/acehunited.com/privkey.pem
-smtpd_tls_cert_file = /etc/letsencrypt/live/acehunited.com/cert.pem
-smtpd_tls_CAfile = /etc/letsencrypt/live/acehunited.com/chain.pem
-
-systemctl reload postfix
-
-nano /etc/dovecot/dovecot.conf
-
-# find the following 2 lines. (line 47, 48), replace with:
-ssl_cert = </etc/letsencrypt/live/acehunited.com/fullchain.pem
-ssl_key = </etc/letsencrypt/live/acehunited.com/privkey.pem
-
-systemctl reload dovecot
-
-# log into iredadmin panel with the postmaster mail account
-# https://mail.acehunited.com/iredadmin/
-# in the Add tab, you can add additional domains or email addresses
-# after you create a user, you can visit the Roundcube webmail address and login with the new mail user account
-
-https://mail.acehunited.com/mail/
-
-####################################################################
-Using Mail Clients on Your Computer or Mobile Device
-Incoming: IMAP
-	server: mail.acehunited.com
-	port: 993
-	security: SSL/TLS
-	authentication: Normal password
-Outgoing: SMTP
-	server: mail.acehunited.com
-	port: 587
-	security: STARTTLS
-	authentication: Normal password
-####################################################################
-
-##################################
-# Show PTR record
-##################################
-dig -x [IP_ADDR] +short
-# or
-host [IP_ADDR]
-
-##################################
-# Add SPF to DNS record
-##################################
-TXT-----@--------v=spf1 a mx -all
-
-##################################
-# Add DMARC to DNS record
-##################################
-TXT-----_dmarc---v=DMARC1;p=none
-
-##################################
-# Add DKIM to DNS record
-##################################
-nano /opt/iRedMail-0.9.8/iRedMail.tips
-# copy DKIM, add to DNS record
-TXT-----dkim._domainkey-----v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDVc0gNXsWsX+SqnTPSFkYxmD/Kr9kQ8uUBiUDqTa0CCJCkcg1GkdJmKjD/0JUgtHBFD8DoQIvj4Kr1lyBLFEUZJgjevbJfG0CzzIjLZZEhvqFy6ff6MYsl8FQRJMv8MOfJy9Z9Rj9P03TlLLrrbUVcKKtllUNMYq/O5nAFSQpM7QIDAQAB
-
-# try to send email from an iredmail account to a gmail account. If you click the show original button in Gmail, you should see "dkim=pass"
-
-----------------------------------
-
-##################################
 # Add new user with root privilages
 ##################################
 adduser [NEW_USER] && gpasswd -a <New_User> sudo && gpasswd -a [NEW_USER] www-data
@@ -309,7 +79,7 @@ sed -i "s/X11Forwarding yes/X11Forwarding no/" /etc/ssh/sshd_config
 service ssh restart && echo "Please login ssh with new user created" && exit
 
 ##################################
-# ufw
+# Firewall with ufw
 ##################################
 sudo apt-get install -y ufw
 
@@ -345,6 +115,100 @@ sudo ufw allow 123
 sudo ufw show added
 sudo ufw enable
 service ssh restart
+
+##################################
+# Install OpenDKIM
+##################################
+apt-get install sendmail opendkim opendkim-tools -y && nano /etc/opendkim.conf
+
+# replace all with this:
+AutoRestart Yes
+UMask 002
+Syslog yes
+AutoRestartRate 10/1h
+Canonicalization relaxed/simple
+ExternalIgnoreList refile:/etc/opendkim/TrustedHosts
+InternalHosts refile:/etc/opendkim/TrustedHosts
+KeyTable refile:/etc/opendkim/KeyTable
+SigningTable refile:/etc/opendkim/SigningTable
+LogWhy Yes
+Mode sv
+PidFile /var/run/opendkim/opendkim.pid
+SignatureAlgorithm rsa-sha256
+Socket inet:8891@localhost
+SyslogSuccess Yes
+TemporaryDirectory /var/tmp
+UserID opendkim:opendkim
+
+mkdir -p /etc/opendkim/keys/[YOUR_DOMAIN] && cd /etc/opendkim/keys/[YOUR_DOMAIN] && opendkim-genkey -s mail -d [YOUR_DOMAIN] && chown opendkim:opendkim mail.* && chmod 600 mail.private && nano /etc/opendkim/TrustedHosts
+
+# replace all with this:
+127.0.0.1
+localhost
+192.168.0.1/24
+*.[YOUR_DOMAIN]
+
+nano /etc/opendkim/KeyTable
+
+# replace all with this:
+mail._domainkey.[YOUR_DOMAIN] [YOUR_DOMAIN]:mail:/etc/opendkim/keys/[YOUR_DOMAIN]/mail.private
+
+nano /etc/opendkim/SigningTable
+
+# replace all with this:
+*@[YOUR_DOMAIN] mail._domainkey.[YOUR_DOMAIN]
+
+nano /etc/mail/sendmail.mc
+
+# add this line:
+include(`/etc/mail/tls/starttls.m4')dnl
+INPUT_MAIL_FILTER(`opendkim', `S=inet:8891@localhost')dnl
+
+echo -e "127.0.0.1 [YOUR_DOMAIN]" >> /etc/hosts && echo -e "::1 [YOUR_DOMAIN]" >> /etc/hosts
+
+sendmailconfig
+# press "Y" for all
+
+service opendkim restart && service sendmail restart && nano -$ mail.txt
+
+### Copy everything and paste into the value field. Delete all double quotes and white spaces
+
+### Add DNS TXT record with name "mail._domainkey" and paste to it's value
+TXT-----mail._domainkey-----v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAraQm0eytpsm9CekqwVVQzl68TeHOcVchNL7o8usFFooa465XnZdmv0tRRoSuNrDjO4uJjFNCoY9NSpcjCHZJT3GLRA9u28cS7fNqG6Kbx4j5DhI0n5szAKlgLhTUSx9wbNfYYmaXWJGdl5uR13m2CvfU+dTJ3wytCuhLnjHSNS6cocws5Zypbo3A90v+6XJvoN2MjpoeyN1zJrr4W9KgsPH20mgX+QFNGNKCBsfbZ7P9lXGkZxMxT0ODtvYYWqdrVAL0y4/a/B4s+GV5LLZZped5wO9DrUQPwxc7TMe+oLKIEAi0r6GrJ9/vetBylssQ64FhE7jBjcmpSkW7+J+mqQIDAQAB
+
+### Check DKIM status in Gmail inbox
+echo "From: root@[YOUR_DOMAIN]
+To: aymarxp@gmail.com
+Subject: Test email
+This is a test email."| sendmail -t
+
+### If you click the show original button in Gmail, you should see "dkim=pass"
+
+### Test to mail-tester.com
+echo "From: root@[YOUR_DOMAIN]
+To: ......<paste_here>......
+Subject: Test email
+This is a test email."| sendmail -t
+
+Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for you because your domain isn't listed in Pyzor Whitelist and Cloud Kilat hasn't rDNS
+
+##################################
+# Configure Fail2ban
+##################################
+cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/jail.local > /etc/fail2ban/jail.local
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-dos.conf > /etc/fail2ban/filter.d/nginx-dos.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-req-limit.conf > /etc/fail2ban/filter.d/nginx-req-limit.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-badrequests.conf > /etc/fail2ban/filter.d/nginx-badrequests.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-noproxy.conf > /etc/fail2ban/filter.d/nginx-noproxy.conf
+cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf
+service fail2ban restart && fail2ban-client status
+
+# show status of all fail2ban jails at once
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/fail2ban-allstatus.sh > /etc/fail2ban/fail2ban-allstatus.sh
+chmod 755 /etc/fail2ban/fail2ban-allstatus.sh
+cp /etc/fail2ban/fail2ban-allstatus.sh /usr/bin/.
+fail2ban-allstatus.sh
 
 ##################################
 # Install MariaDB 10.3
@@ -423,24 +287,6 @@ nginx -t
 service nginx reload
 
 # Go to data.[DOMAIN]/index.php with key & token params
-
-##################################
-# Configure Fail2ban
-##################################
-cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/jail.local > /etc/fail2ban/jail.local
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-dos.conf > /etc/fail2ban/filter.d/nginx-dos.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-req-limit.conf > /etc/fail2ban/filter.d/nginx-req-limit.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-badrequests.conf > /etc/fail2ban/filter.d/nginx-badrequests.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-noproxy.conf > /etc/fail2ban/filter.d/nginx-noproxy.conf
-cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf
-service fail2ban restart && fail2ban-client status
-
-# show status of all fail2ban jails at once
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/fail2ban-allstatus.sh > /etc/fail2ban/fail2ban-allstatus.sh
-chmod 755 /etc/fail2ban/fail2ban-allstatus.sh
-cp /etc/fail2ban/fail2ban-allstatus.sh /usr/bin/.
-fail2ban-allstatus.sh
 
 ##################################
 # Install Let's Encrypt
