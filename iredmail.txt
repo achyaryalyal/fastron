@@ -308,7 +308,8 @@ TXT-----dkim._domainkey-----v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCW8y
 # try to send email from an iredmail account to a gmail account. If you click the show original button in Gmail, you should see "dkim=pass"
 
 ##################################
-# Install PhpMyAdmin 4.8.4 ---> LOADING LAMA, APLIKASI JADI BERAT KARENA BACKGROUND PROCESS SEDANG BANYAK MAKAN RESOURCES
+# Install PhpMyAdmin 4.8.4
+# not recommended ---> LOADING LAMA, APLIKASI JADI BERAT KARENA BACKGROUND PROCESS BANYAK MAKAN RESOURCES
 ##################################
 mkdir -p /var/www/data && cd /var/www/data && wget https://files.phpmyadmin.net/phpMyAdmin/4.8.4/phpMyAdmin-4.8.4-english.zip && unzip phpMyAdmin-4.8.4-english.zip && mv phpMyAdmin-4.8.4-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php && chown -R www-data:www-data /var/www/data
 
@@ -327,71 +328,3 @@ nano /var/www/data/libraries/classes/Plugins/Auth/AuthenticationCookie.php
 if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
 
 # go to data.[DOMAIN]/index.php with key & token params
-
-
-
-------------------------------------------------------------------------
-
-
-
-##################################
-# Add new user with root privilages
-##################################
-adduser [NEW_USER] && gpasswd -a <New_User> sudo && gpasswd -a [NEW_USER] www-data
-# TYPE root password and just ENTER when fill user profile
-groupadd admin
-usermod -a -G admin [NEW_USER]
-dpkg-statoverride --update --add root admin 4750 /bin/su
-
-##################################
-# Generate ssh public key
-##################################
-mkdir -p /home/[NEW_USER]/.ssh && chmod 700 /home/[NEW_USER]/.ssh
-cd /home/[NEW_USER]/.ssh && ssh-keygen -t rsa
-# type: [NEW_USER]
-# just empty the passphrase
-mv [NEW_USER].pub authorized_keys && chmod 600 authorized_keys && rm /home/[NEW_USER]/.ssh/[NEW_USER]
-sed -i "s/Port 22/Port 10022/" /etc/ssh/sshd_config
-sed -i "s/LogLevel INFO/LogLevel VERBOSE/" /etc/ssh/sshd_config
-sed -i "s/LoginGraceTime 120/LoginGraceTime 10/" /etc/ssh/sshd_config
-sed -i "s/PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
-sed -i "s/X11Forwarding yes/X11Forwarding no/" /etc/ssh/sshd_config
-service ssh restart && echo "Please login ssh with new user created" && exit
-
-##################################
-# ufw
-##################################
-sudo apt-get install -y ufw
-
-# define firewall rules
-sudo ufw logging low
-sudo ufw default allow outgoing
-sudo ufw default deny incoming
-
-# ssh
-CURRENT_SSH_PORT=$(grep "Port" /etc/ssh/sshd_config | awk -F " " '{print $2}') && echo $CURRENT_SSH_PORT
-sudo ufw allow ??
-
-# smtp
-sudo ufw allow 25
-    #sudo ufw allow 465
-    #sudo ufw allow 587
-
-# pop3
-sudo ufw allow 110
-    #sudo ufw allow 995
-
-# imap
-sudo ufw allow 143
-    #sudo ufw allow 993
-
-# nginx
-sudo ufw allow http
-sudo ufw allow https
-
-#ntp
-sudo ufw allow 123
-
-sudo ufw show added
-sudo ufw enable
-service ssh restart
