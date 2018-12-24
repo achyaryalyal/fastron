@@ -220,8 +220,6 @@ apt install -y software-properties-common && add-apt-repository ppa:certbot/cert
 
 certbot certonly --force-renewal --agree-tos --email aymarxp@gmail.com -a webroot --expand --webroot-path=/var/www/domain/ -d acehunited.com --webroot-path=/var/www/mail/ -d mail.acehunited.com --webroot-path=/var/www/webmail/ -d webmail.acehunited.com
 
-		certbot certonly --webroot --force-renewal --agree-tos --email aymarxp@gmail.com -d mail.acehunited.com -w /var/www/html/
-
 		certbot certonly --force-renewal --agree-tos --email aymarxp@gmail.com -a webroot --expand --webroot-path=/var/www/master/ -d acehunited.com -d www.acehunited.com --webroot-path=/var/www/mail/ -d mail.acehunited.com --webroot-path=/var/www/webmail/ -d webmail.acehunited.com --webroot-path=/var/www/development/ -d dev.acehunited.com --webroot-path=/var/www/data/ -d data.acehunited.com
 
 # would you like to receive EFF news? "n"
@@ -229,8 +227,8 @@ certbot certonly --force-renewal --agree-tos --email aymarxp@gmail.com -a webroo
 nano /etc/nginx/templates/ssl.tmpl
 
 # replace last 2 line with:
-ssl_certificate /etc/letsencrypt/live/mail.acehunited.com/fullchain.pem;
-ssl_certificate_key /etc/letsencrypt/live/mail.acehunited.com/privkey.pem;
+ssl_certificate /etc/letsencrypt/live/acehunited.com/fullchain.pem;
+ssl_certificate_key /etc/letsencrypt/live/acehunited.com/privkey.pem;
 
 		nano /etc/nginx/sites-available/00-default.conf
 		# uncomment line "return 301"
@@ -260,9 +258,9 @@ systemctl reload nginx
 nano /etc/postfix/main.cf
 
 # find the following 3 lines. (line 95, 96, 97), replace with:
-smtpd_tls_key_file = /etc/letsencrypt/live/mail.acehunited.com/privkey.pem
-smtpd_tls_cert_file = /etc/letsencrypt/live/mail.acehunited.com/cert.pem
-smtpd_tls_CAfile = /etc/letsencrypt/live/mail.acehunited.com/chain.pem
+smtpd_tls_key_file = /etc/letsencrypt/live/acehunited.com/privkey.pem
+smtpd_tls_cert_file = /etc/letsencrypt/live/acehunited.com/cert.pem
+smtpd_tls_CAfile = /etc/letsencrypt/live/acehunited.com/chain.pem
 
 # enable DNSBL service in Postfix to reduce spam
 # append reject_rbl_client zen.spamhaus.org to parameter smtpd_recipient_restrictions
