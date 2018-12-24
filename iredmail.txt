@@ -338,9 +338,13 @@ $config['date_long'] = 'd/m/Y H:i';
 
 $config['htmleditor'] = 0;
 
-# in order to prevent skin selection in the user Settings, place this line in your config.inc.php file:
+# prevent skin selection in the user Settings
 $config['dont_override'] = array('skin');
-# the "dont_override" array can hold any number of the config settings that you don't want the users to change.
+# the "dont_override" array can hold any number of the config settings that you don't want the users to change
+
+nano /opt/www/roundcubemail/skins/larry/includes/header.html
+# hide about-link at top navigation, replace line 11 with:
+<roundcube:button name="about" type="link" label="about" class="about-link" style="display:none;" onclick="UI.show__about(this);return false" condition="!env:extwin" />
 
 ##################################
 # Authenticate without domain part in email address
