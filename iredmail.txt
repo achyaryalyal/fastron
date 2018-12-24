@@ -230,11 +230,14 @@ nano /etc/nginx/templates/ssl.tmpl
 ssl_certificate /etc/letsencrypt/live/acehunited.com/fullchain.pem;
 ssl_certificate_key /etc/letsencrypt/live/acehunited.com/privkey.pem;
 
-		nano /etc/nginx/sites-available/00-default.conf
-		# uncomment line "return 301"
+nano /etc/nginx/sites-available/00-domain.conf
+# uncomment line "return 301", just in listen 80 server block
 
-		nano /etc/nginx/sites-available/00-webmail.conf
-		# uncomment line "return 301", just in listen 80 server block
+nano /etc/nginx/sites-available/00-webmail.conf
+# uncomment line "return 301", just in listen 80 server block
+
+nano /etc/nginx/sites-available/00-default.conf
+# uncomment line "return 301"
 
 nano /etc/nginx/sites-available/00-default-ssl.conf
 # change root to:
@@ -343,7 +346,7 @@ TXT-----_dmarc---v=DMARC1;p=none
 nano /opt/iRedMail-*/iRedMail.tips
 # copy DKIM, add to DNS record
 TXT-----dkim._domainkey-----v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCW8yLoCLYtV995QzRPYjcg9kxdO2yi7JaB2DJkkBRMmeA3jwUTuJ9t61ockNpVPRa7b1BjaCAbfHcfhm+UXEpffBXSNHvwakxt1HJx7Omqcok3xMB3yyU8fEWh3WFAucnUWHmy/EipgL8D4QkKTRMl6tNH+eaPmGSHeKhdb4y5xwIDAQAB
-  
+
 # try to send email from an iredmail account to a gmail account. If you click the show original button in Gmail, you should see "dkim=pass"
 
 ##################################
