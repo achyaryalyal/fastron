@@ -130,7 +130,13 @@ cd /home/[NEW_USER]/.ssh && ssh-keygen -t rsa
 # just empty the passphrase
 mv [NEW_USER].pub authorized_keys && chmod 600 authorized_keys && rm /home/[NEW_USER]/.ssh/[NEW_USER]
 
+sed -i "s/LogLevel INFO/LogLevel VERBOSE/" /etc/ssh/sshd_config
+sed -i "s/PermitRootLogin yes/PermitRootLogin no/" /etc/ssh/sshd_config
+sed -i "s/X11Forwarding yes/X11Forwarding no/" /etc/ssh/sshd_config
+
 systemctl restart ssh && echo "Please login ssh with new user created" && exit
+
+sudo -i
 
 		##################################
 		# Configure php7.2-fpm
