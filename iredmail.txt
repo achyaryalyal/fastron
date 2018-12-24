@@ -326,9 +326,9 @@ systemctl reload dovecot
 ##################################
 # Customize Roundcube
 ##################################
-$config['product_name'] = 'Webmail OPEN SIMKA';
+$config['product_name'] = 'Webmail STKIP BBG';
 
-$config['skin_logo'] = 'https://www.opensimka.com/assets/img/logo-text.png';
+$config['skin_logo'] = 'put image URL here';
 
 $config['language'] = 'en_US';
 
