@@ -285,12 +285,31 @@ plugin {
 
 systemctl reload dovecot
 
-# log into iredadmin panel with the postmaster mail account
+##################################
+# Authenticate without domain part in email address
+##################################
+nano /etc/dovecot/dovecot.conf
+
+# set the domain name you want to allow user to login without domain name part in email address
+auth_default_realm = [YOUR_DOMAIN]
+
+systemctl reload dovecot
+
+nano /opt/www/roundcubemail/config/defaults.inc.php
+
+# fill username_domain with your domain
+$config['username_domain'] = '[YOUR_DOMAIN]';
+
+systemctl restart php7.2-fpm && systemctl restart nginx
+
+##################################
+# Login to iredadmin panel with the postmaster mail account
+##################################
 # https://mail.acehunited.com/iredadmin/
 # in the Add tab, you can add additional domains or email addresses
 # after you create a user, you can visit the Roundcube webmail address and login with the new mail user account
 
-https://mail.acehunited.com/mail/
+https://mail.acehunited.com
 
 ##################################
 # Show PTR record
