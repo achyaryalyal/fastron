@@ -263,6 +263,12 @@ smtpd_recipient_restrictions =
     reject_rbl_client zen.spamhaus.org=127.0.0.[2..11]
     reject_rbl_client b.barracudacentral.org=127.0.0.2
 
+# if you have postscreen service enabled, you should add DNSBL services for postscreen service instead
+# so please don't use any reject_rbl_client in smtpd_recipient_restrictions parameter, but use below one instead:
+postscreen_dnsbl_sites =
+    zen.spamhaus.org=127.0.0.[2..11]*3
+    b.barracudacentral.org=127.0.0.2*2
+
 systemctl reload postfix
 
 nano /etc/dovecot/dovecot.conf
