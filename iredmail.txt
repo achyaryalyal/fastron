@@ -324,6 +324,25 @@ plugin {
 systemctl reload dovecot
 
 ##################################
+# Customize Roundcube
+##################################
+$config['product_name'] = 'Webmail OPEN SIMKA';
+
+$config['skin_logo'] = 'https://www.opensimka.com/assets/img/logo-text.png';
+
+$config['language'] = 'en_US';
+
+$config['date_format'] = 'd/m/Y';
+
+$config['date_long'] = 'd/m/Y H:i';
+
+$config['htmleditor'] = 0;
+
+# in order to prevent skin selection in the user Settings, place this line in your config.inc.php file:
+$config['dont_override'] = array('skin');
+# the "dont_override" array can hold any number of the config settings that you don't want the users to change.
+
+##################################
 # Authenticate without domain part in email address
 ##################################
 nano /etc/dovecot/dovecot.conf
