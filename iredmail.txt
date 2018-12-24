@@ -371,11 +371,6 @@ Outgoing: SMTP
 ------------------------------------------------------------------------
 
 ##################################
-# Adding Multiple Mail Domains
-##################################
-Link: https://www.linuxbabe.com/mail-server/set-up-iredmail-multiple-domains-nginx
-
-##################################
 # Disable Greylisting
 ##################################
 By default, iRedMail has enabled greylisting, which tells other sending SMTP servers to try again in a few minutes. This is mainly useful to block spam, but it also degrades user experience. If you prefer to disable greylisting, follow the instructions below.
@@ -400,17 +395,22 @@ chmod 400 /opt/iredapd/settings.py
 ##################################
 
 # whitelist IP address, email address, entire domain, subdomain (including main domain)
-python wblist_admin.py --add --whitelist 192.168.1.10 user@domain.com @iredmail.org @.example.com
-python wblist_admin.py --list --whitelist
+python /opt/iredapd/tools/wblist_admin.py --add --whitelist 192.168.1.10 user@domain.com @iredmail.org @.example.com
+python /opt/iredapd/tools/wblist_admin.py --list --whitelist
 
 # blacklist IP address, email address, entire domain, subdomain (including main domain)
-python wblist_admin.py --add --blacklist 202.96.134.133 bad-user@domain.com @bad-domain.com @.sub-domain.com
-python wblist_admin.py --list --blacklist
+python /opt/iredapd/tools/wblist_admin.py --add --blacklist 202.96.134.133 bad-user@domain.com @bad-domain.com @.sub-domain.com
+python /opt/iredapd/tools/wblist_admin.py --list --blacklist
 
 # for per-user or per-domain whitelists, please use option --account. for example:
-python wblist_admin.py --account @mydomain.com --add --whitelist 192.168.1.10 user@example.com
-python wblist_admin.py --account @mydomain.com --list --whitelist
+python /opt/iredapd/tools/wblist_admin.py --account @mydomain.com --add --whitelist 192.168.1.10 user@example.com
+python /opt/iredapd/tools/wblist_admin.py --account @mydomain.com --list --whitelist
 
 # for per-user or per-domain blacklists, please use option --account. for example:
-python wblist_admin.py --account user@mydomain.com --add --blacklist 172.16.1.10 baduser@example.com
-python wblist_admin.py --account user@mydomain.com --list --blacklist
+python /opt/iredapd/tools/wblist_admin.py --account user@mydomain.com --add --blacklist 172.16.1.10 baduser@example.com
+python /opt/iredapd/tools/wblist_admin.py --account user@mydomain.com --list --blacklist
+
+##################################
+# Adding Multiple Mail Domains
+##################################
+Link: https://www.linuxbabe.com/mail-server/set-up-iredmail-multiple-domains-nginx
