@@ -309,7 +309,7 @@ TXT-----_dmarc---v=DMARC1;p=none
 ##################################
 # Add DKIM to DNS record
 ##################################
-nano /opt/iRedMail-0.9.8/iRedMail.tips
+nano /opt/iRedMail-0.9.9/iRedMail.tips
 # copy DKIM, add to DNS record
 TXT-----dkim._domainkey-----v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCW8yLoCLYtV995QzRPYjcg9kxdO2yi7JaB2DJkkBRMmeA3jwUTuJ9t61ockNpVPRa7b1BjaCAbfHcfhm+UXEpffBXSNHvwakxt1HJx7Omqcok3xMB3yyU8fEWh3WFAucnUWHmy/EipgL8D4QkKTRMl6tNH+eaPmGSHeKhdb4y5xwIDAQAB
   
