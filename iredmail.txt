@@ -112,6 +112,26 @@ systemctl restart ssh
 
 reboot
 
+##################################
+# Add new user with root privilages
+##################################
+adduser [NEW_USER] && gpasswd -a [NEW_USER] sudo && gpasswd -a [NEW_USER] www-data
+# TYPE root password and just ENTER when fill user profile
+groupadd admin
+usermod -a -G admin [NEW_USER]
+dpkg-statoverride --update --add root admin 4750 /bin/su
+
+##################################
+# Generate ssh public key
+##################################
+mkdir -p /home/[NEW_USER]/.ssh && chmod 700 /home/[NEW_USER]/.ssh
+cd /home/[NEW_USER]/.ssh && ssh-keygen -t rsa
+# type: [NEW_USER]
+# just empty the passphrase
+mv [NEW_USER].pub authorized_keys && chmod 600 authorized_keys && rm /home/[NEW_USER]/.ssh/[NEW_USER]
+
+systemctl restart ssh && echo "Please login ssh with new user created" && exit
+
 		##################################
 		# Configure php7.2-fpm
 		##################################
