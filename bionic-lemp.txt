@@ -57,7 +57,7 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-se
 ##################################
 # Add new user with root privilages
 ##################################
-adduser [NEW_USER] && gpasswd -a <New_User> sudo && gpasswd -a [NEW_USER] www-data
+adduser [NEW_USER] && gpasswd -a [NEW_USER] sudo && gpasswd -a [NEW_USER] www-data
 # TYPE root password and just ENTER when fill user profile
 groupadd admin
 usermod -a -G admin [NEW_USER]
