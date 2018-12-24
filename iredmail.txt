@@ -1,10 +1,12 @@
 ##################################
 # Set DNS Record
 ##################################
-A-------@--------[YOUR_IP_SERVER]
-A-------mail-----[YOUR_IP_SERVER]
-A-------www------[OTHER_IP_SERVER]
-MX------@--------mail.[YOUR_DOMAIN]-----10
+A-------@---------[YOUR_IP_SERVER] -> to pass DKIM
+A-------mail------[YOUR_IP_SERVER] -> to Roundcube
+A-------webmail---[YOUR_IP_SERVER] -> to redirect to mail.
+A-------www-------[OTHER_IP_SERVER] -> to main website
+A-------dev-------[OTHER_IP_SERVER] -> to development mode
+MX------@---------mail.[YOUR_DOMAIN]-----10
 
 ##################################
 # Be root
