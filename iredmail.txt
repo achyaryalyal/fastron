@@ -45,7 +45,7 @@ nano /etc/hosts
 127.0.0.1 mail.acehunited.com localhost
 127.0.1.1 mail.acehunited.com mail
 
-cd /opt && wget https://bitbucket.org/zhb/iredmail/downloads/iRedMail-0.9.8.tar.bz2 && tar xvf iRedMail-0.9.8.tar.bz2 && cd iRedMail-0.9.8/ && chmod +x iRedMail.sh && bash iRedMail.sh
+cd /opt && wget https://bitbucket.org/zhb/iredmail/downloads/iRedMail-0.9.9.tar.bz2 && tar xvf iRedMail-0.9.9.tar.bz2 && cd iRedMail-0.9.9/ && chmod +x iRedMail.sh && bash iRedMail.sh
 
 # select "Yes" and press Enter
 # you can use the default one "/var/vmail", so simply press Enter
