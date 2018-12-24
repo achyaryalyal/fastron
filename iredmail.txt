@@ -397,18 +397,22 @@ chmod 400 /opt/iredapd/settings.py
 # whitelist IP address, email address, entire domain, subdomain (including main domain)
 python /opt/iredapd/tools/wblist_admin.py --add --whitelist 192.168.1.10 user@domain.com @iredmail.org @.example.com
 python /opt/iredapd/tools/wblist_admin.py --list --whitelist
+python /opt/iredapd/tools/wblist_admin.py --delete --whitelist 192.168.1.10 user@domain.com @iredmail.org @.example.com
 
 # blacklist IP address, email address, entire domain, subdomain (including main domain)
 python /opt/iredapd/tools/wblist_admin.py --add --blacklist 202.96.134.133 bad-user@domain.com @bad-domain.com @.sub-domain.com
 python /opt/iredapd/tools/wblist_admin.py --list --blacklist
+python /opt/iredapd/tools/wblist_admin.py --delete --blacklist 202.96.134.133 bad-user@domain.com @bad-domain.com @.sub-domain.com
 
 # for per-user or per-domain whitelists, please use option --account. for example:
 python /opt/iredapd/tools/wblist_admin.py --account @mydomain.com --add --whitelist 192.168.1.10 user@example.com
 python /opt/iredapd/tools/wblist_admin.py --account @mydomain.com --list --whitelist
+python /opt/iredapd/tools/wblist_admin.py --account @mydomain.com --delete --whitelist 192.168.1.10 user@example.com
 
 # for per-user or per-domain blacklists, please use option --account. for example:
 python /opt/iredapd/tools/wblist_admin.py --account user@mydomain.com --add --blacklist 172.16.1.10 baduser@example.com
 python /opt/iredapd/tools/wblist_admin.py --account user@mydomain.com --list --blacklist
+python /opt/iredapd/tools/wblist_admin.py --account user@mydomain.com --delete --blacklist 172.16.1.10 baduser@example.com
 
 ##################################
 # Adding Multiple Mail Domains
