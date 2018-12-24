@@ -134,8 +134,6 @@ mysql_secure_installation
 ##################################
 # Configure nginx
 ##################################
-# install nginx-extras intead of nginx-full
-apt-get install -y nginx-extras
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf && cat /proc/cpuinfo | grep processor
 # configure worker_processes ===> cat /proc/cpuinfo | grep processor
 nano /etc/nginx/nginx.conf
