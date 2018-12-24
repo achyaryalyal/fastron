@@ -158,6 +158,33 @@ fastcgi_pass 127.0.0.1:9999;
 		curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/whitelist-ips.conf > /etc/nginx/bots.d/whitelist-ips.conf
 		curl -sSL https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/raw/master/bots.d/blacklist-ips.conf > /etc/nginx/bots.d/blacklist-ips.conf
 
+[DOMAIN]
+mkdir -p /var/www/domain && cd /var/www/domain && echo "<h1>It works! #domain</h1>" > index.html && chown -R www-data:www-data /var/www/domain
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/00-domain.conf > /etc/nginx/sites-available/00-domain.conf && sudo ln -s /etc/nginx/sites-available/00-domain.conf /etc/nginx/sites-enabled/
+# edit server_name with your domain
+nano /etc/nginx/sites-available/00-domain.conf
+nginx -t
+systemctl reload nginx
+curl -l http://[YOUR_DOMAIN]
+
+[WEBMAIL]
+mkdir -p /var/www/webmail && cd /var/www/webmail && echo "<h1>It works! #webmail</h1>" > index.html && chown -R www-data:www-data /var/www/webmail
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/00-webmail.conf > /etc/nginx/sites-available/00-webmail.conf && sudo ln -s /etc/nginx/sites-available/00-webmail.conf /etc/nginx/sites-enabled/
+# edit server_name with valid subdomain
+nano /etc/nginx/sites-available/00-webmail.conf
+nginx -t
+systemctl reload nginx
+curl -l http://webmail.acehunited.com
+
+[MAIL]
+mkdir -p /var/www/mail && cd /var/www/mail && echo "<h1>It works! #mail</h1>" > index.html && chown -R www-data:www-data /var/www/mail
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/00-default.conf > /etc/nginx/sites-available/00-default.conf && sudo ln -s /etc/nginx/sites-available/00-default.conf /etc/nginx/sites-enabled/
+# edit server_name with valid subdomain
+nano /etc/nginx/sites-available/00-default.conf
+nginx -t
+systemctl reload nginx
+curl -l http://mail.acehunited.com
+
 		[MASTER]
 		mkdir -p /var/www/master && cd /var/www/master && echo "<h1>It works! #master</h1>" > index.php && chown -R www-data:www-data /var/www/master
 		curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/01-www-master.conf > /etc/nginx/sites-available/01-www-master.conf && sudo ln -s /etc/nginx/sites-available/01-www-master.conf /etc/nginx/sites-enabled/
@@ -185,31 +212,15 @@ fastcgi_pass 127.0.0.1:9999;
 		systemctl reload nginx
 		curl -l http://data.acehunited.com
 
-		[WEBMAIL]
-		mkdir -p /var/www/webmail && cd /var/www/webmail && echo "<h1>It works! #webmail</h1>" > index.php && chown -R www-data:www-data /var/www/webmail
-		curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/00-webmail.conf > /etc/nginx/sites-available/00-webmail.conf && sudo ln -s /etc/nginx/sites-available/00-webmail.conf /etc/nginx/sites-enabled/
-		# edit server_name with valid subdomain
-		nano /etc/nginx/sites-available/00-webmail.conf
-		nginx -t
-		systemctl reload nginx
-		curl -l http://webmail.acehunited.com
-
-		[MAIL]
-		mkdir -p /var/www/mail && cd /var/www/mail && echo "<h1>It works! #mail</h1>" > index.php && chown -R www-data:www-data /var/www/mail
-		curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/00-default.conf > /etc/nginx/sites-available/00-default.conf && sudo ln -s /etc/nginx/sites-available/00-default.conf /etc/nginx/sites-enabled/
-		# edit server_name with valid subdomain
-		nano /etc/nginx/sites-available/00-default.conf
-		nginx -t
-		systemctl reload nginx
-		curl -l http://mail.acehunited.com
-
 ##################################
 # Install Let's Encrypt
 ##################################
 apt install -y software-properties-common && add-apt-repository ppa:certbot/certbot && apt install -y certbot && openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
 # press [ENTER]
 
-certbot certonly --webroot --force-renewal --agree-tos --email aymarxp@gmail.com -d mail.acehunited.com -w /var/www/html/
+certbot certonly --force-renewal --agree-tos --email aymarxp@gmail.com -a webroot --expand --webroot-path=/var/www/domain/ -d acehunited.com --webroot-path=/var/www/mail/ -d mail.acehunited.com --webroot-path=/var/www/webmail/ -d webmail.acehunited.com
+
+		certbot certonly --webroot --force-renewal --agree-tos --email aymarxp@gmail.com -d mail.acehunited.com -w /var/www/html/
 
 		certbot certonly --force-renewal --agree-tos --email aymarxp@gmail.com -a webroot --expand --webroot-path=/var/www/master/ -d acehunited.com -d www.acehunited.com --webroot-path=/var/www/mail/ -d mail.acehunited.com --webroot-path=/var/www/webmail/ -d webmail.acehunited.com --webroot-path=/var/www/development/ -d dev.acehunited.com --webroot-path=/var/www/data/ -d data.acehunited.com
 
