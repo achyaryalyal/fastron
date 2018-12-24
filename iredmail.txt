@@ -1,8 +1,9 @@
 ##################################
 # Set DNS Record
 ##################################
+A-------@--------[YOUR_IP_SERVER]
 A-------mail-----[YOUR_IP_SERVER]
-CNAME---www------[YOUR_DOMAIN]
+A-------www------[OTHER_IP_SERVER]
 MX------@--------mail.[YOUR_DOMAIN]-----10
 
 ##################################
