@@ -289,22 +289,6 @@ systemctl reload dovecot
 
 https://mail.acehunited.com/mail/
 
-------------------------------------------------------------------------
-Using Mail Clients on Your Computer or Mobile Device
-------------------------------------------------------------------------
-Incoming: IMAP
-	server: mail.acehunited.com
-	port: 993
-	security: SSL/TLS
-	authentication: Normal password
-------------------------------------------------------------------------
-Outgoing: SMTP
-	server: mail.acehunited.com
-	port: 587
-	security: STARTTLS
-	authentication: Normal password
-------------------------------------------------------------------------
-
 ##################################
 # Show PTR record
 ##################################
@@ -330,3 +314,69 @@ nano /opt/iRedMail-0.9.8/iRedMail.tips
 TXT-----dkim._domainkey-----v=DKIM1;p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCW8yLoCLYtV995QzRPYjcg9kxdO2yi7JaB2DJkkBRMmeA3jwUTuJ9t61ockNpVPRa7b1BjaCAbfHcfhm+UXEpffBXSNHvwakxt1HJx7Omqcok3xMB3yyU8fEWh3WFAucnUWHmy/EipgL8D4QkKTRMl6tNH+eaPmGSHeKhdb4y5xwIDAQAB
   
 # try to send email from an iredmail account to a gmail account. If you click the show original button in Gmail, you should see "dkim=pass"
+
+##################################
+# Check mail log
+##################################
+nano /var/log/mail.log
+
+------------------------------------------------------------------------
+Using Mail Clients on Your Computer or Mobile Device
+------------------------------------------------------------------------
+Incoming: IMAP
+	server: mail.acehunited.com
+	port: 993
+	security: SSL/TLS
+	authentication: Normal password
+------------------------------------------------------------------------
+Outgoing: SMTP
+	server: mail.acehunited.com
+	port: 587
+	security: STARTTLS
+	authentication: Normal password
+------------------------------------------------------------------------
+
+##################################
+# Adding Multiple Mail Domains
+##################################
+Link: https://www.linuxbabe.com/mail-server/set-up-iredmail-multiple-domains-nginx
+
+##################################
+# Disable Greylisting
+##################################
+By default, iRedMail has enabled greylisting, which tells other sending SMTP servers to try again in a few minutes. This is mainly useful to block spam, but it also degrades user experience. If you prefer to disable greylisting, follow the instructions below.
+
+# add write permission to the /opt/iredapd/settings.py file
+chmod 600 /opt/iredapd/settings.py
+
+# then edit the configuration file
+nano /opt/iredapd/settings.py
+
+# find the following line
+plugins = ["reject_null_sender", "wblist_rdns", "reject_sender_login_mismatch", "greylisting", "throttle", "amavisd_wblist", "sql_alias_access_policy"]
+
+# remove "greylisting" from the list. Save and close the file. Then restart iredapd
+systemctl restart iredapd
+
+# change the configuration file back to read only mode
+chmod 400 /opt/iredapd/settings.py
+
+##################################
+# Manage White/Blacklists
+##################################
+
+# whitelist IP address, email address, entire domain, subdomain (including main domain)
+python wblist_admin.py --add --whitelist 192.168.1.10 user@domain.com @iredmail.org @.example.com
+python wblist_admin.py --list --whitelist
+
+# blacklist IP address, email address, entire domain, subdomain (including main domain)
+python wblist_admin.py --add --blacklist 202.96.134.133 bad-user@domain.com @bad-domain.com @.sub-domain.com
+python wblist_admin.py --list --blacklist
+
+# for per-user or per-domain whitelists, please use option --account. for example:
+python wblist_admin.py --account @mydomain.com --add --whitelist 192.168.1.10 user@example.com
+python wblist_admin.py --account @mydomain.com --list --whitelist
+
+# for per-user or per-domain blacklists, please use option --account. for example:
+python wblist_admin.py --account user@mydomain.com --add --blacklist 172.16.1.10 baduser@example.com
+python wblist_admin.py --account user@mydomain.com --list --blacklist
