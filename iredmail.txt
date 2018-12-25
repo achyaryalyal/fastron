@@ -5,7 +5,6 @@ A-------@---------[YOUR_IP_SERVER] -> DKIM "pass"
 A-------mail------[YOUR_IP_SERVER] -> Roundcube
 A-------webmail---[YOUR_IP_SERVER] -> redirect to mail.[YOUR_DOMAIN]
 A-------www-------[OTHER_IP_SERVER] -> to main website in other server
-A-------dev-------[OTHER_IP_SERVER] -> to development mode in other server
 MX------@---------mail.[YOUR_DOMAIN]-----10
 
 ##################################
