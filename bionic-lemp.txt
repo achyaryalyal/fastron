@@ -356,6 +356,8 @@ cd / && wget https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=d
 
 # insert verification code
 ./gdrive about
+# if error occured, so remove token file: rm ~/.gdrive/*
+# then, run again: ./gdrive about
 
 # install
 sudo install gdrive /usr/local/bin/gdrive && gdrive version
