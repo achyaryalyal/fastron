@@ -352,7 +352,7 @@ cd /var/www/master && rm -rf ide && wget https://github.com/Codiad/Codiad/archiv
 ##################################
 # Install Google Drive (64 bit)
 ##################################
-cd / && wget https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download && mv uc\?id\=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA gdrive && chmod +x gdrive
+cd /opt && wget https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download && mv uc\?id\=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA gdrive && chmod +x gdrive
 
 # insert verification code
 ./gdrive about
