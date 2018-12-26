@@ -331,7 +331,7 @@ $config['session_lifetime'] = 4320; // 3 days
 
 $config['product_name'] = 'Webmail STKIP BBG';
 
-$config['skin_logo'] = 'put image URL here';
+$config['skin_logo'] = 'https://www.opensimka.com/assets/img/logo/logo-stkip-bbg-webmail.png';
 
 $config['language'] = 'en_US';
 
