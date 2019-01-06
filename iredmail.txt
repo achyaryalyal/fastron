@@ -325,6 +325,17 @@ systemctl reload dovecot
 ##################################
 # Customize Roundcube
 ##################################
+nano /opt/www/iRedAdmin-*/settings.py
+# change minimum password
+min_passwd_length = 3
+
+systemctl restart uwsgi.service
+
+/opt/www/roundcubemail/plugins/password/config.inc.php
+# change minimum password
+$config['password_minimum_length'] = 3;
+$config['password_require_nonalpha'] = false;
+
 nano /opt/www/roundcubemail/config/defaults.inc.php
 
 $config['session_lifetime'] = 4320; // 3 days
