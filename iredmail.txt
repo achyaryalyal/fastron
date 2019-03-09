@@ -478,6 +478,13 @@ python /opt/iredapd/tools/wblist_admin.py --account user@mydomain.com --list --b
 python /opt/iredapd/tools/wblist_admin.py --account user@mydomain.com --delete --blacklist 172.16.1.10 baduser@example.com
 
 ##################################
+# Block Email Based on Exact Keywords
+##################################
+You can try either one:
+*) Update SpamAssassin config file (/etc/mail/spamassassin/local.cf) to detect certain words/senders and increase its score. Create a custom rule to score matched email a high score, then Amavisd will mark it as spam.
+*) Use Postfix parameter 'header_checks' and 'body_checks'. Reference: http://www.postfix.org/header_checks.5.html
+
+##################################
 # Adding Multiple Mail Domains
 ##################################
 Link: https://www.linuxbabe.com/mail-server/set-up-iredmail-multiple-domains-nginx
