@@ -263,12 +263,12 @@ update-alternatives --config php
 php -v
 
 ##################################
-# Install PhpMyAdmin 4.8.4
+# Install PhpMyAdmin 4.9.0.1
 ##################################
-mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.8.4/phpMyAdmin-4.8.4-english.zip && unzip phpMyAdmin-4.8.4-english.zip && mv phpMyAdmin-4.8.4-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php && chown -R www-data:www-data /var/www/phpmyadmin
+mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.9.0.1/phpMyAdmin-4.9.0.1-english.zip && unzip phpMyAdmin-4.9.0.1-english.zip && mv phpMyAdmin-4.9.0.1-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php && chown -R www-data:www-data /var/www/phpmyadmin
 
 # custom config
-sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = 'spalDing46muLti99Balkans';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /var/www/phpmyadmin/config.inc.php
+sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['$2a$07$8pApKkdpXx75tfmfmpz9q.xLPtoS6CikUbkxBuT5mHbOWke1pDPCO'\] = 'spalDing46muLti99Balkans';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /var/www/phpmyadmin/config.inc.php
 sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /var/www/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/phpmyadmin/config.inc.php
