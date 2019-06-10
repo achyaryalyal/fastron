@@ -274,15 +274,15 @@ sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/phpmyadmin/config.inc.ph
 sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/phpmyadmin/config.inc.php
 
 # modificate auth
-nano /var/www/phpmyadmin/libraries/plugins/auth/AuthenticationCookie.php
+nano /var/www/phpmyadmin/libraries/classes/Response.php
 
-# paste key & token params checker, after line 87: $header->disableWarnings();
+# paste key & token params checker di function login, after line : $header->disableWarnings();
 if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
 
 # create server block: data-phpmyadmin
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/data-phpmyadmin > /etc/nginx/sites-available/data-phpmyadmin && sudo ln -s /etc/nginx/sites-available/data-phpmyadmin /etc/nginx/sites-enabled/
 
-# check, then reload
+# test before reload
 nginx -t
 service nginx reload
 
