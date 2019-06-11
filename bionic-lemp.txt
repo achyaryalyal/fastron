@@ -193,6 +193,25 @@ This is a test email."| sendmail -t
 Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for you because your domain isn't listed in Pyzor Whitelist and Cloud Kilat hasn't rDNS
 
 ##################################
+# Install Nginx
+##################################
+	sudo apt install nginx && nginx -v
+
+	# adjusting the firewall
+	sudo ufw app list
+	sudo ufw allow 'Nginx Full'
+	sudo ufw status
+
+	# setting up server blocks
+	###download nginx.conf from my github###
+	chown www-data:www-data /var/log/nginx/error.log
+
+	# create a symbolic link to activate server block
+	sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
+	nginx -t
+	systemctl reload nginx
+
+##################################
 # Configure Fail2ban
 ##################################
 cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
