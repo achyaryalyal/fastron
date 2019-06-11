@@ -209,7 +209,7 @@ Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for 
 	# create a symbolic link to activate server block
 	sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
 	nginx -t
-	systemctl reload nginx
+	service nginx reload
 
 ##################################
 # Configure Fail2ban
@@ -421,3 +421,9 @@ freshclam -v
 # if you get the following error: Clamd was NOT notified
 # just restart the daemon
 service clamav-daemon restart
+
+##################################
+# Install Monit
+##################################
+?
+?
