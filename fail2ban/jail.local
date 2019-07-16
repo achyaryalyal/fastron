@@ -335,7 +335,7 @@ enabled  = true
 filter   = nginx-req-limit
 port     = http,https
 logpath  = %(nginx_error_log)s
-maxretry = 10
+maxretry = 5
 findtime = 600
 bantime  = 7200
 
