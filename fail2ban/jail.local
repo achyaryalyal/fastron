@@ -354,12 +354,12 @@ logpath  = /var/log/nginx/error.log
 maxretry = 2
 
 [wp-login]
-enabled = true   
-port = http,https
-filter = wp-login
-logpath = /var/log/nginx/access.log
+enabled  = true   
+port     = http,https
+filter   = wp-login
+logpath  = /var/log/nginx/access.log
 maxretry = 3
-bantime = 7200
+bantime  = 7200
 
 # Ban attackers that try to use PHP's URL-fopen() functionality
 # through GET/POST variables. - Experimental, with more than a year
