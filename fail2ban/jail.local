@@ -331,8 +331,8 @@ bantime  = 48h
 enabled  = true
 port     = http,https
 logpath  = %(nginx_error_log)s
-maxretry = 2
-bantime  = 48h
+maxretry = 1
+bantime  = 72h
 
 [nginx-botsearch]
 enabled  = true
