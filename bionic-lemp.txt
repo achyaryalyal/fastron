@@ -216,11 +216,13 @@ Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for 
 ##################################
 cp /etc/fail2ban/fail2ban.conf /etc/fail2ban/fail2ban.local
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/jail.local > /etc/fail2ban/jail.local
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-dos.conf > /etc/fail2ban/filter.d/nginx-dos.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-req-limit.conf > /etc/fail2ban/filter.d/nginx-req-limit.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-badrequests.conf > /etc/fail2ban/filter.d/nginx-badrequests.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-noproxy.conf > /etc/fail2ban/filter.d/nginx-noproxy.conf
 cp /etc/fail2ban/filter.d/apache-badbots.conf /etc/fail2ban/filter.d/nginx-badbots.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-badrequests.conf > /etc/fail2ban/filter.d/nginx-badrequests.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-conn-limit.conf > /etc/fail2ban/filter.d/nginx-conn-limit.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-dos.conf > /etc/fail2ban/filter.d/nginx-dos.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-noproxy.conf > /etc/fail2ban/filter.d/nginx-noproxy.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/nginx-req-limit.conf > /etc/fail2ban/filter.d/nginx-req-limit.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/wp-login.conf > /etc/fail2ban/filter.d/wp-login.conf
 service fail2ban restart && fail2ban-client status
 
 # show status of all fail2ban jails at once
