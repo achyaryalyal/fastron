@@ -290,7 +290,7 @@ maxretry = 1
 enabled  = true
 port     = http,https
 filter   = nginx-http-auth
-logpath  = %(nginx_access_log)s
+logpath  = /var/log/nginx/access.log
 maxretry = 3
 bantime  = 600
 
@@ -298,7 +298,7 @@ bantime  = 600
 enabled  = false
 port     = http,https
 filter   = nginx-dos
-logpath  = %(nginx_access_log)s
+logpath  = /var/log/nginx/access.log
 maxretry = 120
 findtime = 60
 bantime  = 86400
@@ -307,7 +307,7 @@ bantime  = 86400
 enabled  = true
 port     = http,https
 filter   = nginx-badrequests
-logpath  = %(nginx_access_log)s
+logpath  = /var/log/nginx/access.log
 maxretry = 3
 findtime = 3600
 bantime  = 2592000
@@ -316,7 +316,7 @@ bantime  = 2592000
 enabled  = true
 port     = http,https
 filter   = nginx-badbots
-logpath  = %(nginx_access_log)s
+logpath  = /var/log/nginx/access.log
 maxretry = 1
 findtime = 3600
 bantime  = 2592000
@@ -325,7 +325,7 @@ bantime  = 2592000
 enabled  = false
 port     = http,https
 filter   = nginx-noproxy
-logpath  = %(nginx_access_log)s
+logpath  = /var/log/nginx/access.log
 maxretry = 2
 findtime = 3600
 bantime  = 86400
@@ -333,16 +333,33 @@ bantime  = 86400
 [nginx-req-limit]
 enabled  = true
 filter   = nginx-req-limit
-port     = http,https
-logpath  = %(nginx_error_log)s
+action   = iptables-multiport[name=ReqLimit, port="http,https", protocol=tcp]
+logpath  = /var/log/nginx/error.log
+maxretry = 3
+findtime = 300
+bantime  = 7200
+
+[nginx-conn-limit]
+enabled  = true
+filter   = nginx-conn-limit
+action   = iptables-multiport[name=ConnLimit, port="http,https", protocol=tcp]
+logpath  = /var/log/nginx/error.log
 maxretry = 5
-findtime = 600
+findtime = 300
 bantime  = 7200
 
 [nginx-botsearch]
 port     = http,https
-logpath  = %(nginx_error_log)s
+logpath  = /var/log/nginx/error.log
 maxretry = 2
+
+[wp-login]
+enabled = true   
+port = http,https
+filter = wp-login
+logpath = /var/log/nginx/access.log
+maxretry = 3
+bantime = 7200
 
 # Ban attackers that try to use PHP's URL-fopen() functionality
 # through GET/POST variables. - Experimental, with more than a year
