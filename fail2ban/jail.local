@@ -240,7 +240,7 @@ action = %(action_)s
 # See "tests/files/logs/sshd" or "filter.d/sshd.conf" for usage example and details.
 [sshd]
 enabled  = true
-mode     = ddos
+mode     = normal
 port     = 10022
 logpath  = %(sshd_log)s
 backend  = %(sshd_backend)s
