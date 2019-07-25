@@ -232,6 +232,9 @@ chmod 755 /etc/fail2ban/fail2ban-allstatus.sh
 cp /etc/fail2ban/fail2ban-allstatus.sh /usr/bin/.
 fail2ban-allstatus.sh
 
+# if you can't edit unwritable jail.local file so you must force your root filesystem to remount as rw
+mount -o remount,rw /
+
 ##################################
 # Install MariaDB 10.4.6
 ##################################
