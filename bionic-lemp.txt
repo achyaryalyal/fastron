@@ -83,6 +83,8 @@ cd /home/[NEW_USER]/.ssh && ssh-keygen -t rsa
 # type: [NEW_USER]
 # just empty the passphrase
 mv [NEW_USER].pub authorized_keys && chmod 600 authorized_keys && rm /home/[NEW_USER]/.ssh/[NEW_USER]
+# edit ssh
+nano /etc/ssh/sshd_config
 # set:
 	Port 10022
 	LogLevel VERBOSE
