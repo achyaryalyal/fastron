@@ -29,8 +29,8 @@ hostnamectl set-hostname mail.[YOUR_DOMAIN] && hostname
 # Update packages
 ##################################
 sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && apt-get autoclean -y
-# configuring openssh-server? choose "Keep the local version currently installed"
 # restart without asking? choose "Yes"
+# configuring openssh-server? choose "Install the package maintainer's version"
 
 ##################################
 # Useful packages
