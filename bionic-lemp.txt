@@ -33,32 +33,6 @@ sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && ap
 # configuring openssh-server? choose "Install the package maintainer's version"
 
 ##################################
-# Add swap space
-##################################
-# check has swap enabled, if output is empty, it means that your system does not have swap space enabled
-sudo swapon --show
-# creating a file which will be used for swap
-sudo fallocate -l 1G /swapfile
-sudo chmod 600 /swapfile
-sudo mkswap /swapfile
-# activate the swap file
-sudo swapon /swapfile
-# make the change permanent
-sudo nano /etc/fstab
-# paste it
-/swapfile swap swap defaults 0 0
-# verify that the swap is active
-sudo swapon --show
-# set lower value for swappiness
-sudo sysctl vm.swappiness=10
-# make this parameter persistent across reboots
-nano /etc/sysctl.conf
-# paste it
-vm.swappiness=10
-# verify swappiness value
-cat /proc/sys/vm/swappiness
-
-##################################
 # Useful packages
 ##################################
 sudo apt-get install -y neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database
@@ -77,11 +51,16 @@ wget https://raw.githubusercontent.com/SuperSandro2000/nanorc/master/install.sh 
 # open_files limits
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.limits.conf > /etc/security/limits.conf
 
-# secure shared memory
-> /etc/fstab && echo "none /run/shm tmpfs defaults,ro 0 0" >>/etc/fstab
-
 # IP hardening
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-sec.conf > /etc/sysctl.d/50-ip-sec.conf && sudo sysctl --system
+
+##################################
+# Add swap space OR secure shared memory: > /etc/fstab && echo "none /run/shm tmpfs defaults,ro 0 0" >>/etc/fstab
+##################################
+# check has swap enabled, if output is empty, it means that your system does not have swap space enabled
+sudo swapon --show
+# creating a file which will be used for swap
+sudo fallocate -l 1G /swapfile && sudo chmod 600 /swapfile && sudo mkswap /swapfile && sudo swapon /swapfile && sudo swapon --show
 
 ##################################
 # Add new user with root privilages
@@ -260,7 +239,7 @@ cp /etc/fail2ban/fail2ban-allstatus.sh /usr/bin/.
 fail2ban-allstatus.sh
 
 # if you can't edit unwritable jail.local file so you must force your root filesystem to remount as rw
-mount -o remount,rw /
+mount -o remount,rw /etc/fail2ban/jail.local
 
 ##################################
 # Install MariaDB 10.4.6
