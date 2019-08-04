@@ -91,6 +91,8 @@ nano /etc/ssh/sshd_config
 	LoginGraceTime 10
 	PermitRootLogin no
 	X11Forwarding no
+	ClientAliveInterval 120
+	ClientAliveCountMax 720
 service ssh restart && echo "Please login ssh with new user created" && exit
 
 ##################################
