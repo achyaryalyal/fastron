@@ -43,8 +43,8 @@ server {
         #try_files $uri $uri/ =404;
         #include security.conf;
     }
-    include php.conf;
-    include cache.conf;
+    include general.conf;
+    more_clear_headers 'X-XSS-Protection';
     location ^~ /.well-known/acme-challenge/ {
         default_type "text/plain";
         root /usr/share/fastron/phpmyadmin;
@@ -57,6 +57,4 @@ server {
     location ^~ /.well-known/apple-app-site-association {
         return 404;
     }
-    include general.conf;
-    more_clear_headers 'X-XSS-Protection';
 }
