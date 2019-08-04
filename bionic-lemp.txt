@@ -457,6 +457,11 @@ service clamav-daemon restart
 ?
 ?
 
+######### Download a directory from another server with SCP #########
+scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/destination
+######### Upload a directory to another server with SCP #########
+scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination 
+
 ######### Flooding with SIEGE #########
 apt-get install siege
 siege -c 200 -b -t30s 'https://example.com'
