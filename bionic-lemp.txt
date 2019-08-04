@@ -217,6 +217,14 @@ sudo apt install -y nginx libnginx-mod-http-headers-more-filter && nginx -v
 # setting up server blocks
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/general.conf > /etc/nginx/general.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/conf.d/globalblacklist.conf > /etc/nginx/conf.d/globalblacklist.conf
+mkdir /etc/nginx/bots.d
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/blacklist-user-agents.conf > /etc/nginx/bots.d/blacklist-user-agents.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/whitelist-domains.conf > /etc/nginx/bots.d/whitelist-domains.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/bad-referrer-words.conf > /etc/nginx/bots.d/bad-referrer-words.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/custom-bad-referrers.conf > /etc/nginx/bots.d/custom-bad-referrers.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/whitelist-ips.conf > /etc/nginx/bots.d/whitelist-ips.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/blacklist-ips.conf > /etc/nginx/bots.d/blacklist-ips.conf
 chown www-data:www-data /var/log/nginx/error.log
 
 # create a symbolic link to activate server block
