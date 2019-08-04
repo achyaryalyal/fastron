@@ -327,18 +327,31 @@ service nginx reload
 ##################################
 # Install Let's Encrypt
 ##################################
-sudo apt-get install software-properties-common && sudo add-apt-repository ppa:certbot/certbot
-sudo apt-get update && sudo apt-get install -y letsencrypt
+sudo apt-get install -y certbot
 
 # HTTPS: create Diffie-Hellman keys
 openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
 
-# HTTPS: create ACME-challenge common directory
-mkdir -p /var/www/_letsencrypt && chown -R www-data:www-data /var/www/_letsencrypt
+# obtain certificate for a subdomain
+certbot certonly --email [YOUR_EMAIL] --agree-tos --rsa-key-size 4096 -d [SUBDOMAIN].example.com
 
-# HTTPS: certbot (obtain certificates)
-# disable before first run: ssl_certificate, ssl_certificate_key, ssl_trusted_certificate
-certbot certonly --webroot -d [YOUR_DOMAIN] -d www.[YOUR_DOMAIN] -d dev.[YOUR_DOMAIN] -d data.[YOUR_DOMAIN] -d mail.[YOUR_DOMAIN] -d webmail.[YOUR_DOMAIN] --email aymarxp@gmail.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
+# select ACME auth method
+How would you like to authenticate with the ACME CA?
+-------------------------------------------------------------------------------
+1: Spin up a temporary webserver (standalone)
+2: Place files in webroot directory (webroot)
+-------------------------------------------------------------------------------
+Select the appropriate number [1-2] then [enter] (press 'c' to cancel): 2
+
+# insert directory path
+Input the webroot for subdomain: (Enter 'c' to cancel): /var/www/[YOUR_DIRECTORY]
+
+		# HTTPS: create ACME-challenge common directory
+		mkdir -p /var/www/_letsencrypt && chown -R www-data:www-data /var/www/_letsencrypt
+
+		# HTTPS: certbot (obtain certificates)
+		# disable before first run: ssl_certificate, ssl_certificate_key, ssl_trusted_certificate
+		certbot certonly --webroot -d [YOUR_DOMAIN] -d www.[YOUR_DOMAIN] -d dev.[YOUR_DOMAIN] -d data.[YOUR_DOMAIN] -d mail.[YOUR_DOMAIN] -d webmail.[YOUR_DOMAIN] --email aymarxp@gmail.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
 
 # configure nginx
 # to perform SSL
