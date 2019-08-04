@@ -33,6 +33,32 @@ sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && ap
 # configuring openssh-server? choose "Install the package maintainer's version"
 
 ##################################
+# Add swap space
+##################################
+# check has swap enabled, if output is empty, it means that your system does not have swap space enabled
+sudo swapon --show
+# creating a file which will be used for swap
+sudo fallocate -l 1G /swapfile
+sudo chmod 600 /swapfile
+sudo mkswap /swapfile
+# activate the swap file
+sudo swapon /swapfile
+# make the change permanent
+sudo nano /etc/fstab
+# paste it
+/swapfile swap swap defaults 0 0
+# verify that the swap is active
+sudo swapon --show
+# set lower value for swappiness
+sudo sysctl vm.swappiness=10
+# make this parameter persistent across reboots
+nano /etc/sysctl.conf
+# paste it
+vm.swappiness=10
+# verify swappiness value
+cat /proc/sys/vm/swappiness
+
+##################################
 # Useful packages
 ##################################
 sudo apt-get install -y neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database
