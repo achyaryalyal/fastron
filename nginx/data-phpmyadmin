@@ -23,7 +23,7 @@ server {
     ###https### ssl_prefer_server_ciphers on;
     ###https### ssl_buffer_size 8k;
     ###https### ssl_ciphers EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH;
-    ###https### ssl_dhparam /usr/share/cert/dh.pem;
+    ###https### ssl_dhparam /etc/nginx/dhparam.pem;
     ###https### ssl_ecdh_curve secp384r1;
     ###https### ssl_session_cache shared:SSL:30m;
     ###https### ssl_session_tickets off;
