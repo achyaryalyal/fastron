@@ -259,11 +259,12 @@ mount -o remount,rw /etc/fail2ban/jail.local
 wget -qO mariadb_repo_setup https://downloads.mariadb.com/MariaDB/mariadb_repo_setup && chmod +x mariadb_repo_setup && ./mariadb_repo_setup --mariadb-server-version=10.4.6 --skip-maxscale -y && rm mariadb_repo_setup && sudo apt-get update && sudo apt-get install -y mariadb-server
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/my.cnf > /etc/mysql/conf.d/my.cnf
 mysql_secure_installation
-  	# Change the root password? n
-  	# Remove anonymous users? Y
-  	# Disallow root login remotely? Y
-  	# Remove test database and access to it? Y
-  	# Reload privilege tables now? Y
+        # Switch to unix_socket authentication [Y/n]? n
+  	# Change the root password? y
+  	# Remove anonymous users? y
+  	# Disallow root login remotely? y
+  	# Remove test database and access to it? y
+  	# Reload privilege tables now? y
 
 # stop mysql service to apply new InnoDB log file size
 sudo service mysql stop
@@ -284,12 +285,8 @@ service mysql start
 # check version
 dpkg -l | grep mariadb
 
-# change default `root` username to `panglima`
-mysql -u root -p
-show databases; use mysql; update user set user='panglima' where user='root'; flush privileges; exit;
-
 # optimize and repair databases
-mysqlcheck -u panglima -p --auto-repair -o --optimize --all-databases
+mysqlcheck -u root -p --auto-repair -o --optimize --all-databases
 
 ##################################
 # Install php7.3-fpm
