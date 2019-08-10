@@ -16,7 +16,7 @@ NS-----ns3.kilatdomain.net
 NS-----ns4.kilatdomain.net
 
 ##################################
-# Check
+# Check IP Domain
 ##################################
 dig [domain] +short
 ping [domain]
