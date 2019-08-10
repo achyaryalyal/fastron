@@ -469,9 +469,9 @@ sudo find . -type f -exec chmod 664 {} \;
 sudo find . -type d -exec chmod 775 {} \;
 
 ######### export database #########
-date=$(date +%Y-%m-%d_%H-%M) && mysqldump -h localhost -u [user] -p[password] [db_name] > /path/to/destination/[db_name]_DB_${date}.sql
+date=$(date +%Y-%m-%d_%H-%M) && mysqldump -h localhost -u root -p [db_name] > /path/to/destination/[db_name]_DB_${date}.sql
 ######### import database (make sure the database is EMPTY) #########
-mysql -u [root] -p [db_name] < file.sql
+mysql -u root -p [db_name] < file.sql
 
 ######### Download a directory from another server with SCP #########
 scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/destination
