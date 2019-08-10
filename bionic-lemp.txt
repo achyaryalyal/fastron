@@ -16,6 +16,17 @@ NS-----ns3.kilatdomain.net
 NS-----ns4.kilatdomain.net
 
 ##################################
+# Check
+##################################
+dig [domain] +short
+ping [domain]
+whois [domain] | grep Server
+dig @ns1.kilatdomain.net [domain] +short
+dig @ns2.kilatdomain.net [domain] +short
+dig @ns3.kilatdomain.net [domain] +short
+dig @ns4.kilatdomain.net [domain] +short
+
+##################################
 # Be root
 ##################################
 sudo -i
