@@ -348,19 +348,13 @@ sudo apt-get install -y certbot
 # HTTPS: create Diffie-Hellman keys
 openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
 
-# obtain certificate for a subdomain
-certbot certonly --email [YOUR_EMAIL] --agree-tos --rsa-key-size 4096 -d [SUBDOMAIN].example.com
+# obtain certificate for some subdomains (use --dry-run for testing)
+certbot certonly --email [YOUR_EMAIL] --agree-tos --rsa-key-size 4096 --webroot -w /var/www/master -d opensimka.com -d www.opensimka.com -w /var/www/development -d dev.opensimka.com -w /var/www/phpmyadmin -d data.opensimka.com
 
-# select ACME auth method
-How would you like to authenticate with the ACME CA?
--------------------------------------------------------------------------------
-1: Spin up a temporary webserver (standalone)
-2: Place files in webroot directory (webroot)
--------------------------------------------------------------------------------
-Select the appropriate number [1-2] then [enter] (press 'c' to cancel): 2
+# obtain certificate for a subdomain (use --dry-run for testing)
+certbot certonly --email [YOUR_EMAIL] --agree-tos --rsa-key-size 4096 --webroot -w /var/www/[YOUR_DIRECTORY] -d [SUBDOMAIN].example.com
 
-# insert directory path
-Input the webroot for subdomain: (Enter 'c' to cancel): /var/www/[YOUR_DIRECTORY]
+
 
 		# HTTPS: create ACME-challenge common directory
 		mkdir -p /var/www/_letsencrypt && chown -R www-data:www-data /var/www/_letsencrypt
@@ -369,16 +363,17 @@ Input the webroot for subdomain: (Enter 'c' to cancel): /var/www/[YOUR_DIRECTORY
 		# disable before first run: ssl_certificate, ssl_certificate_key, ssl_trusted_certificate
 		certbot certonly --webroot -d [YOUR_DOMAIN] -d www.[YOUR_DOMAIN] -d dev.[YOUR_DOMAIN] -d data.[YOUR_DOMAIN] -d mail.[YOUR_DOMAIN] -d webmail.[YOUR_DOMAIN] --email aymarxp@gmail.com -w /var/www/_letsencrypt -n --agree-tos --force-renewal
 
-# configure nginx
+
+
+# configure nginx server block
 # to perform SSL
 
 # testing SSL grade
 # open https://www.ssllabs.com/ssltest
 
-# Let’s Encrypt certs expire after 90 days
-# since Ubuntu 17.10, Certbot will automatically run twice a day and renew any certificate that is within thirty days of expiration
-# to test the renewal process is working correctly, you can use "dry-run" option:
+# Let's Encrypt's certificates are only valid for 90 days. Certbot will automatically run twice a day and renew any certificate that is within thirty days of expiration. To test the renewal process is working correctly, you can use "dry-run" option:
 certbot renew --dry-run
+# If you see no errors, you're all set. When necessary, Certbot will renew your certificates and reload Nginx to pick up the changes. If the automated renewal process ever fails, Let’s Encrypt will send a message to the email you specified, warning you when your certificate is about to expire.
 
 ##################################
 # Install Codiad 2.8.4
