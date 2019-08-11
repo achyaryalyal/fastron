@@ -46,7 +46,7 @@ sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && ap
 ##################################
 # Useful packages
 ##################################
-sudo apt-get install -y neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database
+sudo apt install -y neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database
 
 # configure timezone. Select: Asia->Jakarta
 sudo systemctl enable ntp && dpkg-reconfigure tzdata && date
@@ -109,7 +109,7 @@ service ssh restart && echo "Please login ssh with new user created" && exit
 ##################################
 # Firewall with ufw
 ##################################
-sudo apt-get install -y ufw
+sudo apt install -y ufw
 
 # define firewall rules
 sudo ufw logging low
@@ -147,7 +147,7 @@ service ssh restart
 ##################################
 # Install OpenDKIM
 ##################################
-apt-get install sendmail opendkim opendkim-tools -y && nano /etc/opendkim.conf
+sudo apt install sendmail opendkim opendkim-tools -y && nano /etc/opendkim.conf
 
 # replace all with this:
 AutoRestart Yes
@@ -225,7 +225,7 @@ Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for 
 ##################################
 sudo apt install -y nginx libnginx-mod-http-headers-more-filter && nginx -v
 
-# setting up server blocks
+# Set up server blocks
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/general.conf > /etc/nginx/general.conf
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/conf.d/globalblacklist.conf > /etc/nginx/conf.d/globalblacklist.conf
@@ -238,7 +238,11 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/blacklist-ips.conf > /etc/nginx/bots.d/blacklist-ips.conf
 chown www-data:www-data /var/log/nginx/error.log
 
-# create a symbolic link to activate server block
+# Create a password file for Restricting Access with HTTP Basic Authentication
+sudo apt install apache2-utils
+htpasswd -c /etc/nginx/conf.d/.htpasswd [USER]
+
+# Create a symbolic link to activate server block
 sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
 nginx -t
 service nginx reload
@@ -267,7 +271,7 @@ mount -o remount,rw /etc/fail2ban/jail.local
 ##################################
 # Install MariaDB 10.4.6
 ##################################
-wget -qO mariadb_repo_setup https://downloads.mariadb.com/MariaDB/mariadb_repo_setup && chmod +x mariadb_repo_setup && ./mariadb_repo_setup --mariadb-server-version=10.4.6 --skip-maxscale -y && rm mariadb_repo_setup && sudo apt-get update && sudo apt-get install -y mariadb-server
+wget -qO mariadb_repo_setup https://downloads.mariadb.com/MariaDB/mariadb_repo_setup && chmod +x mariadb_repo_setup && ./mariadb_repo_setup --mariadb-server-version=10.4.6 --skip-maxscale -y && rm mariadb_repo_setup && sudo apt-get update && sudo apt install -y mariadb-server
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/my.cnf > /etc/mysql/conf.d/my.cnf
 mysql_secure_installation
         # Switch to unix_socket authentication [Y/n]? n
@@ -305,7 +309,7 @@ mysqlcheck -u root -p --auto-repair -o --optimize --all-databases
 sudo add-apt-repository ppa:ondrej/php && sudo apt update
 # Press [ENTER] to continue or Ctrl-c to cancel adding it? Press "ENTER"
 
-sudo apt-get install -y php7.3-fpm php7.3-common php7.3-opcache php7.3-readline php7.3-json php7.3-bcmath php7.3-bz2 php7.3-cli php7.3-curl php7.3-dev php7.3-gd php-imagick php7.3-intl php7.3-ldap php7.3-mbstring php7.3-mysql php7.3-soap php7.3-sqlite3 php7.3-sybase php-xdebug php7.3-xml php7.3-xmlrpc php7.3-xsl php7.3-zip
+sudo apt install -y php7.3-fpm php7.3-common php7.3-opcache php7.3-readline php7.3-json php7.3-bcmath php7.3-bz2 php7.3-cli php7.3-curl php7.3-dev php7.3-gd php-imagick php7.3-intl php7.3-ldap php7.3-mbstring php7.3-mysql php7.3-soap php7.3-sqlite3 php7.3-sybase php-xdebug php7.3-xml php7.3-xmlrpc php7.3-xsl php7.3-zip
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-fpm/php.ini > /etc/php/7.3/fpm/php.ini
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-fpm/www.conf > /etc/php/7.3/fpm/pool.d/www.conf
 chown www-data:www-data /var/log/php7.3-fpm.log
@@ -343,7 +347,7 @@ service nginx reload
 ##################################
 # Install Let's Encrypt
 ##################################
-sudo apt-get install -y certbot
+sudo apt install -y certbot
 
 # HTTPS: create Diffie-Hellman keys
 openssl dhparam -dsaparam -out /etc/nginx/dhparam.pem 2048
@@ -428,7 +432,7 @@ gdrive upload --parent <Folder_ID> filename.tar.gz
 ##################################
 # Install Clamav (GAK PERLU)
 ##################################
-sudo apt-get install clamav clamav-daemon clamav-freshclam && clamdscan -V
+sudo apt install clamav clamav-daemon clamav-freshclam && clamdscan -V
 sudo /etc/init.d/clamav-freshclam stop
 sudo freshclam
 sudo /etc/init.d/clamav-freshclam start
@@ -464,9 +468,9 @@ sudo find . -type f -exec chmod 664 {} \;
 sudo find . -type d -exec chmod 775 {} \;
 
 ######### export database #########
-date=$(date +%Y-%m-%d_%H-%M) && mysqldump -h localhost -u root -p [db_name] > /path/to/destination/[db_name]_DB_${date}.sql
+date=$(date +%Y-%m-%d_%H-%M) && mysqldump -h localhost -u root -p [DB_NAME] > /path/to/destination/[DB_NAME]_DB_${date}.sql
 ######### import database (make sure the database is EMPTY) #########
-mysql -u root -p [db_name] < file.sql
+mysql -u root -p [DB_NAME] < file.sql
 
 ######### force HTTPS wordpress #########
 edit wp-config.php file
@@ -487,7 +491,7 @@ scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/dest
 scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination 
 
 ######### Flooding with SIEGE #########
-apt-get install siege
+sudo apt install siege
 siege -c 200 -b -t30s 'https://example.com'
 ######### Flooding with CURL #########
 curl -s 'https://example.com/wp-login.php?[1-100]'
