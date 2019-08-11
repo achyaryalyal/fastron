@@ -467,6 +467,9 @@ cd /var/www
 sudo find . -type f -exec chmod 664 {} \;
 sudo find . -type d -exec chmod 775 {} \;
 
+######### Unbap IP with Fail2Ban #########
+fail2ban-client set [YOUR_JAIL_NAME] unbanip [IP_ADDR]
+
 ######### export database #########
 date=$(date +%Y-%m-%d_%H-%M) && mysqldump -h localhost -u root -p [DB_NAME] > /path/to/destination/[DB_NAME]_DB_${date}.sql
 ######### import database (make sure the database is EMPTY) #########
