@@ -209,7 +209,9 @@ service opendkim restart && service sendmail restart && cat mail.txt
 ### Copy everything and paste into the value field. Delete all double quotes and white spaces
 
 ### Add DNS TXT record with name "mail._domainkey" and paste to it's value
-TXT-----mail._domainkey-----v=DKIM1; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAraQm0eytpsm9CekqwVVQzl68TeHOcVchNL7o8usFFooa465XnZdmv0tRRoSuNrDjO4uJjFNCoY9NSpcjCHZJT3GLRA9u28cS7fNqG6Kbx4j5DhI0n5szAKlgLhTUSx9wbNfYYmaXWJGdl5uR13m2CvfU+dTJ3wytCuhLnjHSNS6cocws5Zypbo3A90v+6XJvoN2MjpoeyN1zJrr4W9KgsPH20mgX+QFNGNKCBsfbZ7P9lXGkZxMxT0ODtvYYWqdrVAL0y4/a/B4s+GV5LLZZped5wO9DrUQPwxc7TMe+oLKIEAi0r6GrJ9/vetBylssQ64FhE7jBjcmpSkW7+J+mqQIDAQAB
+TXT-----mail._domainkey-----v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApP/TaDH4rdcBnOdVpsDDN1eGc8HY5iZG2fpECplfHzq/BEoQHRfJ9QL4+X2RjuqzorWNp4AkeBNkZOId56DBt4H5XI5x7VLNdicSOQ5C0URLAv3AsB0eaDCyCBnGA4m91n9LxURlu9sR4l+rYNejCTEWbZFFVUhPW0y7rgs8jWTrwoiPDERohAwcDHIuOBc1Sq+FI8qW3zAQWOKeNpKrq/zBr5qBkWQUAfxw1p1nJJ50s8VdAACgKkXA0o5tP2OvKnVeHoQ6pUrXYvJeCYKqjeNYIljj7c3/2d8ftlSgj95L1tuB6ow1UjxeTOjTQcWaqBP9s9T2lsMcOBJG3fZB8QIDAQAB
+
+### NOTE: Name server changes usually take 24 to 48 hours to fully start working
 
 ### Check DKIM status in Gmail inbox
 echo "From: root@[YOUR_DOMAIN]
