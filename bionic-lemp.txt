@@ -39,7 +39,7 @@ hostnamectl set-hostname mail.[YOUR_DOMAIN] && hostname
 ##################################
 # Update packages
 ##################################
-sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && apt-get autoclean -y
+sudo apt update && apt upgrade -y && apt autoremove -y --purge && apt autoclean -y
 # Restart services during package upgrades without asking? choose "Yes"
 # configuring openssh-server? choose "Install the package maintainer's version"
 
@@ -49,7 +49,7 @@ sudo apt-get update && apt-get upgrade -y && apt-get autoremove -y --purge && ap
 sudo apt install -y neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database
 
 # configure timezone. Select: Asia->Jakarta
-sudo systemctl enable ntp && dpkg-reconfigure tzdata && date
+systemctl enable ntp && dpkg-reconfigure tzdata && date
 
 # increase history size
 export HISTSIZE=10000
@@ -112,36 +112,36 @@ service ssh restart && echo "Please login ssh with new user created" && exit
 sudo apt install -y ufw
 
 # define firewall rules
-sudo ufw logging low
-sudo ufw default allow outgoing
-sudo ufw default deny incoming
+ufw logging low
+ufw default allow outgoing
+ufw default deny incoming
 
 # ssh
 CURRENT_SSH_PORT=$(grep "Port " /etc/ssh/sshd_config | awk -F " " '{print $2}') && echo $CURRENT_SSH_PORT
-sudo ufw allow ??
+ufw allow ??
 
 # smtp
-sudo ufw allow 25
-    #sudo ufw allow 465
-    #sudo ufw allow 587
+ufw allow 25
+    #ufw allow 465
+    #ufw allow 587
 
 # pop3
-sudo ufw allow 110
-    #sudo ufw allow 995
+ufw allow 110
+    #ufw allow 995
 
 # imap
-sudo ufw allow 143
-    #sudo ufw allow 993
+ufw allow 143
+    #ufw allow 993
 
 # nginx
-sudo ufw allow http
-sudo ufw allow https
+ufw allow http
+ufw allow https
 
 #ntp
-sudo ufw allow 123
+ufw allow 123
 
-sudo ufw show added
-sudo ufw enable
+ufw show added
+ufw enable
 service ssh restart
 
 ##################################
@@ -276,7 +276,7 @@ mount -o remount,rw /etc/fail2ban/jail.local
 ##################################
 # Install MariaDB 10.4.6
 ##################################
-wget -qO mariadb_repo_setup https://downloads.mariadb.com/MariaDB/mariadb_repo_setup && chmod +x mariadb_repo_setup && ./mariadb_repo_setup --mariadb-server-version=10.4.6 --skip-maxscale -y && rm mariadb_repo_setup && sudo apt-get update && sudo apt install -y mariadb-server
+wget -qO mariadb_repo_setup https://downloads.mariadb.com/MariaDB/mariadb_repo_setup && chmod +x mariadb_repo_setup && ./mariadb_repo_setup --mariadb-server-version=10.4.6 --skip-maxscale -y && rm mariadb_repo_setup && sudo apt update && sudo apt install -y mariadb-server
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/my.cnf > /etc/mysql/conf.d/my.cnf
 mysql_secure_installation
         # Switch to unix_socket authentication [Y/n]? n
@@ -287,11 +287,11 @@ mysql_secure_installation
   	# Reload privilege tables now? y
 
 # stop mysql service to apply new InnoDB log file size
-sudo service mysql stop
+service mysql stop
 
 # mv previous log file
-sudo mv /var/lib/mysql/ib_logfile0 /var/lib/mysql/ib_logfile0.bak
-sudo mv /var/lib/mysql/ib_logfile1 /var/lib/mysql/ib_logfile1.bak
+mv /var/lib/mysql/ib_logfile0 /var/lib/mysql/ib_logfile0.bak
+mv /var/lib/mysql/ib_logfile1 /var/lib/mysql/ib_logfile1.bak
 
 # increase mariadb open_files_limit
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/limits.conf > /etc/systemd/system/mariadb.service.d/limits.conf
@@ -318,8 +318,8 @@ sudo apt install -y php7.3-fpm php7.3-common php7.3-opcache php7.3-readline php7
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-fpm/php.ini > /etc/php/7.3/fpm/php.ini
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-fpm/www.conf > /etc/php/7.3/fpm/pool.d/www.conf
 chown www-data:www-data /var/log/php7.3-fpm.log
-sudo chmod 1733 -R /var/lib/php/sessions
-sudo service php7.3-fpm restart && php -v
+chmod 1733 -R /var/lib/php/sessions
+service php7.3-fpm restart && php -v
 
 # if have many version of php & you want to switch the default version to other php version. Then, check default version
 update-alternatives --config php && php -v
@@ -383,6 +383,23 @@ certbot certonly --email [YOUR_EMAIL] --agree-tos --rsa-key-size 4096 --webroot 
 # Let's Encrypt's certificates are only valid for 90 days. Certbot will automatically run twice a day and renew any certificate that is within thirty days of expiration. To test the renewal process is working correctly, you can use "dry-run" option:
 certbot renew --dry-run
 # If you see no errors, you're all set. When necessary, Certbot will renew your certificates and reload Nginx to pick up the changes. If the automated renewal process ever fails, Let’s Encrypt will send a message to the email you specified, warning you when your certificate is about to expire.
+
+##################################
+# Install Monit
+##################################
+sudo apt install -y monit
+
+nano /etc/monit/monitrc
+
+systemctl start monit
+
+systemctl enable monit
+
+monit status
+
+monit summary
+
+# open URL:2812
 
 ##################################
 # Install Codiad 2.8.4
@@ -471,12 +488,6 @@ freshclam -v
 # just restart the daemon
 service clamav-daemon restart
 
-##################################
-# Install Monit
-##################################
-?
-?
-
 ######### safe with chown & chmod #########
 sudo chown www-data:www-data -R /var/www
 cd /var/www
@@ -519,3 +530,10 @@ curl -s 'https://example.com/wp-login.php?[1-100]'
 python doser.py -t 999 -g 'https://example.com'
 # command 999 threads sends POST requests with json data:
 python doser.py -t 999 -p 'https://example.com' -ah 'Content-Type: application/json' -d '{"json": "payload"}'
+
+######### Display a summary of all services currently running #########
+systemctl -t service --state=active --no-pager --no-legend | egrep '^*\.service.*running' | awk 'BEGIN { FS = " ";} {for (i = 2; i <= 4; i++) { $i = "" }; print}'
+systemctl status --no-pager --full
+systemctl list-unit-files --state=enabled --no-pager
+systemctl --type=service --state=active list-units --no-pager
+systemctl --type=service --state=running list-units --no-pager
