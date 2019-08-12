@@ -192,12 +192,17 @@ nano /etc/mail/sendmail.mc
 include(`/etc/mail/tls/starttls.m4')dnl
 INPUT_MAIL_FILTER(`opendkim', `S=inet:8891@localhost')dnl
 
-echo -e "127.0.0.1 [YOUR_DOMAIN]" >> /etc/hosts && echo -e "::1 [YOUR_DOMAIN]" >> /etc/hosts
+nano /etc/hosts
+
+# comment out any line with 127.0.1.1 and 127.0.0.1
+# next, add this line:
+127.0.0.1 [YOUR_DOMAIN]
+::1 [YOUR_DOMAIN]
 
 sendmailconfig
 # press "Y" for all
 
-service opendkim restart && service sendmail restart && nano -$ mail.txt
+service opendkim restart && service sendmail restart && cat mail.txt
 
 ### Copy everything and paste into the value field. Delete all double quotes and white spaces
 
