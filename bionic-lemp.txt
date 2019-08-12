@@ -318,6 +318,7 @@ sudo apt install -y php7.3-fpm php7.3-common php7.3-opcache php7.3-readline php7
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-fpm/php.ini > /etc/php/7.3/fpm/php.ini
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-fpm/www.conf > /etc/php/7.3/fpm/pool.d/www.conf
 chown www-data:www-data /var/log/php7.3-fpm.log
+sudo chmod 1733 -R /var/lib/php/sessions
 sudo service php7.3-fpm restart && php -v
 
 # if have many version of php & you want to switch the default version to other php version. Then, check default version
