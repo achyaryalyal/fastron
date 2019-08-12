@@ -122,15 +122,15 @@ ufw allow ??
 
 # smtp
 ufw allow 25
-    #ufw allow 465
-    #ufw allow 587
+ufw allow 465
+ufw allow 587
 
 # pop3
-ufw allow 110
+    #ufw allow 110
     #ufw allow 995
 
 # imap
-ufw allow 143
+    #ufw allow 143
     #ufw allow 993
 
 # nginx
@@ -143,6 +143,8 @@ ufw allow 123
 ufw show added
 ufw enable
 service ssh restart
+
+# if you want to delete a rule, just type: ufw delete [allow/deny] [PORT_NUMBER]
 
 ##################################
 # Install OpenDKIM
@@ -196,7 +198,7 @@ nano /etc/hosts
 
 # comment out any line with 127.0.1.1 and 127.0.0.1
 # next, add this line:
-127.0.0.1 [YOUR_DOMAIN]
+127.0.0.1 localhost [YOUR_DOMAIN]
 ::1 [YOUR_DOMAIN]
 
 sendmailconfig
@@ -391,15 +393,25 @@ sudo apt install -y monit
 
 nano /etc/monit/monitrc
 
+# uncomment httpd like following lines
+set httpd port 2812 and
+  use address localhost
+  allow localhost
+  allow admin:monit
+
 systemctl start monit
 
 systemctl enable monit
 
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/monit/custom.conf > /etc/monit/conf.d/custom.conf
+
+monit -t
+
+monit reload
+
 monit status
 
 monit summary
-
-# open URL:2812
 
 ##################################
 # Install Codiad 2.8.4
