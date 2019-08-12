@@ -328,12 +328,22 @@ sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = '$2a$07$8pAp
 sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /var/www/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['MaxNavigationItems'] = 1000;" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['NavigationTreeEnableGrouping'] = false;" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['NavigationDisplayLogo'] = false;" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['TitleTable'] = 'Data | @DATABASE@ / @TABLE@';" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['TitleDatabase'] = 'Data | @DATABASE@';" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['TitleServer'] = 'Data';" /var/www/phpmyadmin/config.inc.php
+sed -i "$ a \$cfg['TitleDefault'] = 'Data';" /var/www/phpmyadmin/config.inc.php
 
 # modificate auth
 nano /var/www/phpmyadmin/libraries/classes/Response.php
 
 # paste key & token params checker di function login, after line : $header->disableWarnings();
 if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
+
+nano /var/www/phpmyadmin/libraries/classes/Plugins/Auth/AuthenticationCookie.php
+search label with "input_username" and find <input>, change type "text" to "password"
 
 # create server block: data-phpmyadmin
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/data-phpmyadmin > /etc/nginx/sites-available/data-phpmyadmin && sudo ln -s /etc/nginx/sites-available/data-phpmyadmin /etc/nginx/sites-enabled/
