@@ -232,7 +232,7 @@ Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for 
 ##################################
 # Install Nginx
 ##################################
-sudo apt install -y nginx libnginx-mod-http-headers-more-filter && nginx -v
+sudo apt install -y software-properties-common && sudo add-apt-repository ppa:nginx/stable && sudo apt update && sudo apt install -y nginx libnginx-mod-http-headers-more-filter && nginx -v
 
 # Set up server blocks
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf
