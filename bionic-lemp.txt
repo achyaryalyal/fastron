@@ -511,6 +511,11 @@ sudo find . -type d -exec chmod 775 {} \;
 ######### Unbap IP with Fail2Ban #########
 fail2ban-client set [YOUR_JAIL_NAME] unbanip [IP_ADDR]
 
+######### Whitelisting IP in Fail2Ban #########
+nano +54 /etc/fail2ban/jail.local
+ignoreip = 127.0.0.1/8 ::1 .... .... ....
+service fail2ban restart
+
 ######### export database #########
 date=$(date +%Y-%m-%d_%H-%M) && mysqldump -h localhost -u root -p [DB_NAME] > /path/to/destination/[DB_NAME]_DB_${date}.sql
 ######### import database (make sure the database is EMPTY) #########
