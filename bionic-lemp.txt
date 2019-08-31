@@ -516,18 +516,33 @@ nano +54 /etc/fail2ban/jail.local
 ignoreip = 127.0.0.1/8 ::1 .... .... ....
 service fail2ban restart
 
-######### export database #########
+######### Cron Job #########
+# Example of job definition:
+# .---------------- minute (0 - 59)
+# |  .------------- hour (0 - 23)
+# |  |  .---------- day of month (1 - 31)
+# |  |  |  .------- month (1 - 12) OR jan,feb,mar,apr ...
+# |  |  |  |  .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat
+# |  |  |  |  |
+# *  *  *  *  * user-name  command to be executed
+  0  0  *  *  * root /sbin/hwclock -w   # synchronize hardware & system clock each day at 00:00 am
+  1  0  *  *  0 root /sbin/shutdown -r now "weekly reboot"   # reboot every sunday at 00:01 am
+######### Weekly Reboot #########
+# reboot every sunday at 01:30 AM
+30  1  *  *  0 /sbin/shutdown -r now 
+
+######### Export Database #########
 date=$(date +%Y-%m-%d_%H-%M) && mysqldump -h localhost -u root -p [DB_NAME] > /path/to/destination/[DB_NAME]_DB_${date}.sql
-######### import database (make sure the database is EMPTY) #########
+######### Import Database (make sure the database is EMPTY) #########
 mysql -u root -p [DB_NAME] < file.sql
 
-######### force HTTPS wordpress #########
+######### Force HTTPS Wordpress #########
 edit wp-config.php file
 UPDATE wp_blogs SET domain = REPLACE(domain, "http://www.stkipgetsempena.ac.id", "https://www.stkipgetsempena.ac.id");
 UPDATE wp_options SET option_value = REPLACE(option_value, "http://www.stkipgetsempena.ac.id", "https://www.stkipgetsempena.ac.id");
 UPDATE wp_site SET domain = REPLACE(domain, "http://www.stkipgetsempena.ac.id", "https://www.stkipgetsempena.ac.id");
 UPDATE wp_sitemeta SET meta_value = REPLACE(meta_value, "http://www.stkipgetsempena.ac.id", "https://www.stkipgetsempena.ac.id");
-######### force HTTP wordpress #########
+######### Force HTTP Wordpress #########
 edit wp-config.php file
 UPDATE wp_blogs SET domain = REPLACE(domain, "https://www.stkipgetsempena.ac.id", "http://www.stkipgetsempena.ac.id");
 UPDATE wp_options SET option_value = REPLACE(option_value, "https://www.stkipgetsempena.ac.id", "http://www.stkipgetsempena.ac.id");
