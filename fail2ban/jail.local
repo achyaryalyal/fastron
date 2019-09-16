@@ -349,7 +349,7 @@ action   = iptables-multiport[name=wordpress, port="http,https", protocol=tcp]
 logpath  = %(nginx_access_log)s
 maxretry = 3
 findtime = 3h
-bantime  = 10m
+bantime  = 5m
 
 
 
