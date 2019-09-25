@@ -48,6 +48,15 @@ sudo apt update && apt upgrade -y && apt autoremove -y --purge && apt autoclean 
 ##################################
 sudo apt install -y neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database geoip-database-extra geoipupdate && geoipupdate -v
 
+##################################
+# Add Cronjob
+##################################
+crontab -e
+# update GeoIP databases every sunday at 01:00 AM
+00  1  *  *  0 /usr/bin/geoipupdate -v
+# reboot server every sunday at 01:30 AM
+30  1  *  *  0 /sbin/shutdown -r now
+
 # configure timezone. Select: Asia->Jakarta
 systemctl enable ntp && dpkg-reconfigure tzdata && date
 
@@ -531,9 +540,6 @@ service fail2ban restart
 # *  *  *  *  * user-name  command to be executed
   0  0  *  *  * root /sbin/hwclock -w   # synchronize hardware & system clock each day at 00:00 am
   1  0  *  *  0 root /sbin/shutdown -r now "weekly reboot"   # reboot every sunday at 00:01 am
-######### Weekly Reboot #########
-# reboot every sunday at 01:30 AM
-30  1  *  *  0 /sbin/shutdown -r now 
 
 ######### Export Database #########
 date=$(date +%Y-%m-%d_%H-%M) && mysqldump -h localhost -u root -p [DB_NAME] > /path/to/destination/[DB_NAME]_DB_${date}.sql
