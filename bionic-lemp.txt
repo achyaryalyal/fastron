@@ -46,16 +46,7 @@ sudo apt update && apt upgrade -y && apt autoremove -y --purge && apt autoclean 
 ##################################
 # Useful packages
 ##################################
-sudo add-apt-repository ppa:maxmind/ppa && sudo apt update && sudo apt install -y neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database geoip-database-extra libmaxminddb-dev geoipupdate && geoipupdate -v
-
-##################################
-# Add Cronjob
-##################################
-crontab -e
-# update GeoIP databases every sunday at 01:00 AM
-00  1  *  *  0 /usr/bin/geoipupdate -v
-# reboot server every sunday at 01:30 AM
-30  1  *  *  0 /sbin/shutdown -r now
+sudo add-apt-repository ppa:maxmind/ppa && sudo apt update && sudo apt install -y neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database geoip-database-extra libmaxminddb0 libmaxminddb-dev mmdb-bin geoipupdate libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev && geoipupdate -v
 
 # configure timezone. Select: Asia->Jakarta
 systemctl enable ntp && dpkg-reconfigure tzdata && date
@@ -264,6 +255,30 @@ htpasswd -c /etc/nginx/conf.d/.htpasswd [USER]
 sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
 nginx -t
 service nginx reload
+
+# Add Nginx GeoIP2 module
+cd /opt && git clone https://github.com/leev/ngx_http_geoip2_module && ls
+nginx -v
+wget http://nginx.org/download/nginx-VERSION.tar.gz
+tar zxvf nginx-VERSION.tar.gz
+cd nginx-VERSION
+./configure --add-dynamic-module=/opt/ngx_http_geoip2_module
+make
+make install
+cp objs/ngx_http_geoip2_module.so /etc/nginx/
+nano /etc/nginx/nginx.conf
+#add it before event {}: load_module /etc/nginx/ngx_http_geoip2_module.so;
+nginx -t
+service nginx reload
+
+##################################
+# Add Cronjob
+##################################
+crontab -e
+# update GeoIP databases every sunday at 01:00 AM
+00  1  *  *  0 /usr/bin/geoipupdate -v
+# reboot server every sunday at 01:30 AM
+30  1  *  *  0 /sbin/shutdown -r now
 
 ##################################
 # Configure Fail2ban
