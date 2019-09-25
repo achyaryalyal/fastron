@@ -46,7 +46,7 @@ sudo apt update && apt upgrade -y && apt autoremove -y --purge && apt autoclean 
 ##################################
 # Useful packages
 ##################################
-sudo apt install -y neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database geoipupdate && geoipupdate -v
+sudo apt install -y neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database geoip-database-extra geoipupdate && geoipupdate -v
 
 # configure timezone. Select: Asia->Jakarta
 systemctl enable ntp && dpkg-reconfigure tzdata && date
