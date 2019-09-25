@@ -46,7 +46,7 @@ sudo apt update && apt upgrade -y && apt autoremove -y --purge && apt autoclean 
 ##################################
 # Useful packages
 ##################################
-sudo add-apt-repository ppa:maxmind/ppa && sudo apt update && sudo apt install -y neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database geoip-database-extra libgeoip1 libmaxminddb0 libmaxminddb-dev mmdb-bin libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev geoipupdate && geoipupdate -v
+sudo add-apt-repository ppa:maxmind/ppa && sudo apt update && sudo apt install neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database geoip-database-extra libgeoip1 libmaxminddb0 libmaxminddb-dev mmdb-bin libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev geoipupdate && geoipupdate -v
 
 # configure timezone. Select: Asia->Jakarta
 systemctl enable ntp && dpkg-reconfigure tzdata && date
