@@ -4,6 +4,26 @@
 wajib pastikan windowsnya sudah "Disable Fast Boot" agar permission partisi di NTFS tidak bentrok
 
 ##################################
+# Disk Partitioning
+##################################
+Size 204852 MiB
+Type GPT
+File System ext4
+Mount Point /
+Flags root
+
+Size 204852 MiB
+Type GPT
+File System fat32
+Mount Point /boot/efi
+Flags boot, esp
+
+Size 4999 MiB
+Type GPT
+File System linuxswap
+Flags swap
+
+##################################
 # List Repo By Country
 ##################################
 https://repo.manjaro.org
