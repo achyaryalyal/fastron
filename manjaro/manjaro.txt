@@ -222,6 +222,11 @@ $ reboot
 $ dbus-launch dolphin
 
 ##################################
+# No storage media found. Make sure your device is unlocked and has MTP enabled in its USB connection settings.
+##################################
+just install "android-file-transfer" from octopi
+
+##################################
 # Microsoft Office via wine/PoL Can't Minimize and Restore
 ##################################
 Start System Settings
