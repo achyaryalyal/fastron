@@ -1,7 +1,11 @@
 ##################################
 # Installation If Dual Boot
 ##################################
-wajib pastikan windowsnya sudah "Disable Fast Boot" agar permission partisi di NTFS tidak bentrok
+just make sure Windows is "Disable Fast Boot" so that partition permissions on NTFS don't clash
+1. type "control panel" into the search box on the taskbar and then click Control Panel in the search results
+2. in the search box in the top right of the control panel, type power and then click Change what the power buttons do under Power Options
+3. click Change settings that are currently unavailable and the give consent to continue or enter an administrator username and password as prompted
+4. under Shutdown settings, uncheck Turn on fast startup (recommended) and click Save changes
 
 ##################################
 # Disk Partitioning
@@ -12,7 +16,7 @@ File System ext4
 Mount Point /
 Flags root
 
-Size 204852 MiB
+Size 150 MiB
 Type GPT
 File System fat32
 Mount Point /boot/efi
@@ -84,6 +88,12 @@ Desktop Effects -> Show Desktop Animation: Window Aperture
 Desktop Effects -> Virtual Desktop Switching Animation: Slide
 Desktop Effects -> Windows Management: Desktop Cube, Desktop Grid, Flip Switch, Present Windows
 Desktop Effects -> Windows Open/Close Animation: Fade
+
+##################################
+# Desktop Effects not working
+##################################
+type "compositor" and open it
+just re-enabled OpenGL 2.0 or change it to the newest version like 3.1
 
 ##################################
 # Display setting connect ke LCD projector biar layar sama2 tampil
