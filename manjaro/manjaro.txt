@@ -71,6 +71,10 @@ ON BATTERY: dim 2m, screen 5m, OFF suspend, button Lock Screen
 ON LOW: dim 1m, screen 2m, OFF suspend, button Lock Screen
 $ cd /etc/polkit-1/rules.d/ && wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/manjaro/10-disable-suspend.rules
 $ reboot
+
+##################################
+# Desktop Effects
+##################################
 Task Switcher -> Flip Switch
 Desktop Effects -> Accessibility: Looking glass
 Desktop Effects -> Appearance: Background contrast, Blur, Desaturate Unresponsive Applications, Fading Popups, Login, Logout, Maximize, Morphing popups, Screen Edge, Sliding popups, Thumbnail Aside, Translucency, Magic Lamp
