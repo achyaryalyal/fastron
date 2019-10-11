@@ -45,17 +45,17 @@ https://wiki.archlinux.org/index.php/Pacman/Rosetta
 ##################################
 # Update & Upgrade
 ##################################
-$ pacman -Syu
+$ sudo pacman -Syu
 
 ##################################
 # Clean up all local caches
 ##################################
-$ pacman -Sc
+$ sudo pacman -Sc
 
 ##################################
 # Remove dependencies that are no longer needed
 ##################################
-$ pacman -Qdtq
+$ sudo pacman -Qdtq
 
 ##################################
 # Enable AUR
