@@ -160,6 +160,7 @@ open octopi
 install mpv, smplayer, smplayer-skins, smplayer-themes
 go to smplayer Options > Preferences > General > Multimedia engine: other: /usr/bin/mpv
 for a nice minimal interface choose Options > Preferences > Interface > Gui: Mini GUI, Iconset: Breeze-dark
+for volume shorcut, press "9" to Decrease audio volume, press "0" to Increase audio volume
 
 ##################################
 # Install Sublime Text
