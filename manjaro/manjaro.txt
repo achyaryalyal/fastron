@@ -154,6 +154,14 @@ $ sudo pacman -U *.xz
 https://chrome.google.com/webstore/detail/slate/cmhmcmgkegfffbbfobhjpdbimgmoohap
 
 ##################################
+# Use MPV in SMplayer
+##################################
+open octopi
+install mpv, smplayer, smplayer-skins, smplayer-themes
+go to smplayer Options > Preferences > General > Multimedia engine: other: /usr/bin/mpv
+for a nice minimal interface choose Options > Preferences > Interface > Gui: Mini GUI, Iconset: Breeze-dark
+
+##################################
 # Install Sublime Text
 ##################################
 https://www.sublimetext.com/docs/3/linux_repositories.html#pacman
