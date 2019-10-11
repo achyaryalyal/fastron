@@ -46,7 +46,7 @@ sudo apt update && apt upgrade -y && apt autoremove -y --purge && apt autoclean 
 ##################################
 # Useful packages
 ##################################
-sudo add-apt-repository ppa:maxmind/ppa && sudo apt update && sudo apt install neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database geoip-database-extra libgeoip1 libmaxminddb0 libmaxminddb-dev mmdb-bin libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev geoipupdate && geoipupdate -v
+sudo add-apt-repository ppa:maxmind/ppa && sudo apt update && sudo apt install software-properties-common neofetch haveged curl git unzip zip fail2ban htop nload nmap nmon ntp gnupg gnupg2 wget pigz tree ccze mycli geoip-bin geoip-database geoip-database-extra libgeoip1 libmaxminddb0 libmaxminddb-dev mmdb-bin libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev geoipupdate && geoipupdate -v
 
 # configure timezone. Select: Asia->Jakarta
 systemctl enable ntp && dpkg-reconfigure tzdata && date
@@ -232,7 +232,7 @@ Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for 
 ##################################
 # Install Nginx
 ##################################
-sudo apt install -y software-properties-common && sudo add-apt-repository ppa:nginx/stable && sudo apt update && sudo apt install -y nginx libnginx-mod-http-headers-more-filter && nginx -v
+sudo add-apt-repository ppa:nginx/stable && sudo apt update && sudo apt install -y nginx libnginx-mod-http-headers-more-filter && nginx -v
 
 # Set up server blocks
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf
@@ -304,7 +304,7 @@ mount -o remount,rw /etc/fail2ban/jail.local
 ##################################
 # Install MariaDB 10.4.6
 ##################################
-wget -qO mariadb_repo_setup https://downloads.mariadb.com/MariaDB/mariadb_repo_setup && chmod +x mariadb_repo_setup && ./mariadb_repo_setup --mariadb-server-version=10.4.6 --skip-maxscale -y && rm mariadb_repo_setup && sudo apt update && sudo apt install -y mariadb-server
+sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.biznetgio.com/mariadb/repo/10.4/ubuntu bionic main' && sudo apt update && sudo apt install mariadb-server
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/my.cnf > /etc/mysql/conf.d/my.cnf
 mysql_secure_installation
         # Switch to unix_socket authentication [Y/n]? n
