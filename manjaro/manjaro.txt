@@ -129,14 +129,21 @@ System settings -> hardware -> input devices -> touchpad
 tap to click [one finger: left] [two fingers: left]
 Pointer Motion [maximum: 3.0] [acceleration: 2.2]
 open Tab "Scrolling" at Two finger scrolling check "Vertical" and "Horizontal"
-apply
+OK
 
 ##################################
 # Mouse Configuration
 ##################################
 System settings -> hardware -> input devices -> mouse
 set pointer speed to MAXIMAL
-apply
+OK
+
+##################################
+# Show Battery Percentage
+##################################
+right click on battery icon -> Configure battery and brightness
+check "Show percentage"
+OK
 
 ##################################
 # Install Google Chrome cara build package dari AUR
