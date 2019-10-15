@@ -170,7 +170,17 @@ for a nice minimal interface choose Options > Preferences > Interface > Gui: Min
 for volume shorcut, press "9" to Decrease audio volume, press "0" to Increase audio volume
 
 ##################################
-# slowsoris with slowhttptest
+# monitoring graphical network
+##################################
+open octopi
+install etherape
+right click on etherape icon
+edit application
+tab application -> Advanced Options -> Run as different user -> root
+OK
+
+##################################
+# slowloris with slowhttptest
 ##################################
 open octopi
 install slowhttptest
