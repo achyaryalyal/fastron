@@ -579,6 +579,9 @@ scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/dest
 ######### Upload a directory to another server with SCP #########
 scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination 
 
+######### NANO jump to EOF #########
+nano +99999 file
+
 ######### Flooding with SIEGE #########
 sudo apt install siege
 siege -c 200 -b -t30s 'https://example.com'
@@ -589,6 +592,10 @@ curl -s 'https://example.com/wp-login.php?[1-100]'
 python doser.py -t 999 -g 'https://example.com'
 # command 999 threads sends POST requests with json data:
 python doser.py -t 999 -p 'https://example.com' -ah 'Content-Type: application/json' -d '{"json": "payload"}'
+######### Flooding with SLOWHTTPTEST #########
+sudo apt install slowhttptest
+slowhttptest -c 1000 -H -g -o slowhttp -i 10 -r 200 -t GET -u http://domain.com/index.php -x 24 -p 2
+#don't trust always the service available message, just try accessing the real website from a browser and you will see if it works or not
 
 ######### Display a summary of all services currently running #########
 systemctl -t service --state=active --no-pager --no-legend | egrep '^*\.service.*running' | awk 'BEGIN { FS = " ";} {for (i = 2; i <= 4; i++) { $i = "" }; print}'
