@@ -139,6 +139,13 @@ set pointer speed to MAXIMAL
 OK
 
 ##################################
+# Add shorcut to Minimize all Windows widget
+##################################
+right click -> configure Minimize all Windows
+input shorcut -> Ctrl + Alt + Space
+OK
+
+##################################
 # Show Battery Percentage
 ##################################
 right click on battery icon -> Configure battery and brightness
