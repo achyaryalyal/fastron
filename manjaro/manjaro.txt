@@ -198,9 +198,7 @@ https://linuxconfig.org/how-to-install-whatsapp-on-manjaro-18-linux
 # Install TeamViewer  cara build package dari AUR
 ##################################
 non root user
-$ git clone https://aur.archlinux.org/teamviewer.git
-$ cd teamviewer/
-$ makepkg -s
+$ cd /opt && git clone https://aur.archlinux.org/teamviewer.git && cd teamviewer/ && makepkg -s
 $ ls *.xz
 $ sudo pacman -U *.xz
 
@@ -210,6 +208,13 @@ $ sudo pacman -U *.xz
 $ sudo teamviewer --daemon enable
 $ systemctl enable teamviewerd
 $ systemctl start teamviewerd
+
+##################################
+# Install KDE Oxygen App Sys Sound
+##################################
+root user
+$ cd /opt && git clone https://github.com/KDE/oxygen.git && cp oxygen/sounds/* /usr/share/sounds/
+make sure you "turn off" Do not disturb in Notification
 
 ##################################
 # Auto Mount NTFS Partition
