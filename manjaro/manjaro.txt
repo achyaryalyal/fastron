@@ -142,7 +142,7 @@ OK
 # Add shorcut to Minimize all Windows widget
 ##################################
 right click -> configure Minimize all Windows
-input shorcut -> Ctrl + Alt + Space
+input shorcut -> Ctrl + Space
 OK
 
 ##################################
