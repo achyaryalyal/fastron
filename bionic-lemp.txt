@@ -406,6 +406,13 @@ certbot certonly --email aymarxp@gmail.com --agree-tos --rsa-key-size 4096 --web
 # example subdomain wordpress
 certbot certonly --email aymarxp@gmail.com --agree-tos --rsa-key-size 4096 --webroot -w /var/www/master/wordpress/stkipbbg-[SUBDOMAIN] -d [SUBDOMAIN].stkipgetsempena.ac.id
 
+# certbot is auto run renewal, if you want to test it, just use renew subcommand (use --dry-run for testing)
+certbot renew --dry-run
+# if success, run without --dry-run
+certbot renew
+# to test renew spesific certificate use --cert-name
+certbot renew --dry-run --cert-name [SUBDOMAIN].example.com
+
 # configure nginx server block
 # to perform SSL
 
