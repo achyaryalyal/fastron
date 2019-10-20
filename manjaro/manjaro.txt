@@ -139,6 +139,26 @@ set pointer speed to MAXIMAL
 OK
 
 ##################################
+# Mouse Cursor Icon
+##################################
+System settings -> appearance -> workspace theme -> cursors -> get new cursors -> install night diamond (blue)
+OK
+
+##################################
+# Splash Screen
+##################################
+System settings -> appearance -> workspace theme -> splash screen -> get new splash screens
+install manjarologo black / moderate blue / plasma5 blue
+OK
+
+##################################
+# Konsole Theme
+##################################
+Setting -> configure konsole -> profiles -> shell edit -> appearance -> get new -> install visiblue -> close
+click visiblue -> edit -> tranparency 15%
+OK
+
+##################################
 # Add shorcut to Minimize all Windows widget
 ##################################
 right click -> configure Minimize all Windows
