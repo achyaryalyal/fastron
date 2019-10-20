@@ -162,7 +162,7 @@ OK
 # Konsole Theme
 ##################################
 Setting -> configure konsole -> profiles -> shell edit -> appearance -> get new -> install visiblue -> close
-click visiblue -> edit -> tranparency 15%
+click visiblue -> edit -> tranparency 20%
 OK
 
 ##################################
