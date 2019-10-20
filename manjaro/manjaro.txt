@@ -66,6 +66,13 @@ click menu tolls -> options -> AUR tab -> select pacaur -> OK
 check update
 
 ##################################
+# Simple 3 Tabs in Application Launcher
+##################################
+right click on application launcher -> configure application launcher
+move Computer and History to Inactive Tabs
+OK
+
+##################################
 # Prevent Suspend & Hibernate
 ##################################
 Open "Advanced Setting", set "Do nothing" at critical level
