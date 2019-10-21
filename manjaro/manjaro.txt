@@ -149,7 +149,7 @@ OK
 # Yakuake
 ##################################
 configure yakuake
-Windows: uncheck show tab bar; width 40%; height 100%
+Windows: uncheck show tab bar; width 40%; height 70%
 Behavior: check open window after program start; check keep window open when it loses focus
 OK
 
