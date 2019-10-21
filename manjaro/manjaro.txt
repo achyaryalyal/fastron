@@ -146,16 +146,29 @@ set pointer speed to MAXIMAL
 OK
 
 ##################################
-# Mouse Cursor Icon
+# Yakuake
 ##################################
-System settings -> appearance -> workspace theme -> cursors -> get new cursors -> install night diamond (blue)
+configure yakuake
+Windows: uncheck show tab bar; width 40%; height 100%
+Behavior: check open window after program start; check keep window open when it loses focus
 OK
 
 ##################################
-# Splash Screen
+# Plasma Theme
 ##################################
-System settings -> appearance -> workspace theme -> splash screen -> get new splash screens
-install manjarologo black / moderate blue / plasma5 blue
+System settings -> appearance -> workspace theme -> plasma theme -> get new plasma themes -> Breeze Dark
+OK
+
+##################################
+# Cursor Theme
+##################################
+System settings -> appearance -> workspace theme -> cursors -> get new cursors -> install Night Diamond (Blue)
+OK
+
+##################################
+# Splash Screen Theme
+##################################
+System settings -> appearance -> workspace theme -> splash screen -> get new splash screens -> install Plasma5-Blue
 OK
 
 ##################################
