@@ -347,7 +347,14 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-f
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-fpm/www.conf > /etc/php/7.3/fpm/pool.d/www.conf
 chown www-data:www-data /var/log/php7.3-fpm.log
 chmod 1733 -R /var/lib/php/sessions
-service php7.3-fpm restart && php -v
+# edit imagick policy for pdf file type
+nano /etc/ImageMagick-6/policy.xml
+# change line
+<policy domain="coder" rights="none" pattern="PDF" />
+# to be:
+<policy domain="coder" rights="read|write" pattern="PDF" />
+# restart web server and php
+service nginx restart && service php7.3-fpm restart && php -v
 
 # if have many version of php & you want to switch the default version to other php version. Then, check default version
 update-alternatives --config php && php -v
