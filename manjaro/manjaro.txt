@@ -38,6 +38,15 @@ https://repo.manjaro.org
 $ nano /etc/pacman.d/mirrorlist
 
 ##################################
+# Custom mirrorlist
+##################################
+$ sudo pacman-mirrors -g --interactive
+# Select your desired mirrors
+# Click OK
+# Refresh package lists:
+$ sudo pacman -Syy
+
+##################################
 # Docs Package Management Commands
 ##################################
 https://wiki.archlinux.org/index.php/Pacman/Rosetta
