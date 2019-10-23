@@ -347,7 +347,7 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-f
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/php7.3-fpm/www.conf > /etc/php/7.3/fpm/pool.d/www.conf
 chown www-data:www-data /var/log/php7.3-fpm.log
 chmod 1733 -R /var/lib/php/sessions
-# edit imagick policy for pdf file type
+# edit imagick policy for pdf file in order to convert PDF-to-image with Imagick
 nano /etc/ImageMagick-6/policy.xml
 # change line
 <policy domain="coder" rights="none" pattern="PDF" />
