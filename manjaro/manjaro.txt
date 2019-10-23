@@ -38,8 +38,9 @@ https://repo.manjaro.org
 $ nano /etc/pacman.d/mirrorlist
 
 ##################################
-# Custom mirrorlist
+# Create Own Custom Mirrorlist
 ##################################
+# Manjaro has a lot of Mirrors, which is terrific. A negative side effect of having all these mirrors is that ranking them all takes longer for most people than it did when there were fewer mirrors. People who want to create a custom mirrorlist containing only those servers which have shown themselves to be consistently faster for them.
 $ sudo pacman-mirrors -g --interactive
 # Select your desired mirrors
 # Click OK
