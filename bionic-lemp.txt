@@ -544,6 +544,20 @@ freshclam -v
 # just restart the daemon
 service clamav-daemon restart
 
+##################################
+# TIPS AND TRICK
+##################################
+
+######### NANO jump to EOF #########
+nano +99999 file
+
+######### recursively search string #########
+cd [DIRECTORY]
+grep -nr "YOUR_STRING"
+######### recursively search string and replace #########
+cd [DIRECTORY]
+grep -rl "NEW_STRING" | xargs sed -i "s/NEW_STRING/OLD_STRING/g"
+
 ######### safe with chown & chmod #########
 sudo chown www-data:www-data -R /var/www
 cd /var/www
@@ -592,9 +606,6 @@ UPDATE wp_sitemeta SET meta_value = REPLACE(meta_value, "https://www.stkipgetsem
 scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/destination
 ######### Upload a directory to another server with SCP #########
 scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination 
-
-######### NANO jump to EOF #########
-nano +99999 file
 
 ######### Flooding with SIEGE #########
 sudo apt install siege
