@@ -121,7 +121,7 @@ WIN + P
 ##################################
 # Use AMD as GPU
 ##################################
-just install kernel version 4.18 or higher (contoh: 5.0.7-1 or 4.20.17-1)
+just install kernel version 4.18 or higher (contoh: 5.3)
 
 ##################################
 # Touchpad not responding when laptop out of charger
@@ -187,6 +187,18 @@ OK
 Setting -> configure konsole -> profiles -> shell edit -> appearance -> get new -> install Visiblue -> close
 click visiblue -> edit -> tranparency 10%
 OK
+
+##################################
+# Edit GTK Application Style (supaya dropdown GIMP backgroundnya ikut gelap jika tema GIMPnya gelap)
+##################################
+System setting -> appearance -> application style
+GTK2 theme Full-Dark-Red (download)
+GTK3 theme Full-Dark-Red (download)
+check "prefer dark theme"
+Font: Ubuntu 10
+Cursor theme: Night Diamond (Blue)
+Icon theme: Breeze Dark
+Fallback theme: Breeze Dark
 
 ##################################
 # Add shorcut to Minimize all Windows widget
