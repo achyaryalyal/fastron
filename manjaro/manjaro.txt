@@ -68,6 +68,14 @@ $ sudo pacman -Sc
 $ sudo pacman -Qdtq
 
 ##################################
+# Fix "Warning: local is newer than community"
+##################################
+# update all packages, then downgrade all affected packages
+$ sudo pacman -Suu
+# do the full upgrade
+$ sudo pacman -Syyu
+
+##################################
 # Enable AUR
 ##################################
 open octopi
