@@ -555,6 +555,9 @@ service clamav-daemon restart
 ######### NANO jump to EOF #########
 nano +99999 file
 
+######### clear bash history #########
+history -c && > ~/.bash_history
+
 ######### recursively search string #########
 cd [DIRECTORY]
 grep -nr "YOUR_STRING"
