@@ -92,7 +92,7 @@ dpkg-statoverride --update --add root admin 4750 /bin/su
 mkdir -p /home/[NEW_USER]/.ssh && chmod 700 /home/[NEW_USER]/.ssh
 cd /home/[NEW_USER]/.ssh && ssh-keygen -t rsa
 # type: [NEW_USER]
-# just empty the passphrase
+# just leave blank the passphrase
 mv [NEW_USER].pub authorized_keys && chmod 600 authorized_keys && rm /home/[NEW_USER]/.ssh/[NEW_USER]
 # edit ssh
 nano /etc/ssh/sshd_config
@@ -490,6 +490,25 @@ cd /var/www/master && rm -rf ide && wget https://github.com/Codiad/Codiad/archiv
 
 # System Settings
     ## Filemanager Trigger: Single Click
+
+##################################
+# Install Rclone
+##################################
+$ cd /opt && curl https://rclone.org/install.sh | sudo bash && rclone version
+$ rclone config
+# enter "n" for New Remote Storage
+# give it a name. ex: Gerobak
+# enter "12" for Google Drive
+# just leave blank the client_id & client_secret
+# enter "1" for Full Access
+# paste folder ID from folder URL to root_folder_id. ex: 3Hty4Fkfvb3294xxxxxxxxxxxxxxxxxxf
+# just leave blank the service_account_file
+# enter "n" for Advanced Config
+# enter "n" for Use Auto Config
+# go to the following link, copy code, paste to "Enter verification code"
+# enter "n" for Team Drive
+# enter "y" for Yes This is OK
+# enter "q" for Quit Config
 
 ##################################
 # Install Google Drive (64 bit)
