@@ -494,11 +494,11 @@ cd /var/www/master && rm -rf ide && wget https://github.com/Codiad/Codiad/archiv
 ##################################
 # Install Rclone
 ##################################
-$ cd /opt && curl https://rclone.org/install.sh | sudo bash && rclone version
+$ curl https://rclone.org/install.sh | sudo bash && rclone version
 $ rclone config
 # enter "n" for New Remote Storage
 # give it a name. ex: Gerobak
-# enter "12" for Google Drive
+# enter "13" for Google Drive
 # just leave blank the client_id & client_secret
 # enter "1" for Full Access
 # paste folder ID from folder URL to root_folder_id. ex: 3Hty4Fkfvb3294xxxxxxxxxxxxxxxxxxf
@@ -509,33 +509,18 @@ $ rclone config
 # enter "n" for Team Drive
 # enter "y" for Yes This is OK
 # enter "q" for Quit Config
-
-##################################
-# Install Google Drive (64 bit)
-##################################
-cd /opt && wget https://docs.google.com/uc?id=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA&export=download && mv uc\?id\=0B3X9GlR6EmbnQ0FtZmJJUXEyRTA gdrive && chmod +x gdrive
-
-# insert verification code
-./gdrive about
-# if error occured, so remove token file: rm ~/.gdrive/*
-# then, run again: ./gdrive about
-
-# install
-sudo install gdrive /usr/local/bin/gdrive && gdrive version
-
-# view list
-gdrive list
-
-# download file
-gdrive download fileId
-
-# create directory
-gdrive mkdir dirname
-
-# upload file
-gdrive upload --parent <Folder_ID> filename.tar.gz
-
-# To see <Folder_ID>, just run: gdrive list
+# list file: rclone ls Gerobak:
+# list dir: rclone lsd Gerobak:
+# list file & dir: rclone lsf Gerobak:
+# make dir: rclone mkdir Gerobak:Data
+# copy file to destination: rclone copy hello.txt Gerobak:Data
+# delete all file, not dir: rclone delete Gerobak:Data
+# delete empty dir: rclone rmdir Gerobak:Data
+# delete file & dir: rclone purge Gerobak:Data
+# sync source to destination: rclone sync hello.txt Gerobak:Data
+# move source to destination: rclone move hello.txt Gerobak:Data
+# print total size & number of objects: rclone size Gerobak:Data
+# mount: rclone mount Gerobak:Data /path/to/local/mount
 
 ##################################
 # Install Clamav (GAK PERLU)
