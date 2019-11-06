@@ -216,6 +216,13 @@ input shorcut -> Ctrl + Space
 OK
 
 ##################################
+# Add shorcut to Show Wifi Hotspots
+##################################
+right click -> configure Networks
+keyboard shorcuts -> Ctrl + Up
+OK
+
+##################################
 # Show Battery Percentage
 ##################################
 right click on battery icon -> Configure battery and brightness
