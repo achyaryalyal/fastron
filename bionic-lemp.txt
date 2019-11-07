@@ -521,6 +521,8 @@ $ rclone config
 # move source to destination: rclone move hello.txt Gerobak:Data
 # print total size & number of objects: rclone size Gerobak:Data
 # mount: rclone mount Gerobak:Data /path/to/local/mount
+# stop mounting, check PID: ps ax | grep "rclone mount"
+# and than: kill [PID]
 
 ##################################
 # Install Clamav (GAK PERLU)
