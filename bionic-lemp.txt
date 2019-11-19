@@ -562,6 +562,9 @@ nano +99999 file
 ######### clear bash history #########
 history -c && > ~/.bash_history
 
+######### check disk usage #########
+du -h -c --max-depth=1 [path]
+
 ######### recursively search string #########
 cd [DIRECTORY]
 grep -nr "YOUR_STRING"
