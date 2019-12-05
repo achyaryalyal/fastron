@@ -112,7 +112,7 @@ Desktop Effects -> Focus: Dialog Parent, Dim Inactive
 Desktop Effects -> Show Desktop Animation: Window Aperture
 Desktop Effects -> Virtual Desktop Switching Animation: Slide
 Desktop Effects -> Windows Management: Desktop Cube, Desktop Grid, Flip Switch, Present Windows
-Desktop Effects -> Windows Open/Close Animation: Fade
+Desktop Effects -> Windows Open/Close Animation: Scale
 
 ##################################
 # Desktop Effects not working
