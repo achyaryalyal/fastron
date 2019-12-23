@@ -285,6 +285,7 @@ $(document).ready(function () {
     width: 30px;
     /* text-indent: 30px; */
     text-indent: unset;
+    color: #fff;
     white-space: nowrap;
     overflow: hidden;
     border: 1px solid #aaa;
