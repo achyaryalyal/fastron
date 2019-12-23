@@ -1,3 +1,13 @@
+<?php /*
+CREATE TABLE `menu` (
+  `id_menu` int(5) UNSIGNED NOT NULL,
+  `label_menu` varchar(100) NOT NULL,
+  `url_menu` varchar(300) NOT NULL,
+  `parent_id` int(5) UNSIGNED NOT NULL DEFAULT 0,
+  `open_new_tab` int(1) UNSIGNED NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+*/ ?>
+
 <!-- Jquery & etc -->
 
 <!-- Nestable2 -->
