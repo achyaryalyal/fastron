@@ -235,16 +235,15 @@ Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for 
 sudo add-apt-repository ppa:nginx/stable && sudo apt update && sudo apt install -y nginx libnginx-mod-http-headers-more-filter && nginx -v
 
 # Set up server blocks
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/useragents.rules > /etc/nginx/useragents.rules
+nano /etc/nginx/nginx.conf
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/general.conf > /etc/nginx/general.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/conf.d/globalblacklist.conf > /etc/nginx/conf.d/globalblacklist.conf
-mkdir /etc/nginx/bots.d
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/blacklist-user-agents.conf > /etc/nginx/bots.d/blacklist-user-agents.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/whitelist-domains.conf > /etc/nginx/bots.d/whitelist-domains.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/bad-referrer-words.conf > /etc/nginx/bots.d/bad-referrer-words.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/custom-bad-referrers.conf > /etc/nginx/bots.d/custom-bad-referrers.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/whitelist-ips.conf > /etc/nginx/bots.d/whitelist-ips.conf
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/nginx-ultimate-bad-bot-blocker/master/bots.d/blacklist-ips.conf > /etc/nginx/bots.d/blacklist-ips.conf
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf
+# make sure this line appear in the http block of nginx.conf:
+	include /etc/nginx/useragents.rules;
+curl -sSL ........................ > /etc/nginx/sites-available/example.com
+# make sure these lines appear in the server block :
+	if ($badagent) { return 403; }
 chown www-data:www-data /var/log/nginx/error.log
 
 # Create a password file for Restricting Access with HTTP Basic Authentication
