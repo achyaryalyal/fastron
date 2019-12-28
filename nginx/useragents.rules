@@ -1,3 +1,6 @@
+# https://github.com/jumasheff/nginx-useragents-blacklist/blob/master/useragents.rules
+# https://github.com/mitchellkrogza/nginx-ultimate-bad-bot-blocker/blob/master/_generator_lists/bad-user-agents.list
+
 map $http_user_agent $badagent {
 	default			0;
 	~*backdoor		1;
