@@ -186,7 +186,7 @@ OK
 ##################################
 # Splash Screen Theme
 ##################################
-System settings -> appearance -> workspace theme -> splash screen -> get new splash screens -> install Plasma5-Blue
+System settings -> appearance -> workspace theme -> splash screen -> get new splash screens -> install QuarksSplashDark
 OK
 
 ##################################
