@@ -84,6 +84,21 @@ click menu tolls -> options -> AUR tab -> select pacaur -> OK
 check update
 
 ##################################
+# Konsole Theme
+##################################
+Setting -> configure konsole -> profiles -> shell edit -> appearance -> get new -> install Visiblue -> close
+click visiblue -> edit -> tranparency 10%
+OK
+
+##################################
+# Yakuake
+##################################
+configure yakuake
+Windows: uncheck show tab bar; width 40%; height 70%
+Behavior: check open window after program start; check keep window open when it loses focus
+OK
+
+##################################
 # Simple 3 Tabs in Application Launcher
 ##################################
 right click on application launcher -> configure application launcher
@@ -100,25 +115,6 @@ ON BATTERY: dim 2m, screen 5m, OFF suspend, button Lock Screen
 ON LOW: dim 1m, screen 2m, OFF suspend, button Lock Screen
 $ cd /etc/polkit-1/rules.d/ && wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/manjaro/10-disable-suspend.rules
 $ reboot
-
-##################################
-# Desktop Effects
-##################################
-Task Switcher -> Flip Switch
-Desktop Effects -> Accessibility: Looking glass
-Desktop Effects -> Appearance: Background contrast, Blur, Desaturate Unresponsive Applications, Fading Popups, Login, Logout, Maximize, Morphing popups, Screen Edge, Sliding popups, Thumbnail Aside, Translucency, Magic Lamp
-Desktop Effects -> Candy: Fall Apart, Wobbly Windows
-Desktop Effects -> Focus: Dialog Parent, Dim Inactive
-Desktop Effects -> Show Desktop Animation: Window Aperture
-Desktop Effects -> Virtual Desktop Switching Animation: Slide
-Desktop Effects -> Windows Management: Desktop Cube, Desktop Grid, Flip Switch, Present Windows
-Desktop Effects -> Windows Open/Close Animation: Scale
-
-##################################
-# Desktop Effects not working
-##################################
-type "compositor" and open it
-just re-enabled OpenGL 2.0 or change it to the newest version like 3.1
 
 ##################################
 # Display setting connect ke LCD projector biar layar sama2 tampil
@@ -164,49 +160,79 @@ set pointer speed to MAXIMAL
 OK
 
 ##################################
-# Yakuake
+# APPEARANCE
 ##################################
-configure yakuake
-Windows: uncheck show tab bar; width 40%; height 70%
-Behavior: check open window after program start; check keep window open when it loses focus
+## Global Theme
+System settings -> global theme -> Breeze-Blue-Dark
+OK
+## Plasma Style
+System settings -> plasma style -> Breeze-Blue-Dark
+OK
+## Application Style
+System settings -> application style -> Breeze
+OK
+## Gnome/GTK Application Style
+System settings -> gnome/gtk application style
+  GTK Themes: Full-Dark-Red
+  Cursor Theme: Night-Diamond (Blue)
+  Icon Theme: Breeze-Blue-Dark
+  Fallback Theme: Breeze-Blue-Dark
+OK
+## Window Decorations
+System settings -> window decoration -> Breeze
+OK
+## Colors
+System settings -> colors -> Breeze-Blue-Dark
+OK
+## Fonts
+System settings -> fonts
+  General: Ubuntu 10pt
+  Fixed width: Ubuntu 9pt
+  Small: Ubuntu 8pt
+  Toolbar: Ubuntu 10pt
+  Menu: Ubuntu 10pt
+  Window title: Ubuntu 10pt
+  Anti-Aliasing: Enable
+OK
+## Icons
+System settings -> icons -> Breeze-Blue-Dark
+OK
+## Emoticons
+System settings -> emoticons -> EmojiOne
+OK
+## Cursors
+System settings -> cursors -> Night-Diamond (Blue)
 OK
 
 ##################################
-# Plasma Theme
+# WORKSPACE
 ##################################
-System settings -> appearance -> workspace theme -> plasma theme -> get new plasma themes -> Breeze Dark
+## Startup and Shutdown
+System settings -> login screen (SDDM) -> Breeze-Blue-Dark
+OK
+# Splash Screen
+System settings -> splash screen -> QuarksSplashDark
 OK
 
 ##################################
-# Cursor Theme
+# Desktop Effects
 ##################################
-System settings -> appearance -> workspace theme -> cursors -> get new cursors -> install Night Diamond (Blue)
-OK
+Task Switcher -> Flip Switch
+Desktop Effects -> Accessibility: Looking glass
+Desktop Effects -> Appearance: Background contrast, Blur, Desaturate Unresponsive Applications, Fading Popups, Login, Logout, Maximize, Morphing popups, Screen Edge, Sliding popups, Thumbnail Aside, Translucency, Magic Lamp
+Desktop Effects -> Candy: Fall Apart, Wobbly Windows
+Desktop Effects -> Focus: Dialog Parent, Dim Inactive
+Desktop Effects -> Show Desktop Animation: Window Aperture
+Desktop Effects -> Virtual Desktop Switching Animation: Slide
+Desktop Effects -> Windows Management: Desktop Cube, Desktop Grid, Flip Switch, Present Windows
+Desktop Effects -> Windows Open/Close Animation: Scale
+Screen Locking -> Breeze Dark Blue Plasma
 
 ##################################
-# Splash Screen Theme
+# Desktop Effects not working
 ##################################
-System settings -> appearance -> workspace theme -> splash screen -> get new splash screens -> install QuarksSplashDark
-OK
-
-##################################
-# Konsole Theme
-##################################
-Setting -> configure konsole -> profiles -> shell edit -> appearance -> get new -> install Visiblue -> close
-click visiblue -> edit -> tranparency 10%
-OK
-
-##################################
-# Edit GTK Application Style (supaya dropdown GIMP backgroundnya ikut gelap jika tema GIMPnya gelap)
-##################################
-System setting -> appearance -> application style
-GTK2 theme Full-Dark-Red (download)
-GTK3 theme Full-Dark-Red (download)
-check "prefer dark theme"
-Font: Ubuntu 10
-Cursor theme: Night Diamond (Blue)
-Icon theme: Breeze Dark
-Fallback theme: Breeze Dark
+type "compositor" and open it
+just re-enabled OpenGL 2.0 or change it to the newest version like 3.1
 
 ##################################
 # Add shorcut to Minimize all Windows widget
