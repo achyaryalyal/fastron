@@ -42,7 +42,7 @@ map $http_user_agent $badagent {
 	~Acunetix		1;
 	~ADmantX		1;
 	~AfD-Verbotsverfahren	1;
-	~AhrefsBot		1;
+	#~AhrefsBot		1;
 	~AIBOT			1;
 	~AiHitBot		1;
 	~Aipbot			1;
@@ -346,7 +346,7 @@ map $http_user_agent $badagent {
 	~MIIxpc			1;
 	~miner			1;
 	~Mister\ PiX	1;
-	~MJ12bot		1;
+	#~MJ12bot		1;
 	~Mojeek			1;
 	~Mojolicious	1;
 	~Morfeus\ Fucking\ Scanner	1;
