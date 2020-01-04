@@ -573,8 +573,9 @@ grep -rl "NEW_STRING" | xargs sed -i "s/NEW_STRING/OLD_STRING/g"
 
 ######### curl #########
 curl -I https://www.example.com
-curl -l https://www.example.com
-curl -A "360Spider" https://www.example.com
+######### curl with user agent #########
+curl -I https://www.example.com -A "360Spider" --> must 403
+curl -I https://www.example.com -A "Googlebot" --> must 200
 
 ######### safe with chown & chmod #########
 sudo chown www-data:www-data -R /var/www
