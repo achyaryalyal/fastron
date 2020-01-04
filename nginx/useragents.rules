@@ -103,6 +103,7 @@ map $http_user_agent $badagent {
 	~CazoodleBot	1;
 	~CCBot			1;
 	~Cegbfeieh		1;
+	~CFNetwork		1;
 	~checkprivacy	1;
 	~CheeseBot		1;
 	~CherryPicker	1;
@@ -114,6 +115,7 @@ map $http_user_agent $badagent {
 	~Cloud\ mapping	1;
 	~clshttp		1;
 	~cmsworldmap	1;
+	~coccocbot-image	1;
 	~coccocbot-web	1;
 	~Cogentbot		1;
 	~cognitiveseo	1;
@@ -134,6 +136,7 @@ map $http_user_agent $badagent {
 	~CSHttp			1;
 	~Curious		1;
 	~Custo			1;
+	~Darwin			1;
 	~DatabaseDriverMysqli	1;
 	~DataCha0s		1;
 	~DBLBot			1;
@@ -174,6 +177,7 @@ map $http_user_agent $badagent {
 	~EmailCollector	1;
 	~EmailSiphon	1;
 	~EmailWolf		1;
+	~EnigmaBot		1;
 	~EroCrawler		1;
 	~evc-batch		1;
 	~Evil			1;
@@ -213,6 +217,7 @@ map $http_user_agent $badagent {
 	~Gigabot		1;
 	~Go!Zilla		1;
 	~Go-Ahead-Got-It	1;
+	~Go-http-client		1;
 	~Gotit			1;
 	~GoZilla		1;
 	~grab			1;
@@ -251,6 +256,7 @@ map $http_user_agent $badagent {
 	~Indy\ Library	1;
 	~InfoNaviRobot	1;
 	~InfoTekies		1;
+	~INGRID		1;
 	~instabid		1;
 	~Intelliseek	1;
 	~InterGET		1;
@@ -294,6 +300,7 @@ map $http_user_agent $badagent {
 	~Likse			1;
 	~Linkdexbot		1;
 	~LinkextractorPro	1;
+	~linklooker		1;
 	~LinkpadBot		1;
 	~LinkScan		1;
 	~LinksManager	1;
@@ -373,6 +380,7 @@ map $http_user_agent $badagent {
 	~Nikto			1;
 	~NimbleCrawler	1;
 	~Nimbostratus	1;
+	~Nimbostratus-Bot	1;
 	~Ninja			1;
 	~Nmap			1;
 	~NPbot			1;
@@ -444,6 +452,7 @@ map $http_user_agent $badagent {
 	~Rogerbot		1;
 	~RSSingBot		1;
 	~s1z.ru			1;
+	~SafetyNet\ Robot	1;
 	~SalesIntelligent	1;
 	~SBIder			1;
 	~scan.lol		1;
@@ -625,6 +634,7 @@ map $http_user_agent $badagent {
 	~Xaldon\ WebSpider	1;
 	~Xenu			1;
 	~xpymep1.exe	1;
+	~YaK			1;
 	~YoudaoBot		1;
 	~Zade			1;
 	~Zauba			1;
