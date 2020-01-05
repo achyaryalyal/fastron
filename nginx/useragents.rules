@@ -105,7 +105,6 @@ map $http_user_agent $badagent {
 	~CazoodleBot		1;
 	~CCBot			1;
 	~Cegbfeieh		1;
-	~CFNetwork		1;
 	~checkprivacy		1;
 	~CheeseBot		1;
 	~CherryPicker		1;
@@ -138,7 +137,6 @@ map $http_user_agent $badagent {
 	~CSHttp			1;
 	~Curious		1;
 	~Custo			1;
-	~Darwin			1;
 	~DatabaseDriverMysqli	1;
 	~DataCha0s		1;
 	~DBLBot			1;
