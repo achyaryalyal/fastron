@@ -304,7 +304,7 @@ mount -o remount,rw /etc/fail2ban/jail.local
 # Install MariaDB 10.4.6
 ##################################
 sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.biznetgio.com/mariadb/repo/10.4/ubuntu bionic main' && sudo apt update && sudo apt install mariadb-server
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/my.cnf > /etc/mysql/conf.d/my.cnf
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/my.cnf > /etc/mysql/my.cnf
 mysql_secure_installation
         # Switch to unix_socket authentication [Y/n]? n
   	# Change the root password? y
