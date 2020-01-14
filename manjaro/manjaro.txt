@@ -315,6 +315,16 @@ https://www.sublimetext.com/docs/3/linux_repositories.html#pacman
 https://gist.github.com/JerryLokjianming/2e1092f860864e5e718ebe5b54e53ea4
 
 ##################################
+# Free Office
+##################################
+# product key
+306839567047
+# school license
+394557523743
+# teacher's license
+423526627884
+
+##################################
 # Install WhatsApp
 ##################################
 https://linuxconfig.org/how-to-install-whatsapp-on-manjaro-18-linux
