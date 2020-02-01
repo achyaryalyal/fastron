@@ -515,6 +515,8 @@ $ rclone config
 # storage info: rclone about Gerobak:
 # make dir: rclone mkdir Gerobak:Data
 # copy file to destination: rclone copy hello.txt Gerobak:Data
+# copy file to local: rclone copy Gerobak:Data/hello.txt /path/to/local/
+# copy folder to local: rclone copy Gerobak:Data /path/to/local/
 # delete all file, not dir: rclone delete Gerobak:Data
 # delete empty dir: rclone rmdir Gerobak:Data
 # delete file & dir: rclone purge Gerobak:Data
