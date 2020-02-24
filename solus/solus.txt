@@ -9,3 +9,10 @@ $ sudo solbuild update
 $ ./configure
 $ make
 $ sudo make install
+
+=========================
+Mount an ISO file
+=========================
+$ sudo mkdir /mnt/iso
+$ sudo mount -o loop file.iso /mnt/iso
+$ ls /mnt/iso/
