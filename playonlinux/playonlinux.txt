@@ -1,0 +1,8 @@
+Windows are not resizable:
+- open playonlinux
+- configure
+- select virtual drive to configure. ex: Office2010
+- tab wine
+- configure wine
+- tab graphics
+- uncheck "Allow windows manager to control the windows"
