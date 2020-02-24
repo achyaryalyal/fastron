@@ -1,0 +1,7 @@
+$ pkg install python wget
+
+$ wget https://raw.githubusercontent.com/Quitten/doser.py/master/doser.py
+
+$ pip install request
+
+$ python doser.py -t 999 -g 'https://xyz.com'
