@@ -4,6 +4,21 @@ Disable Gecko and Mono installing dialogue
 $ export WINEDLLOVERRIDES="mscoree,mshtml="
 
 ==========================================
+Change XP theme in order to display the better visual
+==========================================
+- download https://drive.google.com/open?id=1RxYNUmyeajKcG0iS53efZUpbcYg6MqZ3
+- extract theme file
+- open playonlinux
+- configure
+- select virtual drive to configure. ex: Office2010
+- tab wine
+- configure wine
+- tab desktop integration
+- in appearance, click install theme
+- select theme: Royale
+- OK
+
+==========================================
 Windows can't resizable
 ==========================================
 - open playonlinux
@@ -13,6 +28,7 @@ Windows can't resizable
 - configure wine
 - tab graphics
 - uncheck "Allow windows manager to control the windows", but the effect is windows can't minimized to task manager
+- OK
 
 ==========================================
 Minimized windows can't minimized to task manager
@@ -24,3 +40,4 @@ Minimized windows can't minimized to task manager
 - configure wine
 - tab graphics
 - check "Allow windows manager to control the windows", but the effect is windows can't be resizeable
+- OK
