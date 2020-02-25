@@ -1,4 +1,19 @@
 =========================
+Updating Solus
+=========================
+$ sudo eopkg upgrade
+
+=========================
+Upgrading only a particular application
+=========================
+$ sudo eopkg upgrade [APP_NAME]
+
+=========================
+Updating Solus repository
+=========================
+$ sudo eopkg ur
+
+=========================
 Build Package From Source
 =========================
 $ sudo eopkg install -c system.devel
