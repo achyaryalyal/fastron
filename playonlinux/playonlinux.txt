@@ -1,4 +1,11 @@
-Windows can't resizable:
+==========================================
+Disable Gecko and Mono installing dialogue
+==========================================
+$ export WINEDLLOVERRIDES="mscoree,mshtml="
+
+==========================================
+Windows can't resizable
+==========================================
 - open playonlinux
 - configure
 - select virtual drive to configure. ex: Office2010
@@ -7,7 +14,9 @@ Windows can't resizable:
 - tab graphics
 - uncheck "Allow windows manager to control the windows", but the effect is windows can't minimized to task manager
 
+==========================================
 Minimized windows can't minimized to task manager
+==========================================
 - open playonlinux
 - configure
 - select virtual drive to configure. ex: Office2010
