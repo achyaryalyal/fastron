@@ -1,8 +1,17 @@
-Windows are not resizable:
+Windows can't resizable:
 - open playonlinux
 - configure
 - select virtual drive to configure. ex: Office2010
 - tab wine
 - configure wine
 - tab graphics
-- uncheck "Allow windows manager to control the windows"
+- uncheck "Allow windows manager to control the windows", but the effect is windows can't minimized to task manager
+
+Minimized windows can't minimized to task manager
+- open playonlinux
+- configure
+- select virtual drive to configure. ex: Office2010
+- tab wine
+- configure wine
+- tab graphics
+- check "Allow windows manager to control the windows", but the effect is windows can't be resizeable
