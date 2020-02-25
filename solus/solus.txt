@@ -1,17 +1,37 @@
 =========================
-Updating Solus
+Updating Solus repository
+=========================
+$ sudo eopkg ur
+
+=========================
+Updating System
 =========================
 $ sudo eopkg upgrade
 
 =========================
-Upgrading only a particular application
+Update specific software
 =========================
-$ sudo eopkg upgrade [APP_NAME]
+$ sudo eopkg upgrade packagename
 
 =========================
-Updating Solus repository
+Installing Software
 =========================
-$ sudo eopkg ur
+$ sudo eopkg install packagename
+
+=========================
+Reinstalling Software
+=========================
+$ sudo eopkg install --reinstall packagename
+
+=========================
+Uninstalling Software
+=========================
+$ sudo eopkg remove packagename
+
+=========================
+Get Information on Software
+=========================
+$ sudo eopkg info packagename
 
 =========================
 Build Package From Source
