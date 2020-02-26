@@ -46,6 +46,28 @@ $ make
 $ sudo make install
 
 =========================
+Removing unused applications
+=========================
+kde connect
+konversation irc client
+firefox
+thunderbird
+libreoffice
+
+=========================
+Install frequently used applications
+=========================
+google chrome
+sublime text
+neofetch
+openssh
+gimp
+inkscape
+kdenlive
+mscorefonts
+playonlinux + install xp theme (configure wine > desktop integration > install theme > select Rotal) + office 2010 (custom just word, excel, powerpoint)
+
+=========================
 Mount an ISO file
 =========================
 $ sudo mkdir /mnt/iso
