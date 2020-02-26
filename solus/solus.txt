@@ -64,6 +64,7 @@ openssh
 gimp
 inkscape
 kdenlive
+qbittorrent
 mscorefonts
 playonlinux + install xp theme (configure wine > desktop integration > install theme > select Rotal) + office 2010 (custom just word, excel, powerpoint)
 
