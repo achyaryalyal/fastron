@@ -79,3 +79,9 @@ $ ls /mnt/iso/
 Edit Konsole Bookmark
 =========================
 $ nano ~/.local/share/konsole/bookmarks.xml
+
+=========================
+Create keyboard shorcut for several widgets
+=========================
+CTRL + SPACE = minimize all windows
+CTRL + ALT + SPACE = notes
