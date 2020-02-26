@@ -51,3 +51,8 @@ Mount an ISO file
 $ sudo mkdir /mnt/iso
 $ sudo mount -o loop file.iso /mnt/iso
 $ ls /mnt/iso/
+
+=========================
+Edit Konsole Bookmark
+=========================
+$ nano ~/.local/share/konsole/bookmarks.xml
