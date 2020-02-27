@@ -46,7 +46,7 @@ $ make
 $ sudo make install
 
 =========================
-Removing unused applications
+Removing unused apps
 =========================
 kde connect
 konversation irc client
@@ -55,7 +55,12 @@ thunderbird
 libreoffice
 
 =========================
-Install frequently used applications
+Not install apps
+=========================
+tlp (it can cause usb device not working)
+
+=========================
+Install frequently used apps
 =========================
 google chrome
 sublime text
