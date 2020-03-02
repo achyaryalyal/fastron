@@ -1,41 +1,57 @@
-=========================
-Updating Solus repository
-=========================
+##################################
+# Disk Partitioning
+##################################
+Size 512 MiB
+File System fat32
+Flags boot
+
+Size 4999 MiB
+File System linuxswap
+
+Size 204852 MiB
+File System ext4
+Mount Point /
+
+The rest is for NTFS
+
+##################################
+# Updating Solus repository
+##################################
 $ sudo eopkg ur
 
-=========================
-Updating System
-=========================
+##################################
+# Updating System
+##################################
 $ sudo eopkg upgrade
 
-=========================
-Update specific software
-=========================
+##################################
+# Update specific software
+##################################
 $ sudo eopkg upgrade packagename
 
-=========================
-Installing Software
-=========================
+##################################
+# Installing Software
+##################################
 $ sudo eopkg install packagename
 
-=========================
-Reinstalling Software
-=========================
+##################################
+# Reinstalling Software
+##################################
 $ sudo eopkg install --reinstall packagename
 
-=========================
-Uninstalling Software
-=========================
+##################################
+# Uninstalling Software
+##################################
 $ sudo eopkg remove packagename
 
-=========================
-Get Information on Software
-=========================
+##################################
+# Get Information on Software
+##################################
 $ sudo eopkg info packagename
 
-=========================
-Build Package From Source
-=========================
+##################################
+# Build Package From Source
+##################################
 $ sudo eopkg install -c system.devel
 $ sudo eopkg install solbuild
 $ sudo solbuild init
@@ -45,23 +61,23 @@ $ ./configure
 $ make
 $ sudo make install
 
-=========================
-Removing unused apps
-=========================
+##################################
+# Removing unused apps
+##################################
 kde connect
 konversation irc client
 firefox
 thunderbird
 libreoffice
 
-=========================
-Don't install apps
-=========================
+##################################
+# Don't install apps
+##################################
 tlp (it can cause touchpad not working & usb device not detected)
 
-=========================
-Install frequently used apps
-=========================
+##################################
+# Install frequently used apps
+##################################
 google chrome
 sublime text
 neofetch
