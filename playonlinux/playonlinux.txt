@@ -21,7 +21,7 @@ Change XP theme in order to display the better visual
 ==========================================
 Font smoothing
 ==========================================
-- system setting -> appearance -> fonts -> enable anti-aliasing, sub-pixel rendering set to RGB, hinting set to Full -> OK
+- open system setting -> appearance -> fonts -> enable anti-aliasing, sub-pixel rendering set to RGB, hinting set to Full -> OK
 - open playonlinux
 - configure
 - select virtual drive to configure. ex: Office2010
@@ -31,6 +31,7 @@ Font smoothing
   - "FontSmoothRGB" -> this one is exceptionally crucial.
   - "LunaTheme" -> it’s actually Royal Theme
   - "Tahoma"
+- tab wine -> Edit Registry. Look for HKEY_CURRENT_USER\Control Panel\Desktop, set "FontSmoothing" to "2" and exit
 - tab wine -> Windows reboot. Give it a moment, then you can test it by clicking at Configure Wine. If you are lucky, the fonts should be anti-aliased for now. Do not mess around much with the configuration, you are on own risk. However, I did switch the theme, tab Desktop Integration, theme Royal, colour Royal Noir.
 
 ==========================================
