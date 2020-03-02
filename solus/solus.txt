@@ -90,3 +90,6 @@ Create keyboard shorcut for several widgets
 =========================
 CTRL + SPACE = minimize all windows
 CTRL + ALT + SPACE = notes
+CTRL + ALT + L = lock screen
+CTRL + ALT + SHIFT + Pgup = restart
+CTRL + ALT + SHIFT + Pgdn = shutdown
