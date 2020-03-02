@@ -55,9 +55,9 @@ thunderbird
 libreoffice
 
 =========================
-Not install apps
+Don't install apps
 =========================
-tlp (it can cause usb device not working)
+tlp (it can cause touchpad not working & usb device not detected)
 
 =========================
 Install frequently used apps
@@ -71,4 +71,4 @@ inkscape
 kdenlive
 qbittorrent
 mscorefonts
-playonlinux + install xp theme (you can install "LunaTheme" (actually Royal Theme) from playonlinux "Install Components" setting OR via configure wine > desktop integration > install theme > select Royal) + office 2010 (custom just word, excel, powerpoint)
+playonlinux
