@@ -71,7 +71,7 @@ inkscape
 kdenlive
 qbittorrent
 mscorefonts
-playonlinux + install xp theme (configure wine > desktop integration > install theme > select Rotal) + office 2010 (custom just word, excel, powerpoint)
+playonlinux + install xp theme (you can install "LunaTheme" (actually Royal Theme) from playonlinux "Install Components" setting OR via configure wine > desktop integration > install theme > select Royal) + office 2010 (custom just word, excel, powerpoint)
 
 =========================
 Mount an ISO file
