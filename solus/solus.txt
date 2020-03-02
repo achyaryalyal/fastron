@@ -72,24 +72,3 @@ kdenlive
 qbittorrent
 mscorefonts
 playonlinux + install xp theme (you can install "LunaTheme" (actually Royal Theme) from playonlinux "Install Components" setting OR via configure wine > desktop integration > install theme > select Royal) + office 2010 (custom just word, excel, powerpoint)
-
-=========================
-Mount an ISO file
-=========================
-$ sudo mkdir /mnt/iso
-$ sudo mount -o loop file.iso /mnt/iso
-$ ls /mnt/iso/
-
-=========================
-Edit Konsole Bookmark
-=========================
-$ nano ~/.local/share/konsole/bookmarks.xml
-
-=========================
-Create keyboard shorcut for several widgets
-=========================
-CTRL + SPACE = minimize all windows
-CTRL + ALT + SPACE = notes
-CTRL + ALT + L = lock screen
-CTRL + ALT + SHIFT + Pgup = restart
-CTRL + ALT + SHIFT + Pgdn = shutdown
