@@ -1,26 +1,11 @@
-==========================================
-Disable Gecko and Mono installing dialogue
-==========================================
+##################################
+# Disable Gecko and Mono installing dialogue
+##################################
 $ export WINEDLLOVERRIDES="mscoree,mshtml="
 
-==========================================
-Change XP theme in order to display the better visual
-==========================================
-- download https://drive.google.com/open?id=1RxYNUmyeajKcG0iS53efZUpbcYg6MqZ3
-- extract theme file
-- open playonlinux
-- configure
-- select virtual drive to configure. ex: Office2010
-- tab wine
-- configure wine
-- tab desktop integration
-- in appearance, click install theme
-- select theme: Royale
-- OK
-
-==========================================
-Font smoothing
-==========================================
+##################################
+# Font smoothing and Change XP theme to better visual
+##################################
 - open system setting -> appearance -> fonts -> enable anti-aliasing, sub-pixel rendering set to RGB, hinting set to Full -> OK
 - open playonlinux
 - configure
@@ -34,26 +19,31 @@ Font smoothing
 - tab wine -> Edit Registry. Look for HKEY_CURRENT_USER\Control Panel\Desktop, set "FontSmoothing" to "2" and exit
 - tab wine -> Windows reboot. Give it a moment, then you can test it by clicking at Configure Wine. If you are lucky, the fonts should be anti-aliased for now. Do not mess around much with the configuration, you are on own risk. However, I did switch the theme, tab Desktop Integration, theme Royal, colour Royal Noir.
 
-==========================================
-Windows can't resizable
-==========================================
+##################################
+# Alternative : Change XP theme in order to display the better visual
+##################################
+- download https://drive.google.com/open?id=1RxYNUmyeajKcG0iS53efZUpbcYg6MqZ3
+- extract theme file
 - open playonlinux
 - configure
 - select virtual drive to configure. ex: Office2010
 - tab wine
 - configure wine
-- tab graphics
-- uncheck "Allow windows manager to control the windows", but the effect is windows can't minimized to task manager
+- tab desktop integration
+- in appearance, click install theme
+- select theme: Royale
 - OK
 
-==========================================
-Minimized windows can't minimized to task manager
-==========================================
-- open playonlinux
-- configure
-- select virtual drive to configure. ex: Office2010
-- tab wine
-- configure wine
-- tab graphics
-- check "Allow windows manager to control the windows", but the effect is windows can't be resizeable
-- OK
+##################################
+# Microsoft Office via wine/PoL Can't Minimize and Restore
+##################################
+Start System Settings
+Select Window Management
+Select Window Rules
+Click "New..." to create a new Window Rules
+Enter the description: office windows size
+Window Class: Regular Expression: .*\b(winword.exe|excel.exe|powerpnt.exe)\b.*
+Check "Match whole window class"
+Check on tab "Size & Position"
+Check "Full screen": value Forced, No
+Check "Ignore Requested Geometry": value Forced, Yes
