@@ -88,3 +88,7 @@ $ neofetch
 ##################################
 $ dbus-launch dolphin
 
+##################################
+# Repair kded5 has requested to open the wallet kdewallet
+##################################
+open network connection, on WiFi SSID Name which has set "connect automatically" in Gerenal configuration tab, make sure you also select "Store password for all users (not encrypted)" in WiFi Security tab
