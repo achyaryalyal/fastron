@@ -21,6 +21,7 @@ Change XP theme in order to display the better visual
 ==========================================
 Font smoothing
 ==========================================
+- system setting -> appearance -> fonts -> enable anti-aliasing, sub-pixel rendering set to RGB, hinting set to Full -> OK
 - open playonlinux
 - configure
 - select virtual drive to configure. ex: Office2010
