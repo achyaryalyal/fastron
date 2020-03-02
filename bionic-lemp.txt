@@ -270,6 +270,10 @@ nano /etc/nginx/nginx.conf
 nginx -t
 service nginx reload
 
+[CAUTION] if error "bind() to 0.0.0.0:80 failed (98: Address already in use)" occurs, so just kill running nginx to restart it. Paste code below:
+$ sudo pkill -f nginx
+$ sudo systemctl start nginx
+
 ##################################
 # Add Cronjob
 ##################################
