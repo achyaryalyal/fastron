@@ -589,8 +589,8 @@ nano +99999 file
 ######### clear bash history #########
 history -c && > ~/.bash_history
 
-######### check disk usage #########
-du -h -c --max-depth=1 [path]
+######### check disk usage (sorted human readable) #########
+du -x --max-depth=1 [PATH] | sort -n | awk '{ print $2 }' | xargs du -hx --max-depth=0
 
 ######### recursively search string #########
 cd [DIRECTORY]
