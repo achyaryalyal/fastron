@@ -264,7 +264,7 @@ cd nginx-[VERSION]
 ./configure --add-dynamic-module=/opt/ngx_http_geoip2_module
 make
 make install
-cp objs/ngx_http_geoip2_module.so /etc/nginx/ && rm -rf /opt/ng*
+cp objs/*.so /etc/nginx/ && chmod 644 /etc/nginx/*.so && rm -rf /opt/ng*
 nano /etc/nginx/nginx.conf
 #add it before event {}: load_module /etc/nginx/ngx_http_geoip2_module.so;
 nginx -t
@@ -280,6 +280,17 @@ cd nginx-[VERSION]
 ./configure --with-compat --add-dynamic-module=/opt/ngx_brotli
 make
 make install
+cp objs/*.so /etc/nginx/ && chmod 644 /etc/nginx/*.so && rm -rf /opt/ng*
+nano /etc/nginx/nginx.conf
+#add it before event {}: load_module /etc/nginx/ngx_http_brotli_filter_module.so;
+#add it before event {}: load_module /etc/nginx/ngx_http_brotli_static_module.so;
+#comment gzip line
+#add it after gzip line:
+    brotli on;
+    brotli_static on;
+    brotli_types *;
+nginx -t
+nginx -s reload
 
 [CAUTION] if error "bind() to 0.0.0.0:80 failed (98: Address already in use)" occurs, so just kill running nginx to restart it. Paste code below:
 $ sudo pkill -f nginx
