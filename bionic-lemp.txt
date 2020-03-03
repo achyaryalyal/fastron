@@ -253,14 +253,14 @@ htpasswd -c /etc/nginx/conf.d/.htpasswd [USER]
 # Create a symbolic link to activate server block
 sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
 nginx -t
-service nginx reload
+nginx -s reload
 
-# Add Nginx GeoIP2 module
+# Add Nginx GeoIP2 as dynamic module
 cd /opt && git clone https://github.com/leev/ngx_http_geoip2_module && ls
 nginx -v
-wget http://nginx.org/download/nginx-VERSION.tar.gz
-tar zxvf nginx-VERSION.tar.gz
-cd nginx-VERSION
+wget http://nginx.org/download/nginx-[VERSION].tar.gz
+tar zxvf nginx-[VERSION].tar.gz
+cd nginx-[VERSION]
 ./configure --add-dynamic-module=/opt/ngx_http_geoip2_module
 make
 make install
@@ -268,7 +268,18 @@ cp objs/ngx_http_geoip2_module.so /etc/nginx/ && rm -rf /opt/ng*
 nano /etc/nginx/nginx.conf
 #add it before event {}: load_module /etc/nginx/ngx_http_geoip2_module.so;
 nginx -t
-service nginx reload
+nginx -s reload
+
+# Add Nginx Brotli as dynamic module
+# Brotli works only with HTTPS, so you need to install SSL certificate first, see "Install Let's Encrypt"
+cd /opt && git clone https://github.com/google/ngx_brotli.git && cd ngx_brotli && git submodule update --init && cd .. && ls
+nginx -v
+wget http://nginx.org/download/nginx-[VERSION].tar.gz
+tar zxvf nginx-[VERSION].tar.gz
+cd nginx-[VERSION]
+./configure --with-compat --add-dynamic-module=/opt/ngx_brotli
+make
+make install
 
 [CAUTION] if error "bind() to 0.0.0.0:80 failed (98: Address already in use)" occurs, so just kill running nginx to restart it. Paste code below:
 $ sudo pkill -f nginx
@@ -394,7 +405,7 @@ curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/data-phpmyadm
 
 # test before reload
 nginx -t
-service nginx reload
+nginx -s reload
 
 # Go to data.[DOMAIN]/index.php with key & token params
 
