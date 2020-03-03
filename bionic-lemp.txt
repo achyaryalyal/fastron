@@ -285,7 +285,7 @@ nano /etc/nginx/nginx.conf
 #add it before event {}: load_module /etc/nginx/ngx_http_brotli_filter_module.so;
 #add it before event {}: load_module /etc/nginx/ngx_http_brotli_static_module.so;
 #comment gzip line
-#add it after gzip line:
+#add it before gzip line:
     brotli on;
     brotli_static on;
     brotli_types *;
