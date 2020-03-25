@@ -100,6 +100,10 @@ playonlinux
 ##################################
 # Installing Zoom on Solus OS
 ##################################
-Download GPG Key: https://zoom.us/linux/download/pubkey
-$ gpg --import package-signing-key.pub
-Tutorial: https://gist.github.com/mcritchlow/61aeb06eae42cfe3125a949230c0e983
+Install Flatpak & Add the Flathub repository : https://flatpak.org/setup/Solus/
+Install Zoom : flatpak install flathub us.zoom.Zoom
+$ nano /var/lib/flatpak/app/us.zoom.Zoom/current/active/export/share/applications/us.zoom.Zoom.desktop
+#change icon to:
+Icon=/var/lib/flatpak/app/us.zoom.Zoom/current/active/export/share/icons/hicolor/256x256/apps/us.zoom.Zoom.png
+#close
+$ sudo update-desktop-database
