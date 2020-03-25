@@ -100,4 +100,6 @@ playonlinux
 ##################################
 # Installing Zoom on Solus OS
 ##################################
-https://gist.github.com/mcritchlow/61aeb06eae42cfe3125a949230c0e983
+Download GPG Key: https://zoom.us/linux/download/pubkey
+$ gpg --import package-signing-key.pub
+Tutorial: https://gist.github.com/mcritchlow/61aeb06eae42cfe3125a949230c0e983
