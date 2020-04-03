@@ -112,6 +112,12 @@ Note: graphical installation of Flatpak apps may not be possible with Solus
 $ flatpak update
 
 ##################################
+# Copy System Font to Flatpak
+##################################
+$ sudo -i
+$ cp -a /usr/local/share/fonts/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/19.08/3df64a7c249c10d57f920728e03f6e749491f5ab9ecc2d5e8ecdb0fc0a5d92c1/files/share/fonts/
+
+##################################
 # Installing Zoom on Flatpak
 ##################################
 $ sudo -i
