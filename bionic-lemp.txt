@@ -451,6 +451,9 @@ certbot renew --dry-run --cert-name [SUBDOMAIN].example.com
 # testing SSL grade
 # open https://www.ssllabs.com/ssltest
 
+# if you see any warning or error about ciphers
+# generate new ciphers at https://ssl-config.mozilla.org/
+
 # Let's Encrypt's certificates are only valid for 90 days. Certbot will automatically run twice a day and renew any certificate that is within thirty days of expiration. To test the renewal process is working correctly, you can use "dry-run" option:
 certbot renew --dry-run
 # If you see no errors, you're all set. When necessary, Certbot will renew your certificates and reload Nginx to pick up the changes. If the automated renewal process ever fails, Let’s Encrypt will send a message to the email you specified, warning you when your certificate is about to expire.
