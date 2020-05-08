@@ -98,6 +98,11 @@ mscorefonts
 playonlinux
 
 ##################################
+# Install theme
+##################################
+https://www.youtube.com/watch?v=OBCBqEC6sS8
+
+##################################
 # Install Flatpak
 ##################################
 Install Flatpak & Add the Flathub repository : https://flatpak.org/setup/Solus/
