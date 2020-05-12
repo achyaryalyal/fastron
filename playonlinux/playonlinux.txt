@@ -63,3 +63,8 @@ Check "Ignore Requested Geometry": value Forced, Yes
 - go to [HKEY_USERS\S-1-5-20\Software\Microsoft\OfficeSoftwareProtectionPlatform] and create a new binary key (Edit -> New -> Binary Value) inside that location:
     VLRenewalSchedule = 11 11 11 11
 - quit and relaunch Office and it should be activated. You can double-check activation via File menu -> Help
+
+##################################
+# Download Update for Microsoft Office 2010 (KB4462157) 32-Bit Edition
+##################################
+https://www.microsoft.com/en-us/download/details.aspx?id=57772
