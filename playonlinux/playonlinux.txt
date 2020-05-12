@@ -47,3 +47,19 @@ Check "Match whole window class"
 Check on tab "Size & Position"
 Check "Full screen": value Forced, No
 Check "Ignore Requested Geometry": value Forced, Yes
+
+##################################
+# Activate MSO 2010 via regedit
+##################################
+- open playonlinux
+- configure
+- select virtual drive to configure. ex: Office2010
+- tab wine
+- registry editor
+- go to [HKEY_LOCAL_MACHINE\Software\Microsoft\OfficeSoftwareProtectionPlatform] and create two keys (Edit -> New -> String Value) inside that location:
+    KeyManagementServiceName = mykmsserver01.mylab.local
+    KeyManagementServicePort = 1688
+- keep regedit open and start any Office application (i.e. Word), update regedit by pushing the F5 key and you'll see an additional entry in the registry that has been automatically created
+- go to [HKEY_USERS\S-1-5-20\Software\Microsoft\OfficeSoftwareProtectionPlatform] and create a new binary key (Edit -> New -> Binary Value) inside that location:
+    VLRenewalSchedule = 11 11 11 11
+- quit and relaunch Office and it should be activated. You can double-check activation via File menu -> Help
