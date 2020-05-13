@@ -1,4 +1,9 @@
 ##################################
+# Disable Gecko and Mono installing dialogue
+##################################
+$ export WINEDLLOVERRIDES="mscoree,mshtml="
+
+##################################
 # Install useful packages
 ##################################
 winetricks
@@ -7,7 +12,7 @@ libxinerama-32bit
 libxcomposite-32bit
 
 ##################################
-# Font smoothing and Change XP theme to better visual
+# Enable font smoothing and change windows theme for better visual
 ##################################
 - open system setting -> appearance -> fonts -> enable anti-aliasing, sub-pixel rendering set to RGB, hinting set to Full -> OK
 - open playonlinux
@@ -17,7 +22,7 @@ libxcomposite-32bit
   - "Microsoft Core Fonts"
   - "Disable Crash Dialog" -> my personal favorite.
   - "FontSmoothRGB" -> this one is exceptionally crucial.
-  - "LunaTheme" -> it’s actually Royal Theme
+  - "LunaTheme" -> it's actually Royal Theme
   - "Tahoma"
 - tab wine -> Edit Registry. Look for HKEY_CURRENT_USER\Control Panel\Desktop, set "FontSmoothing" to "2" and exit
 - tab wine -> Windows reboot. Give it a moment, then you can test it by clicking at Configure Wine. If you are lucky, the fonts should be anti-aliased for now. Do not mess around much with the configuration, you are on own risk. However, I did switch the theme, tab Desktop Integration, theme Royal, colour Royal Noir.
@@ -39,11 +44,6 @@ libxcomposite-32bit
 # Microsoft Office Word, PowerPoint and Excel (Office 2013) On Linux - Install Guide and Demo
 ##################################
 https://www.youtube.com/watch?v=doSSB0AZnts
-
-##################################
-# Disable Gecko and Mono installing dialogue
-##################################
-$ export WINEDLLOVERRIDES="mscoree,mshtml="
 
 ##################################
 # Microsoft Office via wine/PoL Can't Minimize and Restore
