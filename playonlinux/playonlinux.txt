@@ -1,5 +1,5 @@
 ##################################
-# Install useful dependencies
+# Install useful packages
 ##################################
 winetricks
 lutris
