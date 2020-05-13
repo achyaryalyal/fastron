@@ -24,7 +24,9 @@ libxcomposite-32bit
   - "FontSmoothRGB" -> this one is exceptionally crucial.
   - "LunaTheme" -> it's actually Royal Theme
   - "Tahoma"
-- tab wine -> Edit Registry. Look for HKEY_CURRENT_USER\Control Panel\Desktop, set "FontSmoothing" to "2" and exit
+- tab wine -> Edit Registry.
+  - Setup FontSmoothing. Look for HKEY_CURRENT_USER\Control Panel\Desktop, set "FontSmoothing" to "2"
+  - Enable TLS/SSL. Look for HKEY_LOCAL_MACHINE\System\CurrentControlSet\Control\SecurityProviders\Schannel\Protocols\SSL 2.0\Client, set "DisabledByDefault" to "0"
 - tab wine -> Windows reboot. Give it a moment, then you can test it by clicking at Configure Wine. If you are lucky, the fonts should be anti-aliased for now. Do not mess around much with the configuration, you are on own risk. However, I did switch the theme, tab Desktop Integration, theme Royal, colour Royal Noir.
 
 ##################################
