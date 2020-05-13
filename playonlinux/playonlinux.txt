@@ -7,6 +7,12 @@ libxinerama-32bit
 libxcomposite-32bit
 
 ##################################
+# Libraries must add
+##################################
+riched20 (native, builtin)
+msxml6 (native, builtin)
+
+##################################
 # Microsoft Office Word, PowerPoint and Excel (Office 2013) On Linux - Install Guide and Demo
 ##################################
 https://www.youtube.com/watch?v=doSSB0AZnts
