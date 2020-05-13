@@ -1,4 +1,12 @@
 ##################################
+# Install useful dependencies
+##################################
+winetricks
+lutris
+libxinerama-32bit
+libxcomposite-32bit
+
+##################################
 # Disable Gecko and Mono installing dialogue
 ##################################
 $ export WINEDLLOVERRIDES="mscoree,mshtml="
