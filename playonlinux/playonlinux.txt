@@ -7,28 +7,12 @@ libxinerama-32bit
 libxcomposite-32bit
 
 ##################################
-# Libraries must add
-##################################
-riched20 (native, builtin)
-msxml6 (native, builtin)
-
-##################################
-# Microsoft Office Word, PowerPoint and Excel (Office 2013) On Linux - Install Guide and Demo
-##################################
-https://www.youtube.com/watch?v=doSSB0AZnts
-
-##################################
-# Disable Gecko and Mono installing dialogue
-##################################
-$ export WINEDLLOVERRIDES="mscoree,mshtml="
-
-##################################
 # Font smoothing and Change XP theme to better visual
 ##################################
 - open system setting -> appearance -> fonts -> enable anti-aliasing, sub-pixel rendering set to RGB, hinting set to Full -> OK
 - open playonlinux
 - configure
-- select virtual drive to configure. ex: Office2010
+- select virtual drive to configure. ex: Office2016
 - tab "Install Components", install the following option in respective order:
   - "Microsoft Core Fonts"
   - "Disable Crash Dialog" -> my personal favorite.
@@ -39,19 +23,27 @@ $ export WINEDLLOVERRIDES="mscoree,mshtml="
 - tab wine -> Windows reboot. Give it a moment, then you can test it by clicking at Configure Wine. If you are lucky, the fonts should be anti-aliased for now. Do not mess around much with the configuration, you are on own risk. However, I did switch the theme, tab Desktop Integration, theme Royal, colour Royal Noir.
 
 ##################################
-# Alternative : Change XP theme in order to display the better visual
+# Libraries must have
 ##################################
-- download https://drive.google.com/open?id=1RxYNUmyeajKcG0iS53efZUpbcYg6MqZ3
-- extract theme file
 - open playonlinux
 - configure
-- select virtual drive to configure. ex: Office2010
-- tab wine
+- select virtual drive to configure. ex: Office2016
+- tab "Wine"
 - configure wine
-- tab desktop integration
-- in appearance, click install theme
-- select theme: Royale
+- tab libraries
+  riched20 (native, builtin)
+  msxml6 (native, builtin)
 - OK
+
+##################################
+# Microsoft Office Word, PowerPoint and Excel (Office 2013) On Linux - Install Guide and Demo
+##################################
+https://www.youtube.com/watch?v=doSSB0AZnts
+
+##################################
+# Disable Gecko and Mono installing dialogue
+##################################
+$ export WINEDLLOVERRIDES="mscoree,mshtml="
 
 ##################################
 # Microsoft Office via wine/PoL Can't Minimize and Restore
