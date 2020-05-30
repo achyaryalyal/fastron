@@ -43,7 +43,7 @@ libxcomposite-32bit
 - OK
 
 ##################################
-# Microsoft Office Word, PowerPoint and Excel (Office 2013) On Linux - Install Guide and Demo
+# Install Microsoft Office Word, PowerPoint and Excel (Office 2013) On Linux - Install Guide and Demo
 ##################################
 https://www.youtube.com/watch?v=doSSB0AZnts
 
@@ -81,3 +81,37 @@ Check "Ignore Requested Geometry": value Forced, Yes
 # Download Update for Microsoft Office 2010 (KB4462157) 32-Bit Edition
 ##################################
 https://www.microsoft.com/en-us/download/details.aspx?id=57772
+
+##################################
+# Install DragonDisk
+##################################
+Download DragonDisk for Windows at http://dragondisk.com/download-s3-compatible-cloud-client.html
+- open playonlinux
+- configure
+- select virtual drive to configure. ex: Office2010
+- tab miscellaneous. Run a .exe file in this virtual drive
+- browse and install .exe file
+- close
+
+Create shortcut to virtual drive
+- open playonlinux
+- configure
+- select virtual drive to configure. ex: Office2010
+- tab general. Make a new shortcut from this virtual drive
+- choose DragonDisk
+- ok
+
+Create shortcut to KDE Application Menu
+- right click on Application Menu. Edit
+- click on Internet. click New Item
+  Name: DragonDisk
+  Desc:
+  Comment: PlayOnLinux
+  Command: /usr/share/playonlinux/playonlinux --run "DragonDisk" %F
+  Icon: /home/evolene/.PlayOnLinux/wineprefix/Office2010/drive_c/Program Files/Almageste/DragonDisk/dragondisk128x128.ico
+- click Save
+
+##################################
+# Cara Akses Kilat Storage Baru Menggunakan DragonDisk
+##################################
+https://kb.cloudkilat.com/informasi-umum/cara-akses-kilat-storage-baru-menggunakan-dragon-disk
