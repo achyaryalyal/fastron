@@ -319,7 +319,7 @@ service fail2ban restart && fail2ban-client status
 
 # show status of all fail2ban jails at once
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/fail2ban-allstatus.sh > /etc/fail2ban/fail2ban-allstatus.sh
-chmod +x /etc/fail2ban/fail2ban-allstatus.sh && chmod 755 /etc/fail2ban/fail2ban-allstatus.sh
+chmod +x /etc/fail2ban/fail2ban-allstatus.sh && chmod 0755 /etc/fail2ban/fail2ban-allstatus.sh
 cp /etc/fail2ban/fail2ban-allstatus.sh /usr/bin/.
 fail2ban-allstatus.sh
 
@@ -557,15 +557,15 @@ rclone config
 # and than: kill [PID]
 
 ##################################
-# Install Fuse
+# Install S3FS
 ##################################
 sudo apt install -y s3fs
 
-# create bucket on your cloud storage account, more info: http://kb.cloudkilat.com/informasi-umum/cara-akses-kilat-storage-baru-menggunakan-dragon-disk
+# create bucket on your cloud storage account with DragonDisk, more info at https://s.id/iK7fY
 
 # create directory
 mkdir /tmp/cache /path/to/mountpoint
-chmod 777 /tmp/cache /path/to/mountpoint
+chmod 775 /tmp/cache /path/to/mountpoint
 
 # create credential file
 echo ACCESS_KEY:SECRET_KEY > /etc/.passwd-s3fs
@@ -600,7 +600,7 @@ sudo /etc/init.d/clamav-freshclam start
 
 # enable notify and schedule the scan
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/clamscan_daily.sh > /clamscan_daily.sh
-chmod +x /clamscan_daily.sh && chmod 755 /clamscan_daily.sh
+chmod +x /clamscan_daily.sh && chmod 0755 /clamscan_daily.sh
 
 # add script to crontab
 	# Let’s create a hard link as below:
