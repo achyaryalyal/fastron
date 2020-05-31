@@ -562,6 +562,7 @@ rclone config
 sudo apt install -y s3fs
 
 # create bucket on your cloud storage account with DragonDisk, more info at https://s.id/iK7fY
+# never mind if "Access Denied" when access Endpoint URL. Keep calm, you don't have to add any permissions because we are just mounting it as local drive
 
 # create directory
 mkdir /tmp/cache /path/to/mountpoint
