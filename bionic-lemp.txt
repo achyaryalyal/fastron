@@ -566,13 +566,14 @@ sudo apt install -y s3fs
 # create directory
 mkdir /tmp/cache /path/to/mountpoint
 chmod 775 /tmp/cache /path/to/mountpoint
+chown www-data:www-data /path/to/mountpoint
 
 # create credential file
 echo ACCESS_KEY:SECRET_KEY > /etc/.passwd-s3fs
 chmod 600 /etc/.passwd-s3fs
 
 # mount cloud storage to cloud VM
-s3fs bucket_name /path/to/mountpoint -o passwd_file=/etc/.passwd-s3fs -o url=https://s3-id-jkt-1.kilatstorage.id/ -o use_path_request_style
+s3fs bucket_name /path/to/mountpoint -o passwd_file=/etc/.passwd-s3fs -o allow_other -o use_path_request_style -o url=https://s3-id-jkt-1.kilatstorage.id/ -o use_cache=/tmp/cache
 
 # check cloud storage has mounted to cloud VM
 df -h
@@ -583,12 +584,10 @@ echo HELLO > s3fs.txt
 # mount automatically on reboot
 nano /etc/fstab
 
-s3fs#bucket_name /path/to/mountpoint fuse _netdev,allow_other,use_path_request_style,url=https://s3-id-jkt-1.kilatstorage.id/ 0 0
+s3fs#bucket_name /path/to/mountpoint fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,use_path_request_style,url=https://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
 
-s3fs#bucket_name /path/to/mountpoint fuse _netdev,allow_other,use_path_request_style,url=https://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
-
-s3fs#bucket_name /path/to/mountpoint fuse _netdev,allow_other,use_path_request_style,url=https://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache,uid=userid,gid=groupid 0 0
-
+# anyway, if you want to unmount:
+umount -i /path/to/mountpoint
 
 ##################################
 # Install Clamav (GAK PERLU)
