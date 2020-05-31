@@ -293,8 +293,8 @@ nginx -t
 nginx -s reload
 
 [CAUTION] if error "bind() to 0.0.0.0:80 failed (98: Address already in use)" occurs, so just kill running nginx to restart it. Paste code below:
-$ sudo pkill -f nginx
-$ sudo systemctl start nginx
+sudo pkill -f nginx
+sudo systemctl start nginx
 
 ##################################
 # Add Cronjob
@@ -523,8 +523,8 @@ cd /var/www/master && rm -rf ide && wget https://github.com/Codiad/Codiad/archiv
 ##################################
 # Install Rclone
 ##################################
-$ curl https://rclone.org/install.sh | sudo bash && rclone version
-$ rclone config
+curl https://rclone.org/install.sh | sudo bash && rclone version
+rclone config
 # enter "n" for New Remote Storage
 # give it a name. ex: Gerobak
 # enter "13" for Google Drive
@@ -555,6 +555,12 @@ $ rclone config
 # mount: rclone mount Gerobak:Data /path/to/local/mount
 # stop mounting, check PID: ps ax | grep "rclone mount"
 # and than: kill [PID]
+
+##################################
+# Install Fuse
+##################################
+sudo apt install -y s3fs
+
 
 ##################################
 # Install Clamav (GAK PERLU)
