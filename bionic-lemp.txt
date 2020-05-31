@@ -584,6 +584,7 @@ echo HELLO > s3fs.txt
 # mount automatically on reboot
 nano /etc/fstab
 
+# paste it
 s3fs#bucket_name /path/to/mountpoint fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,use_path_request_style,url=https://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
 
 # anyway, if you want to unmount:
