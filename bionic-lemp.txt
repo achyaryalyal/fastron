@@ -557,7 +557,7 @@ rclone config
 # and than: kill [PID]
 
 ##################################
-# Install S3FS
+# Install S3FS for mounting S3
 ##################################
 sudo apt install -y s3fs
 
@@ -590,6 +590,36 @@ s3fs#bucket_name /path/to/mountpoint fuse _netdev,passwd_file=/etc/.passwd-s3fs,
 
 # anyway, if you want to unmount:
 umount -i /path/to/mountpoint
+
+##################################
+# Install S3CMD for showing S3 disk space summary
+##################################
+sudo apt install -y s3cmd
+
+# provide encryption options, access and secret keys
+s3cmd --configure
+  Access Key: [ACCESS_KEY]
+  Secret Key: [SECRET_KEY]
+  Default Region: id-jkt-1
+  S3 Endpoint: s3-id-jkt-1.kilatstorage.id
+  DNS-style bucket+hostname:port template for accessing a bucket: %(bucket)s.s3-id-jkt-1.kilatstorage.id
+  Encryption password:
+  Path to GPG program:
+  Use HTTPS protocol: Yes
+  HTTP Proxy server name: 
+  HTTP Proxy server port: 0
+
+# make configuration for www-data, so you can run s3cmd with php
+cp /root/.s3cfg /var/www/ && chown www-data:www-data /var/www/.s3cfg
+
+# list objects
+s3cmd ls s3://bucket-name
+
+# display cumulative size of particular files on personal-bucket in bytes
+s3cmd du s3://bucket-name
+
+# display cumulative size of particular files on personal-bucket in human readable format
+s3cmd du -H s3://bucket-name
 
 ##################################
 # Install Clamav (GAK PERLU)
