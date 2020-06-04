@@ -66,7 +66,16 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-sec.conf > /etc/sysctl.d/50-ip-sec.conf && sudo sysctl --system
 
 ##################################
-# Add swap space OR secure shared memory: > /etc/fstab && echo "none /run/shm tmpfs defaults,ro 0 0" >>/etc/fstab
+# Secure shared memory
+##################################
+nano /etc/fstab
+# paste it:
+none /run/shm tmpfs defaults,ro 0 0
+# but if you want that memory space mounted in read/write mode, change that line with this:
+none /run/shm tmpfs rw,noexec,nosuid,nodev 0 0
+
+##################################
+# Add swap space equals to RAM size
 ##################################
 # check has swap enabled, if output is empty, it means that your system does not have swap space enabled
 swapon --show
@@ -76,6 +85,13 @@ fallocate -l 1G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /
 nano /etc/fstab
 # paste it
 /swapfile swap swap defaults 0 0
+
+##################################
+# Change swap size
+##################################
+swapoff -a
+rm /swapfile
+fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
 
 ##################################
 # Add new user with root privilages
