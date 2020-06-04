@@ -1,0 +1,99 @@
+##################################
+# Konsole Theme
+##################################
+Setting -> configure konsole -> profiles -> shell edit -> appearance -> get new -> install Visiblue -> close
+click visiblue -> edit -> tranparency 15%
+OK
+
+##################################
+Edit Konsole Bookmark
+##################################
+$ nano ~/.local/share/konsole/bookmarks.xml
+
+##################################
+# Unify display with LCD Projector
+##################################
+WIN + P
+select "Unify outputs"
+
+##################################
+# Desktop Effects Not Working
+##################################
+type "compositor" and open it
+just re-enabled OpenGL 2.0 or change it to the newest version like 3.1
+
+##################################
+# Auto Mount NTFS Partition
+##################################
+$ sudo -i
+$ mkdir /os_drive
+$ mkdir /work_drive
+# what dev is OS and WORK partition, example: dev3 and dev4
+$ nano /etc/fstab
+# add this line:
+/dev/sda3 /os_drive ntfs defaults,noatime 0 0
+/dev/sda4 /work_drive ntfs defaults,noatime 0 0
+$ reboot
+
+##################################
+Mount an ISO File
+##################################
+$ sudo mkdir /mnt/iso
+$ sudo mount -o loop file.iso /mnt/iso
+$ ls /mnt/iso/
+
+##################################
+Manually Create Keyboard Shorcut for Several Widgets
+##################################
+CTRL + SPACE = minimize all windows
+CTRL + ALT + SPACE = notes
+
+##################################
+Default Plasma Keyboard Shorcut
+##################################
+CTRL + ALT + L = lock screen
+CTRL + ALT + SHIFT + Pgup = restart
+CTRL + ALT + SHIFT + Pgdn = shutdown
+
+##################################
+# Show Battery Percentage
+##################################
+right click on battery icon -> Configure battery and brightness
+check "Show percentage"
+OK
+
+##################################
+# Use MPV in SMplayer with Mini GUI
+##################################
+open SMplayer > Options > Preferences > Interface > Gui: Mini GUI, Iconset: Breeze-dark
+for volume shorcut, press "9" to Decrease audio volume, press "0" to Increase audio volume
+
+##################################
+# Recognize USB 3.0 Device
+##################################
+$ sudo nano /etc/default/grub
+# after parameter quiet, add parameter: usbcore.autosuspend=-1
+# save
+$ update-grub
+$ reboot
+
+##################################
+# Commandline System Information
+##################################
+$ inxi -F
+$ neofetch
+
+##################################
+# Repair Dolphin Explorer
+##################################
+$ dbus-launch dolphin
+
+##################################
+# Repair kded5 has requested to open the wallet kdewallet
+##################################
+open network connection, on WiFi SSID Name which has set "connect automatically" in Gerenal configuration tab, make sure you also select "Store password for all users (not encrypted)" in WiFi Security tab
+
+##################################
+# No storage media found. Make sure your device is unlocked and has MTP enabled in its USB connection settings.
+##################################
+just install "android-file-transfer" from octopi
