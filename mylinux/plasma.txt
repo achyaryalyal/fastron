@@ -17,6 +17,34 @@ WIN + P
 select "Unify outputs"
 
 ##################################
+# Install KDE Oxygen App Sys Sound
+##################################
+root user
+$ cd /opt && git clone https://github.com/KDE/oxygen.git && cp oxygen/sounds/* /usr/share/sounds/
+make sure you "turn off" Do not disturb in Notification
+
+##################################
+# TeamViewer Not Ready
+##################################
+$ sudo teamviewer --daemon enable
+$ systemctl enable teamviewerd
+$ systemctl start teamviewerd
+
+##################################
+# Add shorcut to Minimize all Windows widget
+##################################
+right click -> configure Minimize all Windows
+input shorcut -> Ctrl + Space
+OK
+
+##################################
+# Add shorcut to Show Wifi Hotspots
+##################################
+right click -> configure Networks
+keyboard shorcuts -> Ctrl + Up
+OK
+
+##################################
 # Desktop Effects Not Working
 ##################################
 type "compositor" and open it
