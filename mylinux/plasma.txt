@@ -33,6 +33,7 @@ $ nano /etc/fstab
 # add this line:
 /dev/sda3 /os_drive ntfs defaults,noatime 0 0
 /dev/sda4 /work_drive ntfs defaults,noatime 0 0
+# close fstab and test with comamand: mount -a
 $ reboot
 
 ##################################
