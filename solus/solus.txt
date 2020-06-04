@@ -103,11 +103,6 @@ playonlinux
 https://www.youtube.com/watch?v=OBCBqEC6sS8
 
 ##################################
-# Edit Konsole Bookmark
-##################################
-nano .local/share/konsole/bookmarks.xml
-
-##################################
 # Install Flatpak
 ##################################
 Install Flatpak & Add the Flathub repository : https://flatpak.org/setup/Solus/
