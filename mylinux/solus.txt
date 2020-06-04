@@ -1,0 +1,174 @@
+##################################
+# Disk Partitioning
+##################################
+Size 512 MiB
+File System fat32
+Flags boot
+
+Size 4999 MiB
+File System linuxswap
+
+Size 204852 MiB
+File System ext4
+Mount Point /
+
+The rest is for NTFS
+
+##################################
+# Updating Solus repository
+##################################
+$ sudo eopkg ur
+
+##################################
+# Updating System
+##################################
+$ sudo eopkg upgrade
+
+##################################
+# Update specific software
+##################################
+$ sudo eopkg upgrade packagename
+
+##################################
+# Installing Software
+##################################
+$ sudo eopkg install packagename
+
+##################################
+# Reinstalling Software
+##################################
+$ sudo eopkg install --reinstall packagename
+
+##################################
+# Uninstalling Software
+##################################
+$ sudo eopkg remove packagename
+
+##################################
+# Get Information on Software
+##################################
+$ sudo eopkg info packagename
+
+##################################
+# Build Package From Source
+##################################
+$ sudo eopkg install -c system.devel
+$ sudo eopkg install solbuild
+$ sudo solbuild init
+$ sudo solbuild update
+----------------------------
+$ gpg --import any_GPG_key.pub
+----------------------------
+$ tar -xvzf file.tar.gz
+$ tar -xf file.tar.xz
+$ unzip file.zip
+----------------------------
+$ cd any_directory
+----------------------------
+$ ./configure
+$ make
+$ sudo make install
+
+##################################
+# Removing unused apps
+##################################
+kde connect
+konversation irc client
+firefox
+thunderbird
+libreoffice
+
+##################################
+# Don't install apps
+##################################
+tlp (it can cause touchpad not working & usb device not detected)
+
+##################################
+# Install frequently used apps
+##################################
+google chrome
+sublime text
+neofetch
+openssh
+gimp
+inkscape
+kdenlive
+qbittorrent
+mscorefonts
+playonlinux
+
+##################################
+# Install theme
+##################################
+https://www.youtube.com/watch?v=OBCBqEC6sS8
+
+##################################
+# Install Flatpak
+##################################
+Install Flatpak & Add the Flathub repository : https://flatpak.org/setup/Solus/
+$ sudo eopkg install flatpak xdg-desktop-portal-gtk
+$ flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+$ reboot
+Note: graphical installation of Flatpak apps may not be possible with Solus
+
+##################################
+# Update Apps on Flatpak
+##################################
+$ flatpak update
+
+##################################
+# Remove Apps on Flatpak
+##################################
+$ flatpak list
+$ flatpak uninstall [APP_NAME]
+
+##################################
+# Copy System Font to Flatpak
+##################################
+$ sudo -i
+$ cp -a /usr/local/share/fonts/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/19.08/3df64a7c249c10d57f920728e03f6e749491f5ab9ecc2d5e8ecdb0fc0a5d92c1/files/share/fonts/
+
+##################################
+# Copy System Theme to Flatpak
+##################################
+$ sudo -i
+cp -a /usr/share/themes/Breeze-Dark /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/19.08/3df64a7c249c10d57f920728e03f6e749491f5ab9ecc2d5e8ecdb0fc0a5d92c1/files/share/themes/
+
+##################################
+# Installing Zoom on Flatpak
+##################################
+$ sudo -i
+$ flatpak install flathub us.zoom.Zoom
+$ nano /var/lib/flatpak/app/us.zoom.Zoom/current/active/export/share/applications/us.zoom.Zoom.desktop
+#change icon to:
+Icon=/var/lib/flatpak/app/us.zoom.Zoom/current/active/export/share/icons/hicolor/256x256/apps/us.zoom.Zoom.png
+#close
+$ sudo update-desktop-database
+
+##################################
+# Installing WPS Office on Flatpak
+##################################
+Install Flatpak & Add the Flathub repository : https://flatpak.org/setup/Solus/
+$ sudo -i
+$ flatpak install flathub com.wps.Office
+$ nano /var/lib/flatpak/app/com.wps.Office/current/active/export/share/applications/com.wps.Office.et.desktop
+#change icon to:
+Icon=/var/lib/flatpak/app/com.wps.Office/current/active/export/share/icons/hicolor/256x256/mimetypes/com.wps.Office.etmain
+#close
+$ nano /var/lib/flatpak/app/com.wps.Office/current/active/export/share/applications/com.wps.Office.pdf.desktop
+#change icon to:
+Icon=/var/lib/flatpak/app/com.wps.Office/current/active/export/share/icons/hicolor/256x256/mimetypes/com.wps.Office.pdfmain
+#close
+$ nano /var/lib/flatpak/app/com.wps.Office/current/active/export/share/applications/com.wps.Office.prometheus.desktop
+#change icon to:
+Icon=/var/lib/flatpak/app/com.wps.Office/current/active/export/share/icons/hicolor/256x256/mimetypes/com.wps.Office.kprometheus
+#close
+$ nano /var/lib/flatpak/app/com.wps.Office/current/active/export/share/applications/com.wps.Office.wpp.desktop
+#change icon to:
+Icon=/var/lib/flatpak/app/com.wps.Office/current/active/export/share/icons/hicolor/256x256/mimetypes/com.wps.Office.wppmain
+#close
+$ nano /var/lib/flatpak/app/com.wps.Office/current/active/export/share/applications/com.wps.Office.wps.desktop
+#change icon to:
+Icon=/var/lib/flatpak/app/com.wps.Office/current/active/export/share/icons/hicolor/256x256/mimetypes/com.wps.Office.wpsmain
+#close
+$ sudo update-desktop-database
