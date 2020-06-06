@@ -148,7 +148,6 @@ $ sudo update-desktop-database
 ##################################
 # Installing WPS Office on Flatpak
 ##################################
-Install Flatpak & Add the Flathub repository : https://flatpak.org/setup/Solus/
 $ sudo -i
 $ flatpak install flathub com.wps.Office
 $ nano /var/lib/flatpak/app/com.wps.Office/current/active/export/share/applications/com.wps.Office.et.desktop
@@ -172,3 +171,9 @@ $ nano /var/lib/flatpak/app/com.wps.Office/current/active/export/share/applicati
 Icon=/var/lib/flatpak/app/com.wps.Office/current/active/export/share/icons/hicolor/256x256/mimetypes/com.wps.Office.wpsmain
 #close
 $ sudo update-desktop-database
+
+##################################
+# Installing Sweet Home 3D on Flatpak
+##################################
+$ sudo -i
+$ flatpak install flathub com.sweethome3d.Sweethome3d
