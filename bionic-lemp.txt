@@ -594,7 +594,7 @@ echo ACCESS_KEY:SECRET_KEY > /etc/.passwd-s3fs
 chmod 600 /etc/.passwd-s3fs
 
 # mount cloud storage to cloud VM ---> must use "http" not https because https just give memory leaks of RAM. The publicly facing files are still accessible over https, although we we are not storing anything very sensitive anyway. This does mean that data is being transmitted from one amazon server to another unencrypted, so take this into consideration when deciding. Now s3fs uses only a little of memory, even while actively moving data to our s3 bucket.
-s3fs bucket_name /path/to/mountpoint -o passwd_file=/etc/.passwd-s3fs -o allow_other -o use_path_request_style -o url=http://s3-id-jkt-1.kilatstorage.id/ -o use_cache=/tmp/cache
+s3fs bucket_name /path/to/mountpoint -o passwd_file=/etc/.passwd-s3fs -o allow_other -o ensure_diskfree=10000 -o use_path_request_style -o url=http://s3-id-jkt-1.kilatstorage.id/ -o use_cache=/tmp/cache
 
 # check cloud storage has mounted to cloud VM
 df -h
@@ -606,7 +606,7 @@ echo HELLO > s3fs.txt
 nano /etc/fstab
 
 # paste it ---> must use "http" not https because https just give memory leaks of RAM. The publicly facing files are still accessible over https, although we we are not storing anything very sensitive anyway. This does mean that data is being transmitted from one amazon server to another unencrypted, so take this into consideration when deciding. Now s3fs uses only a little of memory, even while actively moving data to our s3 bucket.
-s3fs#bucket_name /path/to/mountpoint fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
+s3fs#bucket_name /path/to/mountpoint fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,ensure_diskfree=10000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
 
 # anyway, if you want to unmount:
 umount -i /path/to/mountpoint
@@ -722,11 +722,11 @@ service fail2ban restart
 # update GeoIP databases every sunday at 01:00 AM
 00  1  *  *  0 /usr/bin/geoipupdate -v
 
-# remove s3fs cache every day at 01:30 AM
-30  1  *  *  * find /tmp/cache/* -exec rm -f {} \;
+# reboot server every day at 01:30 AM
+30  1  *  *  * /sbin/shutdown -r now
 
-# reboot server every day at 02:00 AM
-00  2  *  *  * /sbin/shutdown -r now
+# remove s3fs cache every sunday at 02:00 AM
+00  2  *  *  0 find /tmp/cache/* -exec rm -f {} \;
 
 ######### Export Database #########
 date=$(date +%Y-%m-%d_%H-%M) && mysqldump -h localhost -u root -p [DB_NAME] > /path/to/destination/[DB_NAME]_DB_${date}.sql
