@@ -612,6 +612,9 @@ nano /etc/fstab
 # please read NOTE 1 & 2
 s3fs#bucket_name /path/to/mountpoint fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,ensure_diskfree=10000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
 
+# if you want to test fstab mounting result:
+mount -a && df -h
+
 # anyway, if you want to unmount:
 umount -i /path/to/mountpoint
 
@@ -731,6 +734,9 @@ service fail2ban restart
 
 # remove s3fs cache every sunday at 02:00 AM
 00  2  *  *  0 find /tmp/cache/* -exec rm -f {} \;
+
+# optimize all mysql databases every sunday at 03:00 AM
+00  3  *  *  0 mysqlcheck --all-databases --optimize --skip-write-binlog
 
 ######### Export Database #########
 date=$(date +%Y-%m-%d_%H-%M) && mysqldump -h localhost -u root -p [DB_NAME] > /path/to/destination/[DB_NAME]_DB_${date}.sql
