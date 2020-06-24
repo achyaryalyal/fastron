@@ -94,6 +94,14 @@ rm /swapfile
 fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
 
 ##################################
+# Display the current CPU utilization, as a percentage, calculated from /proc/stat
+##################################
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/cpu.sh > /etc/cpu.sh
+chmod +x /etc/cpu.sh && chmod 0755 /etc/cpu.sh
+cp /etc/cpu.sh /usr/bin/.
+cpu.sh
+
+##################################
 # Add new user with root privilages
 ##################################
 adduser [NEW_USER] && gpasswd -a [NEW_USER] sudo && gpasswd -a [NEW_USER] www-data
@@ -316,10 +324,7 @@ sudo systemctl start nginx
 # Add Cronjob
 ##################################
 crontab -e
-# update GeoIP databases every sunday at 01:00 AM
-00  1  *  *  0 /usr/bin/geoipupdate -v
-# reboot server every sunday at 01:30 AM
-30  1  *  *  0 /sbin/shutdown -r now
+# see the cronjob at the bottom of this page
 
 ##################################
 # Configure Fail2ban
