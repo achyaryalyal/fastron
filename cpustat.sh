@@ -1,73 +1,5 @@
 #!/bin/bash
-_s=0
-_a=0
 sleep=1
-
-#Simple output
-simple_output(){
-for (( i = 0; i < $NPROC; i++ )); do
-((pcpu[$i]= 100 * (total_subtracted[$i]-idle_subtracted[$i]) / total_subtracted[$i]))
-echo -e cpu$i "\t" ${pcpu[$i]}%
-done
-}
-
-#All information output
-all_output(){
-echo -e "CPUID\tuser\tnice\tsystem\tidle\tiowait\tirq\tsoftirq\tsteal\tguest\tguest_nice";
-for (( i = 0; i < $NPROC; i++ )); do
-((user_p[$i]= 100 * user_subtracted[$i]/total_subtracted[$i]))
-((nice_p[$i]= 100 * nice_subtracted[$i]/total_subtracted[$i]))
-((idle_p[$i]= 100 * idle_subtracted[$i]/total_subtracted[$i]))
-((system_p[$i]= 100 * system_subtracted[$i]/total_subtracted[$i]))
-((iowait_p[$i]= 100 * iowait_subtracted[$i]/total_subtracted[$i]))
-((irq_p[$i]= 100 * irq_subtracted[$i]/total_subtracted[$i]))
-((softirq_p[$i]= 100 * softirq_subtracted[$i]/total_subtracted[$i]))
-((steal_p[$i]= 100 * steal_subtracted[$i]/total_subtracted[$i]))
-((guest_p[$i]= 100 * guest_subtracted[$i]/total_subtracted[$i]))
-((guest_nice_p[$i]= 100 * guest_nice_subtracted[$i]/total_subtracted[$i]))
-echo -e cpu$i"\t"${user_p[$i]}"\t"${nice_p[$i]}"\t"${system_p[$i]}"\t"${idle_p[$i]}"\t"${iowait_p[$i]}"\t"${irq_p[$i]}"\t"${softirq_p[$i]}"\t"${stea$
-done
-}
-
-#Information for help
-do_help() {
-   cat <<EOF
-
-A very simple cpu usage percentages monitor tools .Simply calculate and output cpu usage percentages in text .Two versions coding by shell and php .
-
-Usage $0 [-a|-s|-h]
-
-Options
-  -s: Print simple cpu usages(default)
-  -a: Print all kinds of works of cpu usages
-  -h: Print this messsage
-
-For more information , please refer to : https://github.com/catscarlet/cpustat
-
-EOF
-}
-
-#Error message
-do_error() {
-    do_help 1>2
-    exit 1
-}
-
-#Here start the cpustat
-while getopts "ash" op; do
-    case "$op" in
-        s)  _s=1
-            ;;
-        a)  _a=1
-            ;;
-        h) do_help
-            exit
-            ;;
-        *) do_help
-            exit
-            ;;
-    esac
-done
 
 NPROC=(`nproc`)
 for (( i = 0; i < $NPROC; i++ )); do
@@ -118,19 +50,15 @@ for (( i = 0; i < $NPROC; i++ )); do
 ((total_subtracted[$i]= total_t2[$i]-total_t1[$i]))
 done
 
-[ "$1" = "" ] && _s=1
-
-if [ $_s = 1 ]; then
-    simple_output
-fi
-
-if [ $_a = 1 ]; then
-    all_output
-fi
+#Simple output
+for (( i = 0; i < $NPROC; i++ )); do
+((pcpu[$i]= 100 * (total_subtracted[$i]-idle_subtracted[$i]) / total_subtracted[$i]))
+echo -e cpu$i "\t" ${pcpu[$i]}%
+done
 
 # Get the list of processes and sort them by most mem usage and most cpu usage
 ps_output="$(ps aux)"
-cpu_top_processes="$(printf "%s\\n" "${ps_output}" | awk '{print "\033[1;37m"$2, $3"%", "\033[1;32m"$11}' | sort -k2rn | head -3 | awk '{print " \03$
- 
-echo -e "++++++++++: Top CPU Processes :++++++++++
+cpu_top_processes="$(printf "%s\\n" "${ps_output}" | awk '{print $2, $3"%", $11}' | sort -k2rn | head -3 | awk '{print "ID: "$1, $3, "    "$2}')"
+
+echo -e "==== Top CPU Processes ====
 $cpu_top_processes"
