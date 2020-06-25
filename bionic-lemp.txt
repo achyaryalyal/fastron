@@ -96,10 +96,10 @@ fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /
 ##################################
 # Display the current CPU utilization, as a percentage, calculated from /proc/stat
 ##################################
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/cpu.sh > /etc/cpu.sh
-chmod +x /etc/cpu.sh && chmod 0755 /etc/cpu.sh
-cp /etc/cpu.sh /usr/bin/.
-cpu.sh
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/cpustat.sh > /etc/cpustat.sh
+chmod +x /etc/cpustat.sh && chmod 0755 /etc/cpustat.sh
+cp /etc/cpustat.sh /usr/bin/.
+cpustat.sh
 
 ##################################
 # Add new user with root privilages
