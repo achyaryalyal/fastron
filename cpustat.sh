@@ -56,7 +56,7 @@ for (( i = 0; i < $NPROC; i++ )); do
 echo -e cpu$i "\t" ${pcpu[$i]}%
 done
 
-# Get the list of processes and sort them by most mem usage and most cpu usage
+# Get the list of processes and sort them by most cpu usage
 ps_output="$(ps aux)"
 cpu_top_processes="$(printf "%s\\n" "${ps_output}" | awk '{print $2, $3"%", $11}' | sort -k2rn | head -3 | awk '{print "ID: "$1, $3, "\t"$2}')"
 
