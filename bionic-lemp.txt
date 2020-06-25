@@ -94,12 +94,20 @@ rm /swapfile
 fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
 
 ##################################
-# Display the current CPU utilization, as a percentage, calculated from /proc/stat
+# Display current CPU usage as a percentage
 ##################################
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/cpustat.sh > /etc/cpustat.sh
 chmod +x /etc/cpustat.sh && chmod 0755 /etc/cpustat.sh
 cp /etc/cpustat.sh /usr/bin/.
 cpustat.sh
+
+##################################
+# Display current processes of the most RAM consuming
+##################################
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/ramstat.sh > /etc/ramstat.sh
+chmod +x /etc/ramstat.sh && chmod 0755 /etc/ramstat.sh
+cp /etc/ramstat.sh /usr/bin/.
+ramstat.sh
 
 ##################################
 # Add new user with root privilages
