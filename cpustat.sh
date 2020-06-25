@@ -60,5 +60,5 @@ done
 ps_output="$(ps aux)"
 cpu_top_processes="$(printf "%s\\n" "${ps_output}" | awk '{print $2, $3"%", $11}' | sort -k2rn | head -3 | awk '{print "ID: "$1, $3, "\t"$2}')"
 
-echo -e "==== Top CPU Processes ====
+echo -e "========= Top CPU Processes =========
 $cpu_top_processes"
