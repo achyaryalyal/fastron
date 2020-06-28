@@ -88,7 +88,7 @@ https://www.microsoft.com/en-us/download/details.aspx?id=57772
 Download DragonDisk for Windows at http://dragondisk.com/download-s3-compatible-cloud-client.html
 - open playonlinux
 - configure
-- select virtual drive to configure. ex: Office2010
+- select virtual drive (with Windows XP version or later) to configure. ex: Office2010
 - tab miscellaneous. Run a .exe file in this virtual drive
 - browse and install .exe file
 - close
@@ -103,7 +103,8 @@ Create shortcut to virtual drive
 
 Create shortcut to KDE Application Menu
 - right click on Application Menu. Edit
-- click on Internet. click New Item
+- click on "Internet"
+- click "New Item"
   Name: DragonDisk
   Desc:
   Comment: PlayOnLinux
@@ -115,3 +116,42 @@ Create shortcut to KDE Application Menu
 # Cara Akses Kilat Storage Baru Menggunakan DragonDisk
 ##################################
 https://kb.cloudkilat.com/informasi-umum/cara-akses-kilat-storage-baru-menggunakan-dragon-disk
+
+##################################
+# Install KBBI
+##################################
+Download KBBI offline installer at https://storage.googleapis.com/google-code-archive-downloads/v2/code.google.com/kbbi-offline/kbbi-offline-1.5.1.exe
+- open playonlinux
+- configure
+- select virtual drive (with Windows 7 version or later) to configure. ex: Office2016
+- tab miscellaneous. Run a .exe file in this virtual drive
+- browse and install .exe file
+- close
+
+Create shortcut to virtual drive
+- open playonlinux
+- configure
+- select virtual drive to configure. ex: Office2010
+- tab general. Make a new shortcut from this virtual drive
+- choose KBBI
+- ok
+
+Create shortcut to KDE Application Menu
+- download image from https://lh3.googleusercontent.com/rsXmFGas3ABb3XIk0926EjrgAbTYG1loqECvDfA_QEmBuH_Z1zc7eBbcr7VIbHeQJnI
+- rename image to kbbi.png
+- move image to /home/evolene/.PlayOnLinux/wineprefix/Office2016/drive_c/Program Files/KBBI Offline/
+- right click on Application Menu. Edit
+- click on "Education"
+- click "New Item"
+  Name: KBBI
+  Desc:
+  Comment: PlayOnLinux
+  Command: /usr/share/playonlinux/playonlinux --run "KBBI" %F
+  Icon: /home/evolene/.PlayOnLinux/wineprefix/Office2016/drive_c/Program Files/KBBI Offline/kbbi.png
+- click Save
+
+##################################
+# Cara Mencari Kata di KBBI Menggunakan REGEX
+##################################
+https://ebsoft.web.id/baru-kbbi-offline-1-5-mendukung-pencarian-dengan-regular-expression/
+Contoh REGEX untuk mencari kata yang berakhiran "al" : [al]{2}$
