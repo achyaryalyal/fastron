@@ -1,4 +1,4 @@
-$ pkg install python wget
+$ pkg install python wget openssl
 
 $ wget https://raw.githubusercontent.com/Quitten/doser.py/master/doser.py
 
