@@ -2,6 +2,6 @@ $ pkg install python wget openssl
 
 $ wget https://raw.githubusercontent.com/Quitten/doser.py/master/doser.py
 
-$ pip install request
+$ pip install requests
 
 $ python doser.py -t 999 -g 'https://xyz.com'
