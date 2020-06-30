@@ -112,6 +112,7 @@ $ pip install gdown
 ##################################
 # Install crossover 19.0.0
 ##################################
+$ sudo eopkg install wine wine-devel wine-32bit-devel winetricks lutris nss-mdns nss-mdns-32bit libxslt libxslt-32bit
 $ cd /opt && mkdir crossover && cd crossover && gdown https://drive.google.com/uc?id=1S6Jaybs38yzqt42m9zkD2eL7JV_D14aA
 $ chmod 755 install-crossover-19.0.0.bin
 $ ./install-crossover-19.0.0.bin
