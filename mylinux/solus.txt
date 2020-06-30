@@ -40,6 +40,11 @@ $ sudo eopkg install packagename
 $ sudo eopkg check
 
 ##################################
+# Check All Installed Packages That Are Broken
+##################################
+$ sudo eopkg check | grep Broken
+
+##################################
 # Reinstalling Package
 ##################################
 $ sudo eopkg install --reinstall packagename
