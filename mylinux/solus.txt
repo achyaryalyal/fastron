@@ -94,12 +94,33 @@ tlp (it can cause touchpad not working & usb device not detected)
 ##################################
 google chrome
 sublime text
-$ sudo eopkg install neofetch openssh gimp inkscape kdenlive qbittorrent playonlinux audacious
+$ sudo eopkg install neofetch pip openssh gimp inkscape kdenlive qbittorrent playonlinux audacious
 
 ##################################
 # Install mscorefonts
 ##################################
 https://drive.google.com/drive/folders/1oGdYZb2of_W7jmSFSdvsrUC0SEK9-Com?usp=sharing
+
+##################################
+# Install gdown
+##################################
+$ pip install gdown
+# how to use:
+  gdown https://drive.google.com/uc?id=0B_NiLAzvehC9R2stRmQyM3ZiVjQ
+# gdown --id 0B_NiLAzvehC9R2stRmQyM3ZiVjQ
+
+##################################
+# Install crossover 19.0.0
+##################################
+$ cd /opt && mkdir crossover && cd crossover && gdown https://drive.google.com/uc?id=1S6Jaybs38yzqt42m9zkD2eL7JV_D14aA
+$ chmod 755 install-crossover-19.0.0.bin
+$ ./install-crossover-19.0.0.bin
+# after installation was successfull, download the crack:
+$ gdown https://drive.google.com/uc?id=1FCZHBvieh37Og21TC1kbKu06lJkgecr2
+$ chmod 755 winewrapper.exe.so
+$ cp -rav winewrapper.exe.so /opt/cxoffice/lib/wine/
+$ cp -rav winewrapper.exe.so /opt/cxoffice/lib64/wine/
+# open crossover
 
 ##################################
 # Install theme
