@@ -97,6 +97,11 @@ sublime text
 $ sudo eopkg install neofetch openssh gimp inkscape kdenlive qbittorrent playonlinux audacious
 
 ##################################
+# Install mscorefonts
+##################################
+https://drive.google.com/drive/folders/1oGdYZb2of_W7jmSFSdvsrUC0SEK9-Com?usp=sharing
+
+##################################
 # Install theme
 ##################################
 https://www.youtube.com/watch?v=OBCBqEC6sS8
