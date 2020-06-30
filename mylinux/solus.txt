@@ -25,27 +25,32 @@ $ sudo eopkg ur
 $ sudo eopkg upgrade
 
 ##################################
-# Update specific software
+# Update Specific Package
 ##################################
 $ sudo eopkg upgrade packagename
 
 ##################################
-# Installing Software
+# Installing Package
 ##################################
 $ sudo eopkg install packagename
 
 ##################################
-# Reinstalling Software
+# Check All Installed Packages
+##################################
+$ sudo eopkg check
+
+##################################
+# Reinstalling Package
 ##################################
 $ sudo eopkg install --reinstall packagename
 
 ##################################
-# Uninstalling Software
+# Uninstalling Package
 ##################################
 $ sudo eopkg remove packagename
 
 ##################################
-# Get Information on Software
+# Get Package Information
 ##################################
 $ sudo eopkg info packagename
 
@@ -70,8 +75,9 @@ $ make
 $ sudo make install
 
 ##################################
-# Removing unused apps
+# Removing Unused Packages
 ##################################
+$ sudo eopkg remove 
 kde connect
 konversation irc client
 firefox
