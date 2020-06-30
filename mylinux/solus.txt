@@ -82,12 +82,7 @@ $ sudo make install
 ##################################
 # Removing Unused Packages
 ##################################
-$ sudo eopkg remove 
-kde connect
-konversation irc client
-firefox
-thunderbird
-libreoffice
+$ sudo eopkg remove kdeconnect konversation firefox thunderbird libreoffice elisa font-droid-ttf cantarell-fonts font-symbola-ttf font-tlwg-ttf
 
 ##################################
 # Don't install apps
@@ -99,14 +94,7 @@ tlp (it can cause touchpad not working & usb device not detected)
 ##################################
 google chrome
 sublime text
-neofetch
-openssh
-gimp
-inkscape
-kdenlive
-qbittorrent
-mscorefonts
-playonlinux
+$ sudo eopkg install neofetch openssh gimp inkscape kdenlive qbittorrent playonlinux audacious
 
 ##################################
 # Install theme
