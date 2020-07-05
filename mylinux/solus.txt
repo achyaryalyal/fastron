@@ -82,7 +82,7 @@ $ sudo make install
 ##################################
 # Removing Unused Packages
 ##################################
-$ sudo eopkg remove kdeconnect konversation firefox thunderbird libreoffice elisa font-droid-ttf cantarell-fonts font-symbola-ttf font-tlwg-ttf
+$ sudo eopkg remove kget kdeconnect konversation firefox thunderbird libreoffice elisa font-droid-ttf cantarell-fonts font-symbola-ttf font-tlwg-ttf
 
 ##################################
 # Don't install apps
@@ -112,7 +112,7 @@ $ pip install gdown
 ##################################
 # Install crossover 19.0.0
 ##################################
-$ sudo eopkg install wine wine-devel wine-32bit-devel winetricks lutris nss-mdns nss-mdns-32bit libxslt libxslt-32bit cups-32bit lubglu-32bit libksane libinsane libxi-32bit libxrandr-32bit
+$ sudo eopkg install nss-mdns nss-mdns-32bit libxslt libxslt-32bit cups-32bit lubglu-32bit libksane libinsane sane-backends libxi-32bit libxrandr-32bit
 $ cd /opt && mkdir crossover && cd crossover && gdown https://drive.google.com/uc?id=1S6Jaybs38yzqt42m9zkD2eL7JV_D14aA
 $ chmod 755 install-crossover-19.0.0.bin
 $ ./install-crossover-19.0.0.bin
