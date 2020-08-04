@@ -440,6 +440,7 @@ if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !st
 
 nano /var/www/phpmyadmin/libraries/classes/Plugins/Auth/AuthenticationCookie.php
 search label with "input_username" and find <input>, change type "text" to "password"
+and under input tag, add this style: <style>body{background:linear-gradient(to right,#170071,#754600) !important;}h1{display:none !important;}</style>
 
 # create server block: data-phpmyadmin
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/data-phpmyadmin > /etc/nginx/sites-available/data-phpmyadmin && sudo ln -s /etc/nginx/sites-available/data-phpmyadmin /etc/nginx/sites-enabled/
