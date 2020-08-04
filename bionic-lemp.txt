@@ -705,6 +705,9 @@ du -x --max-depth=1 [PATH] | sort -n | awk '{ print $2 }' | xargs du -hx --max-d
 ######### recursively search string #########
 cd [DIRECTORY]
 grep -nr "YOUR_STRING"
+######### recursively search string and sort it #########
+cd [DIRECTORY]
+grep -nr "YOUR_STRING" | sort -u
 ######### recursively search string and replace #########
 cd [DIRECTORY]
 grep -rl "NEW_STRING" | xargs sed -i "s/NEW_STRING/OLD_STRING/g"
