@@ -161,6 +161,20 @@ https://www.youtube.com/watch?v=OBCBqEC6sS8
 7. Better inline clock (Download): show_date=true; show_separator=true; use_fixed_font_size=14; display_timezone_as=timezone_code; date_format=qt_date; font_style=default; spacing=default; vertical_offset=0; horizontal_offset=geser_kiri_sedikit;
 
 ##################################
+# My Style
+##################################
+Global Theme: McMojave
+Plasma Style: McMojave
+Application Style: kvantum dark (KvMojave theme: compositing & general -> reduce windows opacity 5% & reduce menu opacity 15%)
+Window Decaoration: Theme=McMojave; Titlebar_Buttons=close,maximize,minimize;
+Colors: McMojave
+Icons: Breeze Dark
+Emoticons: EmojiOne
+Cursors: McMojave Cursors
+Login Screen (SSDM): McMojave
+Splash Screen: Retrosmart
+
+##################################
 # Install Flatpak
 ##################################
 Install Flatpak & Add the Flathub repository : https://flatpak.org/setup/Solus/
