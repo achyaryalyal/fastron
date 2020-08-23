@@ -150,6 +150,17 @@ control appwiz.cpl
 https://www.youtube.com/watch?v=OBCBqEC6sS8
 
 ##################################
+# Top Panel Widget
+##################################
+1. Application Menu
+2. Application Title (Download): text_type=application_name; bold=true;
+3. Global Menu
+4. Panel Spacer: set_flexibel_width=true;
+5. Minimize All Windows
+6. System Tray
+7. Better inline clock (Download): show_date=true; show_separator=true; use_fixed_font_size=14; display_timezone_as=timezone_code; date_format=qt_date; font_style=default; spacing=default; vertical_offset=0; horizontal_offset=geser_kiri_sedikit;
+
+##################################
 # Install Flatpak
 ##################################
 Install Flatpak & Add the Flathub repository : https://flatpak.org/setup/Solus/
