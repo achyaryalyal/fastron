@@ -133,6 +133,7 @@ Emoticons: EmojiOne
 Cursors: McMojave Cursors
 Login Screen (SSDM): McMojave
 Splash Screen: Retrosmart
+Important Desktop Effect: (1) wobbly_windows -> wobbliness=more 100%; wobble_when_moving=true; wobble_when_resizing=false; enable_adv_mode=false; (2) magic_lamp -> animation_duration=400ms
 
 ##################################
 # My latte dock layout
