@@ -121,7 +121,7 @@ https://www.youtube.com/watch?v=OBCBqEC6sS8
 7. Better inline clock (Download): show_date=true; show_separator=true; use_fixed_font_size=14; display_timezone_as=timezone_code; date_format=qt_date; font_style=default; spacing=default; vertical_offset=0; horizontal_offset=geser_kiri_sedikit;
 
 ##################################
-# My style
+# My fav setting
 ##################################
 Global Theme: McMojave
 Plasma Style: McMojave
@@ -133,6 +133,11 @@ Emoticons: EmojiOne
 Cursors: McMojave Cursors
 Login Screen (SSDM): McMojave
 Splash Screen: Retrosmart
+
+##################################
+# My latte dock layout
+##################################
+Import layout file from https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/mylatte.layout.latte
 
 ##################################
 # Install crossover 19.0.0
