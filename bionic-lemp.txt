@@ -61,6 +61,9 @@ wget https://raw.githubusercontent.com/SuperSandro2000/nanorc/master/install.sh 
 
 # open_files limits
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.limits.conf > /etc/security/limits.conf
+nano /proc/sys/fs/file-max
+# add this line: fs.file-max=500000
+# apply the setting: sudo sysctl -p
 
 # IP hardening
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-sec.conf > /etc/sysctl.d/50-ip-sec.conf && sudo sysctl --system
