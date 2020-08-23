@@ -85,16 +85,11 @@ $ sudo make install
 $ sudo eopkg remove kget kdeconnect konversation firefox thunderbird libreoffice elisa font-droid-ttf cantarell-fonts font-symbola-ttf font-tlwg-ttf
 
 ##################################
-# Don't install apps
-##################################
-tlp (it can cause touchpad not working & usb device not detected)
-
-##################################
 # Install frequently used apps
 ##################################
 google chrome
 sublime text
-$ sudo eopkg install neofetch pip openssh gimp inkscape kdenlive qbittorrent playonlinux audacious
+$ sudo eopkg install neofetch pip openssh bleachbit peek kvantum woeusb latte-dock falkon filezilla gimp inkscape kdenlive qbittorrent playonlinux audacious
 
 ##################################
 # Install mscorefonts
@@ -108,6 +103,36 @@ $ pip install gdown
 # how to use:
   gdown https://drive.google.com/uc?id=0B_NiLAzvehC9R2stRmQyM3ZiVjQ
 # gdown --id 0B_NiLAzvehC9R2stRmQyM3ZiVjQ
+
+##################################
+# Install theme
+##################################
+https://www.youtube.com/watch?v=OBCBqEC6sS8
+
+##################################
+# Top panel widget
+##################################
+1. Application Menu
+2. Application Title (Download): text_type=application_name; bold=true;
+3. Global Menu
+4. Panel Spacer: set_flexibel_width=true;
+5. Minimize All Windows
+6. System Tray
+7. Better inline clock (Download): show_date=true; show_separator=true; use_fixed_font_size=14; display_timezone_as=timezone_code; date_format=qt_date; font_style=default; spacing=default; vertical_offset=0; horizontal_offset=geser_kiri_sedikit;
+
+##################################
+# My style
+##################################
+Global Theme: McMojave
+Plasma Style: McMojave
+Application Style: kvantum dark (KvMojave theme: compositing & general -> reduce windows opacity 5% & reduce menu opacity 15%)
+Window Decaoration: Theme=McMojave; Titlebar_Buttons=close,maximize,minimize;
+Colors: McMojave
+Icons: Breeze Dark
+Emoticons: EmojiOne
+Cursors: McMojave Cursors
+Login Screen (SSDM): McMojave
+Splash Screen: Retrosmart
 
 ##################################
 # Install crossover 19.0.0
@@ -143,36 +168,6 @@ EnableLUA=0
 ##################################
 # run Command on the bottle
 control appwiz.cpl
-
-##################################
-# Install theme
-##################################
-https://www.youtube.com/watch?v=OBCBqEC6sS8
-
-##################################
-# Top Panel Widget
-##################################
-1. Application Menu
-2. Application Title (Download): text_type=application_name; bold=true;
-3. Global Menu
-4. Panel Spacer: set_flexibel_width=true;
-5. Minimize All Windows
-6. System Tray
-7. Better inline clock (Download): show_date=true; show_separator=true; use_fixed_font_size=14; display_timezone_as=timezone_code; date_format=qt_date; font_style=default; spacing=default; vertical_offset=0; horizontal_offset=geser_kiri_sedikit;
-
-##################################
-# My Style
-##################################
-Global Theme: McMojave
-Plasma Style: McMojave
-Application Style: kvantum dark (KvMojave theme: compositing & general -> reduce windows opacity 5% & reduce menu opacity 15%)
-Window Decaoration: Theme=McMojave; Titlebar_Buttons=close,maximize,minimize;
-Colors: McMojave
-Icons: Breeze Dark
-Emoticons: EmojiOne
-Cursors: McMojave Cursors
-Login Screen (SSDM): McMojave
-Splash Screen: Retrosmart
 
 ##################################
 # Install Flatpak
@@ -249,3 +244,9 @@ $ sudo update-desktop-database
 ##################################
 $ sudo -i
 $ flatpak install flathub com.sweethome3d.Sweethome3d
+
+##################################
+# Installing Postman on Flatpak
+##################################
+$ sudo -i
+$ flatpak install flathub com.getpostman.Postman
