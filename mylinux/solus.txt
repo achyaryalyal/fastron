@@ -125,7 +125,7 @@ https://www.youtube.com/watch?v=OBCBqEC6sS8
 ##################################
 Global Theme: McMojave
 Plasma Style: McMojave
-Application Style: kvantum dark (KvMojave theme: compositing & general -> reduce windows opacity 5% & reduce menu opacity 15%)
+Application Style: kvantum dark (McMojave theme: compositing & general -> reduce windows opacity 5% & reduce menu opacity 15%)
 Window Decaoration: Theme=McMojave; Titlebar_Buttons=close,maximize,minimize;
 Colors: McMojave
 Icons: Breeze Dark
@@ -139,6 +139,13 @@ Important Desktop Effect: (1) wobbly_windows -> wobbliness=more 100%; wobble_whe
 # My latte dock layout
 ##################################
 Import layout file from https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/mylatte.layout.latte
+
+##################################
+# My kvantum theme
+##################################
+Download, extract & install theme from https://www.pling.com/p/1304957#files-panel
+configure active theme -> compositing & general -> reduce windows opacity 5% & reduce menu opacity 15% -> save
+then set Dolphin toolbars text position to "Icon Only"
 
 ##################################
 # Install crossover 19.0.0
