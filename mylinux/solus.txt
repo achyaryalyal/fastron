@@ -89,7 +89,7 @@ $ sudo eopkg remove kget kdeconnect konversation firefox thunderbird libreoffice
 ##################################
 google chrome
 sublime text
-$ sudo eopkg install neofetch pip openssh bleachbit peek kvantum woeusb latte-dock falkon filezilla gimp inkscape kdenlive qbittorrent playonlinux audacious
+$ sudo eopkg install neofetch pip openssh bleachbit peek kvantum woeusb latte-dock filezilla gimp inkscape kdenlive qbittorrent playonlinux audacious
 
 ##################################
 # Install mscorefonts
