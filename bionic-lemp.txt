@@ -756,6 +756,9 @@ service fail2ban restart
 # remove s3fs cache every sunday at 02:00 AM
 00  2  *  *  0 find /tmp/cache/* -exec rm -f {} \;
 
+# re-ownership php session directory every day at 02:30 AM
+30  2  *  *  0 chown -R www-data:www-data /var/lib/php/sessions
+
 # optimize all mysql databases every sunday at 03:00 AM
 00  3  *  *  0 mysqlcheck --all-databases --optimize --skip-write-binlog
 
