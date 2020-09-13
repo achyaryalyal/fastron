@@ -747,20 +747,20 @@ service fail2ban restart
   0  0  *  *  * root /sbin/hwclock -w   # synchronize hardware & system clock every day at 00:00 am
   1  0  *  *  0 root /sbin/shutdown -r now "weekly reboot"   # reboot every sunday at 00:01 am
 
-# update GeoIP databases every sunday at 01:00 AM
-00  1  *  *  0 /usr/bin/geoipupdate -v
+# update GeoIP databases every sunday at 02:00 AM
+00  2  *  *  0 /usr/bin/geoipupdate -v
 
-# reboot server every day at 01:30 AM
-30  1  *  *  * /sbin/shutdown -r now
+# remove s3fs cache every sunday at 02:30 AM
+30  2  *  *  0 find /tmp/cache/* -exec rm -f {} \;
 
-# remove s3fs cache every sunday at 02:00 AM
-00  2  *  *  0 find /tmp/cache/* -exec rm -f {} \;
+# re-ownership php session directory every day at 03:00 AM
+00  3  *  *  * chown -R www-data:www-data /var/lib/php/sessions
+ 
+# optimize all mysql databases every sunday at 03:30 AM
+30  3  *  *  0 mysqlcheck --all-databases --optimize --skip-write-binlog
 
-# re-ownership php session directory every day at 02:30 AM
-30  2  *  *  0 chown -R www-data:www-data /var/lib/php/sessions
-
-# optimize all mysql databases every sunday at 03:00 AM
-00  3  *  *  0 mysqlcheck --all-databases --optimize --skip-write-binlog
+# reboot server every day at 04:00 AM
+00  4  *  *  * /sbin/shutdown -r now
 
 ######### Export Database #########
 date=$(date +%Y-%m-%d_%H-%M) && mysqldump -h localhost -u root -p [DB_NAME] > /path/to/destination/[DB_NAME]_DB_${date}.sql
