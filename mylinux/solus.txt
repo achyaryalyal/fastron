@@ -92,6 +92,17 @@ sublime text
 $ sudo eopkg install neofetch pip openssh bleachbit peek kvantum woeusb latte-dock filezilla gimp inkscape kdenlive qbittorrent playonlinux audacious
 
 ##################################
+# Install Winamp Skin to Audacious
+##################################
+Copy or download: https://drive.google.com/file/d/1lFru-2da8Kv1RWHlZOky7XMxQTuIDJFO/view?usp=sharing
+Extract downloaded file, and you will see a folder called winamp_standar
+With root privilage, copy folder winamp_standar to: /usr/share/audacious/Skins
+Open Audacious, go to Setting
+Appearance > Interface > Winamp Classic Interface
+Appearance > Skin > winamp_standar
+Close
+
+##################################
 # Install mscorefonts
 ##################################
 https://drive.google.com/drive/folders/1oGdYZb2of_W7jmSFSdvsrUC0SEK9-Com?usp=sharing
