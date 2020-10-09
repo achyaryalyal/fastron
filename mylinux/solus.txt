@@ -15,9 +15,14 @@ Mount Point /
 The rest is for NTFS
 
 ##################################
+# List repositories
+##################################
+$ sudo eopkg list-repo
+
+##################################
 # Updating Solus repository
 ##################################
-$ sudo eopkg ur
+$ sudo eopkg update-repo
 
 ##################################
 # Updating System
