@@ -206,13 +206,7 @@ control appwiz.cpl
 ##################################
 # Install Virtual Box
 ##################################
-Download the 64 bit "All distributions" Linux Virtualbox package from official website: https://www.virtualbox.org/wiki/Linux_Downloads
-$ cd /opt && mkdir vbox && cd vbox && mv /home/evolene/Downloads/VirtualBox-*.run /opt/vbox/
-Install the necessary packages:
-$ sudo eopkg install -c system.devel
-$ sudo eopkg install linux-lts-headers
-Install the downloaded package as follows:
-$ sudo sh /opt/vbox/VirtualBox-*.run
+$ sudo eopkg install linux-current-headers virtualbox virtualbox-current
 
 ##################################
 # Install Flatpak
