@@ -60,6 +60,11 @@ $ sudo eopkg remove packagename
 $ sudo eopkg info packagename
 
 ##################################
+# Delete Package Cache
+##################################
+$ sudo eopkg delete-cache
+
+##################################
 # Build Package From Source
 ##################################
 $ sudo eopkg install -c system.devel
