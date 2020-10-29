@@ -267,7 +267,7 @@ Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for 
 ##################################
 # Install Nginx
 ##################################
-sudo add-apt-repository ppa:nginx/stable && sudo apt update && sudo apt install -y nginx libnginx-mod-http-headers-more-filter && nginx -v
+sudo add-apt-repository ppa:nginx/stable && sudo apt update && sudo apt install -y nginx && nginx -v
 
 # Set up server blocks
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/useragents.rules > /etc/nginx/useragents.rules
@@ -290,13 +290,28 @@ sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
 nginx -t
 nginx -s reload
 
+# Add Nginx Header More as dynamic module
+cd /opt && git clone https://github.com/openresty/headers-more-nginx-module && ls
+nginx -v
+wget http://nginx.org/download/nginx-[VERSION].tar.gz
+tar zxvf nginx-[VERSION].tar.gz
+cd nginx-[VERSION]
+./configure --with-compat --add-dynamic-module=/opt/headers-more-nginx-module
+make
+make install
+cp objs/*.so /etc/nginx/ && chmod 644 /etc/nginx/*.so && rm -rf /opt/ng*
+nano /etc/nginx/nginx.conf
+#add it before event {}: load_module /etc/nginx/ngx_http_headers_more_filter_module.so;
+nginx -t
+nginx -s reload
+
 # Add Nginx GeoIP2 as dynamic module
 cd /opt && git clone https://github.com/leev/ngx_http_geoip2_module && ls
 nginx -v
 wget http://nginx.org/download/nginx-[VERSION].tar.gz
 tar zxvf nginx-[VERSION].tar.gz
 cd nginx-[VERSION]
-./configure --add-dynamic-module=/opt/ngx_http_geoip2_module
+./configure --with-compat --add-dynamic-module=/opt/ngx_http_geoip2_module
 make
 make install
 cp objs/*.so /etc/nginx/ && chmod 644 /etc/nginx/*.so && rm -rf /opt/ng*
