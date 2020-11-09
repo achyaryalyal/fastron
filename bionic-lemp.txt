@@ -483,9 +483,9 @@ certbot certonly --email [YOUR_EMAIL] --agree-tos --rsa-key-size 4096 --webroot 
 # obtain certificate for a subdomain (use --dry-run for testing)
 certbot certonly --email [YOUR_EMAIL] --agree-tos --rsa-key-size 4096 --webroot -w /var/www/[YOUR_DIRECTORY] -d [SUBDOMAIN].example.com
 # example subdomain non-wordpress
-certbot certonly --email aymarxp@gmail.com --agree-tos --rsa-key-size 4096 --webroot -w /var/www/master -d [SUBDOMAIN].stkipgetsempena.ac.id
+certbot certonly --email aymarxp@gmail.com --agree-tos --rsa-key-size 4096 --webroot -w /var/www/master -d [SUBDOMAIN].example.com
 # example subdomain wordpress
-certbot certonly --email aymarxp@gmail.com --agree-tos --rsa-key-size 4096 --webroot -w /var/www/master/wordpress/stkipbbg-[SUBDOMAIN] -d [SUBDOMAIN].stkipgetsempena.ac.id
+certbot certonly --email aymarxp@gmail.com --agree-tos --rsa-key-size 4096 --webroot -w /var/www/master/wordpress/stkipbbg-[SUBDOMAIN] -d [SUBDOMAIN].example.com
 
 # certbot is auto run renewal, if you want to test it, just use renew subcommand (use --dry-run for testing)
 certbot renew --dry-run
@@ -784,16 +784,16 @@ mysql -u root -p [DB_NAME] < file.sql
 
 ######### Force HTTPS Wordpress #########
 edit wp-config.php file
-UPDATE wp_blogs SET domain = REPLACE(domain, "http://www.stkipgetsempena.ac.id", "https://www.stkipgetsempena.ac.id");
-UPDATE wp_options SET option_value = REPLACE(option_value, "http://www.stkipgetsempena.ac.id", "https://www.stkipgetsempena.ac.id");
-UPDATE wp_site SET domain = REPLACE(domain, "http://www.stkipgetsempena.ac.id", "https://www.stkipgetsempena.ac.id");
-UPDATE wp_sitemeta SET meta_value = REPLACE(meta_value, "http://www.stkipgetsempena.ac.id", "https://www.stkipgetsempena.ac.id");
+UPDATE wp_blogs SET domain = REPLACE(domain, "http://www.example.com", "https://www.example.com");
+UPDATE wp_options SET option_value = REPLACE(option_value, "http://www.example.com", "https://www.example.com");
+UPDATE wp_site SET domain = REPLACE(domain, "http://www.example.com", "https://www.example.com");
+UPDATE wp_sitemeta SET meta_value = REPLACE(meta_value, "http://www.example.com", "https://www.example.com);
 ######### Force HTTP Wordpress #########
 edit wp-config.php file
-UPDATE wp_blogs SET domain = REPLACE(domain, "https://www.stkipgetsempena.ac.id", "http://www.stkipgetsempena.ac.id");
-UPDATE wp_options SET option_value = REPLACE(option_value, "https://www.stkipgetsempena.ac.id", "http://www.stkipgetsempena.ac.id");
-UPDATE wp_site SET domain = REPLACE(domain, "https://www.stkipgetsempena.ac.id", "http://www.stkipgetsempena.ac.id");
-UPDATE wp_sitemeta SET meta_value = REPLACE(meta_value, "https://www.stkipgetsempena.ac.id", "http://www.stkipgetsempena.ac.id");
+UPDATE wp_blogs SET domain = REPLACE(domain, "https://www.example.com", "http://www.example.com");
+UPDATE wp_options SET option_value = REPLACE(option_value, "https://www.example.com", "http://www.example.com");
+UPDATE wp_site SET domain = REPLACE(domain, "https://www.example.com", "http://www.example.com");
+UPDATE wp_sitemeta SET meta_value = REPLACE(meta_value, "https://www.example.com", "http://www.example.com");
 
 ######### Download a directory from another server with SCP #########
 scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/destination
