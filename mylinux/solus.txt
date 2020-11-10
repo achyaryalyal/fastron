@@ -212,9 +212,11 @@ $ sudo eopkg install linux-current-headers virtualbox virtualbox-current
 # Install DaVinci Resolve
 ##################################
 # download the Davinci Resolve setup file from Black Magic Design website. You will have to register to download the setup file
-# move setup file to /opt and extract it
+# open terminal
 $ sudo -i
-$ cd /opt/DaVinci_*
+# move setup file to /opt
+# extract it
+$ unzip /opt/DaVinci_* && cd /opt/DaVinci_*
 $ chmod +x DaVinci_*.run
 $ ./DaVinci_*.run
 
