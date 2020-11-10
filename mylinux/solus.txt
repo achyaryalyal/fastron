@@ -99,7 +99,13 @@ $ sudo eopkg remove kget kdeconnect konversation firefox thunderbird libreoffice
 ##################################
 google chrome
 sublime text
-$ sudo eopkg install neofetch pip openssh bleachbit peek kvantum woeusb latte-dock filezilla gimp inkscape kdenlive qbittorrent playonlinux audacious
+$ sudo eopkg install neofetch pip openssh bleachbit peek kvantum woeusb latte-dock filezilla gimp inkscape kdenlive alsa-utils qbittorrent playonlinux audacious
+
+##################################
+# Kdenlive No Sound
+##################################
+# make sure alsa-utils is installed
+# Settings -> Configure Kdenlive -> Playback. Audio driver: ALSA. Audio device: Default.
 
 ##################################
 # Install Winamp Skin to Audacious
