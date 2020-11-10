@@ -209,6 +209,16 @@ control appwiz.cpl
 $ sudo eopkg install linux-current-headers virtualbox virtualbox-current
 
 ##################################
+# Install DaVinci Resolve
+##################################
+# download the Davinci Resolve setup file from Black Magic Design website. You will have to register to download the setup file
+# move setup file to /opt and extract it
+$ sudo -i
+$ cd /opt/DaVinci_*
+$ chmod +x DaVinci_*.run
+$ ./DaVinci_*.run
+
+##################################
 # Install Flatpak
 ##################################
 Install Flatpak & Add the Flathub repository : https://flatpak.org/setup/Solus/
