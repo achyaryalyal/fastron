@@ -214,11 +214,10 @@ $ sudo eopkg install linux-current-headers virtualbox virtualbox-current
 # download the Davinci Resolve setup file from Black Magic Design website. You will have to register to download the setup file
 # open terminal
 $ sudo -i
-# move setup file to /opt
-# extract it
-$ unzip /opt/DaVinci_* && cd /opt/DaVinci_*
-$ chmod +x DaVinci_*.run
-$ ./DaVinci_*.run
+$ mkdir /opt/davinci_resolve
+# move setup file to /opt/davinci_resolve
+# extract it and run
+$ cd /opt/davinci_resolve && unzip /opt/DaVinci_* && chmod +x DaVinci_*.run && ./DaVinci_*.run
 
 ##################################
 # Install Flatpak
