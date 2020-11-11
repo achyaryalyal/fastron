@@ -252,6 +252,18 @@ $ ./waf install
 # open Ardour app
 
 ##################################
+# Export Audio From Ardour in MP3 Format
+##################################
+# Install lame
+# Open The Export window in Ardour and edit your export preset
+# At the bottom of the export preset edit window these is a box that says: "Command to run after post-export"
+# To the post - export command write this:
+  lame -b 192 -ms --quiet %f
+  or
+  lame -b 320 -ms --quiet %f
+# Done! Now when you export using this preset it first exports in the format you chose in the preset and then creates an additional mp3 version of the exported file.
+
+##################################
 # Install Flatpak
 ##################################
 Install Flatpak & Add the Flathub repository : https://flatpak.org/setup/Solus/
