@@ -238,11 +238,15 @@ $ mv srctar ardour.tar.bz2
 $ tar -xf ardour.tar.bz2
 $ cd Ardour*
 $ eopkg install libboost-devel alsa-lib-devel pulseaudio-devel glibmm-devel libsndfile-devel curl-devel libarchive-devel liblo liblo-devel taglib-devel vamp-plugin-sdk-devel rubberband-devel qjackctl jack-audio-connection-kit-devel fftw-devel aubio aubio-devel libusb-devel lrdf lrdf-devel cppunit cppunit-devel pangomm-devel libsamplerate-devel lv2-devel serd-devel sord-devel sratom-devel lilv-devel suil-devel soundtouch-devel libgtkmm-2-devel libgtkmm-3-devel raptor2-devel 
-# build
+# configure, build & install (about one hour)
 $ ./waf configure
 $ ./waf
-# install
 $ ./waf install
+# right click on icon application menu, click new item
+# set name: Ardour
+# set desc: The open source cross-platform DAW
+# set icon: /usr/local/share/ardour6/resources/Ardour-icon_256px.png
+# save
 
 ##################################
 # Install Flatpak
