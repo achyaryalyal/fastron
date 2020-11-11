@@ -245,8 +245,11 @@ $ ./waf install
 # right click on icon application menu, click new item
 # set name: Ardour
 # set desc: The open source cross-platform DAW
+# set command: /opt/Ardour-6.3.0/gtk2_ardour/ardev
 # set icon: /usr/local/share/ardour6/resources/Ardour-icon_256px.png
-# save
+# save & close application menu
+# create new folder "Ardour" via Dolphin (default folder for new sessions)
+# open Ardour app
 
 ##################################
 # Install Flatpak
