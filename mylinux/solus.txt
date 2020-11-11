@@ -80,8 +80,12 @@ $ sudo solbuild update
 $ gpg --import any_GPG_key.pub
 ----------------------------
 $ tar -xvzf file.tar.gz
+or
 $ tar -xf file.tar.xz
+or
 $ unzip file.zip
+or
+$ git clone git://github.com/..../.....git
 ----------------------------
 $ cd any_directory
 ----------------------------
@@ -224,6 +228,21 @@ $ mkdir /opt/davinci_resolve
 # move setup file to /opt/davinci_resolve
 # extract it and run
 $ cd /opt/davinci_resolve && unzip /opt/DaVinci_* && chmod +x DaVinci_*.run && ./DaVinci_*.run
+
+##################################
+# Install Ardour
+##################################
+$ sudo -i
+$ cd /opt && wget https://community.ardour.org/srctar
+$ mv srctar ardour.tar.bz2
+$ tar -xf ardour.tar.bz2
+$ cd Ardour*
+$ eopkg install libboost-devel alsa-lib-devel pulseaudio-devel glibmm-devel libsndfile-devel curl-devel libarchive-devel liblo liblo-devel taglib-devel vamp-plugin-sdk-devel rubberband-devel qjackctl jack-audio-connection-kit-devel fftw-devel aubio aubio-devel libusb-devel lrdf lrdf-devel cppunit cppunit-devel pangomm-devel libsamplerate-devel lv2-devel serd-devel sord-devel sratom-devel lilv-devel suil-devel soundtouch-devel libgtkmm-2-devel libgtkmm-3-devel 
+# build
+$ ./waf configure
+$ ./waf
+# install
+$ ./waf install
 
 ##################################
 # Install Flatpak
