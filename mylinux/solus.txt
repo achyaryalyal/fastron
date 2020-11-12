@@ -252,6 +252,11 @@ $ ./waf install
 # open Ardour app
 
 ##################################
+# Ardour Can't Record From Mic/Headset/Headphone
+##################################
+# make sure your "Internal Microphone" in Audio Volume is not set to "Mute Internal Microphone"
+
+##################################
 # Export Audio From Ardour in MP3 Format
 ##################################
 # Install lame
