@@ -269,6 +269,11 @@ $ ./waf install
 # Done! Now when you export using this preset it first exports in the format you chose in the preset and then creates an additional mp3 version of the exported file.
 
 ##################################
+# Install LMMS to create music notes
+##################################
+$ sudo eopkg install lmms
+
+##################################
 # Install Flatpak
 ##################################
 Install Flatpak & Add the Flathub repository : https://flatpak.org/setup/Solus/
