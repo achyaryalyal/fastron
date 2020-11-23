@@ -643,6 +643,7 @@ echo HELLO > s3fs.txt
 nano /etc/fstab
 
 # please read NOTE 1 & 2
+# this command is for paste into fstab, if you want to use this command of terminal just replace the hashtag '#' to a space ' ' after s3fs
 s3fs#bucket_name /path/to/mountpoint fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,ensure_diskfree=10000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
 
 # if you want to test fstab mounting result:
