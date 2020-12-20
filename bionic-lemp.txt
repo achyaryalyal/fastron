@@ -627,15 +627,11 @@ echo ACCESS_KEY:SECRET_KEY > /etc/.passwd-s3fs
 chmod 600 /etc/.passwd-s3fs
 
 # mount cloud storage to cloud VM
-s3fs bucket_name /path/to/mountpoint -o passwd_file=/etc/.passwd-s3fs -o allow_other -o ensure_diskfree=10000 -o use_path_request_style -o url=http://s3-id-jkt-1.kilatstorage.id/ -o use_cache=/tmp/cache
-
-# if there is an warning about: MOUNTPOINT directory /var/www/master/cabinet is not empty. if you are sure this is safe, can use the 'nonempty' mount option.
-# just add: -o nonempty
-# or if you use comma separated like in fstab step, just add: ,nonempty
+s3fs [BUCKET_NAME] /path/to/mountpoint -o passwd_file=/etc/.passwd-s3fs -o allow_other -o nonempty -o ensure_diskfree=30000 -o use_path_request_style -o url=http://s3-id-jkt-1.kilatstorage.id/ -o use_cache=/tmp/cache
 
 # NOTE 1: always use "http" not https because https just give memory leaks of RAM. The publicly facing files are still accessible over https, although we we are not storing anything very sensitive anyway. This does mean that data is being transmitted from one amazon server to another unencrypted, so take this into consideration when deciding. Now s3fs uses only a little of memory, even while actively moving data to our s3 bucket.
 
-# NOTE 2: ensure_diskfree=10000 grants that cache folder (i.e. /tmp/cache) will increase in size but it will be always ensured at least 10GB of disk free.
+# NOTE 2: ensure_diskfree=30000 grants that cache folder (i.e. /tmp/cache) will increase in size but it will be always ensured at least 10GB of disk free.
 
 # check cloud storage has mounted to cloud VM
 df -h
@@ -648,7 +644,10 @@ nano /etc/fstab
 
 # please read NOTE 1 & 2
 # this command is for paste into fstab, if you want to use this command in terminal just try the step about "mount cloud storage to cloud VM" with -o parameter
-s3fs#bucket_name /path/to/mountpoint fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,ensure_diskfree=10000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
+s3fs#[BUCKET_NAME] /path/to/mountpoint fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,nonempty,ensure_diskfree=30000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
+# mine:
+s3fs#bbg-master-cabinet /var/www/master/cabinet fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,nonempty,ensure_diskfree=30000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
+s3fs#bbg-development-cabinet /var/www/development/cabinet fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,nonempty,ensure_diskfree=30000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
 
 # if you want to test fstab mounting result:
 mount -a && df -h
