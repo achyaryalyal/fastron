@@ -126,6 +126,7 @@ map $http_user_agent $badagent {
 	~Copier			1;
 	~CopyRightCheck		1;
 	~Copyscape		1;
+        ~cortex                 1;
 	~Cosmos			1;
 	~Craftbot		1;
 	~crawler4j		1;
@@ -348,6 +349,7 @@ map $http_user_agent $badagent {
 	~Mojeek			1;
 	~Mojolicious		1;
 	~Morfeus\ Fucking\ Scanner	1;
+        ~Mozlila                1;
 	~Mr.4x3			1;
 	~MSFrontPage		1;
 	~MSIECrawler		1;
