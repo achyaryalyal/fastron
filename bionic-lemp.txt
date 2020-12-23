@@ -347,6 +347,9 @@ nginx -s reload
 sudo pkill -f nginx
 sudo systemctl start nginx
 
+# Installing & Managing Nginx Amplify Agent
+https://amplify.nginx.com/docs/guide-installing-and-managing-nginx-amplify-agent.html
+
 ##################################
 # Add Cronjob
 ##################################
