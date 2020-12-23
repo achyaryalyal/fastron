@@ -1,0 +1,9 @@
+.dashboard-head__system__alias {color:#fff;}
+.dashboard-head {background:#070246;color:#fff;}
+.dashboard-graphs {background:#070246;}
+.layout__logo {display:none;}
+.layout__inner {margin-top:-75px;}
+.inventory-column {display:none;}
+.dashboard-head {left:0;}
+.layout__column_scroll .layout__column__content {overflow-y: unset !important;}
+.footer_short {display:none;}
