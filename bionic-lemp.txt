@@ -270,6 +270,7 @@ Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for 
 sudo add-apt-repository ppa:nginx/stable && sudo apt update && sudo apt install -y nginx && nginx -v
 
 # Set up server blocks
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/stub_status.conf > /etc/nginx/conf.d/stub_status.conf
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/useragents.rules > /etc/nginx/useragents.rules
 nano /etc/nginx/nginx.conf
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/general.conf > /etc/nginx/general.conf
