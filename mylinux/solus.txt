@@ -103,7 +103,7 @@ $ sudo eopkg remove kget kdeconnect konversation firefox thunderbird libreoffice
 ##################################
 google chrome
 sublime text
-$ sudo eopkg install neofetch pip openssh bleachbit peek kvantum woeusb latte-dock filezilla gimp inkscape kdenlive alsa-utils qbittorrent playonlinux audacious
+$ sudo eopkg install neofetch pip openssh bleachbit peek kvantum woeusb multibootusb latte-dock filezilla gimp inkscape kdenlive alsa-utils qbittorrent playonlinux audacious
 
 ##################################
 # Kdenlive No Sound
