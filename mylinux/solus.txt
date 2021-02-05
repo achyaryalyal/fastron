@@ -297,13 +297,17 @@ $ flatpak uninstall [APP_NAME]
 # Copy System Font to Flatpak
 ##################################
 $ sudo -i
-$ cp -a /usr/local/share/fonts/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/19.08/3df64a7c249c10d57f920728e03f6e749491f5ab9ecc2d5e8ecdb0fc0a5d92c1/files/share/fonts/
+$ cp -a /usr/local/share/fonts/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/*/files/share/fonts/
+atau
+$ cp -a /usr/local/share/fonts/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/*/files/share/fonts/fonts/
 
 ##################################
 # Copy System Theme to Flatpak
 ##################################
 $ sudo -i
-cp -a /usr/share/themes/Breeze-Dark /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/19.08/3df64a7c249c10d57f920728e03f6e749491f5ab9ecc2d5e8ecdb0fc0a5d92c1/files/share/themes/
+$ cp -a /usr/share/themes/Breeze-Dark /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/*/files/share/themes/
+atau
+$ cp -a /usr/share/themes/Breeze-Dark /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/*/files/share/themes/themes/
 
 ##################################
 # Installing Zoom on Flatpak
