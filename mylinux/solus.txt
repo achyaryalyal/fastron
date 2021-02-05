@@ -306,8 +306,8 @@ $ bauh --reset
 $ pip3 uninstall bauh
 # add to menu:
 # right click on icon application menu, click new item
-# set name: Bauh (GUI for Flatpak)
-# set desc: GUI for Flatpak
+# set name: Bauh
+# set desc: Graphical user interface for managing your Linux applications. Supports AppImage, Arch (repositories/AUR), Flatpak, Snap and native Web applications.
 # set command: bauh
 # set icon: any icon up to you
 # save & close application menu
