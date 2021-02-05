@@ -294,6 +294,25 @@ $ flatpak list
 $ flatpak uninstall [APP_NAME]
 
 ##################################
+# GUI for Flatpak
+##################################
+$ sudo -i
+# install:
+$ pip3 install bauh
+# update:
+$ pip3 install bauh --upgrade
+# uninstall:
+$ bauh --reset
+$ pip3 uninstall bauh
+# add to menu:
+# right click on icon application menu, click new item
+# set name: Bauh (GUI for Flatpak)
+# set desc: GUI for Flatpak
+# set command: bauh
+# set icon: any icon up to you
+# save & close application menu
+
+##################################
 # Copy System Font to Flatpak
 ##################################
 $ sudo -i
