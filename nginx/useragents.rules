@@ -7,7 +7,6 @@ map $http_user_agent $badagent {
         ~MJ12bot                0;
         ~ia_archiver            0;
         ~Alexabot               0;
-        ~-                      1;
         ~Adsbot                 1;
 	~*backdoor		1;
 	~*Bolt			1;
