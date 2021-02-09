@@ -33,3 +33,35 @@ Install Apps From Main Repo via Discover
 Filelight
 Latte
 Dolphin - FFmpeg Thumbnailer
+
+=======================================
+Install Any Kernel
+=======================================
+$ uname -r
+$ apt search linux-image | grep edge
+$ sudo apt-get install linux-generic-hwe-20.04-edge
+#that's it. reboot.
+$ uname -r
+$ lsb_release -a
+$ dpkg -l | tail -n +6 | grep -E 'linux-image-[0-9]+'
+$ sudo pkcon refresh && sudo pkcon update
+$ sudo apt update && sudo apt full-upgrade
+$ flatpak update
+$ snap refresh
+
+=======================================
+Change Any Kernel
+=======================================
+$ uname -r
+$ grep -A100 submenu  /boot/grub/grub.cfg |grep menuentry
+	submenu 'Advanced options for Neon GNU/Linux' $menuentry_id_option 'gnulinux-advanced-c6e41310-0aba-435e-b947-cf0c55e42ec3' {
+	menuentry 'Neon GNU/Linux, with Linux 5.8.0-43-generic' --class neon --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-5.8.0-43-generic-advanced-c6e41310-0aba-435e-b947-cf0c55e42ec3' {
+	menuentry 'Neon GNU/Linux, with Linux 5.8.0-43-generic (recovery mode)' --class neon --class gnu-linux --class gnu --class os $menuentry_id_option 'gnulinux-5.8.0-43-generic-recovery-c6e41310-0aba-435e-b947-cf0c55e42ec3' {
+# Advanced options is gnulinux-advanced-c6e41310-0aba-435e-b947-cf0c55e42ec3
+# Menu entry with Linux 5.8.0-43-generic is gnulinux-5.8.0-43-generic-advanced-c6e41310-0aba-435e-b947-cf0c55e42ec3
+# Concat those two strings with > so result would be like
+	gnulinux-advanced-c6e41310-0aba-435e-b947-cf0c55e42ec3>gnulinux-5.8.0-43-generic-advanced-c6e41310-0aba-435e-b947-cf0c55e42ec3
+$ nano /etc/default/grub
+	GRUB_DEFAULT="gnulinux-advanced-c6e41310-0aba-435e-b947-cf0c55e42ec3>gnulinux-5.8.0-43-generic-advanced-c6e41310-0aba-435e-b947-cf0c55e42ec3"
+$ sudo update-grub
+$ sudo reboot
