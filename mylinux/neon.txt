@@ -71,3 +71,8 @@ $ nano /etc/default/grub
 	GRUB_DEFAULT="gnulinux-advanced-c6e41310-0aba-435e-b947-cf0c55e42ec3>gnulinux-5.8.0-43-generic-advanced-c6e41310-0aba-435e-b947-cf0c55e42ec3"
 $ sudo update-grub
 $ sudo reboot
+
+=================================
+Fix plain text file configuration
+=================================
+System Settings > Applications > File Assocations > text > plain > remove *.doc > Apply
