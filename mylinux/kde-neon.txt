@@ -32,3 +32,4 @@ Install Apps From Main Repo via Discover
 =======================================
 Filelight
 Latte
+Dolphin - FFmpeg Thumbnailer
