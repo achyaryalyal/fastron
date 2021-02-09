@@ -35,11 +35,11 @@ Latte
 Dolphin - FFmpeg Thumbnailer
 
 =======================================
-Install Any Kernel
+Install Latest Kernel
 =======================================
 $ uname -r
 $ apt search linux-image | grep edge
-$ sudo apt-get install linux-generic-hwe-20.04-edge
+$ ver="$(lsb_release -sr)" && sudo apt-get install linux-generic-hwe-${ver}-edge
 #that's it. reboot.
 $ uname -r
 $ lsb_release -a
