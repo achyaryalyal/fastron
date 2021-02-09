@@ -9,5 +9,17 @@ $ sudo apt install google-chrome-stable
 ======================================
 Install Apps From Flatpak via Discover
 ======================================
-wps-office
-zoom
+WPS Office
+Zoom
+WhatsAppQT
+Postman
+Telegram Desktop
+qBittorrent
+Inkscape
+GIMP
+Kdenlive
+Audacity
+Audacious
+VLC
+OBS Studio
+Nixwriter
