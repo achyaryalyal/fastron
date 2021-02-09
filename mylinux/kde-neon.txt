@@ -21,5 +21,14 @@ Kdenlive
 Audacity
 Audacious
 VLC
+Peek
 OBS Studio
 Nixwriter
+PDF Arranger
+Sublime Text
+
+=======================================
+Install Apps From Main Repo via Discover
+=======================================
+Filelight
+Latte
