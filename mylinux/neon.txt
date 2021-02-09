@@ -35,6 +35,14 @@ Latte
 Dolphin - FFmpeg Thumbnailer
 
 =======================================
+Install pip for Python 3
+=======================================
+$ sudo apt update
+$ sudo apt install python3-pip
+$ pip3 --version
+# install any package: sudo pip3 install gdown slowloris
+
+=======================================
 Install Latest Kernel
 =======================================
 $ uname -r
