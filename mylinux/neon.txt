@@ -45,9 +45,7 @@ $ uname -r
 $ lsb_release -a
 $ dpkg -l | tail -n +6 | grep -E 'linux-image-[0-9]+'
 $ sudo pkcon refresh && sudo pkcon update
-$ sudo apt update && sudo apt full-upgrade
-$ flatpak update
-$ snap refresh
+$ sudo apt update && sudo apt full-upgrade && flatpak update && snap refresh
 
 =======================================
 Change Any Kernel
