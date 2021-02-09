@@ -76,3 +76,15 @@ $ sudo reboot
 Fix plain text file configuration
 =================================
 System Settings > Applications > File Assocations > text > plain > remove *.doc > Apply
+
+=================================
+Copy System Font to Flatpak for WPS
+=================================
+$ sudo -i
+$ rm -rf /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/fonts/* && cp -a /usr/local/share/fonts/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/fonts/
+
+=================================
+Get Flatpak Apps To Use The Correct Gtk Theme (Breeze Dark)
+=================================
+$ flatpak install flathub org.gtk.Gtk3theme.Breeze-Dark
+$ flatpak uninstall org.gtk.Gtk3theme.Breeze
