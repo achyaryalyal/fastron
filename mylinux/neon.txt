@@ -43,6 +43,11 @@ $ cd /opt && wget https://github.com/KDE/latte-dock/archive/master.zip && unzip 
 $ sh install.sh
 
 =======================================
+Latte Dock Style & Icon
+=======================================
+https://github.com/achyaryalyal/fastron/tree/master/mylinux/latte
+
+=======================================
 Install pip for Python 3
 =======================================
 $ sudo apt update
