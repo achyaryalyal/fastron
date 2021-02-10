@@ -17,6 +17,11 @@ WIN + P
 select "Unify outputs"
 
 ##################################
+# Fix a Touchpad Not Working in Linux
+##################################
+https://www.maketecheasier.com/fix-touchpad-not-working-linux/
+
+##################################
 # Install KDE Oxygen App Sys Sound
 ##################################
 root user
