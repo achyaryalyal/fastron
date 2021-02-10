@@ -88,3 +88,9 @@ Get Flatpak Apps To Use The Correct Gtk Theme (Breeze Dark)
 =================================
 $ flatpak install flathub org.gtk.Gtk3theme.Breeze-Dark
 $ flatpak uninstall org.gtk.Gtk3theme.Breeze
+
+=================================
+Install Kvantum Engine For KDE On Ubuntu/KDE Neon
+=================================
+https://www.ubuntubuzz.com/2019/02/how-to-install-kvantum-engine-for-kde-on-ubuntu.html
+
