@@ -117,19 +117,19 @@ Latte Dock Style & Icon
 =======================================
 https://github.com/achyaryalyal/fastron/tree/master/mylinux/latte
 
-
-█▀▀ █░█ █▄░█ █▀▀ ▀█▀ █ █▀█ █▄░█ ▄▀█ █░░ █ ▀█▀ █▄█
-█▀░ █▄█ █░▀█ █▄▄ ░█░ █ █▄█ █░▀█ █▀█ █▄▄ █ ░█░ ░█░
-
 =================================
-Add widget Window AppMenu Applet to show the current window appmenu in your panels
+Add widget Window Buttons Applet to show window buttons in your panels
 =================================
-# download file from https://store.kde.org/p/1274975
+# download file from https://store.kde.org/p/1272871
 $ sudo -i
 $ tar -xvzf [WIDGET_FILE_NAME]
 $ cd [WIDGET_DIR_NAME]
 $ sudo apt install cmake extra-cmake-modules libkdecorations2-dev
 $ bash install.sh
+
+
+█▀▀ █░█ █▄░█ █▀▀ ▀█▀ █ █▀█ █▄░█ ▄▀█ █░░ █ ▀█▀ █▄█
+█▀░ █▄█ █░▀█ █▄▄ ░█░ █ █▄█ █░▀█ █▀█ █▄▄ █ ░█░ ░█░
 
 =================================
 Edit grub
