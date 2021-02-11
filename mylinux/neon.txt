@@ -127,6 +127,11 @@ $ cd [WIDGET_DIR_NAME]
 $ sudo apt install cmake extra-cmake-modules libkdecorations2-dev
 $ bash install.sh
 
+=================================
+Hide titlebar when a window is maximized
+=================================
+System Settings > Workspace > Window Management > Kwin scripts > Get new scripts > Hide Titles > Install > Select it & Apply
+
 
 █▀▀ █░█ █▄░█ █▀▀ ▀█▀ █ █▀█ █▄░█ ▄▀█ █░░ █ ▀█▀ █▄█
 █▀░ █▄█ █░▀█ █▄▄ ░█░ █ █▄█ █░▀█ █▀█ █▄▄ █ ░█░ ░█░
