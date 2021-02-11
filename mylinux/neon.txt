@@ -147,21 +147,24 @@ Open Konsole > Setting > Configure Konsole > Profiles > Select any profile & Edi
 █▀░ █▄█ █░▀█ █▄▄ ░█░ █ █▄█ █░▀█ █▀█ █▄▄ █ ░█░ ░█░
 
 =================================
-Edit grub
+Fix Lenovo S145 Touchpad Issue via Grub
 =================================
 $ sudo -i
 $ nano /etc/default/grub
+# add parameter i8042.nopnp=1 pci=nocrs to GRUB_CMDLINE_LINUX_DEFAULT
+	GRUB_CMDLINE_LINUX_DEFAULT="i8042.nopnp=1 pci=nocrs quiet splash"
+# close & save
 $ update-grub
 $ reboot
 # if anything goes wrong, just boot through recovery to repair grub again
 
 =================================
-Fix plain text file configuration
+Fix Plain Text File Assocation
 =================================
 System Settings > Applications > File Assocations > text > plain > remove *.doc > Apply
 
 =================================
-Set keyboard shortcut for screen brightness
+Set Keyboard Shortcut for Control Backlight (Screen Brightness)
 =================================
 System Settings > Workspace > Shortcuts > Power Management
 Select "Decrease Screen Brightness" and "Add custom shortcut" : "Ctrl + <"
@@ -170,5 +173,6 @@ Select "Increase Screen Brightness" and "Add custom shortcut" : "Ctrl + >"
 =================================
 Add shorcut to Minimize all Windows widget
 =================================
-right click > configure Minimize all Windows
-input shorcut > Ctrl + Space > OK
+Add widget "Minimize all Windows"
+Right click on widget > configure Minimize all Windows
+Input shorcut > "Ctrl + Space" > OK
