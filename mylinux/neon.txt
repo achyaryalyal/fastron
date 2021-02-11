@@ -1,5 +1,6 @@
 ASCII Text Art Generator: https://fsymbols.com/generators/carty/
 
+
 ▄▀█ █▀█ █▀█ █░░ █ █▀▀ ▄▀█ ▀█▀ █ █▀█ █▄░█
 █▀█ █▀▀ █▀▀ █▄▄ █ █▄▄ █▀█ ░█░ █ █▄█ █░▀█
 
@@ -87,7 +88,6 @@ Get Flatpak Apps To Use The Correct Gtk Theme (Breeze Dark)
 =================================
 $ flatpak install flathub org.gtk.Gtk3theme.Breeze-Dark
 $ flatpak uninstall org.gtk.Gtk3theme.Breeze
-
 
 
 ▀█▀ █░█ █▀▀ █▀▄▀█ █▀▀   █░█ █ █▀▀ █░█░█
