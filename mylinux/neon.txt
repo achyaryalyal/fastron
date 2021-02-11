@@ -130,7 +130,12 @@ $ bash install.sh
 =================================
 Hide titlebar when a window is maximized
 =================================
-System Settings > Workspace > Window Management > Kwin scripts > Get new scripts > Hide Titles > Install > Select it & Apply
+System Settings > Workspace > Window Management > Kwin scripts > Get new scripts > install Hide Titles > Select it & Apply
+
+=================================
+Visiblue Konsole Theme
+=================================
+Open Konsole > Setting > Configure Konsole > Profiles > Select any profile & Edit > Appearance > Get New > install Visiblue > Close > Select it & Edit > Set tranparency 10% > OK
 
 
 █▀▀ █░█ █▄░█ █▀▀ ▀█▀ █ █▀█ █▄░█ ▄▀█ █░░ █ ▀█▀ █▄█
@@ -156,3 +161,4 @@ Set keyboard shortcut for screen brightness
 System Settings > Workspace > Shortcuts > Power Management
 Select "Decrease Screen Brightness" and "Add custom shortcut" : "Ctrl + <"
 Select "Increase Screen Brightness" and "Add custom shortcut" : "Ctrl + >"
+
