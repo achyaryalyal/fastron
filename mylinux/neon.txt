@@ -162,3 +162,8 @@ System Settings > Workspace > Shortcuts > Power Management
 Select "Decrease Screen Brightness" and "Add custom shortcut" : "Ctrl + <"
 Select "Increase Screen Brightness" and "Add custom shortcut" : "Ctrl + >"
 
+=================================
+Add shorcut to Minimize all Windows widget
+=================================
+right click > configure Minimize all Windows
+input shorcut > Ctrl + Space > OK
