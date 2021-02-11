@@ -1,2 +1,3 @@
 sudo pip3 install slowloris
-slowloris example.com
+slowloris -h
+slowloris --randuseragents example.com 
