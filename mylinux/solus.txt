@@ -169,7 +169,7 @@ Important Desktop Effect: (1) wobbly_windows -> wobbliness=more 100%; wobble_whe
 ##################################
 # My latte dock layout
 ##################################
-Import layout file from https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/mylatte.layout.latte
+Import layout file from https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/latte/mcOS-BigSur-Large.layout.latte
 
 ##################################
 # My kvantum theme
