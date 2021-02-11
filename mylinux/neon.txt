@@ -159,9 +159,17 @@ $ reboot
 # if anything goes wrong, just boot through recovery to repair grub again
 
 =================================
-Fix Plain Text File Assocation
+Adjust Touchpad Configuration
 =================================
-System Settings > Applications > File Assocations > text > plain > remove *.doc > Apply
+System Settings > Hardware > Input Devices > Touchpad
+Tab Scrolling:
+	edge scrolling: [vertical] [horizontal]
+	two-finger scrolling: [vertical] [horizontal]
+Tab Pointer Motion:
+	Speed Minimum: 0.5 bar
+	Speed Maximum: 1.5 bar
+	Acceleration: 2.5 bar
+Apply
 
 =================================
 Set Keyboard Shortcut for Control Backlight (Screen Brightness)
@@ -176,3 +184,8 @@ Add shorcut to Minimize all Windows widget
 Add widget "Minimize all Windows"
 Right click on widget > configure Minimize all Windows
 Input shorcut > "Ctrl + Space" > OK
+
+=================================
+Fix Plain Text File Assocation
+=================================
+System Settings > Applications > File Assocations > text > plain > remove *.doc > Apply
