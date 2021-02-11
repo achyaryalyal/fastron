@@ -34,10 +34,15 @@ PDF Arranger
 Sublime Text
 
 =======================================
-Install Apps From Main Repo via Discover
+Install Apps From Main Repository via Discover
 =======================================
 Filelight
 Dolphin - FFmpeg Thumbnailer
+
+=======================================
+Install Apps From APT via Konsole
+=======================================
+$ sudo apt install neofetch net-tools
 
 =======================================
 Install pip for Python 3
