@@ -66,11 +66,12 @@ Install Apps From Main Repository via Discover
 Filelight
 KDE Partition Manager
 Dolphin - FFmpeg Thumbnailer
+Dolphin - Samba Filesharing Plugin
 
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools
+$ sudo apt install neofetch net-tools xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics
 
 =======================================
 Install pip for Python 3
