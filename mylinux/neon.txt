@@ -42,10 +42,13 @@ https://gist.github.com/angrycoffeemonster/4f05896d233baf6bd9b0894e30b5fa63#gist
 =======================================
 Install Apps Manually From .deb Package
 =======================================
-Download CrossFTP (for managing S3 bucket): http://www.crossftp.com/crossftp_1.99.6.deb
+Download CrossFTP Version 1.99.6 (for managing S3 bucket) from:
+http://www.crossftp.com/crossftp_1.99.6.deb
+or
+https://drive.google.com/file/d/1HqbO30QDKjYX3s898u-Cr3emQoGS5d46/view?usp=sharing
 
 =======================================
-Register CrossFTP
+Register CrossFTP Version 1.99.6
 =======================================
 Pro Multi User:
 4F6B65204F63657C6F6B65406F63652E636F6D0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010FFFFFFFFFFFFFFFA3C98218B681C6D5A23197C7D1F96689
