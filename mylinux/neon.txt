@@ -35,8 +35,8 @@ Sublime Text
 
 =======================================
 Register Sublime Text
-=======================================
 Version 3.2.2 Build 3211
+=======================================
 https://gist.github.com/angrycoffeemonster/4f05896d233baf6bd9b0894e30b5fa63#gistcomment-3186129
 
 =======================================
@@ -48,7 +48,8 @@ or
 https://drive.google.com/file/d/1HqbO30QDKjYX3s898u-Cr3emQoGS5d46/view?usp=sharing
 
 =======================================
-Register CrossFTP Version 1.99.6
+Register CrossFTP
+Version 1.99.6
 =======================================
 Pro Multi User:
 4F6B65204F63657C6F6B65406F63652E636F6D0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010FFFFFFFFFFFFFFFA3C98218B681C6D5A23197C7D1F96689
@@ -63,12 +64,13 @@ Enterprise Multi User:
 Install Apps From Main Repository via Discover
 =======================================
 Filelight
+KDE Partition Manager
 Dolphin - FFmpeg Thumbnailer
 
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools partitionmanager
+$ sudo apt install neofetch net-tools
 
 =======================================
 Install pip for Python 3
