@@ -618,12 +618,9 @@ git clone https://github.com/s3fs-fuse/s3fs-fuse.git
 
 cd /opt && git clone https://github.com/s3fs-fuse/s3fs-fuse.git && cd s3fs-fuse && ./autogen.sh && ./configure && make && sudo make install
 
-# create bucket on your cloud storage account with DragonDisk, more info at https://kb.cloudkilat.com/informasi-umum/cara-akses-kilat-storage-baru-menggunakan-dragon-disk
-	# never mind if "Access Denied" when access Endpoint URL. Keep calm, you don't have to add any permissions because we are just mounting it as local drive
-# or
-# create bucket on your cloud storage account with CrossFTP, more info at https://kb.cloudkilat.com/informasi-umum/cara-akses-kilat-storage-baru-menggunakan-crossftp
+# create "bucket" on your cloud storage account with CrossFTP, more info at https://kb.cloudkilat.com/informasi-umum/cara-akses-kilat-storage-baru-menggunakan-crossftp
 
-# create directory
+# create "directory" on your VM
 mkdir /tmp/cache /path/to/mountpoint
 chmod 775 /tmp/cache /path/to/mountpoint
 chown www-data:www-data /path/to/mountpoint
