@@ -32,7 +32,6 @@ OBS Studio
 Nixwriter
 PDF Arranger
 Sublime Text
-PlayOnLinux
 
 =======================================
 Install Apps From Main Repository via Discover
