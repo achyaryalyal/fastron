@@ -32,6 +32,7 @@ OBS Studio
 Nixwriter
 PDF Arranger
 Sublime Text
+Wine
 
 =======================================
 Install Apps From Main Repository via Discover
