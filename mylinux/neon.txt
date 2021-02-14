@@ -188,6 +188,11 @@ $ reboot
 # if anything goes wrong, just boot through recovery to repair grub again
 
 =================================
+Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
+=================================
+$ ids=$(xinput list | grep 'pointer' | cut -d '=' -f 2 | cut -f 1 | tr ' ' '\n' | tail -1) && xinput --disable $ids && xinput --enable $ids
+
+=================================
 Adjust Touchpad Configuration
 =================================
 System Settings > Hardware > Input Devices > Touchpad
