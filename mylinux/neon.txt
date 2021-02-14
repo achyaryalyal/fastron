@@ -190,7 +190,12 @@ $ reboot
 =================================
 Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
 =================================
-$ ids=$(xinput list | grep 'pointer' | cut -d '=' -f 2 | cut -f 1 | tr ' ' '\n' | tail -1) && xinput --disable $ids && xinput --enable $ids
+# right click on icon application menu, click new item
+# set name: Reset Pointer
+# set desc: 
+# set command: ids=$(xinput list | grep 'pointer' | cut -d '=' -f 2 | cut -f 1 | tr ' ' '\n' | tail -1) && xinput --disable $ids && xinput --enable $ids
+# set icon: ktouch
+# save & close application menu
 
 =================================
 Adjust Touchpad Configuration
