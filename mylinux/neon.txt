@@ -228,3 +228,8 @@ Input shorcut > "Ctrl + Space" > OK
 Fix Plain Text File Assocation
 =================================
 System Settings > Applications > File Assocations > text > plain > remove *.doc > Apply
+
+=================================
+WhatsAppQT Ask to Update Google Chrome
+=================================
+Just refresh the app with F5 or reload/refresh shortkey
