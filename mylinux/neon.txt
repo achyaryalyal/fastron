@@ -238,3 +238,17 @@ Just refresh the app with F5 or reload/refresh shortkey
 Check System, Machine and Audio Information
 =================================
 inxi -SMA
+
+=================================
+Fix No Sound
+=================================
+# try reinstalling Alsa and Pulse audio:
+$ sudo apt-get install --reinstall alsa-base pulseaudio
+# and force reload Alsa again:
+$ sudo alsa force-reload
+# reboot and check if sound is back or not
+
+=================================
+Zoom No Sound From Speaker
+=================================
+Zoom Setting > Audio Setting > Increase Output Volume on Speaker
