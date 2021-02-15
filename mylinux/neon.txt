@@ -115,13 +115,16 @@ $ sudo reboot
 Copy System Font to Flatpak for WPS
 =================================
 $ sudo -i
-$ rm -rf /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/fonts/* && cp -a /usr/local/share/fonts/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/fonts/
+$ rm -rf /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/fonts/*
+$ cp -a /usr/local/share/fonts/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/fonts/
 
 =================================
 Copy System Theme to Flatpak for WPS
 =================================
 $ sudo -i
-$ rm -rf /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/themes/* && cp -a /usr/share/themes/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/themes/
+$ rm -rf /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/themes/*
+$ cp -a /usr/share/themes/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/themes/
+$ cp -a /home/*/.themes/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/themes/
 
 =================================
 Get Flatpak Apps To Use The Correct Gtk Theme (Breeze Dark)
