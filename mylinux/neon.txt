@@ -225,6 +225,20 @@ Right click on widget > configure Minimize all Windows
 Input shorcut > "Ctrl + Space" > OK
 
 =================================
+Auto Mount NTFS Partition
+=================================
+$ sudo -i
+$ mkdir /drive_os
+$ mkdir /drive_work
+$ fdisk -l
+# what dev is OS and WORK partition, example: dev3 and dev4
+$ nano /etc/fstab
+# add this line:
+/dev/nvme0n1p3 /drive_os ntfs defaults,noatime 0 0
+/dev/nvme0n1p5 /drive_work ntfs defaults,noatime 0 0
+$ reboot
+
+=================================
 Fix Plain Text File Assocation
 =================================
 System Settings > Applications > File Assocations > text > plain > remove *.doc > Apply
@@ -238,6 +252,8 @@ Just refresh the app with F5 or reload/refresh shortkey
 Check System, Machine and Audio Information
 =================================
 inxi -SMA
+or full info:
+inxi -F
 
 =================================
 Fix No Sound
