@@ -71,7 +71,7 @@ Dolphin - Samba Filesharing Plugin
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics
+$ sudo apt install neofetch net-tools xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics inxi
 
 =======================================
 Install pip for Python 3
@@ -233,3 +233,8 @@ System Settings > Applications > File Assocations > text > plain > remove *.doc 
 WhatsAppQT Ask to Update Google Chrome
 =================================
 Just refresh the app with F5 or reload/refresh shortkey
+
+=================================
+Check System, Machine and Audio Information
+=================================
+inxi -SMA
