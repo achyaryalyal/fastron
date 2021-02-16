@@ -178,7 +178,8 @@ System Settings > Workspace > Window Management > Kwin scripts > Get new scripts
 =================================
 Visiblue Konsole Theme
 =================================
-Open Konsole > Setting > Configure Konsole > Profiles > Select any profile & Edit > Appearance > Get New > install Visiblue > Close > Select it & Edit > Set tranparency 10% > OK
+Open Konsole > Setting > Configure Konsole > Profiles > Select any profile & Edit > Appearance > Get New > install "Visiblue" > Close
+Select "Visiblue" & Edit > Set tranparency 15% > OK
 
 =================================
 Final Look
@@ -235,6 +236,8 @@ Apply
 
 =================================
 Set Keyboard Shortcut for Control Backlight (Screen Brightness)
+Ctrl + < = Decr. Brightness
+Ctrl + > = Incr. Brightness
 =================================
 System Settings > Workspace > Shortcuts > Power Management
 Select "Decrease Screen Brightness" and "Add custom shortcut" : "Ctrl + <"
@@ -242,10 +245,26 @@ Select "Increase Screen Brightness" and "Add custom shortcut" : "Ctrl + >"
 
 =================================
 Add shorcut to Minimize all Windows widget
+Ctrl + Space = Minimize
 =================================
 Add widget "Minimize all Windows"
 Right click on widget > configure Minimize all Windows
 Input shorcut > "Ctrl + Space" > OK
+
+=================================
+Add shorcut to Sticky Notes widget
+Ctrl + Alt + Space = Notes
+=================================
+Add widget "Sticky Notes"
+Right click on widget > configure Sticky Notes
+Input shorcut > "Ctrl + Alt + Space" > OK
+
+=================================
+System Shortcut Recenty Use
+=================================
+Ctrl + Alt + L = Lock
+Meta + E = Dolphin
+Meta = Simple Menu
 
 =================================
 Auto Mount NTFS Partition
@@ -268,20 +287,22 @@ $ reboot
 # after shutdown, turn on & boot into Linux & mounting NTFS would be no issue like can't copy/rename/delete file
 
 =================================
+Mount an ISO File
+=================================
+$ sudo mkdir /mnt/iso
+$ sudo mount -o loop file.iso /mnt/iso
+$ ls /mnt/iso/
+
+=================================
 Fix Plain Text File Assocation
 =================================
 System Settings > Applications > File Assocations > text > plain > remove *.doc > Apply
 
 =================================
-WhatsAppQT Ask to Update Google Chrome
-=================================
-Just refresh the app with F5 or reload/refresh shortkey
-
-=================================
 Check System, Machine and Audio Information
 =================================
 inxi -SMA
-or full info:
+# or full info:
 inxi -F
 
 =================================
@@ -294,6 +315,25 @@ $ sudo alsa force-reload
 # reboot and check if sound is back or not
 
 =================================
+Desktop Effects Not Working
+=================================
+# type "compositor" and open it
+# just re-enabled OpenGL 2.0 or change it to the newest version like 3.1
+
+=================================
+WhatsAppQT Ask to Update Google Chrome
+=================================
+# just refresh the app with F5 or reload/refresh shortkey
+
+=================================
+TeamViewer Not Ready
+=================================
+$ sudo teamviewer --daemon enable
+$ systemctl enable teamviewerd
+$ systemctl start teamviewerd
+
+=================================
 Zoom No Sound From Speaker
 =================================
 Zoom Setting > Audio Setting > Increase Output Volume on Speaker
+
