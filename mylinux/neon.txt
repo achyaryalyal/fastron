@@ -180,6 +180,20 @@ Visiblue Konsole Theme
 =================================
 Open Konsole > Setting > Configure Konsole > Profiles > Select any profile & Edit > Appearance > Get New > install Visiblue > Close > Select it & Edit > Set tranparency 10% > OK
 
+=================================
+Final Look
+=================================
+Global Theme: WhiteSur (Get New Global Theme)
+Plasma Style: WhiteSur
+Application Style: kvantum with WhiteSur theme (Download WhiteSur.tar.xz From https://www.pling.com/p/1398841)
+GTK Theme: WhiteSur-dark (Download WhiteSur-dark.tar.xz From https://www.pling.com/p/1398841)
+Colors: WhiteSur
+Icons: WhiteSur
+Cursors: WhiteSur Cursors
+Login Screen (SSDM): WhiteSur
+Splash Screen: WhiteSur
+Screen Locking > Appearance: WhiteSur
+
 
 █▀▀ █░█ █▄░█ █▀▀ ▀█▀ █ █▀█ █▄░█ ▄▀█ █░░ █ ▀█▀ █▄█
 █▀░ █▄█ █░▀█ █▄▄ ░█░ █ █▄█ █░▀█ █▀█ █▄▄ █ ░█░ ░█░
