@@ -206,6 +206,21 @@ Final Look
 █▀░ █▄█ █░▀█ █▄▄ ░█░ █ █▄█ █░▀█ █▀█ █▄▄ █ ░█░ ░█░
 
 =================================
+Checking Boot Time
+=================================
+$ systemd-analyze
+# or breakdown the boot time into each unit 
+$ systemd-analyze blame
+
+=================================
+Improving Boot Time
+=================================
+# network manager is responsible for the internet connection and may be turned off to speed up boot time
+# don’t worry, once you log in, you’ll have wifi working normally
+$ sudo systemctl disable NetworkManager-wait-online.service
+# if you want to revert the change, you can use this command: sudo systemctl enable NetworkManager-wait-online.service
+
+=================================
 Fix Lenovo S145 Touchpad Issue via Grub
 =================================
 $ sudo -i
