@@ -71,7 +71,7 @@ Dolphin - Samba Filesharing Plugin
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics inxi
+$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer
 
 =======================================
 Install pip for Python 3
@@ -180,6 +180,12 @@ Visiblue Konsole Theme
 =================================
 Open Konsole > Setting > Configure Konsole > Profiles > Select any profile & Edit > Appearance > Get New > install "Visiblue" > Close
 Select "Visiblue" & Edit > Set tranparency 15% > OK
+
+=================================
+Show Battery Percentage
+=================================
+Right click on battery icon > Configure battery and brightness
+Check "Show percentage" > OK
 
 =================================
 Final Look
@@ -321,6 +327,15 @@ Desktop Effects Not Working
 # just re-enabled OpenGL 2.0 or change it to the newest version like 3.1
 
 =================================
+Recognize USB 3.0 Device
+=================================
+$ sudo nano /etc/default/grub
+# add parameter: usbcore.autosuspend=-1
+# save
+$ update-grub
+$ reboot
+
+=================================
 WhatsAppQT Ask to Update Google Chrome
 =================================
 # just refresh the app with F5 or reload/refresh shortkey
@@ -337,3 +352,13 @@ Zoom No Sound From Speaker
 =================================
 Zoom Setting > Audio Setting > Increase Output Volume on Speaker
 
+=================================
+Use MPV in SMplayer with Mini GUI
+=================================
+Open SMplayer > Options > Preferences > Interface > Gui: Mini GUI, Iconset: Breeze-dark
+For volume shorcut, press "9" to Decrease audio volume, press "0" to Increase audio volume
+
+=================================
+Repair Dolphin Explorer
+=================================
+$ dbus-launch dolphin
