@@ -183,16 +183,16 @@ Open Konsole > Setting > Configure Konsole > Profiles > Select any profile & Edi
 =================================
 Final Look
 =================================
-Global Theme: WhiteSur (Get New Global Theme)
-Plasma Style: WhiteSur
-Application Style: kvantum with WhiteSur theme (Download WhiteSur.tar.xz From https://www.pling.com/p/1398841)
-GTK Theme: WhiteSur-dark (Download WhiteSur-dark.tar.xz From https://www.pling.com/p/1398841)
-Colors: WhiteSur
-Icons: WhiteSur
-Cursors: WhiteSur Cursors
-Login Screen (SSDM): WhiteSur
-Splash Screen: WhiteSur
-Screen Locking > Appearance: WhiteSur
+○ Global Theme: WhiteSur (Get New Global Theme)
+● Plasma Style: WhiteSur-dark (Get New Plasma Styles)
+○ Application Style: kvantum with WhiteSur theme (Download WhiteSur.tar.xz From https://www.pling.com/p/1398841)
+● GTK Theme: WhiteSur-dark (Download WhiteSur-dark.tar.xz From https://www.pling.com/p/1398841)
+○ Colors: WhiteSur
+○ Icons: WhiteSur
+○ Cursors: WhiteSur Cursors
+○ Login Screen (SSDM): WhiteSur
+○ Splash Screen: WhiteSur
+○ Screen Locking > Appearance: WhiteSur
 
 
 █▀▀ █░█ █▄░█ █▀▀ ▀█▀ █ █▀█ █▄░█ ▄▀█ █░░ █ ▀█▀ █▄█
