@@ -221,6 +221,22 @@ $ sudo systemctl disable NetworkManager-wait-online.service
 # if you want to revert the change, you can use this command: sudo systemctl enable NetworkManager-wait-online.service
 
 =================================
+Fix Battery Charging/Discharging State Always Delay Updated
+=================================
+$ sudo -i
+# get device name, ex: /org/freedesktop/UPower/devices/battery_BAT0
+$ upower -e
+# create a bash script with suitable device name
+$ nano /etc/keep-battery-updated.sh
+	#!/bin/bash
+	while sleep 2; do
+	   busctl call --system org.freedesktop.UPower /org/freedesktop/UPower/devices/battery_BAT0 org.freedesktop.UPower.Device Refresh
+	done
+$ chmod +x /etc/keep-battery-updated.sh && chmod 0755 /etc/keep-battery-updated.sh
+# add it as a startup script, System Settings > Workspace > Startup and Shutdown > Autostart > Add Login Script > /etc/keep-battery-updated.sh > Open
+$ reboot
+
+=================================
 Fix Lenovo S145 Touchpad Issue via Grub
 =================================
 $ sudo -i
