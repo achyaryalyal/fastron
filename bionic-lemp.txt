@@ -829,4 +829,7 @@ systemctl list-unit-files --state=enabled --no-pager
 systemctl --type=service --state=active list-units --no-pager
 systemctl --type=service --state=running list-units --no-pager
 
+######### List user on linux system #########
+awk -F: '{ print $1}' /etc/passwd
+
 :)
