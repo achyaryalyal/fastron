@@ -13,7 +13,7 @@ $ sudo apt update
 $ sudo apt install google-chrome-stable
 
 =====================================
-Install Twitter Color Emoji SVGinOT Font from Ubuntu PPA
+Install Emoji Fonts for Linux from Ubuntu PPA
 =====================================
 $ sudo add-apt-repository ppa:eosrei/fonts
 $ sudo apt update
