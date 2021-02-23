@@ -12,6 +12,13 @@ $ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stab
 $ sudo apt update
 $ sudo apt install google-chrome-stable
 
+=====================================
+Install Twitter Color Emoji SVGinOT Font from Ubuntu PPA
+=====================================
+$ sudo add-apt-repository ppa:eosrei/fonts
+$ sudo apt update
+$ sudo apt install fonts-twemoji-svginot
+
 ======================================
 Install Apps From Flatpak via Discover
 ======================================
@@ -86,7 +93,7 @@ Install Latest Kernel
 =======================================
 $ uname -r
 $ apt search linux-image | grep edge
-$ ver="$(lsb_release -sr)" && sudo apt-get install linux-generic-hwe-${ver}-edge
+$ ver="$(lsb_release -sr)" && sudo apt install linux-generic-hwe-${ver}-edge
 #that's it. reboot.
 $ uname -r
 $ lsb_release -a
@@ -346,7 +353,7 @@ inxi -F
 Fix No Sound
 =================================
 # try reinstalling Alsa and Pulse audio:
-$ sudo apt-get install --reinstall alsa-base pulseaudio
+$ sudo apt install --reinstall alsa-base pulseaudio
 # and force reload Alsa again:
 $ sudo alsa force-reload
 # reboot and check if sound is back or not
