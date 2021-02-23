@@ -12,13 +12,6 @@ $ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stab
 $ sudo apt update
 $ sudo apt install google-chrome-stable
 
-=====================================
-Install Emoji Fonts for Linux from Ubuntu PPA
-=====================================
-$ sudo add-apt-repository ppa:eosrei/fonts
-$ sudo apt update
-$ sudo apt install fonts-twemoji-svginot
-
 ======================================
 Install Apps From Flatpak via Discover
 ======================================
@@ -78,7 +71,7 @@ Dolphin - Samba Filesharing Plugin
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer
+$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji
 
 =======================================
 Install pip for Python 3
