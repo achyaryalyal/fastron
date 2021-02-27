@@ -69,7 +69,7 @@ Dolphin - Samba Filesharing Plugin
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji gimp inkscape
+$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp inkscape
 
 =======================================
 Install pip for Python 3
