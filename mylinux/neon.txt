@@ -150,8 +150,9 @@ Install Latte Dock (Github Version)
 ***************************************
 In the normal versions of the repositories, non-Git version, these functions will have no effect and the Layout will not work correctly, for this reason it is necessary to install the Git version of Latte Dock.
 =======================================
+$ sudo -i
 $ sudo apt install cmake extra-cmake-modules qtdeclarative5-dev libqt5x11extras5-dev libkf5iconthemes-dev libkf5plasma-dev libkf5windowsystem-dev libkf5declarative-dev libkf5xmlgui-dev libkf5activities-dev build-essential libxcb-util-dev libkf5wayland-dev git gettext libkf5archive-dev libkf5notifications-dev libxcb-util0-dev libsm-dev libkf5crash-dev libkf5newstuff-dev libxcb-shape0-dev libxcb-randr0-dev libx11-dev libx11-xcb-dev kirigami2-dev
-$ cd /opt && wget https://github.com/KDE/latte-dock/archive/master.zip && unzip master.zip && cd 
+$ cd /opt && wget https://github.com/KDE/latte-dock/archive/master.zip && unzip master.zip && rm master.zip && cd latte-dock-master
 $ sh install.sh
 
 =======================================
@@ -162,12 +163,10 @@ https://github.com/achyaryalyal/fastron/tree/master/mylinux/latte
 =================================
 Add widget Window Buttons Applet to show window buttons in your panels
 =================================
-# download file from https://store.kde.org/p/1272871
 $ sudo -i
-$ tar -xvzf [WIDGET_FILE_NAME]
-$ cd [WIDGET_DIR_NAME]
 $ sudo apt install cmake extra-cmake-modules libkdecorations2-dev
-$ bash install.sh
+$ cd /opt && wget https://github.com/psifidotos/applet-window-buttons/archive/master.zip && unzip master.zip && rm master.zip && cd applet-window-buttons-master
+$ sh install.sh
 
 =================================
 Hide titlebar when a window is maximized
