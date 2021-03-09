@@ -15,7 +15,6 @@ $ sudo apt install google-chrome-stable
 ======================================
 Install Apps From Flatpak via Discover
 ======================================
-WPS Office
 Zoom
 WhatsAppQT
 Postman
@@ -40,10 +39,12 @@ https://gist.github.com/angrycoffeemonster/4f05896d233baf6bd9b0894e30b5fa63#gist
 =======================================
 Install Apps Manually From .deb Package
 =======================================
+Download WPS Office For Linux
+	https://linux.wps.com
 Download CrossFTP Version 1.99.6 (for managing S3 bucket) from:
-http://www.crossftp.com/crossftp_1.99.6.deb
-or
-https://drive.google.com/file/d/1HqbO30QDKjYX3s898u-Cr3emQoGS5d46/view?usp=sharing
+	http://www.crossftp.com/crossftp_1.99.6.deb
+	or
+	https://drive.google.com/file/d/1HqbO30QDKjYX3s898u-Cr3emQoGS5d46/view?usp=sharing
 
 =======================================
 Register CrossFTP
@@ -110,14 +111,14 @@ $ sudo update-grub
 $ sudo reboot
 
 =================================
-Copy System Font to Flatpak for WPS
+[ARCHIEVED] Copy System Font to Flatpak for WPS
 =================================
 $ sudo -i
 $ rm -rf /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/fonts/*
 $ cp -a /usr/local/share/fonts/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/fonts/
 
 =================================
-Always Update Font for Flatpak
+[ARCHIEVED] Always Update Font for Flatpak
 =================================
 $ sudo -i
 # create a bash script and run every 60 seconds (1 minute)
