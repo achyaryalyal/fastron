@@ -689,6 +689,24 @@ s3cmd du s3://bucket-name
 s3cmd du -H s3://bucket-name
 
 ##################################
+# Install S5CMD, a very fast S3 and local filesystem execution tool
+##################################
+sudo -i
+
+# build s5cmd from source after you have Go 1.13+ installed
+snap install go --classic && go version && go get -u github.com/peak/s5cmd && cp /root/go/bin/s5cmd /usr/bin/.
+
+cd /root && mkdir -p .aws && cd .aws && nano credentials
+  [default]
+  aws_access_key_id = XXXXXXX
+  aws_secret_access_key = YYYYYYYY
+
+# count objects and determine total size
+s5cmd du --humanize 's3://[BUCKET_NAME]/*'
+
+# more documentation: https://github.com/peak/s5cmd/blob/master/README.md
+
+##################################
 # Install Clamav (GAK PERLU)
 ##################################
 sudo apt install clamav clamav-daemon clamav-freshclam && clamdscan -V
