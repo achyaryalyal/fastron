@@ -667,52 +667,26 @@ mount -a && df -h
 umount -i /path/to/mountpoint
 
 ##################################
-# Install S3CMD for showing S3 disk space summary
-##################################
-sudo apt install -y s3cmd
-
-# provide encryption options, access and secret keys
-s3cmd --configure
-  Access Key: [ACCESS_KEY]
-  Secret Key: [SECRET_KEY]
-  Default Region: id-jkt-1
-  S3 Endpoint: s3-id-jkt-1.kilatstorage.id
-  DNS-style bucket+hostname:port template for accessing a bucket: %(bucket)s.s3-id-jkt-1.kilatstorage.id
-  Encryption password:
-  Path to GPG program:
-  Use HTTPS protocol: Yes
-  HTTP Proxy server name: 
-  HTTP Proxy server port: 0
-
-# make configuration for www-data, so you can run s3cmd with php
-cp /root/.s3cfg /var/www/ && chown www-data:www-data /var/www/.s3cfg
-
-# list objects
-s3cmd ls s3://bucket-name
-
-# display cumulative size of particular files on personal-bucket in bytes
-s3cmd du s3://bucket-name
-
-# display cumulative size of particular files on personal-bucket in human readable format
-s3cmd du -H s3://bucket-name
-
-##################################
-# Install S5CMD, a very fast S3 and local filesystem execution tool
+# Install S5CMD (a very fast S3 and local filesystem execution tool) for showing S3 disk space summary
 ##################################
 sudo -i
 
-# build s5cmd from source after you have Go 1.13+ installed
+# build s5cmd from source after have Go 1.13+ installed
 snap install go --classic && go version && go get -u github.com/peak/s5cmd && cp /root/go/bin/s5cmd /usr/bin/.
 
+# create credentials
 cd /root && mkdir -p .aws && cd .aws && nano credentials
   [default]
   aws_access_key_id = XXXXXXX
   aws_secret_access_key = YYYYYYYY
 
 # count objects and determine total size
-s5cmd du --humanize 's3://[BUCKET_NAME]/*'
+s5cmd --endpoint-url [S3_ENDPOINT] du --humanize s3://[S3_BUCKET_NAME]/*
 
-# more documentation: https://github.com/peak/s5cmd/blob/master/README.md
+# list objects in bucket
+s5cmd --endpoint-url [S3_ENDPOINT] ls s3://[S3_BUCKET_NAME]
+
+# more documentation about s5cmd at https://github.com/peak/s5cmd/blob/master/README.md
 
 ##################################
 # Install Clamav (GAK PERLU)
