@@ -77,6 +77,13 @@ $ pip3 --version
 # install any package: sudo pip3 install gdown slowloris
 
 =======================================
+Activate Swap
+=======================================
+# open KDE Partition Manager
+# right click on drive > new > filesystem: linuxswap, label: SWAP, minsize 4096 MB (4 GB) > OK
+# right click on swap > Activate swap
+
+=======================================
 Install Latest Kernel
 =======================================
 $ uname -r
