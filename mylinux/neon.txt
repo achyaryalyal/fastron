@@ -74,6 +74,9 @@ Install lates stable version of Inkscape
 $ sudo add-apt-repository ppa:inkscape.dev/stable
 $ sudo apt update
 $ sudo apt install inkscape
+# open inkscape
+# Edit > preferences > interface > theme > check: Use dark theme
+# Edit > preferences > interface > windows > Dialogs on top: none
 
 =======================================
 Install pip for Python 3
