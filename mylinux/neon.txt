@@ -75,7 +75,7 @@ $ sudo add-apt-repository ppa:inkscape.dev/stable
 $ sudo apt update
 $ sudo apt install inkscape
 # open inkscape
-# Edit > preferences > interface > theme > check: Use dark theme
+# Edit > preferences > interface > theme > check: Use dark theme, Use symbolic icons
 # Edit > preferences > interface > windows > Dialogs on top: none
 
 =======================================
