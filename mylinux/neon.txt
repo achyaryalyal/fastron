@@ -77,11 +77,16 @@ $ pip3 --version
 # install any package: sudo pip3 install gdown slowloris
 
 =======================================
-Activate Swap
+Add swap space equals to RAM size
 =======================================
-# open KDE Partition Manager
-# right click on drive > new > filesystem: linuxswap, label: SWAP, minsize 4096 MB (4 GB) > OK
-# right click on swap > Activate swap
+# check has swap enabled, if output is empty, it means that your system does not have swap space enabled
+swapon --show
+# creating a file which will be used for swap
+fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
+# make the change permanent
+nano /etc/fstab
+# paste it
+/swapfile swap swap defaults 0 0
 
 =======================================
 Install Latest Kernel
