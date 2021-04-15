@@ -539,7 +539,7 @@ monit status
 monit summary
 
 ##################################
-# Install Atheos 5.0.0 (cloud IDE, updated from Codiad IDE)
+# Install Atheos 4.3.0 (cloud IDE, updated from Codiad IDE)
 ##################################
 cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/master.zip && unzip master.zip && mv Atheos-master atheos && rm -rf master.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano atheos/index.php
 
@@ -552,6 +552,9 @@ cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/At
 # edit index.php, find replace line 43: <title>Atheos IDE</title>
 	<title>Cloud IDE</title>
 
+# edit index.php, find replace line 105: <span id="current_file"></span>
+	<span id="current_file" style="user-select:all;"></span>
+
 nano atheos/components/user/login.php
 
 # edit login.php, find replace line 30: <legend>Atheos <span>IDE</span></legend>
@@ -560,7 +563,13 @@ nano atheos/components/user/login.php
 # edit login.php, find replace line 32: <input id="username" type="text" name="username" autofocus="autofocus" autocomplete="current-username">
 	<input id="username" type="password" name="username" autofocus="autofocus" autocomplete="current-username">
 
+# edit login.php, find replace line 62: <a id="github_link" href="https://www.github.com/Atheos/Atheos" target="_blank" rel="noreferrer noopener"><?php echo VERSION ?></a>
+<!-- <a id="github_link" href="https://www.github.com/Atheos/Atheos" target="_blank" rel="noreferrer noopener"><?php echo VERSION ?></a> -->
+
 # Go to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params. Setup it and fill `Absolute Path` with folder path you want to manage
+
+# users data: atheos/data/users.db.json
+# projects data: atheos/data/projects.db.json
 
 # Editor Settings
     ## Theme: Monokai
