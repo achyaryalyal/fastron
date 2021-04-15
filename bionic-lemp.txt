@@ -578,7 +578,7 @@ nano atheos/components/user/login.php
     ## Print Margin: Disabled
     ## Print Margin Column: 80
     ## Indent Guides: Enabled
-    ## foldWidgets: Disabled
+    ## foldWidgets: Enabled
     ## Line Wrap: Enabled
     ## Soft Tabs: Enabled
     ## Tab Size: 4
