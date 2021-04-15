@@ -539,39 +539,49 @@ monit status
 monit summary
 
 ##################################
-# Install Codiad 2.8.4
+# Install Atheos 5.0.0 (cloud IDE, updated from Codiad IDE)
 ##################################
-cd /var/www/master && rm -rf ide && wget https://github.com/Codiad/Codiad/archive/v.2.8.4.zip && unzip v.2.8.4.zip && mv Codiad-v.2.8.4 ide && rm -rf v.2.8.4.zip && chown -R www-data:www-data ide && chmod -R 775 ide && nano ide/index.php
+cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/master.zip && unzip master.zip && mv Atheos-master atheos && rm -rf master.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano atheos/index.php
 
-# add this to index.php line 2:
-	if(!isset($_GET['key']) && !isset($_GET['token'])) {exit;}
+# add this to index.php line 23:
+	if(!isset($_GET['key']) && !isset($_GET['token'])) {
+		http_response_code(403);
+		die('Forbidden');
+	}
 
-# edit index.php, find replace line 30: <title><?php i18n("CODIAD"); ?></title>
-	<title>IDE</title>
+# edit index.php, find replace line 43: <title>Atheos IDE</title>
+	<title>Cloud IDE</title>
 
-# find replace label input username and label input password on line 128-132:
-	<label style="display:none;"><span class="icon-user login-icon"></span> <?php i18n("Username"); ?></label>
-	<input type="password" name="username" autofocus="autofocus" autocomplete="off" style="color:#2f2f2f;border-bottom:2px solid #343434;">
-	<label style="display:none;"><span class="icon-lock login-icon"></span> <?php i18n("Password"); ?></label>
-	<input type="password" name="password" style="color:#2f2f2f;border-bottom:2px solid #343434;">
+nano atheos/components/user/login.php
 
-# add display none to line 161: <button><?php i18n("Login"); ?></button>
-	<button style="display:none;"><?php i18n("Login"); ?></button>
+# edit login.php, find replace line 30: <legend>Atheos <span>IDE</span></legend>
+	<legend>Cloud <span>IDE</span></legend>
 
-# add display none to line 163: <a class="show-language-selector"><?php i18n("More"); ?></a>
-	<a class="show-language-selector" style="display:none;"><?php i18n("More"); ?></a>
+# edit login.php, find replace line 32: <input id="username" type="text" name="username" autofocus="autofocus" autocomplete="current-username">
+	<input id="username" type="password" name="username" autofocus="autofocus" autocomplete="current-username">
 
-# Go to [IP_OR_DOMAIN]/codiad/index.php with key & token params. Setup it and fill `Absolute Path` with folder path you want to manage
+# Go to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params. Setup it and fill `Absolute Path` with folder path you want to manage
 
 # Editor Settings
     ## Theme: Monokai
-    ## Font Size: 17px
-    ## Wrap Lines: Wrap Lines
-    ## Soft Tabs: Yes
+    ## Font Size: 14px
+    ## Highlight Active Line: Enabled
+    ## Print Margin: Disabled
+    ## Print Margin Column: 80
+    ## Indent Guides: Enabled
+    ## foldWidgets: Disabled
+    ## Line Wrap: Enabled
+    ## Soft Tabs: Enabled
+    ## Tab Size: 4
 
 # System Settings
-    ## Right Sidebar Trigger: Click
+    ## Active File Loop Behavior: Loop only active tabs
+    ## Sidebar Hover Duration: 300ms (default)
+    ## Show Hidden Files: False
     ## Filemanager Trigger: Single Click
+    ## Left Sidebar Trigger: Hover
+    ## Right Sidebar Trigger: Hover
+    ## ProjectDock Trigger: Single Click
 
 ##################################
 # Install Rclone
