@@ -569,7 +569,27 @@ nano atheos/components/user/login.php
 # Go to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params. Setup it and fill `Absolute Path` with folder path you want to manage
 
 # users data: atheos/data/users.db.json
+{
+    "johndoe": {
+        "password": "$2y$11$xxxxxxxxxxxxxxxx", // php password_hash() function
+        "activeProject": "",
+        "creationDate": "2021-01-01 00:00:00",
+        "lastLogin": "2021-01-01 00:00:00",
+        "permissions": [
+            "configure",
+            "read",
+            "write"
+        ],
+        "userACL": "full",
+        "activeName": "MY PROJECT",
+        "activePath": "\/var\/www"
+    }
+}
+
 # projects data: atheos/data/projects.db.json
+{
+    "MY PROJECT": "\/var\/www"
+}
 
 # Editor Settings
     ## Theme: Monokai
