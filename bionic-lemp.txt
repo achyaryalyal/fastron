@@ -552,7 +552,17 @@ cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/At
 # edit index.php, find replace line 43: <title>Atheos IDE</title>
 	<title>Cloud IDE</title>
 
-# edit index.php, find replace line 105: <span id="current_file"></span>
+# add this to index.php line 74 before </head>:
+	<style>
+	.pdf-icon:before {
+		font-family: "Octicons Regular";
+		font-size: 18px;
+		top: 1px;
+		content: "\f007";
+	}
+	</style>
+
+# edit index.php, find replace line 114: <span id="current_file"></span>
 	<span id="current_file" style="user-select:all;"></span>
 
 nano atheos/components/user/login.php
