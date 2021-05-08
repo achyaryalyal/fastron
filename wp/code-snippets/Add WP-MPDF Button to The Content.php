@@ -7,6 +7,9 @@ function add_mpdf_pdfbutton($content) {
 			return $content;
 		}
 	}
+	else {
+		return $content;
+	}
 }
 add_filter('the_content', 'add_mpdf_pdfbutton');
 
