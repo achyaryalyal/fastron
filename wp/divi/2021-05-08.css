@@ -1,6 +1,9 @@
 .et-l.et-l--header .et_builder_inner_content.et_pb_gutters3 {
 	height: auto !important;
 }
+.et-menu .menu-item-has-children>a:first-child {
+    padding-right: 20px !important;
+}
 @media only screen and (max-width: 980px) {
 	.et_pb_image_0_tb_header {
 		left: 19% !important;
