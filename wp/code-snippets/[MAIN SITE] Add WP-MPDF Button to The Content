@@ -1,7 +1,13 @@
 function add_mpdf_pdfbutton($content) {
     if(is_single()) {
-		if(function_exists('mpdf_pdfbutton')) {
-			return $content . mpdf_pdfbutton(false, '<i class="far fa-file-pdf"></i> PDF version');
+		if(function_exists('mpdf_pdfbutton')) {			
+			$permalink = get_permalink();
+			if(strpos($permalink,'/download/') !== FALSE) {
+				return $content;
+			}
+			else {
+				return $content . mpdf_pdfbutton(false, '<i class="far fa-file-pdf"></i> PDF version');
+			}
 		}
 		else {
 			return $content;
