@@ -22,12 +22,10 @@ $ sudo apt-get install unetbootin
 ======================================
 Install Apps From Flatpak via Discover
 ======================================
+Spotify
 Zoom
-WhatsAppQT
-Postman
 Telegram Desktop
 qBittorrent
-VLC
 Peek
 Nixwriter
 PDF Arranger
@@ -63,17 +61,9 @@ Enterprise Multi User:
 4F6B65204F63657C6F6B65406F63652E636F6D0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040FFFFFFFFFFFFFFFF3C5C65BAFC2950AA7AF64D9508F4DAC
 
 =======================================
-Install Apps From Main Repository via Discover
-=======================================
-Filelight
-KDE Partition Manager
-Dolphin - FFmpeg Thumbnailer
-Dolphin - Samba Filesharing Plugin
-
-=======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp kdenlive audacity audacious sweethome3d obs-studio pdfsam
+$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp kdenlive audacity audacious sweethome3d obs-studio pdfsam kaffeine dolphin ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager
 
 =======================================
 Install lates stable version of Inkscape
