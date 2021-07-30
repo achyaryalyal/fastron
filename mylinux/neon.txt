@@ -328,6 +328,15 @@ Meta + E = Dolphin
 Meta = Simple Menu
 
 =================================
+Sort Media in SD Card
+=================================
+$ apt install fatsort
+# [device-name] like /dev/sda1 or /dev/sdb1
+$ sudo fatsort -l [device-name]
+$ sudo fatsort -i [device-name]
+$ sudo fatsort -c [device-name]
+
+=================================
 Auto Mount NTFS Partition
 =================================
 $ sudo -i
