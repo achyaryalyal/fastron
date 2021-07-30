@@ -261,6 +261,13 @@ $ chmod +x /etc/keep-battery-updated.sh && chmod 0755 /etc/keep-battery-updated.
 $ reboot
 
 =================================
+Fix Cursor Jumping Around / Shaking Random Direction
+=================================
+# try playing with HorizHysteresis and VertHysteresis
+# synclient will give you the current values, go up in small amounts. Increase if noise motion is a problem for you. man synaptics for details.
+$ synclient HorizHysteresis=50 && synclient VertHysteresis=50
+
+=================================
 Fix Lenovo S145 Touchpad Issue via Grub
 =================================
 $ sudo -i
