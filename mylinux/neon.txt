@@ -200,8 +200,9 @@ Konsole Bookmark
 =================================
 Open Konsole > Bookmarks > Edit Bookmarks > New Bookmark:
 	KDE's update and upgrade		sudo pkcon refresh && sudo pkcon update
+	list upgradable packages		sudo apt list --upgradable
+	autoremove				sudo apt autoremove
 	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
-	list upgradable packages		apt list --upgradable
 	kilat on [domain]			ssh://[username]@[domain]:[port]
 
 =================================
