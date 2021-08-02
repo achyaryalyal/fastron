@@ -84,7 +84,7 @@ Enterprise Multi User:
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp kdenlive audacity audacious sweethome3d obs-studio qbittorrent peek pdfarranger pdfsam kaffeine dolphin ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager
+$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp kdenlive audacity audacious sweethome3d obs-studio qbittorrent peek pdfarranger pdfsam kaffeine dolphin ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager xserver-xorg-input-libinput xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
 
 =======================================
 Install lates stable version of Inkscape
@@ -287,7 +287,26 @@ Fix Cursor Jumping Around / Shaking Random Direction
 # try playing with HorizHysteresis and VertHysteresis
 # synclient will give you the current values, go up in small amounts. Increase if noise motion is a problem for you. man synaptics for details.
 $ synclient HorizHysteresis=50 && synclient VertHysteresis=50
-
+$ nano /usr/share/X11/xorg.conf.d/*-synaptics.conf
+Section "InputClass"
+     Identifier "touchpad"
+     Driver "synaptics"
+     MatchIsTouchpad "on"
+         Option "TapButton1" "1"
+         Option "TapButton2" "3"
+         Option "TapButton3" "2"
+         Option "VertEdgeScroll" "on"
+         Option "VertTwoFingerScroll" "on"
+         Option "HorizEdgeScroll" "on"
+         #Option "HorizTwoFingerScroll" "on"
+         Option "EmulateTwoFingerMinZ" "40"
+         Option "EmulateTwoFingerMinW" "8"
+         Option "CoastingSpeed" "0"
+         Option "FingerLow" "30"
+         Option "FingerHigh" "50"
+         Option "MaxTapTime" "125"
+ EndSection
+ 
 =================================
 Fix Lenovo S145 Touchpad Issue via Grub
 =================================
