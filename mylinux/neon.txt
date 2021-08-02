@@ -128,6 +128,8 @@ $ lsb_release -a
 $ dpkg -l | tail -n +6 | grep -E 'linux-image-[0-9]+'
 $ sudo pkcon refresh && sudo pkcon update
 $ sudo apt update && sudo apt full-upgrade && flatpak update && snap refresh
+# get list of currently running Linux kernel:
+$ v="$(uname -r | awk -F '-virtual' '{ print $1}')" && echo "$v"
 
 =======================================
 Change Any Kernel
@@ -145,6 +147,22 @@ $ nano /etc/default/grub
 	GRUB_DEFAULT="gnulinux-advanced-c6e41310-0aba-435e-b947-cf0c55e42ec3>gnulinux-5.8.0-43-generic-advanced-c6e41310-0aba-435e-b947-cf0c55e42ec3"
 $ sudo update-grub
 $ sudo reboot
+
+=======================================
+Remove All Unused Old Kernels
+=======================================
+# list all installed Linux kernel
+$ dpkg --list | grep -i -E --color 'linux-image|linux-kernel' | grep '^ii'
+$ sudo -i
+$ sudo apt --purge autoremove
+# get list of currently running Linux kernel:
+$ v="$(uname -r | awk -F '-virtual' '{ print $1}')" && echo "$v"
+# create a list that tells not to delete currently running Linux kernel:
+$ i="linux-headers-virtual|linux-image-virtual|linux-headers-generic-hwe-|linux-image-generic-hwe-|linux-headers-${v}|linux-image-$(uname -r)|linux-image-generic|linux-headers-generic" && echo "$i"
+# here is a list of the kernel that needs to be deleted:
+$ dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i"
+# delete all unwated and older Linux kernels
+$ sudo apt --purge remove $(dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i")
 
 =================================
 [ARCHIEVED] Copy System Font to Flatpak for WPS
