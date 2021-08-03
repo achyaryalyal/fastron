@@ -360,7 +360,7 @@ Tab Scrolling:
 Tab Pointer Motion:
 	Speed Minimum: 0.5 bar
 	Speed Maximum: 1.5 bar
-	Acceleration: 2.5 bar
+	Acceleration: 2.0 bar
 Apply
 
 =================================
