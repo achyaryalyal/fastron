@@ -54,12 +54,13 @@ $ sudo apt update && sudo apt install unetbootin
 ======================================
 Install Apps From FLATPAK (via Discover)
 ======================================
+Kdenlive
 Spotify
 Zoom
 Nixwriter
 
 =======================================
-Install Apps Manually From .deb Package
+Install Apps Manually From .DEB Package
 =======================================
 Download WPS Office For Linux
 	https://linux.wps.com
@@ -84,7 +85,7 @@ Enterprise Multi User:
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp kdenlive audacity audacious sweethome3d obs-studio qbittorrent peek pdfarranger pdfsam dolphin ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager xserver-xorg-input-libinput xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
+$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp audacity audacious sweethome3d obs-studio qbittorrent peek pdfarranger pdfsam dolphin ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager xserver-xorg-input-libinput xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
 
 =======================================
 Install lates stable version of Inkscape
