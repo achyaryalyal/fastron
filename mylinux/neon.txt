@@ -39,7 +39,7 @@ $ sudo apt update && sudo apt install sublime-text
 	"overlay_scroll_bars"          : "enabled",
 }
 # enter license SL4.4113
--- BEGIN LICENSE --
+----- BEGIN LICENSE ----- 
 SODiUM
 Unlimited User License
 EA7E-616233
@@ -51,7 +51,7 @@ A4A2FBD8 F43266F1 B5D341B7 FB93B378
 50A44D9B 3C9F2B95 ED317531 DE31C716
 35DB9EC1 2AC2035E 88A16581 60A47FF4
 3FF047F5 1E1713B0 25282A13 D70F1E04
--- END LICENSE --
+------ END LICENSE ------
 # or
 ----- BEGIN LICENSE ----- 
 AODGH-JREOG-HRFIK-NBKJL-XNVSO
