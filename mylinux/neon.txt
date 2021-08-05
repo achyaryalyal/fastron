@@ -38,9 +38,30 @@ $ sudo apt update && sudo apt install sublime-text
 	"line_padding_top"             : 1,
 	"overlay_scroll_bars"          : "enabled",
 }
+# enter license SL4.4113
+----- BEGIN LICENSE ----- 
+AODGH-JREOG-HRFIK-NBKJL-XNVSO
+ERTPE-HYEOU-GHBJK-LAPOJ-LHNF
+OEAWH-TRREW-OHGER-IJVNZ-LNFEO
+SGJEOI-HRHTE-ROGNS-FNGVS-PDFJPE
+------ END LICENSE ------
+# or
+----- BEGIN LICENSE ----- 
+OAHRG-REIUG-BFDKN-BLKGH-IRUTR
+UETEH-YROTI-ESHJL-ZSNFA-SDJPO
+JSTOI-RSHTD-SKJNF-VASJF-PEWJT
+------ END LICENSE ------
+# or
+----- BEGIN LICENSE ----- 
+DEOWR-THROE-HGSIK-VSBLF-OIESH
+TRIUE-HGSDK-FALSK-BFIWE-HREOW
+IHTRS-EIUBD-SFHBF-JDGYT-SQAOE
+RJEWP-VBRVD-KNDFN-LDFKO-EWRRJ
+EROIG-HSILN-VSLNF-ERPJR-OEIUH
+------ END LICENSE ------
 
 =====================================
-Install Telegram from Official Website
+Install Telegram from Ubuntu PPA
 =====================================
 $ sudo add-apt-repository ppa:atareao/telegram
 $ sudo apt update && sudo apt install telegram
