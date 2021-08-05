@@ -313,6 +313,11 @@ $ reboot
 =================================
 Fix Cursor Jumping Around / Shaking Random Direction
 =================================
+# method 1: Try changing the mouse battery :D
+# method 2: System Settings > Hardware > Input Device > Touchpad > tab Enable/Disable > check in Disable touchpad when typing
+# method 3: System Settings > Hardware > Input Device > Touchpad > tab Enable/Disable > check in Disable touchpad when mouse is plugged in
+# method 4: # method 4: Remove device/driver of similar mouse/pointer
+# method 5:
 $ sudo -i
 $ nano /usr/share/X11/xorg.conf.d/*-synaptics.conf
 Section "InputClass"
