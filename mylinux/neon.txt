@@ -109,7 +109,7 @@ Install Apps From APT via Konsole
 $ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp audacity audacious sweethome3d obs-studio qbittorrent peek pdfarranger pdfsam dolphin kaffeine ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager xserver-xorg-input-libinput xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
 
 =======================================
-Install lates stable version of Inkscape
+Install latest stable version of Inkscape
 =======================================
 $ sudo add-apt-repository ppa:inkscape.dev/stable
 $ sudo apt update
@@ -117,6 +117,16 @@ $ sudo apt install inkscape
 # open inkscape
 # Edit > preferences > interface > theme > check: Use dark theme, Use symbolic icons
 # Edit > preferences > interface > windows > Dialogs on top: none
+
+=======================================
+Install latest stable version of ImageMagick with IMEI (ImageMagick Easy Install)
+=======================================
+$ git clone https://github.com/SoftCreatR/imei
+$ cd imei
+$ sudo ./imei.sh
+# verify
+$ identify -version
+$ php -i | grep ImageMagick
 
 =======================================
 Install pip for Python 3
