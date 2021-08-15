@@ -247,6 +247,16 @@ Latte Dock Style & Icon
 =======================================
 https://github.com/achyaryalyal/fastron/tree/master/mylinux/latte
 
+=======================================
+Install Cairo Dock (replace latte dock)
+=======================================
+$ sudo -i
+$ sudo apt remove latte-dock && apt autoremove
+$ sudo apt install cairo-dock
+# download theme mcOS BS for Cairo Dock: https://www.pling.com/p/1401527
+# add Cairo Dock as a startup application
+# open Cairo Dock > Configure, import the above theme from Themes Tab and Apply it
+
 =================================
 Add widget Window Buttons Applet to show window buttons in your panels
 =================================
