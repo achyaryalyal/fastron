@@ -283,16 +283,22 @@ Check "Show percentage" > OK
 =================================
 Final Look
 =================================
-○ Global Theme: WhiteSur (Get New Global Theme)
-● Plasma Style: WhiteSur-dark (Get New Plasma Styles)
-○ Application Style: kvantum with WhiteSur theme (Download WhiteSur.tar.xz From https://www.pling.com/p/1398841)
-● GTK Theme: WhiteSur-dark (Download WhiteSur-dark.tar.xz From https://www.pling.com/p/1398841)
-○ Colors: WhiteSur
-○ Icons: WhiteSur
-○ Cursors: WhiteSur Cursors
-○ Login Screen (SSDM): WhiteSur
-○ Splash Screen: WhiteSur
-○ Screen Locking > Appearance: WhiteSur
+# Appearance
+	● Global Theme: WhiteSur-dark (Get New Global Theme)
+		● Application Style: kvantum-dark with WhiteSur-dark theme (Download WhiteSur-dark.tar.xz From https://www.pling.com/p/1398841)
+			● GTK Theme: WhiteSur-dark (Download WhiteSur-dark.tar.xz From https://www.pling.com/p/1398841)
+		● Plasma Style: WhiteSur-dark (Get New Plasma Styles)
+		● Colors: WhiteSurDark
+		● Windows Decorations: WhiteSur-dark
+		● Fonts: Noto Sans & Hack
+		● Icons: WhiteSur-dark
+		● Cursors: WhiteSur Cursors
+		● Splash Screen: WhiteSur-dark
+# Startup and Shutdown
+	● Login Screen (SSDM): WhiteSur
+	● Autostart: applications (Cairo Dock), login scripts (keep-battery-updated.sh)
+# Workspace Behavior
+	● Screen Locking > Appearance: WhiteSur
 
 =================================
 Install Winamp Skin to Audacious
