@@ -75,10 +75,14 @@ $ sudo apt update && sudo apt install unetbootin
 ======================================
 Install Apps From FLATPAK (via Discover)
 ======================================
-Kdenlive
 Spotify
 Zoom
 Nixwriter
+
+======================================
+Install Apps From APPIMAGE
+======================================
+Kdenlive -> https://kdenlive.org/en/download/ -> choose AppImage -> set file as executable from file manager -> open file
 
 =======================================
 Install Apps Manually From .DEB Package
@@ -121,6 +125,7 @@ $ sudo apt install inkscape
 =======================================
 Install latest stable version of ImageMagick with IMEI (ImageMagick Easy Install)
 =======================================
+$ cd /opt
 $ git clone https://github.com/SoftCreatR/imei
 $ cd imei
 $ sudo ./imei.sh
