@@ -83,13 +83,14 @@ Nixwriter
 Install Apps From APPIMAGE
 ======================================
 # Download it
-Kdenlive -> https://kdenlive.org/en/download/ -> choose AppImage -> set file as executable from file manager -> open file -> setting -> force breeze icon theme -> quit
+Kdenlive -> https://kdenlive.org/en/download/ -> choose AppImage -> make directory /home/AppImage and move file here -> set file as executable from file manager -> open file -> setting -> force breeze icon theme -> quit
 # Add shortcut
 right click on simple menu -> edit applications -> click on multimedia category -> new item
 	Name: Kdenlive
 	Description: Video Editor
 	Comment: Open source video editor. Free and easy to use for any purpose, forever.
 	Command: /home/neon/Appimage/kdenlive-21.08.0-x86_64.appimage
+	Icon download from https://drive.google.com/file/d/1NLHfHWr0I5J5g_14nD7W6Py_wNl_8EQ2/view?usp=sharing
 save
 # Default app based on extension
 create a fake project file with .kdenlive extension -> right click -> properties -> file type option -> add extensioin: *.kdenlive -> add application: Kdenlive -> ok -> remove this fake project file
