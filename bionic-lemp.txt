@@ -474,6 +474,20 @@ nginx -s reload
 # Go to data.[DOMAIN]/index.php with key & token params
 
 ##################################
+# Install Composer 2.x
+##################################
+$ sudo apt update && sudo apt install php-cli unzip
+$ cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php
+$ HASH=`curl -sS https://composer.github.io/installer.sig` && echo $HASH
+# Output
+# e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a
+$ php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+# Installer verified
+$ sudo php composer-setup.php --install-dir=/usr/bin --filename=composer
+# To test your installation, run:
+$ composer
+
+##################################
 # Install Let's Encrypt
 ##################################
 sudo apt install -y certbot
