@@ -567,6 +567,17 @@ $ sudo certbot --non-interactive --redirect --agree-tos --nginx -d [SUBDOMAIN].e
 # open subdomain on browser
 $ cat ~/.config/code-server/config.yaml
 # enter the password
+# setting:
+	editor > word wrap: ON
+	editor > minimap: OFF
+	editor > font size: 13
+	editor > font family: 'Ubuntu Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'
+	workbench > editor > show tabs: YES
+	workbench > editor > enable preview: NO
+# icon:
+	seti-icons
+# theme
+	Theme - Seti-Monokai (must install dependency: Monokai++)
 
 ##################################
 # Install Atheos 4.3.0 (cloud IDE, updated from Codiad IDE)
