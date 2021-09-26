@@ -249,6 +249,13 @@ Install Kvantum Engine For KDE On Ubuntu/KDE Neon
 https://www.ubuntubuzz.com/2019/02/how-to-install-kvantum-engine-for-kde-on-ubuntu.html
 
 =======================================
+Install Latte Dock
+=======================================
+$ sudo -i
+$ apt install latte-dock
+# mcOS BS Layout for Latte Dock: https://www.pling.com/p/1399346/
+
+=======================================
 Install Cairo Dock
 =======================================
 $ sudo -i
