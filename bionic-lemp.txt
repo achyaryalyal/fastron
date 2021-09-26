@@ -553,6 +553,22 @@ monit status
 monit summary
 
 ##################################
+# Install Code Server (VS Code Web Based)
+##################################
+$ sudo curl -fsSL https://code-server.dev/install.sh | sh
+$ sudo systemctl enable --now code-server@$USER
+	#restart for ubuntu-20.04: service code-server@$USER restart
+	#restart for ubuntu-18.04: systemctl daemon-reload && service code-server@$USER restart
+	#uninstall: rm -rf ~/.local/share/code-server ~/.config/code-server && sudo apt remove code-server
+# prepare a subdomain like code.domain.com with no root just proxy to http://localhost:8080; and then enable https with letsencrypt
+$ sudo certbot --non-interactive --redirect --agree-tos --nginx -d [SUBDOMAIN].example.com -m [YOUR_EMAIL]
+# test nginx & reload nginx
+# if error happen, just restart code server
+# open subdomain on browser
+$ cat ~/.config/code-server/config.yaml
+# enter the password
+
+##################################
 # Install Atheos 4.3.0 (cloud IDE, updated from Codiad IDE)
 ##################################
 cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/master.zip && unzip master.zip && mv Atheos-master atheos && rm -rf master.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano atheos/index.php
