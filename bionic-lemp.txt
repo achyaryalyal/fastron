@@ -578,6 +578,14 @@ $ cat ~/.config/code-server/config.yaml
 	seti-icons
 # theme
 	Theme - Seti-Monokai (must install dependency: Monokai++)
+# modify login page
+$ cd /usr/lib/code-server/src/browser/media && wget https://code.makery.ch/library/html-css/part1/vs-code-logo.png
+$ nano /usr/lib/code-server/src/browser/pages/login.html
+# change html in <div class="header">....</div>
+          <center><img src="{{CS_STATIC_BASE}}/src/browser/media/vs-code-logo.png"></center>
+          <!--<h1 class="main">Welcome to code-server</h1>-->
+          <!--<div class="sub">Please log in below. {{PASSWORD_MSG}}</div>-->
+# exit and save
 
 ##################################
 # Install Atheos 4.3.0 (cloud IDE, updated from Codiad IDE)
