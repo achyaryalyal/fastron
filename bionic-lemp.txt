@@ -594,7 +594,30 @@ $ composer
 ##################################
 # Create Laravel Project using Composer
 ##################################
+# prepare a domain or subdomain for project and then enable https with letsencrypt
+$ cd /var/www
+$ composer create-project --prefer-dist laravel/laravel [PROJECT_NAME]
+$ sudo chmod -R 755 /var/www/[PROJECT_NAME]
+$ sudo chown -R www-data:www-data /var/www/[PROJECT_NAME]
+$ cd [PROJECT_NAME]
+$ composer install
+$ php artisan
 
+##################################
+# Configure Laravel Project
+##################################
+$ nano .env
+# In case you are installing Laravel in a development environment, you can leave the APP_DEBUG option enabled, as this will give you important debug information while testing the application from a browser. The APP_ENV variable should be set to "development" in this case.
+# In case you are installing Laravel in a production environment, you should disable the APP_DEBUG option, because it shows to the final user sensitive information about your application. The APP_ENV in this case should be set to "production"
+	APP_NAME: Application name, used for notifications and messages.
+	APP_ENV: Current application environment.
+	APP_KEY: Used for generating salts and hashes, this unique key is automatically created when installing Laravel via Composer, so you don’t need to change it.
+	APP_DEBUG: Whether or not to show debug information at client side.
+	APP_URL: Base URL for the application, used for generating application links.
+	DB_DATABASE: Database name.
+	DB_USERNAME: Username to connect to the database.
+	DB_PASSWORD: Password to connect to the database.
+# save and exit
 
 ##################################
 # Install Rclone
