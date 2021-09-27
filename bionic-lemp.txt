@@ -474,20 +474,6 @@ nginx -s reload
 # Go to data.[DOMAIN]/index.php with key & token params
 
 ##################################
-# Install Composer 2.x
-##################################
-$ sudo apt update && sudo apt install php-cli unzip
-$ cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php
-$ HASH=`curl -sS https://composer.github.io/installer.sig` && echo $HASH
-# Output
-# e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a
-$ php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-# Installer verified
-$ sudo php composer-setup.php --install-dir=/usr/bin --filename=composer
-# To test your installation, run:
-$ composer
-
-##################################
 # Install Let's Encrypt
 ##################################
 sudo apt install -y certbot
@@ -553,7 +539,7 @@ monit status
 monit summary
 
 ##################################
-# Install Code Server (VS Code Web Based)
+# Install Code Server - VS Code in the browser (Latest)
 ##################################
 $ sudo curl -fsSL https://code-server.dev/install.sh | sh
 $ sudo systemctl enable --now code-server@$USER
@@ -592,81 +578,23 @@ $ nano /usr/lib/code-server/src/browser/pages/login.html
 # exit and save
 
 ##################################
-# Install Atheos 4.3.0 (cloud IDE, updated from Codiad IDE)
+# Install Composer (Latest)
 ##################################
-cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/master.zip && unzip master.zip && mv Atheos-master atheos && rm -rf master.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano atheos/index.php
+$ sudo apt update && sudo apt install php-cli unzip
+$ cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php
+$ HASH=`curl -sS https://composer.github.io/installer.sig` && echo $HASH
+# Output
+# e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a
+$ php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+# Installer verified
+$ sudo php composer-setup.php --install-dir=/usr/bin --filename=composer
+# To test your installation, run:
+$ composer
 
-# add this to index.php line 23:
-	if(!isset($_GET['key']) && !isset($_GET['token'])) {
-		http_response_code(403);
-		die('Forbidden');
-	}
+##################################
+# Create Laravel Project using Composer
+##################################
 
-# edit index.php, find replace line 43: <title>Atheos IDE</title>
-	<title>Cloud IDE</title>
-
-# add this to index.php line 74 before </head>:
-	<style>.pdf-icon:before{font-family:'Font Awesome 5 Free';font-weight:900;font-size:16px;content:"\f1c1";}</style>
-
-# edit index.php, find replace line 109: <span id="current_file"></span>
-	<span id="current_file" style="user-select:all;"></span>
-
-nano atheos/components/user/login.php
-
-# edit login.php, find replace line 30: <legend>Atheos <span>IDE</span></legend>
-	<legend>Cloud <span>IDE</span></legend>
-
-# edit login.php, find replace line 32: <input id="username" type="text" name="username" autofocus="autofocus" autocomplete="current-username">
-	<input id="username" type="password" name="username" autofocus="autofocus" autocomplete="current-username">
-
-# edit login.php, find replace line 62: <a id="github_link" href="https://www.github.com/Atheos/Atheos" target="_blank" rel="noreferrer noopener"><?php echo VERSION ?></a>
-<!-- <a id="github_link" href="https://www.github.com/Atheos/Atheos" target="_blank" rel="noreferrer noopener"><?php echo VERSION ?></a> -->
-
-# Go to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params. Setup it and fill `Absolute Path` with folder path you want to manage
-
-# users data: atheos/data/users.db.json
-{
-    "johndoe": {
-        "password": "$2y$11$xxxxxxxxxxxxxxxx", // php password_hash() function
-        "activeProject": "",
-        "creationDate": "2021-01-01 00:00:00",
-        "lastLogin": "2021-01-01 00:00:00",
-        "permissions": [
-            "configure",
-            "read",
-            "write"
-        ],
-        "userACL": "full",
-        "activeName": "MY PROJECT",
-        "activePath": "\/var\/www"
-    }
-}
-
-# projects data: atheos/data/projects.db.json
-{
-    "MY PROJECT": "\/var\/www"
-}
-
-# Editor Settings
-    ## Theme: Monokai
-    ## Font Size: 14px
-    ## Highlight Active Line: Enabled
-    ## Print Margin: Disabled
-    ## Print Margin Column: 80
-    ## Indent Guides: Enabled
-    ## foldWidgets: Enabled
-    ## Line Wrap: Enabled
-    ## Soft Tabs: Enabled
-    ## Tab Size: 4
-
-# System Settings
-    ## Active File Loop Behavior: Loop only active tabs
-    ## Sidebar Hover Duration: 300ms (default)
-    ## Show Hidden Files: False
-    ## Filemanager Trigger: Single Click
-    ## Left Sidebar Trigger: Hover
-    ## Right Sidebar Trigger: Hover
-    ## ProjectDock Trigger: Single Click
 
 ##################################
 # Install Rclone
@@ -803,6 +731,83 @@ freshclam -v
 # if you get the following error: Clamd was NOT notified
 # just restart the daemon
 service clamav-daemon restart
+
+##################################
+# Install Atheos 4.3.0 (cloud IDE, updated from Codiad IDE)
+##################################
+cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/master.zip && unzip master.zip && mv Atheos-master atheos && rm -rf master.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano atheos/index.php
+
+# add this to index.php line 23:
+	if(!isset($_GET['key']) && !isset($_GET['token'])) {
+		http_response_code(403);
+		die('Forbidden');
+	}
+
+# edit index.php, find replace line 43: <title>Atheos IDE</title>
+	<title>Cloud IDE</title>
+
+# add this to index.php line 74 before </head>:
+	<style>.pdf-icon:before{font-family:'Font Awesome 5 Free';font-weight:900;font-size:16px;content:"\f1c1";}</style>
+
+# edit index.php, find replace line 109: <span id="current_file"></span>
+	<span id="current_file" style="user-select:all;"></span>
+
+nano atheos/components/user/login.php
+
+# edit login.php, find replace line 30: <legend>Atheos <span>IDE</span></legend>
+	<legend>Cloud <span>IDE</span></legend>
+
+# edit login.php, find replace line 32: <input id="username" type="text" name="username" autofocus="autofocus" autocomplete="current-username">
+	<input id="username" type="password" name="username" autofocus="autofocus" autocomplete="current-username">
+
+# edit login.php, find replace line 62: <a id="github_link" href="https://www.github.com/Atheos/Atheos" target="_blank" rel="noreferrer noopener"><?php echo VERSION ?></a>
+<!-- <a id="github_link" href="https://www.github.com/Atheos/Atheos" target="_blank" rel="noreferrer noopener"><?php echo VERSION ?></a> -->
+
+# Go to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params. Setup it and fill `Absolute Path` with folder path you want to manage
+
+# users data: atheos/data/users.db.json
+{
+    "johndoe": {
+        "password": "$2y$11$xxxxxxxxxxxxxxxx", // php password_hash() function
+        "activeProject": "",
+        "creationDate": "2021-01-01 00:00:00",
+        "lastLogin": "2021-01-01 00:00:00",
+        "permissions": [
+            "configure",
+            "read",
+            "write"
+        ],
+        "userACL": "full",
+        "activeName": "MY PROJECT",
+        "activePath": "\/var\/www"
+    }
+}
+
+# projects data: atheos/data/projects.db.json
+{
+    "MY PROJECT": "\/var\/www"
+}
+
+# Editor Settings
+    ## Theme: Monokai
+    ## Font Size: 14px
+    ## Highlight Active Line: Enabled
+    ## Print Margin: Disabled
+    ## Print Margin Column: 80
+    ## Indent Guides: Enabled
+    ## foldWidgets: Enabled
+    ## Line Wrap: Enabled
+    ## Soft Tabs: Enabled
+    ## Tab Size: 4
+
+# System Settings
+    ## Active File Loop Behavior: Loop only active tabs
+    ## Sidebar Hover Duration: 300ms (default)
+    ## Show Hidden Files: False
+    ## Filemanager Trigger: Single Click
+    ## Left Sidebar Trigger: Hover
+    ## Right Sidebar Trigger: Hover
+    ## ProjectDock Trigger: Single Click
 
 ##################################
 # TIPS AND TRICK
