@@ -618,6 +618,12 @@ $ nano .env
 	DB_USERNAME: Username to connect to the database.
 	DB_PASSWORD: Password to connect to the database.
 # save and exit
+# edit nginx server block and point root to public directory of your project
+$ nano /etc/nginx/sites-available/[YOUR_SERVER_BLOCK]
+	root /var/www/[PROJECT_NAME]/public;
+# save and exit
+# test nginx & reload nginx
+# acccess your project domain or subdomain on the browser
 
 ##################################
 # Install Rclone
