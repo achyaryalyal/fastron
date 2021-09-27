@@ -576,6 +576,8 @@ $ nano /usr/lib/code-server/src/browser/pages/login.html
           <!--<h1 class="main">Welcome to code-server</h1>-->
           <!--<div class="sub">Please log in below. {{PASSWORD_MSG}}</div>-->
 # exit and save
+# install extension manually from terminal: code-server --install-extension ms-vscode.test-adapter-converter-0.1.2.vsix
+# you can download [FILE].vsix from https://marketplace.visualstudio.com/
 
 ##################################
 # Install Composer (Latest)
