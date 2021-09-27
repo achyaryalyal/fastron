@@ -579,10 +579,14 @@ $ cat ~/.config/code-server/config.yaml
 # theme
 	Theme - Seti-Monokai (must install dependency: Monokai++)
 # modify login page
-$ cd /usr/lib/code-server/src/browser/media && wget https://code.makery.ch/library/html-css/part1/vs-code-logo.png
+$ cd /usr/lib/code-server/src/browser/media && wget https://code.visualstudio.com/assets/branding/app-icon.png
 $ nano /usr/lib/code-server/src/browser/pages/login.html
+# add meta tag
+    <meta name="robots" content="noindex, nofollow">
+# change title to
+    <title>VS Code</title>
 # change html in <div class="header">....</div>
-          <center><img src="{{CS_STATIC_BASE}}/src/browser/media/vs-code-logo.png"></center>
+          <center><img src="{{CS_STATIC_BASE}}/src/browser/media/app-icon.png"></center>
           <!--<h1 class="main">Welcome to code-server</h1>-->
           <!--<div class="sub">Please log in below. {{PASSWORD_MSG}}</div>-->
 # exit and save
