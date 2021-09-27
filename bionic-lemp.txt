@@ -597,10 +597,12 @@ $ composer
 # prepare a domain or subdomain for project and then enable https with letsencrypt
 $ cd /var/www
 $ composer create-project --prefer-dist laravel/laravel [PROJECT_NAME]
+# continue as root/super user [yes]? yes
 $ sudo chmod -R 755 /var/www/[PROJECT_NAME]
 $ sudo chown -R www-data:www-data /var/www/[PROJECT_NAME]
 $ cd [PROJECT_NAME]
 $ composer install
+# continue as root/super user [yes]? yes
 $ php artisan
 
 ##################################
