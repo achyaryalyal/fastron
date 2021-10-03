@@ -1,0 +1,36 @@
+##################################
+# Set DNS Record
+# For app with www CNAME, like: www.[YOUR_DOMAIN]
+##################################
+A-------@--------[YOUR_IP_SERVER] ---> if you use control panel, change @ to * (plesk) or _ (cpanel)
+A-------data-----[YOUR_IP_SERVER]
+A-------dev------[YOUR_IP_SERVER]
+A-------mail-----[YOUR_IP_SERVER]
+CNAME---www------[YOUR_DOMAIN]
+MX------@--------mail.[YOUR_DOMAIN]-----10
+TXT-----@--------v=spf1 a mx -all
+TXT-----_dmarc---v=DMARC1;p=none
+# if you don't use control panel, set the nameserver
+NS-----ns1.kilatdomain.net
+NS-----ns2.kilatdomain.net
+NS-----ns3.kilatdomain.net
+NS-----ns4.kilatdomain.net
+
+##################################
+# Set DNS Record
+# For app with non-www subdomain, like: siakad.[YOUR_DOMAIN]
+##################################
+A-------@------------------------------------[YOUR_IP_SERVER] ---> if you use control panel, change @ to * (plesk) or _ (cpanel)
+A-------[YOUR_SUBDOMAIN_WITH_TLD]------------[YOUR_IP_SERVER]
+A-------data---------------------------------[YOUR_IP_SERVER]
+A-------dev----------------------------------[YOUR_IP_SERVER]
+A-------mail.[YOUR_SUBDOMAIN_WITH_TLD]-------[YOUR_IP_SERVER]
+MX------[YOUR_SUBDOMAIN_WITH_TLD]------------mail.[YOUR_SUBDOMAIN_WITH_TLD]-----10
+TXT-----[YOUR_SUBDOMAIN_WITH_TLD]------------v=spf1 a mx -all
+TXT-----_dmarc.[YOUR_SUBDOMAIN_WITH_TLD]-----v=DMARC1;p=none
+# if you don't use control panel, set the nameserver
+NS-----ns1.kilatdomain.net
+NS-----ns2.kilatdomain.net
+NS-----ns3.kilatdomain.net
+NS-----ns4.kilatdomain.net
+
