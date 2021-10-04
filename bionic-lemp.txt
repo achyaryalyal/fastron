@@ -564,8 +564,10 @@ $ cat ~/.config/code-server/config.yaml
 	seti-icons
 # theme
 	Theme - Seti-Monokai (must install dependency: Monokai++)
+# modify favicon
+$ cd /usr/lib/code-server/src/browser/media && rm favicon.ico && wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/code-server/favicon.ico
 # modify login page
-$ cd /usr/lib/code-server/src/browser/media && wget https://code.visualstudio.com/assets/branding/app-icon.png
+$ cd /usr/lib/code-server/src/browser/media && wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/code-server/app-icon.png
 $ nano /usr/lib/code-server/src/browser/pages/login.html
 # add meta tag
     <meta name="robots" content="noindex, nofollow">
