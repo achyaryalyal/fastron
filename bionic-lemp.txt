@@ -768,7 +768,7 @@ freshclam -v
 service clamav-daemon restart
 
 ##################################
-# Install Atheos 5.0.0
+# Install Atheos 5.0.0 Almoner
 ##################################
 cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/master.zip && unzip master.zip && mv Atheos-master atheos && rm -rf master.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano +12 atheos/index.php
 
