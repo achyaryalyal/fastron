@@ -768,37 +768,61 @@ freshclam -v
 service clamav-daemon restart
 
 ##################################
-# Install Atheos 4.3.0 (cloud IDE, updated from Codiad IDE)
+# Install Atheos 5.0.0
 ##################################
-cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/master.zip && unzip master.zip && mv Atheos-master atheos && rm -rf master.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano atheos/index.php
+cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/master.zip && unzip master.zip && mv Atheos-master atheos && rm -rf master.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano +12 atheos/index.php
 
-# add this to index.php line 23:
+# add this to index.php line 12:
 	if(!isset($_GET['key']) && !isset($_GET['token'])) {
 		http_response_code(403);
 		die('Forbidden');
 	}
 
-# edit index.php, find replace line 43: <title>Atheos IDE</title>
+# edit index.php, find replace line 35: <title>Atheos IDE</title>
 	<title>Cloud IDE</title>
 
-# add this to index.php line 74 before </head>:
+# add this to index.php before </head>:
 	<style>.pdf-icon:before{font-family:'Font Awesome 5 Free';font-weight:900;font-size:16px;content:"\f1c1";}</style>
 
 # edit index.php, find replace line 109: <span id="current_file"></span>
 	<span id="current_file" style="user-select:all;"></span>
 
-nano atheos/components/user/login.php
+nano atheos/version.txt
+	v5.0.0
 
-# edit login.php, find replace line 30: <legend>Atheos <span>IDE</span></legend>
+nano +7 atheos/components/user/login.php
+
+# edit login.php, find replace line 7: <legend>Atheos <span>IDE</span></legend>
 	<legend>Cloud <span>IDE</span></legend>
 
-# edit login.php, find replace line 32: <input id="username" type="text" name="username" autofocus="autofocus" autocomplete="current-username">
+# edit login.php, find replace line 9: <input id="username" type="text" name="username" autofocus="autofocus" autocomplete="current-username">
 	<input id="username" type="password" name="username" autofocus="autofocus" autocomplete="current-username">
 
-# edit login.php, find replace line 62: <a id="github_link" href="https://www.github.com/Atheos/Atheos" target="_blank" rel="noreferrer noopener"><?php echo VERSION ?></a>
+# edit login.php, comment out footer link: <a id="github_link" href="https://www.github.com/Atheos/Atheos" target="_blank" rel="noreferrer noopener"><?php echo VERSION ?></a>
 <!-- <a id="github_link" href="https://www.github.com/Atheos/Atheos" target="_blank" rel="noreferrer noopener"><?php echo VERSION ?></a> -->
 
 # Go to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params. Setup it and fill `Absolute Path` with folder path you want to manage
+
+# Editor Settings
+    ## Theme: Monokai
+    ## Font Size: 14px
+    ## Highlight Active Line: Enabled
+    ## Print Margin: Disabled
+    ## Print Margin Column: 80
+    ## Indent Guides: Enabled
+    ## foldWidgets: Enabled
+    ## Line Wrap: Enabled
+    ## Soft Tabs: Enabled
+    ## Tab Size: 4
+
+# System Settings
+    ## Active File Loop Behavior: Loop only active tabs
+    ## Sidebar Hover Duration: 300ms (default)
+    ## Show Hidden Files: False
+    ## Filemanager Trigger: Single Click
+    ## Left Sidebar Trigger: Hover
+    ## Right Sidebar Trigger: Hover
+    ## ProjectDock Trigger: Single Click
 
 # users data: atheos/data/users.db.json
 {
@@ -822,27 +846,6 @@ nano atheos/components/user/login.php
 {
     "MY PROJECT": "\/var\/www"
 }
-
-# Editor Settings
-    ## Theme: Monokai
-    ## Font Size: 14px
-    ## Highlight Active Line: Enabled
-    ## Print Margin: Disabled
-    ## Print Margin Column: 80
-    ## Indent Guides: Enabled
-    ## foldWidgets: Enabled
-    ## Line Wrap: Enabled
-    ## Soft Tabs: Enabled
-    ## Tab Size: 4
-
-# System Settings
-    ## Active File Loop Behavior: Loop only active tabs
-    ## Sidebar Hover Duration: 300ms (default)
-    ## Show Hidden Files: False
-    ## Filemanager Trigger: Single Click
-    ## Left Sidebar Trigger: Hover
-    ## Right Sidebar Trigger: Hover
-    ## ProjectDock Trigger: Single Click
 
 ##################################
 # TIPS AND TRICK
