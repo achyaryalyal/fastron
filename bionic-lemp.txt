@@ -147,8 +147,7 @@ ufw default allow outgoing
 ufw default deny incoming
 
 # ssh
-CURRENT_SSH_PORT=$(grep "Port " /etc/ssh/sshd_config | awk -F " " '{print $2}') && echo $CURRENT_SSH_PORT
-ufw allow ??
+CURRENT_SSH_PORT=$(grep "Port " /etc/ssh/sshd_config | awk -F " " '{print $2}') && echo $CURRENT_SSH_PORT && ufw allow $CURRENT_SSH_PORT
 
 # smtp
 ufw allow 25
@@ -257,7 +256,7 @@ To: ......<paste_here>......
 Subject: Test email
 This is a test email."| sendmail -t
 
-Note: Mail Tester result may be 6.9/10. Don't worry, it's the highest score for you because your domain isn't listed in Pyzor Whitelist and Cloud Kilat hasn't rDNS
+Note: Mail Tester result may be 6.8/10. Don't worry, it's the highest score for you because your domain isn't listed in Pyzor Whitelist and Cloud Kilat hasn't rDNS
 
 ##################################
 # Install Nginx
