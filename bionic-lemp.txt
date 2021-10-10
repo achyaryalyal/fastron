@@ -54,9 +54,6 @@ systemctl enable ntp && dpkg-reconfigure tzdata && date
 # increase history size
 export HISTSIZE=10000
 
-# nanorc - Improved Nano Syntax Highlighting Files
-curl https://raw.githubusercontent.com/scopatz/nanorc/master/install.sh | sh
-
 # open_files limits
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.limits.conf > /etc/security/limits.conf
 nano /proc/sys/fs/file-max
