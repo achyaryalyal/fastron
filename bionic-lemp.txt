@@ -78,7 +78,7 @@ none /run/shm tmpfs rw,noexec,nosuid,nodev 0 0
 # check has swap enabled, if output is empty, it means that your system does not have swap space enabled
 swapon --show
 # creating a file which will be used for swap
-fallocate -l 1G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
+fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
 # make the change permanent
 nano /etc/fstab
 # paste it
@@ -89,7 +89,7 @@ nano /etc/fstab
 ##################################
 swapoff -a
 rm /swapfile
-fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
+fallocate -l 8G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
 
 ##################################
 # Display current CPU usage as a percentage
