@@ -1,7 +1,8 @@
 ##################################
 # Set DNS Record
+# For app with www CNAME, like: www.[YOUR_DOMAIN]
 ##################################
-A-------@--------[YOUR_IP_SERVER]
+A-------@--------[YOUR_IP_SERVER] ---> if you use control panel, change @ to * (plesk) or _ (cpanel)
 A-------data-----[YOUR_IP_SERVER]
 A-------dev------[YOUR_IP_SERVER]
 A-------mail-----[YOUR_IP_SERVER]
@@ -9,7 +10,25 @@ CNAME---www------[YOUR_DOMAIN]
 MX------@--------mail.[YOUR_DOMAIN]-----10
 TXT-----@--------v=spf1 a mx -all
 TXT-----_dmarc---v=DMARC1;p=none
-### cloud kilat nameserver
+# if you don't use control panel, set the nameserver
+NS-----ns1.kilatdomain.net
+NS-----ns2.kilatdomain.net
+NS-----ns3.kilatdomain.net
+NS-----ns4.kilatdomain.net
+
+##################################
+# Set DNS Record
+# For app with non-www subdomain, like: siakad.[YOUR_DOMAIN]
+##################################
+A-------@------------------------------------[YOUR_IP_SERVER] ---> if you use control panel, change @ to * (plesk) or _ (cpanel)
+A-------[YOUR_SUBDOMAIN_WITH_TLD]------------[YOUR_IP_SERVER]
+A-------data---------------------------------[YOUR_IP_SERVER]
+A-------dev----------------------------------[YOUR_IP_SERVER]
+A-------mail.[YOUR_SUBDOMAIN_WITH_TLD]-------[YOUR_IP_SERVER]
+MX------[YOUR_SUBDOMAIN_WITH_TLD]------------mail.[YOUR_SUBDOMAIN_WITH_TLD]-----10
+TXT-----[YOUR_SUBDOMAIN_WITH_TLD]------------v=spf1 a mx -all
+TXT-----_dmarc.[YOUR_SUBDOMAIN_WITH_TLD]-----v=DMARC1;p=none
+# if you don't use control panel, set the nameserver
 NS-----ns1.kilatdomain.net
 NS-----ns2.kilatdomain.net
 NS-----ns3.kilatdomain.net
@@ -35,6 +54,8 @@ sudo -i
 # Set hostname
 ##################################
 hostnamectl set-hostname [YOUR_DOMAIN] && hostname
+or
+hostnamectl set-hostname [YOUR_SUBDOMAIN_WITH_TLD] && hostname
 
 ##################################
 # Update packages
@@ -200,22 +221,33 @@ TemporaryDirectory /var/tmp
 UserID opendkim:opendkim
 
 mkdir -p /etc/opendkim/keys/[YOUR_DOMAIN] && cd /etc/opendkim/keys/[YOUR_DOMAIN] && opendkim-genkey -s mail -d [YOUR_DOMAIN] && chown opendkim:opendkim mail.* && chmod 600 mail.private && nano /etc/opendkim/TrustedHosts
+or
+mkdir -p /etc/opendkim/keys/[YOUR_SUBDOMAIN_WITH_TLD] && cd /etc/opendkim/keys/[YOUR_SUBDOMAIN_WITH_TLD] && opendkim-genkey -s mail -d [YOUR_DOMAIN] && chown opendkim:opendkim mail.* && chmod 600 mail.private && nano /etc/opendkim/TrustedHosts
 
 # replace all with this:
-127.0.0.1
-localhost
-192.168.0.1/24
-*.[YOUR_DOMAIN]
+	127.0.0.1
+	localhost
+	192.168.0.1/24
+	*.[YOUR_DOMAIN]
+or
+	127.0.0.1
+	localhost
+	192.168.0.1/24
+	*.[YOUR_SUBDOMAIN_WITH_TLD]
 
 nano /etc/opendkim/KeyTable
 
 # replace all with this:
 mail._domainkey.[YOUR_DOMAIN] [YOUR_DOMAIN]:mail:/etc/opendkim/keys/[YOUR_DOMAIN]/mail.private
+or
+mail._domainkey.[YOUR_SUBDOMAIN_WITH_TLD] [YOUR_SUBDOMAIN_WITH_TLD]:mail:/etc/opendkim/keys/[YOUR_DOMAIN]/mail.private
 
 nano /etc/opendkim/SigningTable
 
 # replace all with this:
 *@[YOUR_DOMAIN] mail._domainkey.[YOUR_DOMAIN]
+or
+*@[YOUR_SUBDOMAIN_WITH_TLD] mail._domainkey.[YOUR_SUBDOMAIN_WITH_TLD]
 
 nano /etc/mail/sendmail.mc
 
@@ -227,8 +259,11 @@ nano /etc/hosts
 
 # comment out any line with 127.0.1.1 and 127.0.0.1
 # next, add this line:
-127.0.0.1 localhost [YOUR_DOMAIN]
-::1 [YOUR_DOMAIN]
+	127.0.0.1 localhost [YOUR_DOMAIN]
+	::1 [YOUR_DOMAIN]
+or
+	127.0.0.1 localhost [YOUR_SUBDOMAIN_WITH_TLD]
+	::1 [YOUR_SUBDOMAIN_WITH_TLD]
 
 sendmailconfig
 # press "Y" for all
@@ -239,10 +274,13 @@ service opendkim restart && service sendmail restart && cat mail.txt
 
 ### Add DNS TXT record with name "mail._domainkey" and paste to it's value
 TXT-----mail._domainkey-----v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApP/TaDH4rdcBnOdVpsDDN1eGc8HY5iZG2fpECplfHzq/BEoQHRfJ9QL4+X2RjuqzorWNp4AkeBNkZOId56DBt4H5XI5x7VLNdicSOQ5C0URLAv3AsB0eaDCyCBnGA4m91n9LxURlu9sR4l+rYNejCTEWbZFFVUhPW0y7rgs8jWTrwoiPDERohAwcDHIuOBc1Sq+FI8qW3zAQWOKeNpKrq/zBr5qBkWQUAfxw1p1nJJ50s8VdAACgKkXA0o5tP2OvKnVeHoQ6pUrXYvJeCYKqjeNYIljj7c3/2d8ftlSgj95L1tuB6ow1UjxeTOjTQcWaqBP9s9T2lsMcOBJG3fZB8QIDAQAB
+or
+### Add DNS TXT record with name "mail._domainkey.[YOUR_SUBDOMAIN_NO_DOMAIN_NO_TLD]" and paste to it's value
+TXT-----mail._domainkey.[YOUR_SUBDOMAIN_NO_DOMAIN_NO_TLD]-----v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApP/TaDH4rdcBnOdVpsDDN1eGc8HY5iZG2fpECplfHzq/BEoQHRfJ9QL4+X2RjuqzorWNp4AkeBNkZOId56DBt4H5XI5x7VLNdicSOQ5C0URLAv3AsB0eaDCyCBnGA4m91n9LxURlu9sR4l+rYNejCTEWbZFFVUhPW0y7rgs8jWTrwoiPDERohAwcDHIuOBc1Sq+FI8qW3zAQWOKeNpKrq/zBr5qBkWQUAfxw1p1nJJ50s8VdAACgKkXA0o5tP2OvKnVeHoQ6pUrXYvJeCYKqjeNYIljj7c3/2d8ftlSgj95L1tuB6ow1UjxeTOjTQcWaqBP9s9T2lsMcOBJG3fZB8QIDAQAB
 
 ### NOTE: Name server changes usually take 24 to 48 hours to fully start working
 
-### Check DKIM status in Gmail inbox
+### Check DKIM status in Gmail inbox, you can change [YOUR_DOMAIN] to [YOUR_SUBDOMAIN_WITH_TLD]
 echo "From: root@[YOUR_DOMAIN]
 To: [YOUR_EMAIL]
 Subject: Test email
@@ -250,7 +288,7 @@ This is a test email."| sendmail -t
 
 ### If you click the show original button in Gmail, you should see "dkim=pass"
 
-### Test to mail-tester.com
+### Test to mail-tester.com, you can change [YOUR_DOMAIN] to [YOUR_SUBDOMAIN_WITH_TLD]
 echo "From: root@[YOUR_DOMAIN]
 To: ......<paste_here>......
 Subject: Test email
