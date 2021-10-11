@@ -1,0 +1,55 @@
+# the zone that limit max 5 requests/sec from 1 single IP address and hold up to 10 MB of data
+limit_req_zone $binary_remote_addr zone=codeserver:10m rate=5r/s;
+
+server {
+    listen 80;
+    server_name code.domain.com;
+    if ($scheme = "http") { return 301 https://code.domain.com$request_uri; }
+}
+
+server {
+    # server with [code].
+    #listen 80;
+    charset utf-8;
+    server_name code.domain.com;
+    if ($badagent) { return 403; }
+    # force https
+    if ($scheme = "http") { return 301 https://$host$request_uri; }
+    listen 443 ssl http2;
+    ssl_certificate /etc/letsencrypt/live/code.domain.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/code.domain.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_buffer_size 8k;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES256-GCM-SHA384;
+    ssl_dhparam /etc/nginx/dhparam.pem;
+    ssl_ecdh_curve secp384r1;
+    ssl_session_cache shared:SSL:30m;
+    ssl_session_tickets off;
+    ssl_session_timeout 60m;
+    location / {
+        # limit zone request with a burst of 5
+        limit_req zone=codeserver burst=5 nodelay;
+        proxy_pass http://localhost:8080;
+        proxy_set_header Host $host;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection upgrade;
+        proxy_set_header Accept-Encoding gzip;
+        access_log off;
+    }
+    #include general.conf; # this line is not required to install code-server
+    location ~*/fetch-callback(.*?) {
+        access_log off;
+    }
+    location ^~ /.well-known/acme-challenge/ {
+        default_type "text/plain";
+        try_files $uri /$1;
+        allow all;
+    }
+    location ^~ /.well-known/assetlinks.json {
+        return 404;
+    }
+    location ^~ /.well-known/apple-app-site-association {
+        return 404;
+    }
+}
