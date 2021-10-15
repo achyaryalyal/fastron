@@ -83,6 +83,9 @@ nano /etc/GeoIP.conf
 # update
 geoipupdate -v
 
+# install latest version of imagick (>= v7) to able converting process of WEBP format when user upload from any apps
+cd /opt && git clone https://github.com/SoftCreatR/imei && cd imei && chmod +x imei.sh && ./imei.sh && identify -version
+
 # configure timezone. Select: Asia->Jakarta
 systemctl enable ntp && dpkg-reconfigure tzdata && date
 
