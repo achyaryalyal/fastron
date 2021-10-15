@@ -67,8 +67,9 @@ sudo apt update && apt upgrade -y && apt autoremove -y --purge && apt autoclean 
 ##################################
 # Useful packages
 ##################################
-sudo add-apt-repository ppa:maxmind/ppa && sudo apt update && sudo apt install software-properties-common ghostscript neofetch curl wget git zip unzip rar unrar gnupg gnupg2 ca-certificates lsb-release apt-transport-https fail2ban haveged htop nload nmap nmon ntp pigz tree ccze mycli geoip-bin geoip-database geoip-database-extra libgeoip1 libmaxminddb0 libmaxminddb-dev mmdb-bin libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev geoipupdate
+sudo add-apt-repository ppa:maxmind/ppa && sudo apt update && sudo apt install software-properties-common ghostscript neofetch curl wget git zip unzip rar unrar gnupg gnupg2 ca-certificates lsb-release apt-transport-https fail2ban haveged htop nload nmap nmon ntp pigz tree ccze mycli geoip-bin geoip-database geoip-database-extra geoipupdate libgeoip1 libmaxminddb0 libmaxminddb-dev mmdb-bin libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev
 
+# GeoLite2 is geolocation free service. This data is less accurate than the paid service, GeoIP2.
 # check GeoIP version
 geoipupdate --version
 # get GeoIP id and key at https://www.maxmind.com/en/my_license_key in menu Manage License Keys
@@ -76,6 +77,9 @@ geoipupdate --version
 # Generate a license key and config file for use with geopipupdate version 3.1.1 or newer [Confirm]
 # configure GeoIP with id and key
 nano /etc/GeoIP.conf
+	AccountID 999999
+	LicenseKey 000000000000
+	EditionIDs GeoLite2-Country GeoLite2-City
 # update
 geoipupdate -v
 
