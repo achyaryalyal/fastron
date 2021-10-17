@@ -486,9 +486,9 @@ service nginx restart && service php7.4-fpm restart && php -v
 update-alternatives --config php && php -v
 
 ##################################
-# Install PhpMyAdmin 4.9.5
+# Install PhpMyAdmin 5.1.1
 ##################################
-mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/4.9.5/phpMyAdmin-4.9.5-english.zip && unzip phpMyAdmin-4.9.5-english.zip && mv phpMyAdmin-4.9.5-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php && chown -R www-data:www-data /var/www/phpmyadmin
+mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/5.1.1/phpMyAdmin-5.1.1-english.zip && unzip phpMyAdmin-5.1.1-english.zip && mv phpMyAdmin-5.1.1-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php && chown -R www-data:www-data /var/www/phpmyadmin
 
 # custom config
 sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = '$2a$07$8pApKkdpXx75tfmfmpz9q.xLPtoS6CikUbkxBuT5mHbOWke1pDPCO';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /var/www/phpmyadmin/config.inc.php
@@ -509,8 +509,8 @@ nano /var/www/phpmyadmin/libraries/classes/Response.php
 # paste key & token params checker di function login, after line : $header->disableWarnings();
 if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
 
-nano /var/www/phpmyadmin/libraries/classes/Plugins/Auth/AuthenticationCookie.php
-search label with "input_username" and find <input>, change type "text" to "password"
+nano +47 /var/www/phpmyadmin/templates/login/form.twig
+search label for="input_username" and find <input>, change type "text" to "password"
 and under input tag, add this style: <style>body{background:linear-gradient(to right,#170071,#754600) !important;}h1{display:none !important;}</style>
 
 # create server block: data-phpmyadmin
