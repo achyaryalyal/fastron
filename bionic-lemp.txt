@@ -504,7 +504,7 @@ sed -i "$ a \$cfg['TitleServer'] = 'Data';" /var/www/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['TitleDefault'] = 'Data';" /var/www/phpmyadmin/config.inc.php
 
 # modificate auth
-nano /var/www/phpmyadmin/libraries/classes/Response.php
+nano +607 /var/www/phpmyadmin/libraries/classes/Response.php
 
 # paste key & token params checker di function login, after line : $header->disableWarnings();
 if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
