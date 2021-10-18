@@ -275,6 +275,8 @@ $ sudo -i
 $ sudo apt install cmake extra-cmake-modules libkdecorations2-dev
 $ cd /opt && wget https://github.com/psifidotos/applet-window-buttons/archive/master.zip && unzip master.zip && rm master.zip && cd applet-window-buttons-master
 $ sh install.sh
+# add widget to top panel
+# right click, configure window buttons, sort button: red-yellow-green
 
 =================================
 Hide titlebar when a window is maximized
