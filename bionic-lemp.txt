@@ -461,6 +461,16 @@ dpkg -l | grep mariadb
 # optimize and repair databases
 mysqlcheck -u root -p --auto-repair -o --optimize --all-databases
 
+# Mariabackup is part of MariaDB Server starting with MariaDB 10.1.23
+# install
+sudo apt install mariadb-backup
+# backup
+mariabackup --backup --target-dir=/tmp/mariadb/backup/ --user=backupuser --password=backup123
+# restore
+mariabackup --prepare --target-dir=/tmp/mariadb/backup/
+mariabackup --copy-back --target-dir=/tmp/mariadb/backup/
+chown -R mysql:mysql /var/lib/mysql/
+
 ##################################
 # Install php7.4-fpm
 ##################################
