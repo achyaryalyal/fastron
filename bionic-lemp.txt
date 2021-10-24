@@ -51,7 +51,7 @@ dig @ns4.kilatdomain.net [domain] +short
 sudo -i
 
 ##################################
-# Set hostname
+# Optional: Set hostname
 ##################################
 hostnamectl set-hostname [YOUR_DOMAIN] && hostname
 or
@@ -214,104 +214,173 @@ service ssh restart
 # if you want to delete a rule, just type: ufw delete [allow/deny] [PORT_NUMBER]
 
 ##################################
-# Install OpenDKIM
+# Install Postfix with OpenDKIM
 ##################################
-sudo apt install sendmail opendkim opendkim-tools -y && nano /etc/opendkim.conf
 
-# replace all with this:
-AutoRestart Yes
-UMask 002
-Syslog yes
-AutoRestartRate 10/1h
-Canonicalization relaxed/simple
-ExternalIgnoreList refile:/etc/opendkim/TrustedHosts
-InternalHosts refile:/etc/opendkim/TrustedHosts
-KeyTable refile:/etc/opendkim/KeyTable
-SigningTable refile:/etc/opendkim/SigningTable
-LogWhy Yes
-Mode sv
-PidFile /var/run/opendkim/opendkim.pid
-SignatureAlgorithm rsa-sha256
-Socket inet:8891@localhost
-SyslogSuccess Yes
-TemporaryDirectory /var/tmp
-UserID opendkim:opendkim
+### Create A and MX Record
+A-----[YOUR_SUBDOMAIN_WITH_TLD]----------14400-----[YOUR_IP_SERVER]
+A-----mail.[YOUR_SUBDOMAIN_WITH_TLD]-----14400-----[YOUR_IP_SERVER]
+MX----[YOUR_SUBDOMAIN_WITH_TLD]----------14400-----mail.[YOUR_SUBDOMAIN_WITH_TLD]-----10
 
-mkdir -p /etc/opendkim/keys/[YOUR_DOMAIN] && cd /etc/opendkim/keys/[YOUR_DOMAIN] && opendkim-genkey -s mail -d [YOUR_DOMAIN] && chown opendkim:opendkim mail.* && chmod 600 mail.private && nano /etc/opendkim/TrustedHosts
-or
-mkdir -p /etc/opendkim/keys/[YOUR_SUBDOMAIN_WITH_TLD] && cd /etc/opendkim/keys/[YOUR_SUBDOMAIN_WITH_TLD] && opendkim-genkey -s mail -d [YOUR_DOMAIN] && chown opendkim:opendkim mail.* && chmod 600 mail.private && nano /etc/opendkim/TrustedHosts
+### Install Postfix
+sudo apt update && sudo apt install postfix -y
+# general type of mail configuration: Internet Site
+# enter your domain name for the system mail name, i.e. the domain name after @ symbol: [YOUR_DOMAIN_OR_YOUR_SUBDOMAIN_WITH_TLD] ---> salam.stitdarsa.ac.id
 
-# replace all with this:
-	127.0.0.1
-	localhost
-	192.168.0.1/24
-	*.[YOUR_DOMAIN]
-or
+### Configure Postfix
+sudo postconf -e "myhostname = [YOUR_DOMAIN_OR_YOUR_SUBDOMAIN_WITH_TLD]" -----> sudo postconf -e "myhostname = salam.stitdarsa.ac.id"
+sudo postconf -e "mydomain = [YOUR_DOMAIN_OR_YOUR_SUBDOMAIN_WITH_TLD]" -----> sudo postconf -e "mydomain = salam.stitdarsa.ac.id"
+nano /etc/mailname -----> salam.stitdarsa.ac.id
+sudo systemctl restart postfix
+
+### Set PTR Record
+opening a support ticket, ask technical support to add PTR record with IP = [SERVER_IP_ADDR] and target domain = [YOUR_DOMAIN_OR_YOUR_SUBDOMAIN_WITH_TLD]
+# then check
+host [SERVER_IP_ADDR]
+
+### Install and Configure OpenDKIM
+sudo apt install opendkim opendkim-tools -y
+sudo adduser postfix opendkim
+nano /etc/opendkim.conf
+# find the following lines:
+	#Canonicalization     simple
+	#Mode                 sv
+	#SubDomains           no
+# uncomment them and replace simple with relaxed/simple. Change the mode from sv to s
+# add the following lines at the end of this file. (On Ubuntu 18.04, the UserID is already set to opendkim)
+	#OpenDKIM user
+	# Remember to add user postfix to group opendkim
+	UserID             opendkim
+
+	# Map domains in From addresses to keys used to sign messages
+	KeyTable           refile:/etc/opendkim/key.table
+	SigningTable       refile:/etc/opendkim/signing.table
+
+	# A set of internal hosts whose mail should be signed
+	InternalHosts       /etc/opendkim/trusted.hosts
+
+### Create Signing Table, key Table and Trusted Hosts File
+sudo mkdir /etc/opendkim && sudo chown -R opendkim:opendkim /etc/opendkim
+sudo mkdir /etc/opendkim/keys && sudo chmod go-rw /etc/opendkim/keys
+nano /etc/opendkim/signing.table
+# add the following line to the file
+	*@[YOUR_SUBDOMAIN_WITH_TLD] mail._domainkey.[YOUR_SUBDOMAIN_WITH_TLD]
+nano /etc/opendkim/key.table
+# add the following line to the file
+	mail._domainkey.[YOUR_SUBDOMAIN_WITH_TLD] [YOUR_SUBDOMAIN_WITH_TLD]:mail:/etc/opendkim/keys/[YOUR_SUBDOMAIN_WITH_TLD]/mail.private
+nano /etc/opendkim/trusted.hosts
+# add the following line to the file
 	127.0.0.1
 	localhost
 	192.168.0.1/24
 	*.[YOUR_SUBDOMAIN_WITH_TLD]
 
-nano /etc/opendkim/KeyTable
+### Generate Private/Public Keypair
+sudo mkdir /etc/opendkim/keys/[YOUR_SUBDOMAIN_WITH_TLD]
+sudo opendkim-genkey -b 2048 -d [YOUR_SUBDOMAIN_WITH_TLD] -D /etc/opendkim/keys/[YOUR_SUBDOMAIN_WITH_TLD] -s mail -v
+sudo chmod 600 /etc/opendkim/keys/[YOUR_SUBDOMAIN_WITH_TLD]/mail.private
+sudo chown opendkim:opendkim /etc/opendkim/keys/[YOUR_SUBDOMAIN_WITH_TLD]/mail.*
 
-# replace all with this:
-mail._domainkey.[YOUR_DOMAIN] [YOUR_DOMAIN]:mail:/etc/opendkim/keys/[YOUR_DOMAIN]/mail.private
+### Add Public Key in DNS Records
+cat /etc/opendkim/keys/[YOUR_SUBDOMAIN_WITH_TLD]/mail.txt
+# copy everything and paste into the value field. Delete all double quotes and white spaces
+
+### Create TXT record with name "mail._domainkey.[YOUR_SUBDOMAIN_NO_DOMAIN_NO_TLD]" and paste to it's value
+TXT-----mail._domainkey.[YOUR_SUBDOMAIN_NO_DOMAIN_NO_TLD]-----v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArWBHrWVg1idKnon+ES5f2QVDhaAQKGUlifr4wasudzPZuRd5rY38falQ4YfNeJtgSl+Aq5psc/M/qts68jyr7/gAHdKV2eVAQ4NaAGWHSJHmrm8lbGHSoKRPgIMAziTCBa5qk8iRb1YdFWMR73rBdvpdXPPCv0hR74Gs1FNi/oOYiY6FM3iX0BI7aLeJKbHn3a40ZbsMNFFt/RB6IXZYy9y6lSzJPRBnD46yTSLKujYPSEX+X3Jj+XvyPVABjxAupsB9Mn1+olrhX229DukUvyvlLyokQkT4eSuNmX9kG3S4tDpDrBQrBY/Ca+eX0XdKO8KaKyiocJVCZ2fMw91znwIDAQAB
+
+# once the DNS record is published, enter the following command on your Ubuntu server to test your key.
+sudo opendkim-testkey -d [YOUR_SUBDOMAIN_NO_DOMAIN_NO_TLD] -s mail -vvv
+# if everything is OK, you will see
+key OK
+# if you see key not secure message, don’t panic. This is because DNSSEC isn’t enabled on your domain name.
+
+### Connect Postfix with OpenDKIM
+nano /etc/opendkim.conf
+# find the following line:
+	Socket local:/var/run/opendkim/opendkim.sock
+# replace it with the following line. (If you can’t find the above line, then add the following line.)
+	Socket local:/var/spool/postfix/opendkim/opendkim.sock
+sudo mkdir /var/spool/postfix/opendkim && sudo chown opendkim:postfix /var/spool/postfix/opendkim
+nano /etc/default/opendkim
+# if you can find the following line:
+	SOCKET="local:/var/run/opendkim/opendkim.sock"
 or
-mail._domainkey.[YOUR_SUBDOMAIN_WITH_TLD] [YOUR_SUBDOMAIN_WITH_TLD]:mail:/etc/opendkim/keys/[YOUR_DOMAIN]/mail.private
+	SOCKET=local:$RUNDIR/opendkim.sock
+# change it to:
+	SOCKET="local:/var/spool/postfix/opendkim/opendkim.sock"
+nano /etc/postfix/main.cf
+# add the following lines at the end of this file to connect Postfix with OpenDKIM:
+	# Milter configuration
+	milter_default_action = accept
+	milter_protocol = 6
+	smtpd_milters = local:opendkim/opendkim.sock
+	non_smtpd_milters = $smtpd_milters
+sudo systemctl restart opendkim postfix
 
-nano /etc/opendkim/SigningTable
+### Create SPF and DMARC Record
+TXT-----[YOUR_SUBDOMAIN_WITH_TLD]------------14400-----v=spf1 a mx -all
+TXT-----_dmarc.[YOUR_SUBDOMAIN_WITH_TLD]-----14400-----v=DMARC1; p=none
 
-# replace all with this:
-*@[YOUR_DOMAIN] mail._domainkey.[YOUR_DOMAIN]
-or
-*@[YOUR_SUBDOMAIN_WITH_TLD] mail._domainkey.[YOUR_SUBDOMAIN_WITH_TLD]
+### Enable TLS Encryption for Outgoing Emails
+nano /etc/postfix/main.cf
+# add the following two lines at the end of this file:
+	smtp_tls_security_level = may
+	smtp_tls_loglevel = 1
+sudo systemctl restart postfix
 
-nano /etc/mail/sendmail.mc
-
-# add this line:
-include(`/etc/mail/tls/starttls.m4')dnl
-INPUT_MAIL_FILTER(`opendkim', `S=inet:8891@localhost')dnl
-
-nano /etc/hosts
-
-# comment out any line with 127.0.1.1 and 127.0.0.1
-# next, add this line:
-	127.0.0.1 localhost [YOUR_DOMAIN]
-	::1 [YOUR_DOMAIN]
-or
-	127.0.0.1 localhost [YOUR_SUBDOMAIN_WITH_TLD]
-	::1 [YOUR_SUBDOMAIN_WITH_TLD]
-
-sendmailconfig
-# press "Y" for all
-
-service opendkim restart && service sendmail restart && cat mail.txt
-
-### Copy everything and paste into the value field. Delete all double quotes and white spaces
-
-### Add DNS TXT record with name "mail._domainkey" and paste to it's value
-TXT-----mail._domainkey-----v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApP/TaDH4rdcBnOdVpsDDN1eGc8HY5iZG2fpECplfHzq/BEoQHRfJ9QL4+X2RjuqzorWNp4AkeBNkZOId56DBt4H5XI5x7VLNdicSOQ5C0URLAv3AsB0eaDCyCBnGA4m91n9LxURlu9sR4l+rYNejCTEWbZFFVUhPW0y7rgs8jWTrwoiPDERohAwcDHIuOBc1Sq+FI8qW3zAQWOKeNpKrq/zBr5qBkWQUAfxw1p1nJJ50s8VdAACgKkXA0o5tP2OvKnVeHoQ6pUrXYvJeCYKqjeNYIljj7c3/2d8ftlSgj95L1tuB6ow1UjxeTOjTQcWaqBP9s9T2lsMcOBJG3fZB8QIDAQAB
-or
-### Add DNS TXT record with name "mail._domainkey.[YOUR_SUBDOMAIN_NO_DOMAIN_NO_TLD]" and paste to it's value
-TXT-----mail._domainkey.[YOUR_SUBDOMAIN_NO_DOMAIN_NO_TLD]-----v=DKIM1; h=sha256; k=rsa; p=MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEApP/TaDH4rdcBnOdVpsDDN1eGc8HY5iZG2fpECplfHzq/BEoQHRfJ9QL4+X2RjuqzorWNp4AkeBNkZOId56DBt4H5XI5x7VLNdicSOQ5C0URLAv3AsB0eaDCyCBnGA4m91n9LxURlu9sR4l+rYNejCTEWbZFFVUhPW0y7rgs8jWTrwoiPDERohAwcDHIuOBc1Sq+FI8qW3zAQWOKeNpKrq/zBr5qBkWQUAfxw1p1nJJ50s8VdAACgKkXA0o5tP2OvKnVeHoQ6pUrXYvJeCYKqjeNYIljj7c3/2d8ftlSgj95L1tuB6ow1UjxeTOjTQcWaqBP9s9T2lsMcOBJG3fZB8QIDAQAB
-
-### NOTE: Name server changes usually take 24 to 48 hours to fully start working
-
-### Check DKIM status in Gmail inbox, you can change [YOUR_DOMAIN] to [YOUR_SUBDOMAIN_WITH_TLD]
-echo "From: root@[YOUR_DOMAIN]
+### Check DKIM status in Gmail inbox
+echo "From: no-reply@[YOUR_SUBDOMAIN_WITH_TLD]
 To: [YOUR_EMAIL]
 Subject: Test email
 This is a test email."| sendmail -t
 
 ### If you click the show original button in Gmail, you should see "dkim=pass"
 
-### Test to mail-tester.com, you can change [YOUR_DOMAIN] to [YOUR_SUBDOMAIN_WITH_TLD]
-echo "From: root@[YOUR_DOMAIN]
+### Testing Sender Score at https://www.mail-tester.com
+echo "From: no-reply@[YOUR_SUBDOMAIN_WITH_TLD]
 To: ......<paste_here>......
 Subject: Test email
 This is a test email."| sendmail -t
 
-Note: Mail Tester result may be 6.8/10. Don't worry, it's the highest score for you because your domain isn't listed in Pyzor Whitelist and Cloud Kilat hasn't rDNS
+Note: Mail Tester result may be 8.1/10. Don't worry, it's the highest score for you because your domain isn't listed in Pyzor Whitelist.
+
+### Optional: Set the From Address, From Name and Return-Path
+# you can set custom From address, From name and Return-Path in your website/web application. Let’s use WordPress as an example. You can add the following lines in your WordPress theme’s functions.php file to override the default From address, From name and return-path. Replace the red text as necessary.
+// Function to change From email address
+function wpb_sender_email( $original_email_address ) {
+    return 'notifications@linuxbabe.com';
+}
+// Function to change sender name
+function wpb_sender_name( $original_email_from ) {
+    return 'LinuxBabe';
+}
+// Set return-path the same as From address
+function fix_my_email_return_path( $phpmailer ) {
+    $phpmailer->Sender = $phpmailer->From;
+}
+// Hooking up our functions to WordPress filters
+add_filter( 'wp_mail_from', 'wpb_sender_email' );
+add_filter( 'wp_mail_from_name', 'wpb_sender_name' );
+add_action( 'phpmailer_init', 'fix_my_email_return_path' );
+
+### Configure Postfix Send-only SMTP Server For Multiple Domains
+# if your server hosts multiple websites, you just need to create SPF and DMARC record for your other domains, which is very easy to do, and configure OpenDKIM for your other domains. To configure OpenDKIM for other domains, you need to add the other domains in the signing table, key table and trusted hosts file like below.
+nano /etc/opendkim/signing.table
+	*@[YOUR_SUBDOMAIN_WITH_TLD] mail._domainkey.[YOUR_SUBDOMAIN_WITH_TLD]
+	*@[YOUR_SUBDOMAIN_2_WITH_TLD] mail._domainkey.[YOUR_SUBDOMAIN_2_WITH_TLD]
+	*@[YOUR_SUBDOMAIN_3_WITH_TLD] mail._domainkey.[YOUR_SUBDOMAIN_3_WITH_TLD]
+nano /etc/opendkim/key.table
+	mail._domainkey.[YOUR_SUBDOMAIN_WITH_TLD] [YOUR_SUBDOMAIN_WITH_TLD]:mail:/etc/opendkim/keys/[YOUR_SUBDOMAIN_WITH_TLD]/mail.private
+	mail._domainkey.[YOUR_SUBDOMAIN_2_WITH_TLD] [YOUR_SUBDOMAIN_2_WITH_TLD]:mail:/etc/opendkim/keys/[YOUR_SUBDOMAIN_2_WITH_TLD]/mail.private
+	mail._domainkey.[YOUR_SUBDOMAIN_3_WITH_TLD] [YOUR_SUBDOMAIN_3_WITH_TLD]:mail:/etc/opendkim/keys/[YOUR_SUBDOMAIN_3_WITH_TLD]/mail.private
+nano /etc/opendkim/trusted.hosts
+	127.0.0.1
+	localhost
+	192.168.0.1/24
+	*.[YOUR_SUBDOMAIN_WITH_TLD]
+	*.[YOUR_SUBDOMAIN_2_WITH_TLD]
+	*.[YOUR_SUBDOMAIN_3_WITH_TLD]
+# then generate the DKIM Private/Public keypair by following the same steps as mentioned above for other domains and add the DKIM public key in DNS. Restart OpenDKIM and you are done. Don’t forget to test your sender score.
 
 ##################################
 # Install Nginx
