@@ -348,11 +348,11 @@ Note: Mail Tester result may be 8.1/10. Don't worry, it's the highest score for 
 # you can set custom From address, From name and Return-Path in your website/web application. Let’s use WordPress as an example. You can add the following lines in your WordPress theme’s functions.php file to override the default From address, From name and return-path. Replace the red text as necessary.
 // Function to change From email address
 function wpb_sender_email( $original_email_address ) {
-    return 'notifications@linuxbabe.com';
+    return 'no-reply@example.com';
 }
 // Function to change sender name
 function wpb_sender_name( $original_email_from ) {
-    return 'LinuxBabe';
+    return 'Sender Name Here';
 }
 // Set return-path the same as From address
 function fix_my_email_return_path( $phpmailer ) {
