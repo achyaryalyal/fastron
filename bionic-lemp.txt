@@ -91,12 +91,14 @@ export HISTSIZE=10000
 
 # open_files limits
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.limits.conf > /etc/security/limits.conf
-nano /proc/sys/fs/file-max
+sysctl -w fs.file-max=500000
+sysctl -p
+nano /etc/sysctl.conf
 # add this line: fs.file-max=500000
-# apply the setting: sudo sysctl -p
+# apply the setting: sysctl -p
 
 # IP hardening
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-sec.conf > /etc/sysctl.d/50-ip-sec.conf && sudo sysctl --system
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-sec.conf > /etc/sysctl.d/50-ip-sec.conf && sysctl --system
 
 ##################################
 # Secure shared memory
