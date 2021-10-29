@@ -120,6 +120,8 @@ fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /
 nano /etc/fstab
 # paste it
 /swapfile swap swap defaults 0 0
+# check again
+swapon --show
 
 ##################################
 # Change swap size
