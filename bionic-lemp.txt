@@ -149,11 +149,11 @@ ramstat.sh
 ##################################
 # Add new user with root privilages
 ##################################
-adduser [NEW_USER] && gpasswd -a [NEW_USER] sudo && gpasswd -a [NEW_USER] www-data
+NEW_USER="......." && adduser ${NEW_USER} && usermod -aG sudo ${NEW_USER} && usermod -aG www-data ${NEW_USER} && usermod -aG admin ${NEW_USER} && groups ${NEW_USER} && id ${NEW_USER}
 # TYPE root password and just ENTER when fill user profile
-groupadd admin
-usermod -a -G admin [NEW_USER]
-dpkg-statoverride --update --add root admin 4750 /bin/su
+	# you may ignore it: if you want to delete the user from group, run this command: gpasswd -d linuxsec sudo
+	# you may ignore it: if you want to delete the user, run this command: sudo deluser [USERNAME]
+	# you may ignore it: if you want to delete the user and its home directory and mail spool, use the --remove-home flag: sudo deluser --remove-home [USERNAME]
 
 ##################################
 # Generate ssh public key
