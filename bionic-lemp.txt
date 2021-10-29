@@ -191,28 +191,23 @@ ufw logging low
 ufw default allow outgoing
 ufw default deny incoming
 
+# smtp
+	#ufw allow 25
+	#ufw allow 465
+	#ufw allow 587
+# pop3
+	#ufw allow 110
+	#ufw allow 995
+# imap
+	#ufw allow 143
+	#ufw allow 993
+
 # ssh
 CURRENT_SSH_PORT=$(grep "Port " /etc/ssh/sshd_config | awk -F " " '{print $2}') && echo $CURRENT_SSH_PORT && ufw allow $CURRENT_SSH_PORT
-
-# smtp
-ufw allow 25
-ufw allow 465
-ufw allow 587
-
-# pop3
-    #ufw allow 110
-    #ufw allow 995
-
-# imap
-    #ufw allow 143
-    #ufw allow 993
 
 # nginx
 ufw allow http
 ufw allow https
-
-#ntp
-ufw allow 123
 
 ufw show added
 ufw enable
