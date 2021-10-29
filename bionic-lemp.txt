@@ -106,8 +106,8 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/50-ip-se
 nano /etc/fstab
 # paste it:
 none /run/shm tmpfs defaults,ro 0 0
-# but if you want that memory space mounted in read/write mode, change that line with this:
-none /run/shm tmpfs rw,noexec,nosuid,nodev 0 0
+	# you may ignore it: if you want that memory space mounted in read/write mode, change that line with this:
+	none /run/shm tmpfs rw,noexec,nosuid,nodev 0 0
 
 ##################################
 # Add swap space equals to RAM size
