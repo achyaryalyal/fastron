@@ -170,9 +170,15 @@ nano /etc/ssh/sshd_config
 	LogLevel VERBOSE
 	LoginGraceTime 10
 	PermitRootLogin no
+	PasswordAuthentication yes
+	ChallengeResponseAuthentication no
+	UsePAM yes
 	X11Forwarding no
+	PrintMotd yes
 	ClientAliveInterval 120
 	ClientAliveCountMax 720
+	AcceptEnv LANG LC_*
+	Subsystem sftp  /usr/lib/openssh/sftp-server
 service ssh restart && echo "Please login ssh with new user created" && exit && exit
 
 ##################################
