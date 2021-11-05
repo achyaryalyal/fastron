@@ -398,10 +398,10 @@ sudo add-apt-repository ppa:nginx/stable && sudo apt update && sudo apt install 
 # Set up server blocks
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/stub_status.conf > /etc/nginx/conf.d/stub_status.conf
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/useragents.rules > /etc/nginx/useragents.rules
-nano /etc/nginx/nginx.conf
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/general.conf > /etc/nginx/general.conf
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/nginx.conf > /etc/nginx/nginx.conf
 # make sure this line appear in the http block of nginx.conf:
+nano /etc/nginx/nginx.conf
 	include /etc/nginx/useragents.rules;
 curl -sSL ........................ > /etc/nginx/sites-available/example.com
 # make sure these lines appear in the server block :
