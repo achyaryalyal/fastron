@@ -506,7 +506,7 @@ fail2ban-allstatus.sh
 ##################################
 # Install MariaDB 10.4.6
 ##################################
-sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.biznetgio.com/mariadb/repo/10.4/ubuntu bionic main' && sudo apt update && sudo apt install mariadb-server
+sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.biznetgio.com/mariadb/repo/10.4/ubuntu bionic main' && sudo apt update && sudo apt install -y mariadb-server
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/my.cnf > /etc/mysql/my.cnf
 mysql_secure_installation
         # Switch to unix_socket authentication [Y/n]? n
@@ -538,15 +538,16 @@ dpkg -l | grep mariadb
 # optimize and repair databases
 mysqlcheck -u root -p --auto-repair -o --optimize --all-databases
 
-# Mariabackup is part of MariaDB Server starting with MariaDB 10.1.23
-# install
-sudo apt install mariadb-backup
-# backup
-mariabackup --backup --target-dir=/tmp/mariadb/backup/ --user=backupuser --password=backup123
-# restore
-mariabackup --prepare --target-dir=/tmp/mariadb/backup/
-mariabackup --copy-back --target-dir=/tmp/mariadb/backup/
-chown -R mysql:mysql /var/lib/mysql/
+	# you may ignore it:
+	# Mariabackup is part of MariaDB Server starting with MariaDB 10.1.23
+	# install
+	sudo apt install mariadb-backup
+	# backup
+	mariabackup --backup --target-dir=/tmp/mariadb/backup/ --user=backupuser --password=backup123
+	# restore
+	mariabackup --prepare --target-dir=/tmp/mariadb/backup/
+	mariabackup --copy-back --target-dir=/tmp/mariadb/backup/
+	chown -R mysql:mysql /var/lib/mysql/
 
 ##################################
 # Install php7.4-fpm
