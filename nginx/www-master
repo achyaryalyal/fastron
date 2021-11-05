@@ -64,13 +64,11 @@ server {
     }
     location ^~ /.well-known/acme-challenge/ {
         default_type "text/plain";
-        root /var/www/master;
         try_files $uri /$1;
         allow all;
     }
     location ^~ /.well-known/security.txt {
         default_type "text/plain";
-        root /var/www/master;
         try_files $uri /$1;
         allow all;
     }
