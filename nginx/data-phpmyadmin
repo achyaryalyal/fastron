@@ -48,7 +48,6 @@ server {
     more_clear_headers 'X-XSS-Protection';
     location ^~ /.well-known/acme-challenge/ {
         default_type "text/plain";
-        root /var/www/phpmyadmin;
         try_files $uri /$1;
         allow all;
     }
