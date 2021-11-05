@@ -1,0 +1,61 @@
+# the zone that limit max 5 requests/sec from 1 single IP address and hold up to 10 MB of data
+limit_req_zone $binary_remote_addr zone=data:10m rate=5r/s;
+
+map $geoip2_data_country_code $allowed_country {
+    default yes;
+    RU no;
+    CN no;
+}
+
+server {
+    listen 80;
+    server_name data.opensimka.com;
+    if ($scheme = "http") { return 301 https://data.opensimka.com$request_uri; }
+}
+
+server {
+    # server with [data].
+    root /var/www/phpmyadmin;
+    index index.php;
+    charset utf-8;
+    server_name data.opensimka.com;
+    if ($badagent) { return 403; }
+    # force https
+    if ($scheme = "http") { return 301 https://$host$request_uri; }
+    listen 443 ssl http2;
+    ssl_certificate /etc/letsencrypt/live/data.opensimka.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/data.opensimka.com/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+    ssl_buffer_size 8k;
+    ssl_ciphers ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHAC$
+    ssl_dhparam /etc/nginx/dhparam.pem;
+    ssl_ecdh_curve secp384r1;
+    ssl_session_cache shared:SSL:30m;
+    ssl_session_tickets off;
+    ssl_session_timeout 60m;
+    # disallow access based on GeoIP2
+    if ($allowed_country = no) {
+        return 444;
+    }
+    location / {
+        # limit zone request with a burst of 5
+        limit_req zone=data burst=5 nodelay;
+        rewrite ^/(.*)/$ /$1 permanent;
+        try_files $uri $uri/ /index.php?$args;
+    }
+    include general.conf;
+    more_clear_headers 'X-XSS-Protection';
+    location ^~ /.well-known/acme-challenge/ {
+        default_type "text/plain";
+        root /var/www/phpmyadmin;
+        try_files $uri /$1;
+        allow all;
+    }
+    location ^~ /.well-known/assetlinks.json {
+        return 404;
+    }
+    location ^~ /.well-known/apple-app-site-association {
+        return 404;
+    }
+}
