@@ -533,7 +533,7 @@ $ sudo alsa force-reload
 Desktop Effects Not Working
 =================================
 # type "compositor" and open it
-# just re-enabled OpenGL 2.0 or change it to the newest version like 3.1
+# just re-enabled OpenGL 2.0 or change it to the newest version like 3.1 (recommended)
 
 =================================
 Recognize USB 3.0 Device
