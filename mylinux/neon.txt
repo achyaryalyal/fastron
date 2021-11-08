@@ -372,6 +372,46 @@ $ chmod +x /etc/keep-battery-updated.sh && chmod 0755 /etc/keep-battery-updated.
 $ reboot
 
 =================================
+Fix No Sound
+=================================
+# try reinstalling Alsa and Pulse audio:
+$ sudo apt install --reinstall alsa-base pulseaudio
+# and force reload Alsa again:
+$ sudo alsa force-reload
+# reboot and check if sound is back or not
+
+=================================
+Fix Desktop Effects Not Working or Display is Blank (BLACK SCREEN)
+=================================
+System Settings > Hardware > Display and Monitor > Compositor
+# set Scale method: Accurate
+# set Rendering backend: OpenGL 3.1
+# set Latency: Force lowest latency (may cause dropped frames)
+# apply
+
+=================================
+Fix Plain Text File Assocation
+=================================
+System Settings > Applications > File Assocations > text > plain > remove *.doc > Apply
+
+=================================
+Fix TeamViewer Not Ready
+=================================
+$ sudo teamviewer --daemon enable
+$ systemctl enable teamviewerd
+$ systemctl start teamviewerd
+
+=================================
+Fix Zoom No Sound From Speaker
+=================================
+Zoom Setting > Audio Setting > Increase Output Volume on Speaker
+
+=================================
+Fix Dolphin Explorer Error
+=================================
+$ dbus-launch dolphin
+
+=================================
 Fix Cursor Jumping Around / Shaking Random Direction
 =================================
 # method 1: Try changing the mouse battery :D
@@ -509,31 +549,11 @@ $ sudo mount -o loop file.iso /mnt/iso
 $ ls /mnt/iso/
 
 =================================
-Fix Plain Text File Assocation
-=================================
-System Settings > Applications > File Assocations > text > plain > remove *.doc > Apply
-
-=================================
 Check System, Machine and Audio Information
 =================================
 inxi -SMA
 # or full info:
 inxi -F
-
-=================================
-Fix No Sound
-=================================
-# try reinstalling Alsa and Pulse audio:
-$ sudo apt install --reinstall alsa-base pulseaudio
-# and force reload Alsa again:
-$ sudo alsa force-reload
-# reboot and check if sound is back or not
-
-=================================
-Desktop Effects Not Working
-=================================
-# type "compositor" and open it
-# just re-enabled OpenGL 2.0 or change it to the newest version like 3.1 (recommended)
 
 =================================
 Recognize USB 3.0 Device
@@ -543,31 +563,3 @@ $ sudo nano /etc/default/grub
 # save
 $ update-grub
 $ reboot
-
-=================================
-WhatsAppQT Ask to Update Google Chrome
-=================================
-# just refresh the app with F5 or reload/refresh shortkey
-
-=================================
-TeamViewer Not Ready
-=================================
-$ sudo teamviewer --daemon enable
-$ systemctl enable teamviewerd
-$ systemctl start teamviewerd
-
-=================================
-Zoom No Sound From Speaker
-=================================
-Zoom Setting > Audio Setting > Increase Output Volume on Speaker
-
-=================================
-Use MPV in SMplayer with Mini GUI
-=================================
-Open SMplayer > Options > Preferences > Interface > Gui: Mini GUI, Iconset: Breeze-dark
-For volume shorcut, press "9" to Decrease audio volume, press "0" to Increase audio volume
-
-=================================
-Repair Dolphin Explorer
-=================================
-$ dbus-launch dolphin
