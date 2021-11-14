@@ -569,6 +569,8 @@ nano /etc/ImageMagick-6/policy.xml
 <policy domain="coder" rights="read|write" pattern="PDF" />
 # restart web server and php
 service nginx restart && service php7.4-fpm restart && php -v
+# allowing script php run "landscape-sysinfo" with shell_exec
+mkdir -p /var/www/.landscape && chmod -R og+rwX /var/www/.landscape
 
 # if have many version of php & you want to switch the default version to other php version. Then, check default version
 update-alternatives --config php && php -v
