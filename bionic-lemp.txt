@@ -775,7 +775,7 @@ curl https://rclone.org/install.sh | sudo bash && rclone version
 rclone config
 # enter "n" for New Remote Storage
 # give it a name. ex: Gerobak
-# enter "13" for Google Drive
+# enter "16" for Google Drive
 # just leave blank the client_id & client_secret
 # enter "1" for Full Access
 # paste folder ID from folder URL to root_folder_id. ex: 3Hty4Fkfvb3294xxxxxxxxxxxxxxxxxxf
