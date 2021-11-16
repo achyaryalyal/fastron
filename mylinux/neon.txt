@@ -20,7 +20,7 @@ $ wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/docker/mari
 $ docker-compose up -d
 $ docker exec -it mariadb mariadb -u root -p
 $ docker-compose ps
-# open on the browser: http://localhost:8000
+# open phpMyAdmin on the browser: http://localhost:8000
 
 =====================================
 Install Sublime Text from Ubuntu PPA
