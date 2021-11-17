@@ -16,7 +16,7 @@ Install Docker with MariaDB & phpMyAdmin
 =====================================
 $ sudo apt-get remove docker docker-engine docker.io && sudo apt install docker.io docker-compose && sudo systemctl start docker && sudo systemctl enable docker && docker --version
 $ cd /opt && mkdir phpMyAdmin && cd phpMyAdmin
-$ wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/docker/mariadb-phpmyadmin/docker-compose.yml
+$ wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/docker/phpmyadmin/docker-compose.yml
 $ docker-compose up -d
 $ docker exec -it mariadb mariadb -u root -p
 $ docker-compose ps
