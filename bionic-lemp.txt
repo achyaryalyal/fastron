@@ -395,7 +395,7 @@ sudo apt install webp && cd /opt && git clone https://github.com/SoftCreatR/imei
 ##################################
 sudo add-apt-repository ppa:nginx/stable && sudo apt update && sudo apt install -y nginx && nginx -v
 
-# Set up server blocks
+# Set up server configuration
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/stub_status.conf > /etc/nginx/conf.d/stub_status.conf
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/useragents.rules > /etc/nginx/useragents.rules
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/general.conf > /etc/nginx/general.conf
@@ -407,6 +407,18 @@ curl -sSL ........................ > /etc/nginx/sites-available/example.com
 # make sure these lines appear in the server block :
 	if ($badagent) { return 403; }
 chown www-data:www-data /var/log/nginx/error.log
+
+# Set up custom error page
+mkdir /var/www/errorpage && cd /var/www/errorpage
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/errorpage/400.html
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/errorpage/401.html
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/errorpage/403.html
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/errorpage/404.html
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/errorpage/500.html
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/errorpage/502.html
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/errorpage/503.html
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/errorpage/504.html
+chown -R www-data:www-data /var/www/errorpage
 
 # Create a password file for Restricting Access with HTTP Basic Authentication
 sudo apt install apache2-utils
