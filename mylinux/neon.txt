@@ -5,6 +5,11 @@ ASCII Text Art Generator: https://fsymbols.com/generators/carty/
 █▀█ █▀▀ █▀▀ █▄▄ █ █▄▄ █▀█ ░█░ █ █▄█ █░▀█
 
 =====================================
+Typical way of updating the system in KDE Neon
+=====================================
+$ sudo pkcon refresh && sudo pkcon update -y
+
+=====================================
 Install Google Chrome from Ubuntu PPA
 =====================================
 $ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
