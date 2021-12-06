@@ -573,9 +573,9 @@ $ ls /mnt/iso/
 =================================
 Check System, Machine and Audio Information
 =================================
-inxi -SMA
+$ inxi -SMA
 # or full info:
-inxi -F
+$ inxi -F
 
 =================================
 Recognize USB 3.0 Device
@@ -585,3 +585,8 @@ $ sudo nano /etc/default/grub
 # save
 $ update-grub
 $ reboot
+
+=================================
+Empty Trash from Terminal
+=================================
+$ rm -rf ~/.local/share/Trash/*
