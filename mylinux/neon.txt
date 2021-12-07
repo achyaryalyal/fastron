@@ -318,7 +318,7 @@ System Settings > Workspace > Window Management > Kwin scripts > Get new scripts
 Visiblue Konsole Theme
 =================================
 Open Konsole > Setting > Configure Konsole > Profiles > Select any profile & Edit > Appearance > Get New > install "Visiblue" > Close
-Select "Visiblue" & Edit > Set tranparency 15% > OK
+Select "Visiblue" & Edit > Set tranparency 50% > OK
 
 =================================
 Konsole Bookmark
