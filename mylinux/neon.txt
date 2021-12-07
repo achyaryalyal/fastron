@@ -269,7 +269,8 @@ Global Theme: Monterey kde dark theme by vinceliuice https://www.pling.com/p/156
 Plasma Style: Monterey plasma dark theme by vinceliuice https://www.pling.com/p/1567587/
 Color Scheme: Monterey color scheme by vinceliuice https://www.pling.com/p/1567570
 Cursor: macOS Monterey by Kaiz https://www.pling.com/p/1648124/
-SSDM: Monterey sddm theme by vinceliuice https://www.pling.com/p/1567573/
+Icon: BigSur Originals Icons by abhishekzambare https://www.pling.com/p/1427387/
+SSDM & Screen Locking: Monterey sddm theme by vinceliuice https://www.pling.com/p/1567573/
 Wallpaper: Monterey wallpapers by vinceliuice https://www.pling.com/p/1567576/
 Latte: Monterey latte layout by vinceliuice https://www.pling.com/p/1567605/
 Kvantum: Monterey kvantum theme by vinceliuice https://www.pling.com/p/1567581
