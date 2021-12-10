@@ -613,16 +613,16 @@ sed -i "$ a \$cfg['TitleDefault'] = 'Data';" /var/www/phpmyadmin/config.inc.php
 nano +607 /var/www/phpmyadmin/libraries/classes/Response.php
 
 # paste key & token params checker di function login, after line : $header->disableWarnings();
-if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
+	if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
 
 nano +47 /var/www/phpmyadmin/templates/login/form.twig
-search label for="input_username" and find <input>, change type "text" to "password"
-and under input tag, add this style: <style>body{background:linear-gradient(to right,#170071,#754600) !important;}h1{display:none !important;}</style>
+	search label for="input_username" and find <input>, change type "text" to "password"
+	and under input tag, add this style: <style>body{background:linear-gradient(to right,#170071,#754600) !important;}h1{display:none !important;}</style>
 
 nano +2 /var/www/phpmyadmin/templates/navigation/main.twig
-<div id="pma_navigation" data-config-navigation-width="{{ config_navigation_width }}">
-to be
-<div id="pma_navigation" data-config-navigation-width="{{ config_navigation_width }}" style="background:none;">
+	<div id="pma_navigation" data-config-navigation-width="{{ config_navigation_width }}">
+	to be
+	<div id="pma_navigation" data-config-navigation-width="{{ config_navigation_width }}" style="background-image:none;">
 
 # create server block: data-phpmyadmin
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/data-phpmyadmin > /etc/nginx/sites-available/data-phpmyadmin && sudo ln -s /etc/nginx/sites-available/data-phpmyadmin /etc/nginx/sites-enabled/
