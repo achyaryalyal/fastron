@@ -597,6 +597,12 @@ $ update-grub
 $ reboot
 
 =================================
+Touchpad Gestures like MacOS/Windows
+=================================
+Touchégg: https://github.com/JoseExposito/touchegg
+ToucheggKDE: https://github.com/NayamAmarshe/ToucheggKDE
+
+=================================
 Empty Trash from Terminal
 =================================
 $ rm -rf ~/.local/share/Trash/*
