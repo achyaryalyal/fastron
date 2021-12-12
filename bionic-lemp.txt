@@ -798,7 +798,7 @@ curl https://rclone.org/install.sh | sudo bash && rclone version
 rclone config
 # enter "n" for New Remote Storage
 # give it a name. ex: Gerobak
-# enter "16" for Google Drive
+# enter "13" or sometimes "16" for Google Drive
 # just leave blank the client_id & client_secret
 # enter "1" for Full Access
 # paste folder ID from folder URL to root_folder_id. ex: 3Hty4Fkfvb3294xxxxxxxxxxxxxxxxxxf
@@ -823,9 +823,21 @@ rclone config
 # sync source to destination: rclone sync hello.txt Gerobak:Data
 # move source to destination: rclone move hello.txt Gerobak:Data
 # print total size & number of objects: rclone size Gerobak:Data
-# mount: rclone mount Gerobak:Data /path/to/local/mount
-# stop mounting, check PID: ps ax | grep "rclone mount"
-# and than: kill [PID]
+# mount: rclone --vfs-cache-mode writes mount Gerobak:Data /path/to/local/mount --allow-non-empty --allow-other &
+# unmount: fusermount -u /path/to/local/mount
+# this is the path you mounted the storage to, if you don't know the path, run: mount | grep rclone
+
+# Mount Drive On Boot
+nano /mount-google-drive.sh
+# paste it
+	#!/bin/bash
+	/usr/bin/rclone --vfs-cache-mode writes mount bbg-cabinet-mounting:cabinet-master /var/www/master/cabinet --allow-non-empty --allow-other &
+	/usr/bin/rclone --vfs-cache-mode writes mount bbg-cabinet-mounting:cabinet-development /var/www/development/cabinet --allow-non-empty --allow-other &
+chmod +x /mount-google-drive.sh
+crontab -e
+# add this line
+	# mount drive on boot
+	@reboot sh /mount-google-drive.sh
 
 ##################################
 # Install S3FS for mounting S3
