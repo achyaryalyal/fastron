@@ -699,250 +699,6 @@ monit status
 monit summary
 
 ##################################
-# Install Code Server - VS Code in the browser (Latest)
-##################################
-$ sudo curl -fsSL https://code-server.dev/install.sh | sh
-$ sudo systemctl enable --now code-server@$USER
-	#restart for ubuntu-20.04: service code-server@$USER restart
-	#restart for ubuntu-18.04: systemctl daemon-reload && service code-server@$USER restart
-	#uninstall: rm -rf ~/.local/share/code-server ~/.config/code-server && sudo apt remove code-server
-# prepare a subdomain like code.domain.com with no root just proxy to http://localhost:8080; and then enable https with letsencrypt
-$ sudo certbot --non-interactive --redirect --agree-tos --nginx -d [SUBDOMAIN].example.com -m [YOUR_EMAIL]
-# test nginx & reload nginx
-# if error happen, just restart code server
-# open subdomain on browser
-$ cat ~/.config/code-server/config.yaml
-# enter the password
-# setting:
-	editor > word wrap: ON
-	editor > minimap: OFF
-	editor > font size: 13
-	editor > font family: 'Ubuntu Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'
-	workbench > editor > show tabs: YES
-	workbench > editor > enable preview: NO
-# icon:
-	seti-icons
-# theme
-	Theme - Seti-Monokai (must install dependency: Monokai++)
-# modify favicon
-$ cd /usr/lib/code-server/src/browser/media && rm favicon.ico && wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/code-server/favicon.ico
-# modify login page
-$ cd /usr/lib/code-server/src/browser/media && wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/code-server/app-icon.png
-$ nano /usr/lib/code-server/src/browser/pages/login.html
-# add meta tag
-    <meta name="robots" content="noindex, nofollow">
-# change title to
-    <title>VS Code</title>
-# change html in <div class="header">....</div>
-          <center><img src="{{CS_STATIC_BASE}}/src/browser/media/app-icon.png"></center>
-          <!--<h1 class="main">Welcome to code-server</h1>-->
-          <!--<div class="sub">Please log in below. {{PASSWORD_MSG}}</div>-->
-# exit and save
-# install extension manually from terminal: code-server --install-extension ms-vscode.test-adapter-converter-0.1.2.vsix
-# you can download [FILE].vsix from https://marketplace.visualstudio.com/
-
-##################################
-# Install Composer (Latest)
-##################################
-$ sudo apt update && sudo apt install php-cli unzip
-$ cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php
-$ HASH=`curl -sS https://composer.github.io/installer.sig` && echo $HASH
-# Output
-# e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a
-$ php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
-# Installer verified
-$ sudo php composer-setup.php --install-dir=/usr/bin --filename=composer
-# To test your installation, run:
-$ composer
-
-##################################
-# Create Laravel Project using Composer
-##################################
-# prepare a domain or subdomain for project and then enable https with letsencrypt
-$ cd /var/www
-$ composer create-project --prefer-dist laravel/laravel [PROJECT_NAME]
-# continue as root/super user [yes]? yes
-$ sudo chmod -R 755 /var/www/[PROJECT_NAME]
-$ sudo chown -R www-data:www-data /var/www/[PROJECT_NAME]
-$ cd [PROJECT_NAME]
-$ composer install
-# continue as root/super user [yes]? yes
-$ php artisan
-
-##################################
-# Configure Laravel Project
-##################################
-$ nano .env
-# In case you are installing Laravel in a development environment, you can leave the APP_DEBUG option enabled, as this will give you important debug information while testing the application from a browser. The APP_ENV variable should be set to "development" in this case.
-# In case you are installing Laravel in a production environment, you should disable the APP_DEBUG option, because it shows to the final user sensitive information about your application. The APP_ENV in this case should be set to "production"
-	APP_NAME: Application name, used for notifications and messages.
-	APP_ENV: Current application environment.
-	APP_KEY: Used for generating salts and hashes, this unique key is automatically created when installing Laravel via Composer, so you don’t need to change it.
-	APP_DEBUG: Whether or not to show debug information at client side.
-	APP_URL: Base URL for the application, used for generating application links.
-	DB_DATABASE: Database name.
-	DB_USERNAME: Username to connect to the database.
-	DB_PASSWORD: Password to connect to the database.
-# save and exit
-# edit nginx server block and point root to public directory of your project
-$ nano /etc/nginx/sites-available/[YOUR_SERVER_BLOCK]
-	root /var/www/[PROJECT_NAME]/public;
-# save and exit
-# test nginx & reload nginx
-# acccess your project domain or subdomain on the browser
-
-##################################
-# Install Rclone
-##################################
-curl https://rclone.org/install.sh | sudo bash && rclone version
-rclone config
-# enter "n" for New Remote Storage
-# give it a name. ex: Gerobak
-# enter "13" or sometimes "16" for Google Drive
-# just leave blank the client_id & client_secret
-# enter "1" for Full Access
-# paste folder ID from folder URL to root_folder_id. ex: 3Hty4Fkfvb3294xxxxxxxxxxxxxxxxxxf
-# just leave blank the service_account_file
-# enter "n" for Advanced Config
-# enter "n" for Use Auto Config
-# go to the following link, copy code, paste to "Enter verification code"
-# enter "n" for Team Drive
-# enter "y" for Yes This is OK
-# enter "q" for Quit Config
-# list file: rclone ls Gerobak:
-# list dir: rclone lsd Gerobak:
-# list file & dir: rclone lsf Gerobak:
-# storage info: rclone about Gerobak:
-# make dir: rclone mkdir Gerobak:Data
-# copy file to destination: rclone copy hello.txt Gerobak:Data
-# copy file to local: rclone copy Gerobak:Data/hello.txt /path/to/local/
-# copy folder to local: rclone copy Gerobak:Data /path/to/local/
-# delete all file, not dir: rclone delete Gerobak:Data
-# delete empty dir: rclone rmdir Gerobak:Data
-# delete file & dir: rclone purge Gerobak:Data
-# sync source to destination: rclone sync hello.txt Gerobak:Data
-# move source to destination: rclone move hello.txt Gerobak:Data
-# print total size & number of objects: rclone size Gerobak:Data
-# mount: rclone --vfs-cache-mode writes mount Gerobak:Data /path/to/local/mount --allow-non-empty --allow-other &
-# unmount: fusermount -u /path/to/local/mount
-# this is the path you mounted the storage to, if you don't know the path, run: mount | grep rclone
-
-# Mount Drive On Boot
-nano /mount-google-drive.sh
-# paste it
-	#!/bin/bash
-	/usr/bin/rclone --vfs-cache-mode writes mount bbg-cabinet-mounting:cabinet-master /var/www/master/cabinet --allow-non-empty --allow-other &
-	/usr/bin/rclone --vfs-cache-mode writes mount bbg-cabinet-mounting:cabinet-development /var/www/development/cabinet --allow-non-empty --allow-other &
-chmod +x /mount-google-drive.sh
-crontab -e
-# add this line
-	# mount drive on boot
-	@reboot sh /mount-google-drive.sh
-
-##################################
-# Install S3FS for mounting S3
-##################################
-sudo apt update
-sudo apt install -y fuse automake autotools-dev g++ git libcurl4-openssl-dev libfuse-dev libssl-dev libxml2-dev make pkg-config
-cd /opt && git clone https://github.com/s3fs-fuse/s3fs-fuse.git && cd s3fs-fuse && ./autogen.sh && ./configure && make && sudo make install
-
-# create "bucket" on your cloud storage account with CrossFTP, more info at https://kb.cloudkilat.com/informasi-umum/cara-akses-kilat-storage-baru-menggunakan-crossftp
-
-# create "directory" on your VM
-mkdir /tmp/cache /path/to/mountpoint
-chmod 775 /tmp/cache /path/to/mountpoint
-chown www-data:www-data /path/to/mountpoint
-
-# create credential file
-echo ACCESS_KEY:SECRET_KEY > /etc/.passwd-s3fs
-chmod 600 /etc/.passwd-s3fs
-
-# mount cloud storage to cloud VM
-s3fs [BUCKET_NAME] /path/to/mountpoint -o passwd_file=/etc/.passwd-s3fs -o allow_other -o nonempty -o ensure_diskfree=30000 -o use_path_request_style -o url=http://s3-id-jkt-1.kilatstorage.id/ -o use_cache=/tmp/cache
-
-# NOTE 1:
-# always use "http" not https because https just give memory leaks of RAM.
-# The publicly facing files are still accessible over https, although we we are not storing anything very sensitive anyway.
-# This does mean that data is being transmitted from one amazon server to another unencrypted, so take this into consideration when deciding.
-# Now s3fs uses only a little of memory, even while actively moving data to our s3 bucket.
-
-# NOTE 2:
-# ensure_diskfree=30000 grants that cache folder (i.e. /tmp/cache) will increase in size but it will be always ensured at least 10GB of disk free.
-
-# check cloud storage has mounted to cloud VM
-df -h
-
-# test write/upload a file, then check with DragonDisk
-echo HELLO > s3fs.txt
-
-# mount automatically on reboot
-nano /etc/fstab
-
-# please read NOTE 1 & 2
-# this command is for paste into fstab, if you want to use this command in terminal just try the step about "mount cloud storage to cloud VM" with -o parameter
-s3fs#[BUCKET_NAME] /path/to/mountpoint fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,nonempty,ensure_diskfree=30000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
-# mine:
-s3fs#bbg-master-cabinet /var/www/master/cabinet fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,nonempty,ensure_diskfree=30000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
-s3fs#bbg-development-cabinet /var/www/development/cabinet fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,nonempty,ensure_diskfree=30000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
-
-# if you want to test fstab mounting result:
-mount -a && df -h
-
-# anyway, if you want to unmount:
-umount -i /path/to/mountpoint
-
-##################################
-# Install S5CMD (a very fast S3 and local filesystem execution tool) for showing S3 disk space summary
-##################################
-sudo -i
-
-# build s5cmd from source after have Go 1.13+ installed
-snap install go --classic && go version && go get -u github.com/peak/s5cmd && cp /root/go/bin/s5cmd /usr/bin/.
-
-# create credentials
-cd /root && mkdir -p .aws && cd .aws && nano credentials
-  [default]
-  aws_access_key_id = XXXXXXX
-  aws_secret_access_key = YYYYYYYY
-
-# make configuration for www-data, so you can run s5cmd with php
-cp -a /root/.aws /var/www/ && chown -R www-data:www-data /var/www/.aws
-
-# count objects and determine total size
-s5cmd --endpoint-url [S3_ENDPOINT] du --humanize s3://[S3_BUCKET_NAME]/*
-
-# list objects in bucket
-s5cmd --endpoint-url [S3_ENDPOINT] ls s3://[S3_BUCKET_NAME]
-
-# more documentation about s5cmd at https://github.com/peak/s5cmd/blob/master/README.md
-
-##################################
-# Install Clamav (GAK PERLU)
-##################################
-sudo apt install clamav clamav-daemon clamav-freshclam && clamdscan -V
-sudo /etc/init.d/clamav-freshclam stop
-sudo freshclam
-sudo /etc/init.d/clamav-freshclam start
-
-# enable notify and schedule the scan
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/clamscan_daily.sh > /clamscan_daily.sh
-chmod +x /clamscan_daily.sh && chmod 0755 /clamscan_daily.sh
-
-# add script to crontab
-	# Let’s create a hard link as below:
-	ln /clamscan_daily.sh /etc/cron.daily/clamscan_daily
-	# Check to make sure that the hard link was created:
-	# ls -li /etc/cron.daily/clamscan_daily
-
-# if you get the following error: LibClamAV Error: cli_loaddb(): No supported database files found in /var/lib/clamav/
-# just update the database manually:
-freshclam -v
-
-# if you get the following error: Clamd was NOT notified
-# just restart the daemon
-service clamav-daemon restart
-
-##################################
 # Install Atheos 5.0.0 Almoner
 ##################################
 cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/master.zip && unzip master.zip && mv Atheos-master atheos && rm -rf master.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano +12 atheos/index.php
@@ -1026,6 +782,248 @@ nano +7 atheos/components/user/login.php
 }
 
 ##################################
+# Install Rclone
+##################################
+curl https://rclone.org/install.sh | sudo bash && rclone version
+rclone config
+# enter "n" for New Remote Storage
+# give it a name. ex: Gerobak
+# enter "13" or sometimes "16" for Google Drive
+# just leave blank the client_id & client_secret
+# enter "1" for Full Access
+# paste folder ID from folder URL to root_folder_id. ex: 3Hty4Fkfvb3294xxxxxxxxxxxxxxxxxxf
+# just leave blank the service_account_file
+# enter "n" for Advanced Config
+# enter "n" for Use Auto Config
+# go to the following link, copy code, paste to "Enter verification code"
+# enter "n" for Team Drive
+# enter "y" for Yes This is OK
+# enter "q" for Quit Config
+# list file: rclone ls Gerobak:
+# list dir: rclone lsd Gerobak:
+# list file & dir: rclone lsf Gerobak:
+# storage info: rclone about Gerobak:
+# make dir: rclone mkdir Gerobak:Data
+# copy file to destination: rclone copy hello.txt Gerobak:Data
+# copy file to local: rclone copy Gerobak:Data/hello.txt /path/to/local/
+# copy folder to local: rclone copy Gerobak:Data /path/to/local/
+# delete all file, not dir: rclone delete Gerobak:Data
+# delete empty dir: rclone rmdir Gerobak:Data
+# delete file & dir: rclone purge Gerobak:Data
+# sync source to destination: rclone sync hello.txt Gerobak:Data
+# move source to destination: rclone move hello.txt Gerobak:Data
+# print total size & number of objects: rclone size Gerobak:Data
+# mount: rclone --vfs-cache-mode writes mount Gerobak:Data /path/to/local/mount --allow-non-empty --allow-other &
+# unmount: fusermount -u /path/to/local/mount
+# this is the path you mounted the storage to, if you don't know the path, run: mount | grep rclone
+
+# Mount Drive On Boot
+nano /mount-google-drive.sh
+# paste it
+	#!/bin/bash
+	/usr/bin/rclone --vfs-cache-mode writes mount bbg-cabinet-mounting:cabinet-master /var/www/master/cabinet --allow-non-empty --allow-other &
+	/usr/bin/rclone --vfs-cache-mode writes mount bbg-cabinet-mounting:cabinet-development /var/www/development/cabinet --allow-non-empty --allow-other &
+chmod +x /mount-google-drive.sh
+crontab -e
+# see the cronjob at the bottom of this page
+
+##################################
+# Install Code Server - VS Code in the browser (GAK PERLU)
+##################################
+$ sudo curl -fsSL https://code-server.dev/install.sh | sh
+$ sudo systemctl enable --now code-server@$USER
+	#restart for ubuntu-20.04: service code-server@$USER restart
+	#restart for ubuntu-18.04: systemctl daemon-reload && service code-server@$USER restart
+	#uninstall: rm -rf ~/.local/share/code-server ~/.config/code-server && sudo apt remove code-server
+# prepare a subdomain like code.domain.com with no root just proxy to http://localhost:8080; and then enable https with letsencrypt
+$ sudo certbot --non-interactive --redirect --agree-tos --nginx -d [SUBDOMAIN].example.com -m [YOUR_EMAIL]
+# test nginx & reload nginx
+# if error happen, just restart code server
+# open subdomain on browser
+$ cat ~/.config/code-server/config.yaml
+# enter the password
+# setting:
+	editor > word wrap: ON
+	editor > minimap: OFF
+	editor > font size: 13
+	editor > font family: 'Ubuntu Mono', 'Droid Sans Mono', 'monospace', monospace, 'Droid Sans Fallback'
+	workbench > editor > show tabs: YES
+	workbench > editor > enable preview: NO
+# icon:
+	seti-icons
+# theme
+	Theme - Seti-Monokai (must install dependency: Monokai++)
+# modify favicon
+$ cd /usr/lib/code-server/src/browser/media && rm favicon.ico && wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/code-server/favicon.ico
+# modify login page
+$ cd /usr/lib/code-server/src/browser/media && wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/code-server/app-icon.png
+$ nano /usr/lib/code-server/src/browser/pages/login.html
+# add meta tag
+    <meta name="robots" content="noindex, nofollow">
+# change title to
+    <title>VS Code</title>
+# change html in <div class="header">....</div>
+          <center><img src="{{CS_STATIC_BASE}}/src/browser/media/app-icon.png"></center>
+          <!--<h1 class="main">Welcome to code-server</h1>-->
+          <!--<div class="sub">Please log in below. {{PASSWORD_MSG}}</div>-->
+# exit and save
+# install extension manually from terminal: code-server --install-extension ms-vscode.test-adapter-converter-0.1.2.vsix
+# you can download [FILE].vsix from https://marketplace.visualstudio.com/
+
+##################################
+# Install Composer (GAK PERLU)
+##################################
+$ sudo apt update && sudo apt install php-cli unzip
+$ cd ~ && curl -sS https://getcomposer.org/installer -o composer-setup.php
+$ HASH=`curl -sS https://composer.github.io/installer.sig` && echo $HASH
+# Output
+# e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a
+$ php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+# Installer verified
+$ sudo php composer-setup.php --install-dir=/usr/bin --filename=composer
+# To test your installation, run:
+$ composer
+
+##################################
+# Create Laravel Project using Composer (GAK PERLU)
+##################################
+# prepare a domain or subdomain for project and then enable https with letsencrypt
+$ cd /var/www
+$ composer create-project --prefer-dist laravel/laravel [PROJECT_NAME]
+# continue as root/super user [yes]? yes
+$ sudo chmod -R 755 /var/www/[PROJECT_NAME]
+$ sudo chown -R www-data:www-data /var/www/[PROJECT_NAME]
+$ cd [PROJECT_NAME]
+$ composer install
+# continue as root/super user [yes]? yes
+$ php artisan
+
+##################################
+# Configure Laravel Project (GAK PERLU)
+##################################
+$ nano .env
+# In case you are installing Laravel in a development environment, you can leave the APP_DEBUG option enabled, as this will give you important debug information while testing the application from a browser. The APP_ENV variable should be set to "development" in this case.
+# In case you are installing Laravel in a production environment, you should disable the APP_DEBUG option, because it shows to the final user sensitive information about your application. The APP_ENV in this case should be set to "production"
+	APP_NAME: Application name, used for notifications and messages.
+	APP_ENV: Current application environment.
+	APP_KEY: Used for generating salts and hashes, this unique key is automatically created when installing Laravel via Composer, so you don’t need to change it.
+	APP_DEBUG: Whether or not to show debug information at client side.
+	APP_URL: Base URL for the application, used for generating application links.
+	DB_DATABASE: Database name.
+	DB_USERNAME: Username to connect to the database.
+	DB_PASSWORD: Password to connect to the database.
+# save and exit
+# edit nginx server block and point root to public directory of your project
+$ nano /etc/nginx/sites-available/[YOUR_SERVER_BLOCK]
+	root /var/www/[PROJECT_NAME]/public;
+# save and exit
+# test nginx & reload nginx
+# acccess your project domain or subdomain on the browser
+
+##################################
+# Install S3FS for mounting S3 (GAK PERLU)
+##################################
+sudo apt update
+sudo apt install -y fuse automake autotools-dev g++ git libcurl4-openssl-dev libfuse-dev libssl-dev libxml2-dev make pkg-config
+cd /opt && git clone https://github.com/s3fs-fuse/s3fs-fuse.git && cd s3fs-fuse && ./autogen.sh && ./configure && make && sudo make install
+
+# create "bucket" on your cloud storage account with CrossFTP, more info at https://kb.cloudkilat.com/informasi-umum/cara-akses-kilat-storage-baru-menggunakan-crossftp
+
+# create "directory" on your VM
+mkdir /tmp/cache /path/to/mountpoint
+chmod 775 /tmp/cache /path/to/mountpoint
+chown www-data:www-data /path/to/mountpoint
+
+# create credential file
+echo ACCESS_KEY:SECRET_KEY > /etc/.passwd-s3fs
+chmod 600 /etc/.passwd-s3fs
+
+# mount cloud storage to cloud VM
+s3fs [BUCKET_NAME] /path/to/mountpoint -o passwd_file=/etc/.passwd-s3fs -o allow_other -o nonempty -o ensure_diskfree=30000 -o use_path_request_style -o url=http://s3-id-jkt-1.kilatstorage.id/ -o use_cache=/tmp/cache
+
+# NOTE 1:
+# always use "http" not https because https just give memory leaks of RAM.
+# The publicly facing files are still accessible over https, although we we are not storing anything very sensitive anyway.
+# This does mean that data is being transmitted from one amazon server to another unencrypted, so take this into consideration when deciding.
+# Now s3fs uses only a little of memory, even while actively moving data to our s3 bucket.
+
+# NOTE 2:
+# ensure_diskfree=30000 grants that cache folder (i.e. /tmp/cache) will increase in size but it will be always ensured at least 10GB of disk free.
+
+# check cloud storage has mounted to cloud VM
+df -h
+
+# test write/upload a file, then check with DragonDisk
+echo HELLO > s3fs.txt
+
+# mount automatically on reboot
+nano /etc/fstab
+
+# please read NOTE 1 & 2
+# this command is for paste into fstab, if you want to use this command in terminal just try the step about "mount cloud storage to cloud VM" with -o parameter
+s3fs#[BUCKET_NAME] /path/to/mountpoint fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,nonempty,ensure_diskfree=30000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
+# mine:
+s3fs#bbg-master-cabinet /var/www/master/cabinet fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,nonempty,ensure_diskfree=30000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
+s3fs#bbg-development-cabinet /var/www/development/cabinet fuse _netdev,passwd_file=/etc/.passwd-s3fs,allow_other,nonempty,ensure_diskfree=30000,use_path_request_style,url=http://s3-id-jkt-1.kilatstorage.id/,use_cache=/tmp/cache 0 0
+
+# if you want to test fstab mounting result:
+mount -a && df -h
+
+# anyway, if you want to unmount:
+umount -i /path/to/mountpoint
+
+##################################
+# Install S5CMD (a very fast S3 and local filesystem execution tool) for showing S3 disk space summary (GAK PERLU)
+##################################
+sudo -i
+
+# build s5cmd from source after have Go 1.13+ installed
+snap install go --classic && go version && go get -u github.com/peak/s5cmd && cp /root/go/bin/s5cmd /usr/bin/.
+
+# create credentials
+cd /root && mkdir -p .aws && cd .aws && nano credentials
+  [default]
+  aws_access_key_id = XXXXXXX
+  aws_secret_access_key = YYYYYYYY
+
+# make configuration for www-data, so you can run s5cmd with php
+cp -a /root/.aws /var/www/ && chown -R www-data:www-data /var/www/.aws
+
+# count objects and determine total size
+s5cmd --endpoint-url [S3_ENDPOINT] du --humanize s3://[S3_BUCKET_NAME]/*
+
+# list objects in bucket
+s5cmd --endpoint-url [S3_ENDPOINT] ls s3://[S3_BUCKET_NAME]
+
+# more documentation about s5cmd at https://github.com/peak/s5cmd/blob/master/README.md
+
+##################################
+# Install Clamav (GAK PERLU)
+##################################
+sudo apt install clamav clamav-daemon clamav-freshclam && clamdscan -V
+sudo /etc/init.d/clamav-freshclam stop
+sudo freshclam
+sudo /etc/init.d/clamav-freshclam start
+
+# enable notify and schedule the scan
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/clamscan_daily.sh > /clamscan_daily.sh
+chmod +x /clamscan_daily.sh && chmod 0755 /clamscan_daily.sh
+
+# add script to crontab
+	# Let’s create a hard link as below:
+	ln /clamscan_daily.sh /etc/cron.daily/clamscan_daily
+	# Check to make sure that the hard link was created:
+	# ls -li /etc/cron.daily/clamscan_daily
+
+# if you get the following error: LibClamAV Error: cli_loaddb(): No supported database files found in /var/lib/clamav/
+# just update the database manually:
+freshclam -v
+
+# if you get the following error: Clamd was NOT notified
+# just restart the daemon
+service clamav-daemon restart
+
+##################################
 # TIPS AND TRICK
 ##################################
 
@@ -1100,6 +1098,9 @@ service fail2ban restart
 
 # reboot server every day at 04:00 AM
 00  4  *  *  * /sbin/shutdown -r now
+
+# mount drive on boot
+@reboot sh /mount-google-drive.sh
 
 ######### Export Database #########
 date=$(date +%Y-%m-%d_%H-%M) && mysqldump -h localhost -u root -p [DB_NAME] > /path/to/destination/[DB_NAME]_DB_${date}.sql
