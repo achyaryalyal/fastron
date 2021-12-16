@@ -272,7 +272,8 @@ https://www.youtube.com/watch?v=DX_gQTQLUZc
 		● Plasma Style: Monterey plasma dark theme by vinceliuice -> https://www.pling.com/p/1567587/
 		● Colors: Monterey color scheme by vinceliuice -> https://www.pling.com/p/1567570
 		● Windows Decorations: Monterey aurorae theme by vinceliuice -> https://www.pling.com/p/1567564
-		● Fonts: Noto Sans & Hack
+		● Fonts: SF Pro Display by Apple Inc. -> https://www.cufonfonts.com/font/sf-pro-display
+		● Fonts: SF Mono by Apple Inc. -> https://www.cufonfonts.com/font/sf-mono			
 		● Icons: BigSur Originals Icons by abhishekzambare -> https://www.pling.com/p/1427387/
 		● Cursors: macOS Monterey by Kaiz -> https://www.pling.com/p/1648124/
 		● Splash Screen: Monterey-dark
