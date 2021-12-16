@@ -264,17 +264,27 @@ $ reboot
 How to Make KDE Plasma Look Like macOS Big Sur
 =======================================
 https://www.youtube.com/watch?v=DX_gQTQLUZc
-CUSTOM to be macOS Monterey:
-Global Theme: Monterey kde dark theme by vinceliuice https://www.pling.com/p/1567595/
-Plasma Style: Monterey plasma dark theme by vinceliuice https://www.pling.com/p/1567587/
-Color Scheme: Monterey color scheme by vinceliuice https://www.pling.com/p/1567570
-Cursor: macOS Monterey by Kaiz https://www.pling.com/p/1648124/
-Icon: BigSur Originals Icons by abhishekzambare https://www.pling.com/p/1427387/
-SSDM & Screen Locking: Monterey sddm theme by vinceliuice https://www.pling.com/p/1567573/
-Wallpaper: Monterey wallpapers by vinceliuice https://www.pling.com/p/1567576/
-Latte: Monterey latte layout by vinceliuice https://www.pling.com/p/1567605/
-Kvantum: Monterey kvantum theme by vinceliuice https://www.pling.com/p/1567581
-
+# CUSTOM TO BE MACOS MONTEREY:
+# Appearance
+	● Global Theme: Monterey kde dark theme by vinceliuice -> https://www.pling.com/p/1567595/
+		● Application Style: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
+			● GTK Theme: Default
+		● Plasma Style: Monterey plasma dark theme by vinceliuice -> https://www.pling.com/p/1567587/
+		● Colors: Monterey color scheme by vinceliuice -> https://www.pling.com/p/1567570
+		● Windows Decorations: Monterey aurorae theme by vinceliuice -> https://www.pling.com/p/1567564
+		● Fonts: Noto Sans & Hack
+		● Icons: BigSur Originals Icons by abhishekzambare -> https://www.pling.com/p/1427387/
+		● Cursors: macOS Monterey by Kaiz -> https://www.pling.com/p/1648124/
+		● Splash Screen: Monterey-dark
+# Startup and Shutdown
+	● Login Screen (SSDM): Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
+	● Autostart Applications: Lattre
+	● Autostart Login Scripts: keep-battery-updated.sh
+# Workspace Behavior
+	● Screen Locking > Appearance: Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
+● Wallpaper: Monterey wallpapers by vinceliuice -> https://www.pling.com/p/1567576/
+● Latte: Monterey latte layout by vinceliuice -> https://www.pling.com/p/1567605/
+	
 =======================================
 Install Kvantum Engine For KDE On Ubuntu/KDE Neon
 =======================================
@@ -336,26 +346,6 @@ Show Battery Percentage
 =================================
 Right click on battery icon > Configure battery and brightness
 Check "Show percentage" > OK
-
-=================================
-Final Look
-=================================
-# Appearance
-	● Global Theme: WhiteSur-dark (Get New Global Theme)
-		● Application Style: kvantum-dark with WhiteSur-dark theme (Download WhiteSur-dark.tar.xz From https://www.pling.com/p/1398841)
-			● GTK Theme: WhiteSur-dark (Download WhiteSur-dark.tar.xz From https://www.pling.com/p/1398841)
-		● Plasma Style: WhiteSur-dark (Get New Plasma Styles)
-		● Colors: WhiteSurDark
-		● Windows Decorations: WhiteSur-dark
-		● Fonts: Noto Sans & Hack
-		● Icons: WhiteSur-dark
-		● Cursors: WhiteSur Cursors
-		● Splash Screen: WhiteSur-dark
-# Startup and Shutdown
-	● Login Screen (SSDM): WhiteSur
-	● Autostart: applications (Cairo Dock), login scripts (keep-battery-updated.sh)
-# Workspace Behavior
-	● Screen Locking > Appearance: WhiteSur
 
 =================================
 Install Winamp Skin to Audacious
