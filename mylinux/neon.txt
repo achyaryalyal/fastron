@@ -178,16 +178,23 @@ $ pip3 --version
 Add swap space equals to RAM size
 =======================================
 # check has swap enabled, if output is empty, it means that your system does not have swap space enabled
-swapon --show
+$ swapon --show
 # creating a file which will be used for swap
-fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
+$ fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
 # make the change permanent
-nano /etc/fstab
+$ nano /etc/fstab
 # paste it
 /swapfile swap swap defaults 0 0
 
 =======================================
-Install Latest Kernel
+Install Mainline (a graphical tool to install the latest mainline Kernel)
+=======================================
+$ sudo add-apt-repository ppa:cappelikan/ppa
+$ sudo apt update
+$ sudo apt install mainline
+
+=======================================
+Install Latest Kernel (manually)
 =======================================
 $ uname -r
 $ apt search linux-image | grep edge
@@ -202,7 +209,7 @@ $ sudo apt update && sudo apt full-upgrade && flatpak update && snap refresh
 $ v="$(uname -r | awk -F '-virtual' '{ print $1}')" && echo "$v"
 
 =======================================
-Change Any Kernel
+Change Any Kernel (manually)
 =======================================
 $ uname -r
 $ grep -A100 submenu  /boot/grub/grub.cfg |grep menuentry
@@ -219,7 +226,7 @@ $ sudo update-grub
 $ sudo reboot
 
 =======================================
-Remove All Unused Old Kernels
+Remove All Unused Old Kernels (manually)
 =======================================
 # list all installed Linux kernel
 $ dpkg --list | grep -i -E --color 'linux-image|linux-kernel' | grep '^ii'
