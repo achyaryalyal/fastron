@@ -190,7 +190,7 @@ $ nano /etc/fstab
 Install Latest Kernel with Hardware Enablement Stack (HWE)
 =======================================
 $ uname -r
-$ apt search linux-image | grep edge
+$ apt search linux-generic | grep edge
 $ ver="$(lsb_release -sr)" && sudo apt install linux-generic-hwe-${ver}-edge
 #that's it. reboot.
 $ uname -r
