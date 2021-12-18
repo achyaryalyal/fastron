@@ -1087,9 +1087,6 @@ service fail2ban restart
 # update GeoIP databases every sunday at 02:00 AM
 00  2  *  *  0 /usr/bin/geoipupdate -v
 
-# remove s3fs cache every sunday at 02:30 AM
-30  2  *  *  0 find /tmp/cache/* -exec rm -f {} \;
-
 # re-ownership php session directory every day at 03:00 AM
 00  3  *  *  * chown -R www-data:www-data /var/lib/php/sessions
  
