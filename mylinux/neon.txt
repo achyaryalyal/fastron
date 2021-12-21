@@ -95,6 +95,11 @@ Spotify
 Zoom
 Nixwriter
 
+=====================================
+Install Anbox
+=====================================
+https://www.how2shout.com/linux/how-to-install-anbox-on-ubuntu-20-04-lts-focal-fossa/
+
 ======================================
 Install Apps From APPIMAGE
 ======================================
