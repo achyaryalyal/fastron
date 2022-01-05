@@ -12,10 +12,11 @@ $ sudo pkcon refresh && sudo pkcon update -y
 =====================================
 Install ZSH & OhMyZsh
 =====================================
-$ sudo apt install -y zsh wget && zsh --version && echo $SHELL
+$ sudo apt install -y zsh && zsh --version && echo $SHELL
 # make your default shell
 $ chsh -s $(which zsh)
 $ reboot
+# open Konsole and choose option 2 for the recommended default configuration
 # install OhMyZsh
 $ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 # replace the existing configuration with the configuration from OhMyZsh with the command
