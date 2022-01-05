@@ -7,7 +7,19 @@ ASCII Text Art Generator: https://fsymbols.com/generators/carty/
 =====================================
 Typical way of updating the system in KDE Neon
 =====================================
-$ sudo pkcon refresh && sudo pkcon update -y
+$ sudo pkcon refresh && sudo pkcon update -y && zsh --version
+$ echo $SHELL
+# make your default shell
+$ chsh -s $(which zsh)
+# install OhMyZsh
+$ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+# replace the existing configuration with the configuration from OhMyZsh with the command
+$ cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc
+$ source ~/.zshrc
+# change theme
+$ nano ~/.zshrc
+# change value of ZSH_THEME and activate it with the command
+$ source ~/.zshrc
 
 =====================================
 Install Google Chrome from Ubuntu PPA
