@@ -270,7 +270,7 @@ https://www.youtube.com/watch?v=DX_gQTQLUZc
 # Appearance
 	● Global Theme: Monterey kde dark theme by vinceliuice -> https://www.pling.com/p/1567595/
 		● Application Style: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
-			● GTK Theme: Default
+			● GTK Theme: WhiteSur Gtk Theme (WhiteSur-dark.tar.xz) by vinceliuice -> https://www.pling.com/p/1403328
 		● Plasma Style: Monterey plasma dark theme by vinceliuice -> https://www.pling.com/p/1567587/
 		● Colors: Monterey color scheme by vinceliuice -> https://www.pling.com/p/1567570
 		● Windows Decorations: Monterey aurorae theme by vinceliuice -> https://www.pling.com/p/1567564
