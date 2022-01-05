@@ -276,12 +276,12 @@ https://www.youtube.com/watch?v=DX_gQTQLUZc
 		● Windows Decorations: Monterey aurorae theme by vinceliuice -> https://www.pling.com/p/1567564
 		● Fonts: SF Pro Display by Apple Inc. -> https://www.cufonfonts.com/font/sf-pro-display
 		● Fonts: SF Mono by Apple Inc. -> https://www.cufonfonts.com/font/sf-mono			
-		● Icons: BigSur Originals Icons by abhishekzambare -> https://www.pling.com/p/1427387/
-		● Cursors: macOS Monterey by Kaiz -> https://www.pling.com/p/1648124/
+		● Icons: WhiteSur-dark
+		● Cursors: WhiteSur Cursors
 		● Splash Screen: Monterey-dark
 # Startup and Shutdown
 	● Login Screen (SSDM): Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
-	● Autostart Applications: Lattre
+	● Autostart Applications: Latte
 	● Autostart Login Scripts: keep-battery-updated.sh
 # Workspace Behavior
 	● Screen Locking > Appearance: Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
