@@ -83,7 +83,7 @@ $ sudo add-apt-repository ppa:atareao/telegram
 $ sudo apt update && sudo apt install telegram
 
 =====================================
-Install UNetbootin from Ubuntu PPA
+[ARCHIEVED] Install UNetbootin from Ubuntu PPA
 =====================================
 $ sudo add-apt-repository ppa:gezakovacs/ppa
 $ sudo apt update && sudo apt install unetbootin
@@ -93,15 +93,14 @@ Install Apps From FLATPAK (via Discover)
 ======================================
 Spotify
 Zoom
-Nixwriter
 
 =====================================
-Install Anbox
+[ARCHIEVED] Install Anbox
 =====================================
 https://www.how2shout.com/linux/how-to-install-anbox-on-ubuntu-20-04-lts-focal-fossa/
 
 ======================================
-Install Apps From APPIMAGE
+[ARCHIEVED] Install Apps From APPIMAGE
 ======================================
 # Download it
 Kdenlive -> https://kdenlive.org/en/download/ -> choose AppImage -> make directory /home/AppImage and move file here -> set file as executable from file manager -> open file -> setting -> force breeze icon theme -> quit
@@ -127,8 +126,7 @@ Download CrossFTP Version 1.99.6 (for managing S3 bucket) from:
 	https://drive.google.com/file/d/1HqbO30QDKjYX3s898u-Cr3emQoGS5d46/view?usp=sharing
 
 =======================================
-Register CrossFTP
-Version 1.99.6
+[ARCHIEVED] Register CrossFTP Version 1.99.6
 =======================================
 Pro Multi User:
 4F6B65204F63657C6F6B65406F63652E636F6D0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000010FFFFFFFFFFFFFFFA3C98218B681C6D5A23197C7D1F96689
@@ -154,7 +152,7 @@ $ sudo apt update && sudo apt install -y inkscape
 # Edit > preferences > interface > windows > Dialogs on top: none
 
 =======================================
-Install latest stable version of ImageMagick with IMEI (ImageMagick Easy Install)
+[ARCHIEVED] Install latest stable version of ImageMagick with IMEI (ImageMagick Easy Install)
 =======================================
 $ cd /opt
 $ git clone https://github.com/SoftCreatR/imei
