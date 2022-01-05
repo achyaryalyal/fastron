@@ -19,7 +19,7 @@ $ sudo apt update && sudo apt install -y google-chrome-stable
 =====================================
 Install Docker with MariaDB & phpMyAdmin
 =====================================
-$ sudo apt-get remove docker docker-engine docker.io && sudo apt install docker.io docker-compose && sudo systemctl start docker && sudo systemctl enable docker && docker --version
+$ sudo apt install -y docker.io docker-compose && sudo systemctl start docker && sudo systemctl enable docker && docker --version
 $ cd /opt && mkdir phpMyAdmin && cd phpMyAdmin
 $ wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/docker/phpmyadmin/docker-compose.yml
 $ docker-compose up -d
