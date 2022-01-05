@@ -148,8 +148,7 @@ $ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-x
 Install latest stable version of Inkscape
 =======================================
 $ sudo add-apt-repository ppa:inkscape.dev/stable
-$ sudo apt update
-$ sudo apt install inkscape
+$ sudo apt update && sudo apt install -y inkscape
 # open inkscape
 # Edit > preferences > interface > theme > check: Use dark theme, Use symbolic icons
 # Edit > preferences > interface > windows > Dialogs on top: none
