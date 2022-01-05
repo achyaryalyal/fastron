@@ -550,14 +550,12 @@ $ sudo fatsort -c [device-name]
 Auto Mount NTFS Partition
 =================================
 $ sudo -i
-$ mkdir /drive_os
-$ mkdir /drive_work
+$ mkdir /drive_ntfs
 $ fdisk -l
-# what dev is OS and WORK partition, example: dev3 and dev4
+# what dev is NTFS partition, example: dev2
 $ nano /etc/fstab
 # add this line:
-/dev/nvme0n1p3 /drive_os ntfs defaults,noatime 0 0
-/dev/nvme0n1p5 /drive_work ntfs defaults,noatime 0 0
+/dev/nvme0n1p2 /drive_ntfs ntfs defaults,noatime 0 0
 $ reboot
 # boot into Windows
 # make sure "fast startup" in Windows is disabled
@@ -590,7 +588,7 @@ $ update-grub
 $ reboot
 
 =================================
-Touchpad Gestures like MacOS/Windows
+[ARCHIEVED] Touchpad Gestures like MacOS/Windows
 =================================
 Touchégg: https://github.com/JoseExposito/touchegg
 ToucheggKDE: https://github.com/NayamAmarshe/ToucheggKDE
