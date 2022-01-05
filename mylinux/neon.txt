@@ -411,7 +411,7 @@ Fix Desktop Effects Not Working or Display is Blank (BLACK SCREEN)
 System Settings > Hardware > Display and Monitor > Compositor
 # set Scale method: Accurate
 # set Rendering backend: OpenGL 3.1
-# set Latency: Force lowest latency (may cause dropped frames)
+# set Latency: Prefer lower latency
 # apply
 
 =================================
