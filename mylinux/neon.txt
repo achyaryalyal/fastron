@@ -301,7 +301,7 @@ $ apt install latte-dock
 # mcOS BS Layout for Latte Dock: https://www.pling.com/p/1399346/
 
 =======================================
-Install Cairo Dock
+[ARCHIEVED] Install Cairo Dock
 =======================================
 $ sudo -i
 $ sudo apt remove latte-dock && apt autoremove
@@ -351,7 +351,7 @@ Right click on battery icon > Configure battery and brightness
 Check "Show percentage" > OK
 
 =================================
-Install Winamp Skin to Audacious
+[ARCHIEVED] Install Winamp Skin to Audacious
 =================================
 Copy or download: https://drive.google.com/file/d/1lFru-2da8Kv1RWHlZOky7XMxQTuIDJFO/view?usp=sharing
 Extract downloaded file, and you will see a folder called winamp_standar
