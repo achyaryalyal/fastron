@@ -28,8 +28,29 @@ $ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM
 # change theme
 $ nano ~/.zshrc
 # change value of: ZSH_THEME="powerlevel10k/powerlevel10k"
+# add this line after that line: POWERLEVEL9K_MODE="nerdfont-complete"
 # add this line on plugins line: plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-# close Konsole and open again. Does this look like a diamond? "y" and then "q"
+# close Konsole and open again. if some question about p10k configure not appear, run command: p10k configure
+# Does this look like a diamond? (y) Yes
+# Does this look like a lock? (y) Yes
+# Does this look like a Debian logo (swirl/spiral)? (y) Yes
+# Do all these icons fit between the crosses? (y) Yes
+# Prompt Style: (3) Rainbow
+# Character Set: (1) Unicode
+# Show current time?: (2) 24-hour format
+# Prompt Separators: (1) Angled
+# Prompt Heads: (1) Sharp
+# Prompt Tails: (1) Flat
+# Prompt Height: (2) Two lines
+# Prompt Connection: (2) Dotted
+# Prompt Frame: (1) No frame
+# Connection Color: (2) Light
+# Prompt Spacing: (2) Sparse
+# Icons: (2) Many icons
+# Prompt Flow: (1) Concise
+# Enable Transient Prompt?: (n) No
+# Instant Prompt Mode: (1) Verbose
+# Apply changes to ~/.zshrc?: (y) Yes
 
 =====================================
 Install Google Chrome from Ubuntu PPA
