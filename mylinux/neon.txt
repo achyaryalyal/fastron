@@ -28,7 +28,10 @@ $ nano ~/.conkyrc
     own_window_argb_visual = true,
     own_window_argb_value = 50,
     double_buffer = true,
-# the next thing to do is to get the network monitoring to work properly. By default, Conky monitors the network interface eth0, but your network interface most likely uses a different name. Find the name of your network interface (type ifconfig in terminal) and then replace the eth0 value on line 76 with the name of your network interface. Save the changes to the file.
+# The next thing to do is to get the network monitoring to work properly.
+# By default, Conky monitors the network interface eth0, but your network interface most likely uses a different name.
+# Find the name of your network interface (type ifconfig in terminal) and then replace the eth0 value on line 76 with the name of your network interface.
+# Save the changes to the file.
 
 =====================================
 Install ZSH & OhMyZsh
