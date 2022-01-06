@@ -20,6 +20,7 @@ $ reboot
 # install OhMyZsh
 $ sudo apt install wget git -y
 $ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+# install recommended font: https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k
 # install Powerlevel10k theme
 $ git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 # download plugins for autosuggestion and syntax highlighting
