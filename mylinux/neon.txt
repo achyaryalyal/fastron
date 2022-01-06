@@ -10,6 +10,13 @@ Typical way of updating the system in KDE Neon
 $ sudo pkcon refresh && sudo pkcon update -y
 
 =====================================
+Install Google Chrome from Ubuntu PPA (and remove Firefox completely)
+=====================================
+$ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+$ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+$ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge firefox
+
+=====================================
 Install ZSH & OhMyZsh
 =====================================
 $ sudo apt install -y zsh && zsh --version && echo $SHELL
@@ -61,13 +68,6 @@ $ nano ~/.zshrc
 # Enable Transient Prompt?: (n) No
 # Instant Prompt Mode: (1) Verbose
 # Apply changes to ~/.zshrc?: (y) Yes
-
-=====================================
-Install Google Chrome from Ubuntu PPA
-=====================================
-$ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-$ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-$ sudo apt update && sudo apt install -y google-chrome-stable
 
 =====================================
 Install Docker with MariaDB & phpMyAdmin
@@ -241,6 +241,94 @@ $ nano /etc/fstab
 # paste it
 /swapfile swap swap defaults 0 0
 
+
+▀█▀ █░█ █▀▀ █▀▄▀█ █▀▀   █░█ █ █▀▀ █░█░█
+░█░ █▀█ ██▄ █░▀░█ ██▄   ▀▄▀ █ ██▄ ▀▄▀▄▀
+
+=======================================
+How to Make KDE Plasma Look Like macOS Big Sur
+=======================================
+https://www.youtube.com/watch?v=DX_gQTQLUZc
+# CUSTOM TO BE MACOS MONTEREY:
+# Appearance
+	● Global Theme: Monterey kde dark theme by vinceliuice -> https://www.pling.com/p/1567595/
+		● Application Style: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
+			● GTK Theme: WhiteSur Gtk Theme (WhiteSur-dark.tar.xz) by vinceliuice -> https://www.pling.com/p/1403328
+		● Plasma Style: Monterey plasma dark theme by vinceliuice -> https://www.pling.com/p/1567587/
+		● Colors: Monterey color scheme by vinceliuice -> https://www.pling.com/p/1567570
+		● Windows Decorations: Monterey aurorae theme by vinceliuice -> https://www.pling.com/p/1567564
+		● Fonts: SF Pro Display by Apple Inc. -> https://www.cufonfonts.com/font/sf-pro-display
+		● Fonts: SF Mono by Apple Inc. -> https://www.cufonfonts.com/font/sf-mono			
+		● Icons: WhiteSur-dark
+		● Cursors: WhiteSur Cursors
+		● Splash Screen: Monterey-dark
+# Startup and Shutdown
+	● Login Screen (SSDM): Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
+	● Autostart Applications: Latte
+	● Autostart Login Scripts: keep-battery-updated.sh
+# Workspace Behavior
+	● Screen Locking > Appearance: Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
+● Wallpaper: Monterey wallpapers by vinceliuice -> https://www.pling.com/p/1567576/
+● Latte: Monterey latte layout by vinceliuice -> https://www.pling.com/p/1567605/
+	
+=======================================
+Install Kvantum Engine For KDE On Ubuntu/KDE Neon
+=======================================
+https://www.ubuntubuzz.com/2019/02/how-to-install-kvantum-engine-for-kde-on-ubuntu.html
+
+=======================================
+Install Latte Dock
+=======================================
+$ sudo -i
+$ apt install latte-dock
+# mcOS BS Layout for Latte Dock: https://www.pling.com/p/1399346/
+
+=================================
+Add widget Window Buttons Applet to show window buttons in your panels
+=================================
+$ sudo -i
+$ sudo apt install cmake extra-cmake-modules libkdecorations2-dev
+$ cd /opt && wget https://github.com/psifidotos/applet-window-buttons/archive/master.zip && unzip master.zip && rm master.zip && cd applet-window-buttons-master
+$ sh install.sh
+# add widget to top panel
+# right click, configure window buttons, sort button: red-yellow-green
+
+=================================
+Hide titlebar when a window is maximized
+=================================
+System Settings > Workspace > Window Management > Kwin scripts > Get new scripts > install Hide Titles > Select it & Apply
+
+=================================
+Konsole Bookmark
+=================================
+Open Konsole > Bookmarks > Edit Bookmarks > New Bookmark:
+	KDE's update and upgrade		sudo pkcon refresh && sudo pkcon update
+	list upgradable packages		sudo apt list --upgradable
+	autoremove				sudo apt autoremove
+	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
+	kilat on [domain]			ssh://[username]@[domain]:[port]
+
+=================================
+Show Battery Percentage
+=================================
+Right click on battery icon > Configure battery and brightness
+Check "Show percentage" > OK
+
+=================================
+[ARCHIEVED] Install Winamp Skin to Audacious
+=================================
+Copy or download: https://drive.google.com/file/d/1lFru-2da8Kv1RWHlZOky7XMxQTuIDJFO/view?usp=sharing
+Extract downloaded file, and you will see a folder called winamp_standar
+With root privilage, copy folder winamp_standar to: /usr/share/audacious/Skins
+Open Audacious, go to Setting
+Appearance > Interface > Winamp Classic Interface
+Appearance > Skin > winamp_standar
+Close
+
+
+█▀▀ █░█ █▄░█ █▀▀ ▀█▀ █ █▀█ █▄░█ ▄▀█ █░░ █ ▀█▀ █▄█
+█▀░ █▄█ █░▀█ █▄▄ ░█░ █ █▄█ █░▀█ █▀█ █▄▄ █ ░█░ ░█░
+
 =======================================
 Install Latest Kernel with Hardware Enablement Stack (HWE)
 =======================================
@@ -288,129 +376,6 @@ $ i="linux-headers-virtual|linux-image-virtual|linux-headers-generic-hwe-|linux-
 $ dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i"
 # delete all unwated and older Linux kernels
 $ sudo apt --purge remove $(dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i")
-
-=================================
-[ARCHIEVED] Copy System Font to Flatpak for WPS
-=================================
-$ sudo -i
-$ rm -rf /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/fonts/*
-$ cp -a /usr/local/share/fonts/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/fonts/
-
-=================================
-[ARCHIEVED] Always Update Font for Flatpak
-=================================
-$ sudo -i
-# create a bash script and run every 60 seconds (1 minute)
-$ nano /etc/keep-font-updated.sh
-	#!/bin/bash
-	while sleep 60; do
-	   rm -rf /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/fonts/*
-	   cp -a /usr/local/share/fonts/* /var/lib/flatpak/runtime/org.freedesktop.Platform/x86_64/*/active/files/share/fonts/
-	done
-$ chmod +x /etc/keep-font-updated.sh && chmod 0755 /etc/keep-font-updated.sh
-# add it as a startup script, System Settings > Workspace > Startup and Shutdown > Autostart > Add Login Script > /etc/keep-font-updated.sh > Open
-$ reboot
-
-
-▀█▀ █░█ █▀▀ █▀▄▀█ █▀▀   █░█ █ █▀▀ █░█░█
-░█░ █▀█ ██▄ █░▀░█ ██▄   ▀▄▀ █ ██▄ ▀▄▀▄▀
-
-=======================================
-How to Make KDE Plasma Look Like macOS Big Sur
-=======================================
-https://www.youtube.com/watch?v=DX_gQTQLUZc
-# CUSTOM TO BE MACOS MONTEREY:
-# Appearance
-	● Global Theme: Monterey kde dark theme by vinceliuice -> https://www.pling.com/p/1567595/
-		● Application Style: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
-			● GTK Theme: WhiteSur Gtk Theme (WhiteSur-dark.tar.xz) by vinceliuice -> https://www.pling.com/p/1403328
-		● Plasma Style: Monterey plasma dark theme by vinceliuice -> https://www.pling.com/p/1567587/
-		● Colors: Monterey color scheme by vinceliuice -> https://www.pling.com/p/1567570
-		● Windows Decorations: Monterey aurorae theme by vinceliuice -> https://www.pling.com/p/1567564
-		● Fonts: SF Pro Display by Apple Inc. -> https://www.cufonfonts.com/font/sf-pro-display
-		● Fonts: SF Mono by Apple Inc. -> https://www.cufonfonts.com/font/sf-mono			
-		● Icons: WhiteSur-dark
-		● Cursors: WhiteSur Cursors
-		● Splash Screen: Monterey-dark
-# Startup and Shutdown
-	● Login Screen (SSDM): Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
-	● Autostart Applications: Latte
-	● Autostart Login Scripts: keep-battery-updated.sh
-# Workspace Behavior
-	● Screen Locking > Appearance: Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
-● Wallpaper: Monterey wallpapers by vinceliuice -> https://www.pling.com/p/1567576/
-● Latte: Monterey latte layout by vinceliuice -> https://www.pling.com/p/1567605/
-	
-=======================================
-Install Kvantum Engine For KDE On Ubuntu/KDE Neon
-=======================================
-https://www.ubuntubuzz.com/2019/02/how-to-install-kvantum-engine-for-kde-on-ubuntu.html
-
-=======================================
-Install Latte Dock
-=======================================
-$ sudo -i
-$ apt install latte-dock
-# mcOS BS Layout for Latte Dock: https://www.pling.com/p/1399346/
-
-=======================================
-[ARCHIEVED] Install Cairo Dock
-=======================================
-$ sudo -i
-$ sudo apt remove latte-dock && apt autoremove
-$ sudo apt install cairo-dock
-# download theme mcOS BS for Cairo Dock: https://www.pling.com/p/1401527
-# add Cairo Dock as a startup application
-# open Cairo Dock > Configure
-# Theme Tab, import the above theme and apply it
-# Appearance Tab, icons: Custom Icons, icon size: Big and apply it
-# Behavior Tab, on mouse hover: Pulse, on click: Bounce and apply it
-
-=================================
-Add widget Window Buttons Applet to show window buttons in your panels
-=================================
-$ sudo -i
-$ sudo apt install cmake extra-cmake-modules libkdecorations2-dev
-$ cd /opt && wget https://github.com/psifidotos/applet-window-buttons/archive/master.zip && unzip master.zip && rm master.zip && cd applet-window-buttons-master
-$ sh install.sh
-# add widget to top panel
-# right click, configure window buttons, sort button: red-yellow-green
-
-=================================
-Hide titlebar when a window is maximized
-=================================
-System Settings > Workspace > Window Management > Kwin scripts > Get new scripts > install Hide Titles > Select it & Apply
-
-=================================
-Konsole Bookmark
-=================================
-Open Konsole > Bookmarks > Edit Bookmarks > New Bookmark:
-	KDE's update and upgrade		sudo pkcon refresh && sudo pkcon update
-	list upgradable packages		sudo apt list --upgradable
-	autoremove				sudo apt autoremove
-	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
-	kilat on [domain]			ssh://[username]@[domain]:[port]
-
-=================================
-Show Battery Percentage
-=================================
-Right click on battery icon > Configure battery and brightness
-Check "Show percentage" > OK
-
-=================================
-[ARCHIEVED] Install Winamp Skin to Audacious
-=================================
-Copy or download: https://drive.google.com/file/d/1lFru-2da8Kv1RWHlZOky7XMxQTuIDJFO/view?usp=sharing
-Extract downloaded file, and you will see a folder called winamp_standar
-With root privilage, copy folder winamp_standar to: /usr/share/audacious/Skins
-Open Audacious, go to Setting
-Appearance > Interface > Winamp Classic Interface
-Appearance > Skin > winamp_standar
-Close
-
-
-█▀▀ █░█ █▄░█ █▀▀ ▀█▀ █ █▀█ █▄░█ ▄▀█ █░░ █ ▀█▀ █▄█
-█▀░ █▄█ █░▀█ █▄▄ ░█░ █ █▄█ █░▀█ █▀█ █▄▄ █ ░█░ ░█░
 
 =================================
 Checking Boot Time
