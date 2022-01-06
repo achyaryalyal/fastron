@@ -302,6 +302,8 @@ Setup Widget
 Latte spacer (Download)
 	5px
 Launchpad plasma (Download)
+Sticky Notes (Default)
+	Shortcut: Ctrl + Alt + Space
 Application title (Download)
 	Text type: Application Name
 Spacer (Flexible Size)
@@ -556,22 +558,6 @@ Ctrl + > = Incr. Brightness
 System Settings > Workspace > Shortcuts > Power Management
 Select "Decrease Screen Brightness" and "Add custom shortcut" : "Ctrl + <"
 Select "Increase Screen Brightness" and "Add custom shortcut" : "Ctrl + >"
-
-=================================
-Add shorcut to Minimize all Windows widget
-Ctrl + Space = Minimize
-=================================
-Add widget "Minimize all Windows"
-Right click on widget > configure Minimize all Windows
-Input shorcut > "Ctrl + Space" > OK
-
-=================================
-Add shorcut to Sticky Notes widget
-Ctrl + Alt + Space = Notes
-=================================
-Add widget "Sticky Notes"
-Right click on widget > configure Sticky Notes
-Input shorcut > "Ctrl + Alt + Space" > OK
 
 =================================
 System Shortcut Recenty Use
