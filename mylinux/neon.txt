@@ -26,6 +26,24 @@ $ nano /etc/fstab
 # paste it
 /swapfile swap swap defaults 0 0
 
+=================================
+Auto Mount NTFS Partition
+=================================
+$ sudo -i
+$ mkdir /drive_ntfs
+$ fdisk -l
+# what dev is NTFS partition, example: dev2
+$ nano /etc/fstab
+# add this line:
+/dev/nvme0n1p2 /drive_ntfs ntfs defaults,noatime 0 0
+$ reboot
+# boot into Windows
+# make sure "fast startup" in Windows is disabled
+# Win 7: Power Options > Choose what the power buttons do > Change settings that are currently unavailable > uncheck Turn on fast startup > Save changes
+# Win 10: Power & Sleep Setting > Additional Power Setting > Choose what the power buttons does > Change settings that are currently unavailable > uncheck Turn on fast startup > Save changes
+# run cmd.exe as administrator, type command to shutdown properly : shutdown /s /f /t 0
+# after shutdown, turn on & boot into Linux & mounting NTFS would be no issue like can't copy/rename/delete file
+
 =====================================
 Install ZSH & OhMyZsh
 =====================================
@@ -86,6 +104,50 @@ $ sudo ln -s $HOME/.zshrc /root/.zshrc
 $ sudo nano ~/.zshrc
 # add this line on the top of file
 	ZSH_DISABLE_COMPFIX=true
+
+=================================
+Fix Lenovo S145 Touchpad Issue via Grub
+=================================
+$ sudo -i
+$ nano /etc/default/grub
+# add parameter i8042.nopnp=1 pci=nocrs to GRUB_CMDLINE_LINUX_DEFAULT
+	GRUB_CMDLINE_LINUX_DEFAULT="i8042.nopnp=1 pci=nocrs quiet splash"
+# close & save
+$ update-grub
+$ reboot
+# if anything goes wrong, just boot through recovery to repair grub again
+
+=================================
+Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
+=================================
+# right click on icon application menu, click new item
+# set name: Reset Pointer
+# set desc: 
+# set command: ids=$(xinput list | grep 'pointer' | cut -d '=' -f 2 | cut -f 1 | tr ' ' '\n' | tail -1) && xinput --disable $ids && xinput --enable $ids
+# set icon: ktouch
+# save & close application menu
+
+=================================
+Adjust Touchpad Configuration
+=================================
+System Settings > Hardware > Input Devices > Touchpad
+Tab Scrolling:
+	edge scrolling: [vertical] [horizontal]
+	two-finger scrolling: [vertical] [horizontal]
+Tab Pointer Motion:
+	Speed Minimum: 0.5 bar
+	Speed Maximum: 1.5 bar
+	Acceleration: 2.0 bar
+Apply
+
+=================================
+Set Keyboard Shortcut for Control Backlight (Screen Brightness)
+=================================
+System Settings > Workspace > Shortcuts > Power Management
+	Ctrl + < = Decr. Brightness
+		Select "Decrease Screen Brightness" and "Add custom shortcut" : "Ctrl + <"
+	Ctrl + > = Incr. Brightness
+		Select "Increase Screen Brightness" and "Add custom shortcut" : "Ctrl + >"
 
 =====================================
 Install Google Chrome from Ubuntu PPA (and remove Firefox completely)
@@ -206,7 +268,10 @@ Install Latte Dock
 =======================================
 $ sudo apt install latte-dock
 # add Latte Dock to autostart application
-# setting layout > import from KDE online store > type "WhiteSur latte by vinceliuice" > install > apply > switch
+# setting layout > import from KDE online store > WhiteSur latte by vinceliuice > install > apply > switch
+# add widget > Launchpad plasma > drag to Latte Dock > configure Launchpad plasma
+	Icon: codeblocks
+	Shotcut: Meta + Z
 
 =====================================
 Install Sublime Text from Ubuntu PPA
@@ -538,57 +603,6 @@ Section "InputClass"
 $ reboot
 
 =================================
-Fix Lenovo S145 Touchpad Issue via Grub
-=================================
-$ sudo -i
-$ nano /etc/default/grub
-# add parameter i8042.nopnp=1 pci=nocrs to GRUB_CMDLINE_LINUX_DEFAULT
-	GRUB_CMDLINE_LINUX_DEFAULT="i8042.nopnp=1 pci=nocrs quiet splash"
-# close & save
-$ update-grub
-$ reboot
-# if anything goes wrong, just boot through recovery to repair grub again
-
-=================================
-Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
-=================================
-# right click on icon application menu, click new item
-# set name: Reset Pointer
-# set desc: 
-# set command: ids=$(xinput list | grep 'pointer' | cut -d '=' -f 2 | cut -f 1 | tr ' ' '\n' | tail -1) && xinput --disable $ids && xinput --enable $ids
-# set icon: ktouch
-# save & close application menu
-
-=================================
-Adjust Touchpad Configuration
-=================================
-System Settings > Hardware > Input Devices > Touchpad
-Tab Scrolling:
-	edge scrolling: [vertical] [horizontal]
-	two-finger scrolling: [vertical] [horizontal]
-Tab Pointer Motion:
-	Speed Minimum: 0.5 bar
-	Speed Maximum: 1.5 bar
-	Acceleration: 2.0 bar
-Apply
-
-=================================
-Set Keyboard Shortcut for Control Backlight (Screen Brightness)
-Ctrl + < = Decr. Brightness
-Ctrl + > = Incr. Brightness
-=================================
-System Settings > Workspace > Shortcuts > Power Management
-Select "Decrease Screen Brightness" and "Add custom shortcut" : "Ctrl + <"
-Select "Increase Screen Brightness" and "Add custom shortcut" : "Ctrl + >"
-
-=================================
-System Shortcut Recenty Use
-=================================
-Ctrl + Alt + L = Lock
-Meta + E = Dolphin
-Meta = Simple Menu
-
-=================================
 Sort Media in SD Card
 =================================
 $ apt install fatsort
@@ -596,24 +610,6 @@ $ apt install fatsort
 $ sudo fatsort -l [device-name]
 $ sudo fatsort -i [device-name]
 $ sudo fatsort -c [device-name]
-
-=================================
-Auto Mount NTFS Partition
-=================================
-$ sudo -i
-$ mkdir /drive_ntfs
-$ fdisk -l
-# what dev is NTFS partition, example: dev2
-$ nano /etc/fstab
-# add this line:
-/dev/nvme0n1p2 /drive_ntfs ntfs defaults,noatime 0 0
-$ reboot
-# boot into Windows
-# make sure "fast startup" in Windows is disabled
-# Win 7: Power Options > Choose what the power buttons do > Change settings that are currently unavailable > uncheck Turn on fast startup > Save changes
-# Win 10: Power & Sleep Setting > Additional Power Setting > Choose what the power buttons does > Change settings that are currently unavailable > uncheck Turn on fast startup > Save changes
-# run cmd.exe as administrator, type command to shutdown properly : shutdown /s /f /t 0
-# after shutdown, turn on & boot into Linux & mounting NTFS would be no issue like can't copy/rename/delete file
 
 =================================
 Mount an ISO File
