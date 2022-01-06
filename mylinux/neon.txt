@@ -20,7 +20,6 @@ $ reboot
 # install OhMyZsh
 $ sudo apt install wget git -y
 $ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-# install recommended font: https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k
 # install Powerlevel10k theme
 $ git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 # download plugins for autosuggestion and syntax highlighting
@@ -29,7 +28,6 @@ $ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM
 # change theme
 $ nano ~/.zshrc
 # change value of: ZSH_THEME="powerlevel10k/powerlevel10k"
-# add this line after that line: POWERLEVEL9K_MODE="nerdfont-complete"
 # add this line on plugins line: plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 # close Konsole and open again. if some question about p10k configure not appear, run command: p10k configure
 # Does this look like a diamond? (y) Yes
