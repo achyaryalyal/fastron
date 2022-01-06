@@ -291,7 +291,8 @@ $ sudo make install
 # download and extract theme: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
 # open Kvantum > select theme folder > install this theme
 # change/delete theme > select MontereyDark > use this theme
-# configure active theme > compositing & general look > change opacity to 15% > save
+# configure active theme > compositing & general look > change window opacity to 5% > change menu opacity to 15% > save
+# Appearance > Global Theme > Application Style: kvantum-dark
 
 =======================================
 Install Latte Dock
