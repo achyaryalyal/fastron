@@ -155,6 +155,7 @@ Install Google Chrome from Ubuntu PPA (and remove Firefox completely)
 $ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
 $ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 $ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge firefox && sudo apt autoremove
+# minimize google chrome > right click on titlebar > more actions > add property > No titlebar and frame > Force > Yes > apply
 
 =====================================
 Setting Workspace
