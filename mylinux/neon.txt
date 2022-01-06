@@ -216,8 +216,8 @@ $ sudo make install
 # open Kvantum > select theme folder > install this theme
 # change/delete theme > select MontereyDark > use this theme
 # configure active theme > compositing & general look
-	change window opacity to 10%
-	change menu opacity to 10%
+	change window opacity to 50%
+	change menu opacity to 50%
 	save
 # Appearance > Global Theme > Application Style: kvantum-dark
 
