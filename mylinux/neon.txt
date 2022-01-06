@@ -303,10 +303,10 @@ Install Widget
 	Latte spacer
 	Latte sidebar button
 	Better inline clock
-	Launchpad plasma
-	MacOSX inline battery
-	Kpple Menu
+	Big Sur - inline battery
 	Mediacontroller plus
+	Launchpad plasma
+	Kpple Menu
 	Ditto menu
 # add widget Window Buttons Applet to show window buttons in your panels
 $ sudo -i
