@@ -253,7 +253,8 @@ Network connection (Default)
 Latte spacer (Download)
 	2px
 Launchpad plasma (Download)
-	icon: search
+	Icon: search
+	Shotcut: Meta + Z
 Latte spacer (Download)
 	2px
 System Tray (Default)
@@ -278,8 +279,6 @@ $ sudo apt install latte-dock
 # add Latte Dock to autostart application
 # setting layout > import from KDE online store > WhiteSur latte by vinceliuice > install > apply > switch
 # add widget > Launchpad plasma > drag to Latte Dock > configure Launchpad plasma
-	Icon: codeblocks
-	Shotcut: Meta + Z
 
 =====================================
 Install Sublime Text from Ubuntu PPA
