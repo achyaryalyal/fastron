@@ -16,11 +16,21 @@ $ sudo apt install -y zsh && zsh --version && echo $SHELL
 # make your default shell
 $ chsh -s $(which zsh)
 $ reboot
+
 # open Konsole and choose option 2 for the recommended default configuration
 # install OhMyZsh
 $ sudo apt install wget git -y
 $ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 # install icon font: https://github.com/romkatv/powerlevel10k#manual-font-installation
+# Konsole > Setting > Configure Konsole > Profiles > Select any profile & Edit > Appearance:
+	Select color scheme: White on Black
+	Select font: SF Mono
+	Edit > Color 5:
+		change #1818b2 to #0055ff
+		change #5454ff to #55aaff
+	Edit > Enable Blur Background
+	Edit > Set tranparency 50%
+
 # install Powerlevel10k theme
 $ git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 # download plugins for autosuggestion and syntax highlighting
@@ -370,12 +380,6 @@ $ sh install.sh
 Hide titlebar when a window is maximized
 =================================
 System Settings > Workspace > Window Management > Kwin scripts > Get new scripts > install Hide Titles > Select it & Apply
-
-=================================
-Visiblue Konsole Theme
-=================================
-Open Konsole > Setting > Configure Konsole > Profiles > Select any profile & Edit > Appearance > Get New > install "Visiblue" > Close
-Select "Visiblue" & Edit > Set tranparency 50% > OK
 
 =================================
 Konsole Bookmark
