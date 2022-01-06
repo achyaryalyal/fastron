@@ -9,6 +9,18 @@ Typical way of updating the system in KDE Neon
 =====================================
 $ sudo pkcon refresh && sudo pkcon update -y
 
+=======================================
+Add swap space equals to RAM size
+=======================================
+# check has swap enabled, if output is empty, it means that your system does not have swap space enabled
+$ swapon --show
+# creating a file which will be used for swap
+$ fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
+# make the change permanent
+$ nano /etc/fstab
+# paste it
+/swapfile swap swap defaults 0 0
+
 =====================================
 Install Google Chrome from Ubuntu PPA (and remove Firefox completely)
 =====================================
@@ -78,17 +90,6 @@ $ sudo nano ~/.zshrc
 	ZSH_DISABLE_COMPFIX=true
 
 =====================================
-Install Docker with MariaDB & phpMyAdmin
-=====================================
-$ sudo apt install -y docker.io docker-compose && sudo systemctl start docker && sudo systemctl enable docker && docker --version
-$ cd /opt && mkdir phpMyAdmin && cd phpMyAdmin
-$ wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/docker/phpmyadmin/docker-compose.yml
-$ docker-compose up -d
-$ docker exec -it mariadb mariadb -u root -p
-$ docker-compose ps
-# open phpMyAdmin on the browser: http://localhost:8000
-
-=====================================
 Install Sublime Text from Ubuntu PPA
 =====================================
 $ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
@@ -143,22 +144,71 @@ Install Telegram from Ubuntu PPA
 $ sudo add-apt-repository ppa:atareao/telegram
 $ sudo apt update && sudo apt install telegram
 
-=====================================
-[ARCHIEVED] Install UNetbootin from Ubuntu PPA
-=====================================
-$ sudo add-apt-repository ppa:gezakovacs/ppa
-$ sudo apt update && sudo apt install unetbootin
-
 ======================================
 Install Apps From FLATPAK (via Discover)
 ======================================
 Spotify
 Zoom
 
+=======================================
+Install Apps From APT via Konsole
+=======================================
+$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp qbittorrent peek pdfarranger pdfsam dolphin kaffeine ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager xserver-xorg-input-libinput xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
+
+=======================================
+Install latest stable version of Inkscape
+=======================================
+$ sudo add-apt-repository ppa:inkscape.dev/stable
+$ sudo apt update && sudo apt install -y inkscape
+# open inkscape
+# Edit > preferences > interface > theme > check: Use dark theme, Use symbolic icons
+# Edit > preferences > interface > windows > Dialogs on top: none
+
+=======================================
+Install Apps Manually From .DEB Package
+=======================================
+Download WPS Office For Linux
+	https://linux.wps.com
+Download CrossFTP Version 1.99.6 (for managing S3 bucket) from:
+	http://www.crossftp.com/crossftp_1.99.6.deb
+	or
+	https://drive.google.com/file/d/1HqbO30QDKjYX3s898u-Cr3emQoGS5d46/view?usp=sharing
+
+=======================================
+Install pip for Python 3
+=======================================
+$ sudo apt update
+$ sudo apt install python3-pip
+$ pip3 --version
+# sudo pip3 install gdown
+# gdown --id [ID_FILE]
+# gdown --id 8k75RK28JRL19wpT22B-DY9We3TVXnnQX
+# sudo pip3 install slowloris
+# slowloris -h
+# slowloris --randuseragents [DOMAIN]
+# slowloris --randuseragents example.com
+
+=====================================
+Install Docker with MariaDB & phpMyAdmin
+=====================================
+$ sudo apt install -y docker.io docker-compose && sudo systemctl start docker && sudo systemctl enable docker && docker --version
+$ cd /opt && mkdir phpMyAdmin && cd phpMyAdmin
+$ wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/docker/phpmyadmin/docker-compose.yml
+$ docker-compose up -d
+$ docker exec -it mariadb mariadb -u root -p
+$ docker-compose ps
+# open phpMyAdmin on the browser: http://localhost:8000
+
 =====================================
 [ARCHIEVED] Install Anbox
 =====================================
 https://www.how2shout.com/linux/how-to-install-anbox-on-ubuntu-20-04-lts-focal-fossa/
+
+=====================================
+[ARCHIEVED] Install UNetbootin from Ubuntu PPA
+=====================================
+$ sudo add-apt-repository ppa:gezakovacs/ppa
+$ sudo apt update && sudo apt install unetbootin
 
 ======================================
 [ARCHIEVED] Install Apps From APPIMAGE
@@ -177,16 +227,6 @@ save
 create a fake project file with .kdenlive extension -> right click -> properties -> file type option -> add extensioin: *.kdenlive -> add application: Kdenlive -> ok -> remove this fake project file
 
 =======================================
-Install Apps Manually From .DEB Package
-=======================================
-Download WPS Office For Linux
-	https://linux.wps.com
-Download CrossFTP Version 1.99.6 (for managing S3 bucket) from:
-	http://www.crossftp.com/crossftp_1.99.6.deb
-	or
-	https://drive.google.com/file/d/1HqbO30QDKjYX3s898u-Cr3emQoGS5d46/view?usp=sharing
-
-=======================================
 [ARCHIEVED] Register CrossFTP Version 1.99.6
 =======================================
 Pro Multi User:
@@ -199,20 +239,6 @@ Enterprise Multi User:
 4F6B65204F63657C6F6B65406F63652E636F6D0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040FFFFFFFFFFFFFFFF3C5C65BAFC2950AA7AF64D9508F4DAC
 
 =======================================
-Install Apps From APT via Konsole
-=======================================
-$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp qbittorrent peek pdfarranger pdfsam dolphin kaffeine ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager xserver-xorg-input-libinput xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
-
-=======================================
-Install latest stable version of Inkscape
-=======================================
-$ sudo add-apt-repository ppa:inkscape.dev/stable
-$ sudo apt update && sudo apt install -y inkscape
-# open inkscape
-# Edit > preferences > interface > theme > check: Use dark theme, Use symbolic icons
-# Edit > preferences > interface > windows > Dialogs on top: none
-
-=======================================
 [ARCHIEVED] Install latest stable version of ImageMagick with IMEI (ImageMagick Easy Install)
 =======================================
 $ cd /opt
@@ -223,41 +249,13 @@ $ sudo ./imei.sh
 $ identify -version
 $ php -i | grep ImageMagick
 
-=======================================
-Install pip for Python 3
-=======================================
-$ sudo apt update
-$ sudo apt install python3-pip
-$ pip3 --version
-# sudo pip3 install gdown
-# gdown --id [ID_FILE]
-# gdown --id 8k75RK28JRL19wpT22B-DY9We3TVXnnQX
-# sudo pip3 install slowloris
-# slowloris -h
-# slowloris --randuseragents [DOMAIN]
-# slowloris --randuseragents example.com
-
-=======================================
-Add swap space equals to RAM size
-=======================================
-# check has swap enabled, if output is empty, it means that your system does not have swap space enabled
-$ swapon --show
-# creating a file which will be used for swap
-$ fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
-# make the change permanent
-$ nano /etc/fstab
-# paste it
-/swapfile swap swap defaults 0 0
-
 
 ▀█▀ █░█ █▀▀ █▀▄▀█ █▀▀   █░█ █ █▀▀ █░█░█
 ░█░ █▀█ ██▄ █░▀░█ ██▄   ▀▄▀ █ ██▄ ▀▄▀▄▀
 
 =======================================
-How to Make KDE Plasma Look Like macOS Big Sur
+How to Make KDE Plasma Look Like macOS Monterey
 =======================================
-https://www.youtube.com/watch?v=DX_gQTQLUZc
-# CUSTOM TO BE MACOS MONTEREY:
 # Appearance
 	● Global Theme: Monterey kde dark theme by vinceliuice -> https://www.pling.com/p/1567595/
 		● Application Style: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
@@ -328,16 +326,6 @@ Install Latte Dock
 $ sudo apt install latte-dock
 # add Latte Dock to autostart application
 # setting layout > import from KDE online store > type "WhiteSur latte by vinceliuice" > install > apply > switch
-
-=================================
-Konsole Bookmark
-=================================
-Open Konsole > Bookmarks > Edit Bookmarks > New Bookmark:
-	KDE's update and upgrade		sudo pkcon refresh && sudo pkcon update
-	list upgradable packages		sudo apt list --upgradable
-	autoremove				sudo apt autoremove
-	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
-	kilat on [domain]			ssh://[username]@[domain]:[port]
 
 =================================
 [ARCHIEVED] Show Battery Percentage
@@ -629,6 +617,16 @@ $ sudo nano /etc/default/grub
 # save
 $ update-grub
 $ reboot
+
+=================================
+Konsole Bookmark
+=================================
+Open Konsole > Bookmarks > Edit Bookmarks > New Bookmark:
+	KDE's update and upgrade		sudo pkcon refresh && sudo pkcon update
+	list upgradable packages		sudo apt list --upgradable
+	autoremove				sudo apt autoremove
+	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
+	kilat on [domain]			ssh://[username]@[domain]:[port]
 
 =================================
 [ARCHIEVED] Touchpad Gestures like MacOS/Windows
