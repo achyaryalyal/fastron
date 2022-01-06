@@ -120,7 +120,7 @@ $ reboot
 =================================
 Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
 =================================
-# right click on icon application menu, click new item
+# right click on icon application menu (Launchpad plasma), right click on Lost & Found, click new item
 # set name: Reset Pointer
 # set desc: 
 # set command: ids=$(xinput list | grep 'pointer' | cut -d '=' -f 2 | cut -f 1 | tr ' ' '\n' | tail -1) && xinput --disable $ids && xinput --enable $ids
