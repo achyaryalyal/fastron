@@ -278,7 +278,7 @@ https://www.youtube.com/watch?v=DX_gQTQLUZc
 	● Screen Locking > Appearance: Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
 ● Wallpaper: Monterey wallpapers by vinceliuice -> https://www.pling.com/p/1567576/
 ● Latte: Monterey latte layout by vinceliuice -> https://www.pling.com/p/1567605/
-	
+
 =======================================
 Install Kvantum Engine For KDE On Ubuntu/KDE Neon
 =======================================
@@ -293,6 +293,21 @@ $ sudo make install
 # change/delete theme > select MontereyDark > use this theme
 # configure active theme > compositing & general look > change window opacity to 5% > change menu opacity to 15% > save
 # Appearance > Global Theme > Application Style: kvantum-dark
+
+=======================================
+Install Widget
+=======================================
+# add widget > search:
+	Application title
+	Latte separator
+	Latte spacer
+	Latte sidebar button
+	Better inline clock
+	Launchpad plasma
+	MacOSX inline battery
+	Kpple Menu
+	Mediacontroller plus
+	Ditto menu
 
 =======================================
 Install Latte Dock
