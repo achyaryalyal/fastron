@@ -254,6 +254,8 @@ Latte spacer (Download)
 	2px
 Launchpad plasma (Download)
 	icon: search
+Latte spacer (Download)
+	2px
 System Tray (Default)
 	General:
 		Panel icon size: Scale with panel height
