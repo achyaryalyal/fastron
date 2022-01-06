@@ -22,13 +22,6 @@ $ nano /etc/fstab
 /swapfile swap swap defaults 0 0
 
 =====================================
-Install Google Chrome from Ubuntu PPA (and remove Firefox completely)
-=====================================
-$ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-$ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
-$ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge firefox
-
-=====================================
 Install ZSH & OhMyZsh
 =====================================
 $ sudo apt install -y zsh && zsh --version && echo $SHELL
@@ -49,7 +42,7 @@ $ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/
 		change #5454ff to #55aaff
 	Edit > Enable Blur Background
 	Edit > Set tranparency 50%
-
+#############################
 # install Powerlevel10k theme
 $ git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
 # download plugins for autosuggestion and syntax highlighting
@@ -81,13 +74,127 @@ $ nano ~/.zshrc
 # Enable Transient Prompt?: (n) No
 # Instant Prompt Mode: (1) Verbose
 # Apply changes to ~/.zshrc?: (y) Yes
-
+#############################
 # install Oh My Zsh for root user, run this command as non root user
 $ sudo ln -s $HOME/.oh-my-zsh /root/.oh-my-zsh
 $ sudo ln -s $HOME/.zshrc /root/.zshrc
 $ sudo nano ~/.zshrc
 # add this line on the top of file
 	ZSH_DISABLE_COMPFIX=true
+
+=====================================
+Install Google Chrome from Ubuntu PPA (and remove Firefox completely)
+=====================================
+$ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+$ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+$ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge firefox && sudo apt autoremove
+
+=====================================
+Setting Workspace
+=====================================
+Workspace > Workspace Behavior > Desktop Effects > Blur > configure
+	Set Blur Strength 50%
+	Set Noise Strength 0%
+Workspace > Workspace Behavior > Desktop Effects > Woobly Windows > enable and configure
+	Wobbliness: 100%
+	enable Wobble when moving
+	disabled Wobble when resizing
+Workspace > Workspace Behavior > Desktop Effects > Magic Lamp > enable and configure
+	Animation duration: 400ms
+Workspace > Window Management > Window Behavior
+	Window placement: Centered
+Workspace > Window Management > Task Switcher
+	change Breeze to Large Icons
+Workspace > Window Management > KWin Scripts
+	Get new script > Force Blue > install > enable
+	Get new script > Hide Titles > install > enable
+
+=======================================
+Setting New Look
+=======================================
+# Appearance
+	● Global Theme: Monterey kde dark theme by vinceliuice -> https://www.pling.com/p/1567595/
+		● Application Style: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
+			● GTK Theme: WhiteSur Gtk Theme (WhiteSur-dark.tar.xz) by vinceliuice -> https://www.pling.com/p/1403328
+		● Plasma Style: Monterey plasma dark theme by vinceliuice -> https://www.pling.com/p/1567587/
+		● Colors: Monterey color scheme by vinceliuice -> https://www.pling.com/p/1567570
+		● Windows Decorations: 
+			● Theme: Monterey aurorae theme by vinceliuice -> https://www.pling.com/p/1567564
+			● Titlebar Buttons: (from left to right) Close, Minimize, Maximize
+		● Fonts: SF Pro Display by Apple Inc. -> https://www.cufonfonts.com/font/sf-pro-display
+		● Fonts: SF Mono by Apple Inc. -> https://www.cufonfonts.com/font/sf-mono			
+		● Icons: WhiteSur-dark
+		● Cursors: WhiteSur Cursors
+		● Splash Screen: Monterey-dark
+# Startup and Shutdown
+	● Login Screen (SSDM): Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
+	● Autostart Applications: Latte
+	● Autostart Login Scripts: keep-battery-updated.sh
+# Workspace Behavior
+	● Screen Locking > Appearance: Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
+● Wallpaper: Monterey wallpapers by vinceliuice -> https://www.pling.com/p/1567576/
+● Latte: Monterey latte layout by vinceliuice -> https://www.pling.com/p/1567605/
+
+=======================================
+Install Kvantum Engine For KDE On Ubuntu/KDE Neon
+=======================================
+$ sudo apt install -y g++ libx11-dev libxext-dev qtbase5-dev libqt5svg5-dev libqt5x11extras5-dev libkf5windowsystem-dev qttools5-dev-tools cmake checkinstall
+$ cd /opt && gi clone https://github.com/tsujan/Kvantum.git && cd Kvantum/Kvantum && ls
+$ mkdir build && cd build
+$ cmake ..
+$ make
+$ sudo make install
+# download and extract theme: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
+# open Kvantum > select theme folder > install this theme
+# change/delete theme > select MontereyDark > use this theme
+# configure active theme > compositing & general look > change window opacity to 5% > change menu opacity to 15% > save
+# Appearance > Global Theme > Application Style: kvantum-dark
+
+=======================================
+Install widget Window Buttons Applet to show window buttons in your panels
+=======================================
+$ sudo -i
+$ sudo apt install g++ cmake extra-cmake-modules qtbase5-dev qtdeclarative5-dev libkf5declarative-dev libkf5plasma-dev libkdecorations2-dev gettext
+$ cd /opt && git clone https://github.com/psifidotos/applet-window-buttons.git && cd applet-window-buttons && ls
+$ ./install.sh
+
+=======================================
+Setup Widget
+=======================================
+Latte spacer (Download)
+	5px
+Kpple menu (Download)
+Sticky Notes (Default)
+	Shortcut: Ctrl + Alt + Space
+Application title (Download)
+	Text type: Application Name
+Spacer (Flexible Size)
+Window Buttons (Install and Compile)
+	Sort button color: red-yellow-green
+Latte spacer (Download)
+	20px
+Big Sur - inline battery (Download)
+Latte spacer (Download)
+	7px
+Network connection (Default)
+Latte spacer (Download)
+	2px
+Launchpad plasma (Download)
+	icon: search
+System Tray (Default)
+	General:
+		Panel icon size: Scale with panel height
+	Entries:
+		Always hidden: Google Chrome, Battery and Brightness, Bluetooth, Networks
+Latte spacer (Download)
+	10px
+Better inline clock (Download)
+	Date format: Custom Date with 2 spaces in the end
+		ddd d MMM  
+Minimize all windows
+	Shortcut: Ctrl + Space
+Latte spacer (Download)
+	10px
 
 =====================================
 Install Sublime Text from Ubuntu PPA
@@ -248,96 +355,6 @@ $ sudo ./imei.sh
 # verify
 $ identify -version
 $ php -i | grep ImageMagick
-
-=======================================
-Setting New Look
-=======================================
-# Appearance
-	● Global Theme: Monterey kde dark theme by vinceliuice -> https://www.pling.com/p/1567595/
-		● Application Style: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
-			● GTK Theme: WhiteSur Gtk Theme (WhiteSur-dark.tar.xz) by vinceliuice -> https://www.pling.com/p/1403328
-		● Plasma Style: Monterey plasma dark theme by vinceliuice -> https://www.pling.com/p/1567587/
-		● Colors: Monterey color scheme by vinceliuice -> https://www.pling.com/p/1567570
-		● Windows Decorations: Monterey aurorae theme by vinceliuice -> https://www.pling.com/p/1567564
-		● Fonts: SF Pro Display by Apple Inc. -> https://www.cufonfonts.com/font/sf-pro-display
-		● Fonts: SF Mono by Apple Inc. -> https://www.cufonfonts.com/font/sf-mono			
-		● Icons: WhiteSur-dark
-		● Cursors: WhiteSur Cursors
-		● Splash Screen: Monterey-dark
-# Startup and Shutdown
-	● Login Screen (SSDM): Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
-	● Autostart Applications: Latte
-	● Autostart Login Scripts: keep-battery-updated.sh
-# Workspace Behavior
-	● Screen Locking > Appearance: Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
-● Wallpaper: Monterey wallpapers by vinceliuice -> https://www.pling.com/p/1567576/
-● Latte: Monterey latte layout by vinceliuice -> https://www.pling.com/p/1567605/
-
-=======================================
-Install Kvantum Engine For KDE On Ubuntu/KDE Neon
-=======================================
-$ sudo apt install -y g++ libx11-dev libxext-dev qtbase5-dev libqt5svg5-dev libqt5x11extras5-dev libkf5windowsystem-dev qttools5-dev-tools cmake checkinstall
-$ cd /opt && gi clone https://github.com/tsujan/Kvantum.git && cd Kvantum/Kvantum && ls
-$ mkdir build && cd build
-$ cmake ..
-$ make
-$ sudo make install
-# download and extract theme: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
-# open Kvantum > select theme folder > install this theme
-# change/delete theme > select MontereyDark > use this theme
-# configure active theme > compositing & general look > change window opacity to 5% > change menu opacity to 15% > save
-# Appearance > Global Theme > Application Style: kvantum-dark
-
-=======================================
-Install widget Window Buttons Applet to show window buttons in your panels
-=======================================
-$ sudo -i
-$ sudo apt install g++ cmake extra-cmake-modules qtbase5-dev qtdeclarative5-dev libkf5declarative-dev libkf5plasma-dev libkdecorations2-dev gettext
-$ cd /opt && git clone https://github.com/psifidotos/applet-window-buttons.git && cd applet-window-buttons && ls
-$ ./install.sh
-
-=======================================
-Setup Widget
-=======================================
-Latte spacer (Download)
-	5px
-Kpple menu (Download)
-Sticky Notes (Default)
-	Shortcut: Ctrl + Alt + Space
-Application title (Download)
-	Text type: Application Name
-Spacer (Flexible Size)
-Window Buttons (Install and Compile)
-	Sort button color: red-yellow-green
-Latte spacer (Download)
-	20px
-Big Sur - inline battery (Download)
-Latte spacer (Download)
-	7px
-Network connection (Default)
-Latte spacer (Download)
-	2px
-Launchpad plasma (Download)
-	icon: search
-System Tray (Default)
-	General:
-		Panel icon size: Scale with panel height
-	Entries:
-		Always hidden: Google Chrome, Battery and Brightness, Bluetooth, Networks
-Latte spacer (Download)
-	10px
-Better inline clock (Download)
-	Date format: Custom Date with 2 spaces in the end
-		ddd d MMM  
-Minimize all windows
-	Shortcut: Ctrl + Space
-Latte spacer (Download)
-	10px
-
-=================================
-Hide titlebar when a window is maximized
-=================================
-System Settings > Workspace > Window Management > Kwin scripts > Get new scripts > install Hide Titles > Select it & Apply
 
 =======================================
 Install Latte Dock
