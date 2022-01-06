@@ -70,6 +70,13 @@ $ nano ~/.zshrc
 # Instant Prompt Mode: (1) Verbose
 # Apply changes to ~/.zshrc?: (y) Yes
 
+# install Oh My Zsh for root user, run this command as non root user
+$ sudo ln -s $HOME/.oh-my-zsh /root/.oh-my-zsh
+$ sudo ln -s $HOME/.zshrc /root/.zshrc
+$ sudo nano ~/.zshrc
+# add this line on the top of file
+	ZSH_DISABLE_COMPFIX=true
+
 =====================================
 Install Docker with MariaDB & phpMyAdmin
 =====================================
