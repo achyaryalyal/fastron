@@ -301,8 +301,6 @@ $ sudo -i
 $ sudo apt install g++ cmake extra-cmake-modules qtbase5-dev qtdeclarative5-dev libkf5declarative-dev libkf5plasma-dev libkdecorations2-dev gettext
 $ cd /opt && git clone https://github.com/psifidotos/applet-window-buttons.git && cd applet-window-buttons && ls
 $ ./install.sh
-# add widget to top panel
-# right click, configure window buttons, sort button: red-yellow-green
 
 =======================================
 Setup Widget
@@ -310,6 +308,8 @@ Setup Widget
 Launchpad plasma (Download)
 Application title (Download)
 	Text type: Application Name
+Window Buttons (Install and Compile)
+	Sort button color: red-yellow-green
 Latte separator (Download)
 Latte spacer (Download)
 Latte sidebar button (Download)
@@ -317,17 +317,17 @@ Better inline clock (Download)
 	Date format: Long Date
 Big Sur - inline battery (Download)
 
+=================================
+Hide titlebar when a window is maximized
+=================================
+System Settings > Workspace > Window Management > Kwin scripts > Get new scripts > install Hide Titles > Select it & Apply
+
 =======================================
 Install Latte Dock
 =======================================
 $ sudo apt install latte-dock
 # add Latte Dock to autostart application
 # setting layout > import from KDE online store > type "WhiteSur latte by vinceliuice" > install > apply > switch
-
-=================================
-Hide titlebar when a window is maximized
-=================================
-System Settings > Workspace > Window Management > Kwin scripts > Get new scripts > install Hide Titles > Select it & Apply
 
 =================================
 Konsole Bookmark
@@ -340,7 +340,7 @@ Open Konsole > Bookmarks > Edit Bookmarks > New Bookmark:
 	kilat on [domain]			ssh://[username]@[domain]:[port]
 
 =================================
-Show Battery Percentage
+[ARCHIEVED] Show Battery Percentage
 =================================
 Right click on battery icon > Configure battery and brightness
 Check "Show percentage" > OK
