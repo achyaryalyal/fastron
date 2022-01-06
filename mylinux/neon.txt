@@ -238,7 +238,9 @@ Kpple menu (Download)
 Sticky Notes (Default)
 	Shortcut: Ctrl + Alt + Space
 Application title (Download)
-	Text type: Application Name
+	No active window label: Custom text
+	No active window custom text: Finder     File     Edit     View     Go     Windows     Help
+	Text type: Application name
 Spacer (Flexible Size)
 Window Buttons (Install and Compile)
 	Sort button color: red-yellow-green
