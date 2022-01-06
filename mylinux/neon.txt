@@ -295,25 +295,27 @@ $ sudo make install
 # Appearance > Global Theme > Application Style: kvantum-dark
 
 =======================================
-Install Widget
+Install widget Window Buttons Applet to show window buttons in your panels
 =======================================
-# add widget > search:
-	Launchpad plasma
-	Application title
-		Text type: Application Name
-	Latte separator
-	Latte spacer
-	Latte sidebar button
-	Better inline clock
-		Date format: Long Date
-	Big Sur - inline battery
-# add widget Window Buttons Applet to show window buttons in your panels
 $ sudo -i
 $ sudo apt install cmake extra-cmake-modules libkdecorations2-dev
 $ cd /opt && wget https://github.com/psifidotos/applet-window-buttons/archive/master.zip && unzip master.zip && rm master.zip && cd applet-window-buttons-master
 $ sh install.sh
 # add widget to top panel
 # right click, configure window buttons, sort button: red-yellow-green
+
+=======================================
+Setup Widget
+=======================================
+Launchpad plasma (Download)
+Application title (Download)
+	Text type: Application Name
+Latte separator (Download)
+Latte spacer (Download)
+Latte sidebar button (Download)
+Better inline clock (Download)
+	Date format: Long Date
+Big Sur - inline battery (Download)
 
 =======================================
 Install Latte Dock
