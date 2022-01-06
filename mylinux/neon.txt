@@ -282,14 +282,19 @@ https://www.youtube.com/watch?v=DX_gQTQLUZc
 =======================================
 Install Kvantum Engine For KDE On Ubuntu/KDE Neon
 =======================================
-https://www.ubuntubuzz.com/2019/02/how-to-install-kvantum-engine-for-kde-on-ubuntu.html
+$ sudo apt install -y g++ libx11-dev libxext-dev qtbase5-dev libqt5svg5-dev libqt5x11extras5-dev libkf5windowsystem-dev qttools5-dev-tools cmake checkinstall
+$ cd /opt && gi clone https://github.com/tsujan/Kvantum.git && cd Kvantum/Kvantum && ls
+$ mkdir build && cd build
+$ cmake ..
+$ make
+$ sudo make install
 
 =======================================
 Install Latte Dock
 =======================================
-$ sudo -i
-$ apt install latte-dock
-# mcOS BS Layout for Latte Dock: https://www.pling.com/p/1399346/
+$ sudo apt install latte-dock
+# add Latte Dock to autostart application
+# download layout WhiteSur latte by vinceliuice: https://www.pling.com/p/1399205
 
 =================================
 Add widget Window Buttons Applet to show window buttons in your panels
