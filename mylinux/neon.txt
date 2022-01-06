@@ -10,6 +10,11 @@ Typical way of updating the system in KDE Neon
 $ sudo pkcon refresh && sudo pkcon update -y
 
 =======================================
+Install Apps From APT via Konsole
+=======================================
+$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp qbittorrent peek pdfarranger pdfsam dolphin kaffeine ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager xserver-xorg-input-libinput xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
+
+=======================================
 Add swap space equals to RAM size
 =======================================
 # check has swap enabled, if output is empty, it means that your system does not have swap space enabled
@@ -196,6 +201,13 @@ Minimize all windows
 Latte spacer (Download)
 	10px
 
+=======================================
+Install Latte Dock
+=======================================
+$ sudo apt install latte-dock
+# add Latte Dock to autostart application
+# setting layout > import from KDE online store > type "WhiteSur latte by vinceliuice" > install > apply > switch
+
 =====================================
 Install Sublime Text from Ubuntu PPA
 =====================================
@@ -256,11 +268,6 @@ Install Apps From FLATPAK (via Discover)
 ======================================
 Spotify
 Zoom
-
-=======================================
-Install Apps From APT via Konsole
-=======================================
-$ sudo apt install neofetch net-tools inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp qbittorrent peek pdfarranger pdfsam dolphin kaffeine ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager xserver-xorg-input-libinput xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
 
 =======================================
 Install latest stable version of Inkscape
@@ -355,13 +362,6 @@ $ sudo ./imei.sh
 # verify
 $ identify -version
 $ php -i | grep ImageMagick
-
-=======================================
-Install Latte Dock
-=======================================
-$ sudo apt install latte-dock
-# add Latte Dock to autostart application
-# setting layout > import from KDE online store > type "WhiteSur latte by vinceliuice" > install > apply > switch
 
 =================================
 [ARCHIEVED] Show Battery Percentage
