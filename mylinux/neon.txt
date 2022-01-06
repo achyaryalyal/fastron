@@ -20,7 +20,7 @@ $ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge 
 Install Conky System Monitor
 =====================================
 $ sudo apt install -y conky-all && conky &
-System Settings > Workspace > Startup and Shutdown > Autostart > Add Application > Conky
+System Settings > Workspace > Startup and Shutdown > Autostart > Add Application > /usr/bin/conky
 $ cp /etc/conky/conky.conf ~/.conkyrc
 $ nano ~/.conkyrc
 # change line 29 from alignment = 'top_left' to alignment = 'top_right'
