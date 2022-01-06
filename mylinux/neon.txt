@@ -308,6 +308,13 @@ Install Widget
 	Kpple Menu
 	Mediacontroller plus
 	Ditto menu
+# add widget Window Buttons Applet to show window buttons in your panels
+$ sudo -i
+$ sudo apt install cmake extra-cmake-modules libkdecorations2-dev
+$ cd /opt && wget https://github.com/psifidotos/applet-window-buttons/archive/master.zip && unzip master.zip && rm master.zip && cd applet-window-buttons-master
+$ sh install.sh
+# add widget to top panel
+# right click, configure window buttons, sort button: red-yellow-green
 
 =======================================
 Install Latte Dock
@@ -315,16 +322,6 @@ Install Latte Dock
 $ sudo apt install latte-dock
 # add Latte Dock to autostart application
 # setting layout > import from KDE online store > type "WhiteSur latte by vinceliuice" > install > apply > switch
-
-=================================
-Add widget Window Buttons Applet to show window buttons in your panels
-=================================
-$ sudo -i
-$ sudo apt install cmake extra-cmake-modules libkdecorations2-dev
-$ cd /opt && wget https://github.com/psifidotos/applet-window-buttons/archive/master.zip && unzip master.zip && rm master.zip && cd applet-window-buttons-master
-$ sh install.sh
-# add widget to top panel
-# right click, configure window buttons, sort button: red-yellow-green
 
 =================================
 Hide titlebar when a window is maximized
