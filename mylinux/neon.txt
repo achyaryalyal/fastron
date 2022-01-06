@@ -298,7 +298,7 @@ $ sudo make install
 Install widget Window Buttons Applet to show window buttons in your panels
 =======================================
 $ sudo -i
-$ sudo apt install cmake extra-cmake-modules libkdecorations2-dev
+$ sudo apt install g++ cmake extra-cmake-modules qtbase5-dev qtdeclarative5-dev libkf5declarative-dev libkf5plasma-dev libkdecorations2-dev gettext
 $ cd /opt && git clone https://github.com/psifidotos/applet-window-buttons.git && cd applet-window-buttons && ls
 $ ./install.sh
 # add widget to top panel
