@@ -64,9 +64,10 @@ $ nano ~/.zshrc
 # Prompt Heads: (1) Sharp
 # Prompt Tails: (1) Flat
 # Prompt Height: (1) One line
-# Prompt Connection: (2) Dotted
-# Prompt Frame: (1) No frame
-# Connection Color: (2) Light
+	# if you choose two lines
+	# Prompt Connection: (2) Dotted
+	# Prompt Frame: (1) No frame
+	# Connection Color: (2) Light
 # Prompt Spacing: (2) Sparse
 # Icons: (2) Many icons
 # Prompt Flow: (1) Concise
