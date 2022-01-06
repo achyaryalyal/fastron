@@ -272,6 +272,8 @@ Better inline clock (Download)
 	Font Size: 14
 	Date format: Custom Date with 2 spaces in the end
 		ddd d MMM  
+Latte spacer (Download)
+	1px
 Minimize all windows
 	Shortcut: Ctrl + Space
 Latte spacer (Download)
