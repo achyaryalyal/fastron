@@ -301,7 +301,7 @@ Setup Widget
 =======================================
 Latte spacer (Download)
 	5px
-Launchpad plasma (Download)
+Kpple menu (Download)
 Sticky Notes (Default)
 	Shortcut: Ctrl + Alt + Space
 Application title (Download)
@@ -317,6 +317,8 @@ Latte spacer (Download)
 Network connection (Default)
 Latte spacer (Download)
 	2px
+Launchpad plasma (Download)
+	icon: search
 System Tray (Default)
 	General:
 		Panel icon size: Scale with panel height
