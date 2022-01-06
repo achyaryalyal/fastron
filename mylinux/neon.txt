@@ -1,8 +1,8 @@
 ASCII Text Art Generator: https://fsymbols.com/generators/carty/
 
 
-▄▀█ █▀█ █▀█ █░░ █ █▀▀ ▄▀█ ▀█▀ █ █▀█ █▄░█
-█▀█ █▀▀ █▀▀ █▄▄ █ █▄▄ █▀█ ░█░ █ █▄█ █░▀█
+█ █▄░█ █ ▀█▀ █ ▄▀█ █░░   █▀ █▀▀ ▀█▀ ▀█▀ █ █▄░█ █▀▀
+█ █░▀█ █ ░█░ █ █▀█ █▄▄   ▄█ ██▄ ░█░ ░█░ █ █░▀█ █▄█
 
 =====================================
 Typical way of updating the system in KDE Neon
@@ -249,12 +249,8 @@ $ sudo ./imei.sh
 $ identify -version
 $ php -i | grep ImageMagick
 
-
-▀█▀ █░█ █▀▀ █▀▄▀█ █▀▀   █░█ █ █▀▀ █░█░█
-░█░ █▀█ ██▄ █░▀░█ ██▄   ▀▄▀ █ ██▄ ▀▄▀▄▀
-
 =======================================
-How to Make KDE Plasma Look Like macOS Monterey
+Setting New Look
 =======================================
 # Appearance
 	● Global Theme: Monterey kde dark theme by vinceliuice -> https://www.pling.com/p/1567595/
