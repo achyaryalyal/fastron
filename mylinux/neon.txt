@@ -18,13 +18,24 @@ $ chsh -s $(which zsh)
 $ reboot
 # open Konsole and choose option 2 for the recommended default configuration
 # install OhMyZsh
+$ sudo apt install wget git -y
 $ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-# replace the existing configuration with the configuration from OhMyZsh with the command
-$ cp ~/.oh-my-zsh/templates/zshrc.zsh-template ~/.zshrc && source ~/.zshrc
+# install the recommended font: https://github.com/romkatv/powerlevel10k#meslo-nerd-font-patched-for-powerlevel10k
+# after font installed, open Konsole Settings > Edit Current Profile > Appearance:
+	select color scheme: White on Black
+	select font: MesloLGS NF Regular
+	Edit > activate Blur Background
+	Edit > transparency 50%
+$ git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+# download plugins for autosuggestion and syntax highlighting
+$ git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
+$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
 # change theme
 $ nano ~/.zshrc
-# change value of ZSH_THEME and activate it with the command
-$ source ~/.zshrc
+# change value of: ZSH_THEME="powerlevel10k/powerlevel10k"
+# add this line after that: POWERLEVEL9K_MODE="nerdfont-complete"
+# add this line on plugins line: plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
+# close Konsole and open again. Does this look like a diamond? "y" and then "q"
 
 =====================================
 Install Google Chrome from Ubuntu PPA
