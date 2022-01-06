@@ -17,23 +17,6 @@ $ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stab
 $ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge firefox
 
 =====================================
-Install Conky System Monitor
-=====================================
-$ sudo apt install -y conky-all && conky &
-System Settings > Workspace > Startup and Shutdown > Autostart > Add Application > /usr/bin/conky
-$ cp /etc/conky/conky.conf ~/.conkyrc
-$ nano ~/.conkyrc
-# change line 29 from alignment = 'top_left' to alignment = 'top_right'
-# add the following lines into your Conky configuration file at the top part of the main config section
-    own_window_argb_visual = true,
-    own_window_argb_value = 50,
-    double_buffer = true,
-# The next thing to do is to get the network monitoring to work properly.
-# By default, Conky monitors the network interface eth0, but your network interface most likely uses a different name.
-# Find the name of your network interface (type ifconfig in terminal) and then replace the eth0 value on line 76 with the name of your network interface.
-# Save the changes to the file.
-
-=====================================
 Install ZSH & OhMyZsh
 =====================================
 $ sudo apt install -y zsh && zsh --version && echo $SHELL
