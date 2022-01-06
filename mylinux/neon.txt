@@ -247,8 +247,11 @@ Window Buttons (Install and Compile)
 Latte spacer (Download)
 	20px
 Big Sur - inline battery (Download)
+	Dimensions: 25px x 12px
+	Padding: 5px
+	Font Size: 14px
 Latte spacer (Download)
-	7px
+	4px
 Network connection (Default)
 Latte spacer (Download)
 	2px
