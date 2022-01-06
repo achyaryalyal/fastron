@@ -17,6 +17,11 @@ $ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stab
 $ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge firefox
 
 =====================================
+Install Conky System Monitor
+=====================================
+$ sudo apt install -y conky-all
+
+=====================================
 Install ZSH & OhMyZsh
 =====================================
 $ sudo apt install -y zsh && zsh --version && echo $SHELL
@@ -58,7 +63,7 @@ $ nano ~/.zshrc
 # Prompt Separators: (1) Angled
 # Prompt Heads: (1) Sharp
 # Prompt Tails: (1) Flat
-# Prompt Height: (2) Two lines
+# Prompt Height: (1) One line
 # Prompt Connection: (2) Dotted
 # Prompt Frame: (1) No frame
 # Connection Color: (2) Light
