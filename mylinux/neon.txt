@@ -299,10 +299,12 @@ Install Widget
 =======================================
 # add widget > search:
 	Application title
+		Text type: Application Name
 	Latte separator
 	Latte spacer
 	Latte sidebar button
 	Better inline clock
+		Date format: Long Date
 	Big Sur - inline battery
 	Mediacontroller plus
 	Launchpad plasma
