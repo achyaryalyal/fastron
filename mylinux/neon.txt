@@ -299,18 +299,32 @@ $ ./install.sh
 =======================================
 Setup Widget
 =======================================
+Spacer (No Flexible Size)
 Launchpad plasma (Download)
 Application title (Download)
 	Text type: Application Name
+Spacer (Flexible Size)
 Window Buttons (Install and Compile)
 	Sort button color: red-yellow-green
-Latte separator (Download)
-Latte spacer (Download)
-Latte sidebar button (Download)
+Spacer (No Flexible Size)
+Big Sur - inline battery (Download)
+Spacer (No Flexible Size)
+System Tray (Default)
+	General:
+		Panel icon size: Scale with panel height
+	Entries:
+		Always hidden: Google Chrome, Battery and Brightness
+Spacer (No Flexible Size)
 Better inline clock (Download)
 	Date format: Custom Date with 2 spaces in the end
 		ddd d MMM  
-Big Sur - inline battery (Download)
+Minimize all windows
+	Shortcut: Ctrl + Space
+Spacer (No Flexible Size)
+-------------------------
+Latte separator (Download)
+Latte spacer (Download)
+Latte sidebar button (Download)
 
 =================================
 Hide titlebar when a window is maximized
