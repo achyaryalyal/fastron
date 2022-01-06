@@ -235,8 +235,6 @@ Setup Widget
 Latte spacer (Download)
 	5px
 Kpple menu (Download)
-Sticky Notes (Default)
-	Shortcut: Ctrl + Alt + Space
 Application title (Download)
 	No active window label: Custom text
 	No active window custom text: Finder     File     Edit     View     Go     Windows     Help
@@ -244,8 +242,10 @@ Application title (Download)
 Spacer (Flexible Size)
 Window Buttons (Install and Compile)
 	Sort button color: red-yellow-green
+Sticky Notes (Default)
+	Shortcut: Ctrl + Alt + Space
 Latte spacer (Download)
-	20px
+	10px
 Big Sur - inline battery (Download)
 	Dimensions: 25px x 12px
 	Padding: 5px
