@@ -294,7 +294,7 @@ Install Latte Dock
 =======================================
 $ sudo apt install latte-dock
 # add Latte Dock to autostart application
-# download layout WhiteSur latte by vinceliuice: https://www.pling.com/p/1399205
+# setting layout > import from KDE online store > type "WhiteSur latte by vinceliuice" > install > apply > switch
 
 =================================
 Add widget Window Buttons Applet to show window buttons in your panels
