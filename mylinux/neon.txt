@@ -200,7 +200,7 @@ Setting New Look
 	● Autostart Login Scripts: keep-battery-updated.sh
 # Workspace Behavior
 	● Screen Locking > Appearance: Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
-● Wallpaper: Monterey wallpapers by vinceliuice -> https://www.pling.com/p/1567576/
+● Wallpaper: https://4kwallpapers.com/images/wallpapers/macos-monterey-stock-green-dark-mode-layers-5k-6016x6016-5890.jpg
 ● Latte: Monterey latte layout by vinceliuice -> https://www.pling.com/p/1567605/
 
 =======================================
