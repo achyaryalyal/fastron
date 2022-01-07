@@ -156,6 +156,7 @@ $ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key 
 $ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
 $ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge firefox && sudo apt autoremove
 # minimize google chrome > right click on titlebar > more actions > add property > No titlebar and frame > Force > Yes > apply
+# right click on tab bar empty slot > enable Use system title bar and borders
 
 =====================================
 Setting Workspace
@@ -220,6 +221,7 @@ $ sudo make install
 	change menu opacity to 50%
 	save
 # Appearance > Global Theme > Application Style: kvantum-dark
+# Open Dolphin > right click on search icon > enable Toggle Search Bar
 
 =======================================
 Install widget Window Buttons Applet to show window buttons in your panels
