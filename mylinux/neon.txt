@@ -244,6 +244,8 @@ Application title (Download)
 Spacer (Flexible Size)
 Window Buttons (Install and Compile)
 	Sort button color: red-yellow-green
+Latte spacer (Download)
+	7px
 Sticky Notes (Default)
 	Shortcut: Ctrl + Alt + Space
 Latte spacer (Download)
