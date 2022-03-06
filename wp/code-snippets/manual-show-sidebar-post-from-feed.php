@@ -4,7 +4,7 @@
 
 function manual_show_sidebar_post() {
 	
-	$subdomain = 'akar';
+	$subdomain = explode('.', $_SERVER['HTTP_HOST'])[0];
 	
 	$feed_url = 'https://bbg.ac.id/tag/'.$subdomain.'/feed/';
 	$more_url = 'https://bbg.ac.id/tag/'.$subdomain.'/';
