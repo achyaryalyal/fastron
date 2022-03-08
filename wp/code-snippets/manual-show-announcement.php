@@ -18,11 +18,10 @@ function manual_show_announcement($atts = [], $content = null, $tag = '') {
 	
 	$subdomain = esc_html__( $my_atts['subdomain'], 'pengumuman' ); // library or baa,bauk,bakal
 	$subdomain = str_replace(' ', '', $subdomain);
-	$print_empty = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman '.strtoupper($subdomain).'</h2>
-		<ul style="border-radius:4px;border:2px solid #eee;padding:0;">
-			<li class="list_pengumuman"><h3 class="font-osc" style="color:#666;font-size:14px;font-weight:600;line-height:18px;margin:0;padding:4px 0;">Belum ada pengumuman</h3></li>';
 	
 	if(strpos($subdomain, ',') !== false) {
+		$from = 'Institusi';
+		
 		// ada delimiter koma		
 		$rss = new DOMDocument();
 		$feed = array();
@@ -60,7 +59,7 @@ function manual_show_announcement($atts = [], $content = null, $tag = '') {
 				$date = date("j F Y", strtotime($date));
 				$date = konversi_tanggal_8355("j F Y", $date, $bahasa="id");
 				if($i==0) {
-					$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman Institusi</h2>
+					$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman '.$from.'</h2>
 				<ul style="border-radius:4px;border:2px solid #eee;padding:0;">';
 				}
 				if($date!='1 Januari 1970') {
@@ -69,10 +68,17 @@ function manual_show_announcement($atts = [], $content = null, $tag = '') {
 			}
 		}
 		else {
-			$result = $print_empty;
+			$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman '.$from.'</h2>
+		<ul style="border-radius:4px;border:2px solid #eee;padding:0;">
+			<li class="list_pengumuman"><h3 class="font-osc" style="color:#666;font-size:14px;font-weight:600;line-height:18px;margin:0;padding:4px 0;">Belum ada pengumuman</h3></li>';
 		}
 	}
 	else {
+		$from = strtoupper($subdomain);
+		if($from=='WWW') {
+			$from = 'Institusi';
+		}
+		
 		// tidak ada delimiter koma
 		$feed_url = 'https://'.$subdomain.'.bbg.ac.id/category/pengumuman/feed/';
 		$more_url = 'https://'.$subdomain.'.bbg.ac.id/category/pengumuman/';
@@ -80,7 +86,7 @@ function manual_show_announcement($atts = [], $content = null, $tag = '') {
 		$rss = new SimpleXMLElement($content);
 		$count_items = count($rss->channel->item);
 		if($count_items>0) {
-			$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman '.strtoupper($subdomain).'</h2>
+			$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman '.$from.'</h2>
 			<ul style="border-radius:4px;border:2px solid #eee;padding:0;">';
 			for($i=0; $i<$limit; $i++) {
 				$title = $rss->channel->item[$i]->title;
@@ -96,7 +102,9 @@ function manual_show_announcement($atts = [], $content = null, $tag = '') {
 			}
 		}
 		else {
-			$result = $print_empty;
+			$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman '.$from.'</h2>
+		<ul style="border-radius:4px;border:2px solid #eee;padding:0;">
+			<li class="list_pengumuman"><h3 class="font-osc" style="color:#666;font-size:14px;font-weight:600;line-height:18px;margin:0;padding:4px 0;">Belum ada pengumuman</h3></li>';
 		}
 	}
 	$result .= '</ul>
