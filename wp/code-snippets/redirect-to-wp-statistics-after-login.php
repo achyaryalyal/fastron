@@ -3,8 +3,7 @@
 /////////////////////////////////
 
 function admin_default_page() {
-	if(is_plugin_active('wp-statistics/wp-statistics.php')) {
-		//plugin is activated
+	if(is_plugin_active('wp-statistics/wp-statistics.php') && is_admin()==TRUE) {
 		return '/wp-admin/admin.php?page=wps_overview_page';
 	}
 	else {
