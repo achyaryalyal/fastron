@@ -1,5 +1,5 @@
 /////////////////////////////////
-// Remove Some Columns from The Post List
+// Remove Some Columns from Post and Page
 /////////////////////////////////
 
 function my_columns_filter( $columns ) {
@@ -15,3 +15,4 @@ function my_columns_filter( $columns ) {
     return $columns;
 }
 add_filter( 'manage_edit-post_columns', 'my_columns_filter', 10, 1 );
+add_filter( 'manage_edit-page_columns', 'my_columns_filter', 10, 1 );
