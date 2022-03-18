@@ -1,5 +1,6 @@
 /////////////////////////////////
 // Redirect to WP-Statistics After Login
+// (for administrator role)
 /////////////////////////////////
 
 function admin_default_page() {
