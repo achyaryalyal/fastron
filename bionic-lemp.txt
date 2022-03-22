@@ -6,6 +6,7 @@ A-------@-----------[YOUR_IP_SERVER] ---> if you use control panel, change @ to 
 A-------data--------[YOUR_IP_SERVER]
 A-------dev---------[YOUR_IP_SERVER]
 A-------file--------[YOUR_IP_SERVER]
+A-------ktm---------[YOUR_IP_SERVER]
 A-------mail--------[YOUR_IP_SERVER]
 A-------struktur----[YOUR_IP_SERVER]
 CNAME---www---------[YOUR_DOMAIN]
