@@ -366,6 +366,8 @@ Install Apps Manually From .DEB Package
 =======================================
 Download WPS Office For Linux
 	https://linux.wps.com
+Download Sejda PDF Desktop (PDF Editor)
+	https://www.sejda.com/desktop
 Download CrossFTP Version 1.99.6 (for managing S3 bucket) from:
 	http://www.crossftp.com/crossftp_1.99.6.deb
 	or
