@@ -173,7 +173,7 @@ Workspace > Workspace Behavior > Desktop Effects > Magic Lamp > enable and confi
 Workspace > Window Management > Window Behavior
 	Window placement: Centered
 Workspace > Window Management > Task Switcher
-	change Breeze to Large Icons
+	change Breeze to Compact (more informative and don't spend much screen area)
 Workspace > Window Management > KWin Scripts
 	Get new script > Force Blue > install > enable
 	Get new script > Hide Titles > install > enable
