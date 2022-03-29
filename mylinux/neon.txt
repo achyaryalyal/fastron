@@ -106,6 +106,29 @@ $ sudo nano ~/.zshrc
 	ZSH_DISABLE_COMPFIX=true
 
 =================================
+Disable Intel SGX Kernel Support
+=================================
+$ sudo -i
+$ nano /etc/default/grub
+# add parameter nosgx to GRUB_CMDLINE_LINUX_DEFAULT
+	GRUB_CMDLINE_LINUX_DEFAULT="nosgx"
+# close & save
+$ update-grub
+$ reboot
+# if anything goes wrong, just boot through recovery to repair grub again
+
+=================================
+Recognize USB 3.0 Device
+=================================
+$ sudo nano /etc/default/grub
+# add parameter: usbcore.autosuspend=-1 to GRUB_CMDLINE_LINUX_DEFAULT
+	GRUB_CMDLINE_LINUX_DEFAULT="usbcore.autosuspend=-1"
+# close & save
+$ update-grub
+$ reboot
+# if anything goes wrong, just boot through recovery to repair grub again
+
+=================================
 Fix Lenovo S145 Touchpad Issue via Grub
 =================================
 $ sudo -i
@@ -644,15 +667,6 @@ Check System, Machine and Audio Information
 $ inxi -SMA
 # or full info:
 $ inxi -F
-
-=================================
-Recognize USB 3.0 Device
-=================================
-$ sudo nano /etc/default/grub
-# add parameter: usbcore.autosuspend=-1
-# save
-$ update-grub
-$ reboot
 
 =================================
 Konsole Bookmark
