@@ -584,7 +584,9 @@ $ sudo alsa force-reload
 Fix Desktop Effects Not Working or Display is Blank (BLACK SCREEN)
 =================================
 System Settings > Hardware > Display and Monitor > Compositor
-# set Scale method: Accurate
+# [ON] enable on startup
+# [ON] allow applications to block compositing
+# set Scale method: Smooth
 # set Rendering backend: OpenGL 3.1
 # set Latency: Prefer lower latency
 # apply
