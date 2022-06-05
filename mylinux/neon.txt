@@ -150,10 +150,13 @@ Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
 # set icon: ktouch
 # save & close application menu
 # create bash script dan make it run in background after login (after the lock screen) after wakeup
-$ nano /usr/lib/systemd/system-sleep/reset-pointer.sh
+$ nano /usr/lib/pm-utils/sleep.d/99resetpointer
 	#!/bin/bash
-	ids=$(xinput list | grep 'pointer' | cut -d '=' -f 2 | cut -f 1 | tr ' ' '\n' | tail -1) && xinput --disable $ids && xinput --enable $ids
-$ chmod +x /usr/lib/systemd/system-sleep/reset-pointer.sh && chmod 0755 /usr/lib/systemd/system-sleep/reset-pointer.sh
+	case "$1" in
+		resume)
+			ids=$(xinput list | grep 'pointer' | cut -d '=' -f 2 | cut -f 1 | tr ' ' '\n' | tail -1) && xinput --disable $ids && xinput --enable $ids
+	esac
+$ chmod +x /usr/lib/pm-utils/sleep.d/99resetpointer && chmod 0755 /usr/lib/pm-utils/sleep.d/99resetpointer
 
 =================================
 Adjust Touchpad Configuration
