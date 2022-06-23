@@ -379,7 +379,6 @@ $ sudo apt-get update && sudo apt-get install vagrant
 Install Apps From FLATPAK (via Discover)
 ======================================
 Spotify
-Zoom
 
 =======================================
 Install latest stable version of Inkscape
@@ -395,6 +394,8 @@ Install Apps Manually From .DEB Package
 =======================================
 Download WPS Office For Linux
 	https://linux.wps.com
+Download Zoom Meeting
+	https://zoom.us/download
 Download Sejda PDF Desktop (PDF Editor)
 	https://www.sejda.com/desktop
 Download CrossFTP Version 1.99.6 (for managing S3 bucket) from:
