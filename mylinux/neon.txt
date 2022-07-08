@@ -369,7 +369,7 @@ $ sudo add-apt-repository ppa:atareao/telegram
 $ sudo apt update && sudo apt install telegram
 
 =====================================
-Install latest stable version of Wine 7
+Install latest stable version of Wine
 =====================================
 $ sudo dpkg --add-architecture i386
 $ sudo apt update
@@ -383,11 +383,6 @@ $ winecfg
 Install Motion Trade Desktop Version from MNC Sekuritas
 =====================================
 https://otweb.mncsekuritas.id/repository/install.exe?1657255138
-
-=====================================
-Install HOTS Desktop Version from Mirae Asset
-=====================================
-https://hots.miraeasset.co.id/files/HOTS/hots_setup.exe
 
 ======================================
 Install Vagrant
