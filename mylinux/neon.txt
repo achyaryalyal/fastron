@@ -368,6 +368,27 @@ Install Telegram from Ubuntu PPA
 $ sudo add-apt-repository ppa:atareao/telegram
 $ sudo apt update && sudo apt install telegram
 
+=====================================
+Install latest stable version of Wine 7
+=====================================
+$ sudo dpkg --add-architecture i386
+$ sudo apt update
+$ wget -qO- https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+$ sudo apt-add-repository "deb http://dl.winehq.org/wine-builds/ubuntu/ $(lsb_release -cs) main"
+$ sudo apt install --install-recommends winehq-stable
+$ wine --version
+$ winecfg
+
+=====================================
+Install Motion Trade Desktop Version from MNC Sekuritas
+=====================================
+https://otweb.mncsekuritas.id/repository/install.exe?1657255138
+
+=====================================
+Install HOTS Desktop Version from Mirae Asset
+=====================================
+https://hots.miraeasset.co.id/files/HOTS/hots_setup.exe
+
 ======================================
 Install Vagrant
 ======================================
