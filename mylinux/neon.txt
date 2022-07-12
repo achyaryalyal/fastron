@@ -378,6 +378,12 @@ $ sudo apt-add-repository "deb http://dl.winehq.org/wine-builds/ubuntu/ $(lsb_re
 $ sudo apt install --install-recommends winehq-stable
 $ wine --version
 $ winecfg
+# fix font shows blank squares instead of characters
+# now use terminal as user non root
+$ cd "${HOME}/Downloads"
+$ wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
+$ chmod +x winetricks
+$ sh winetricks allfonts
 
 =====================================
 Install Motion Trade Desktop Version from MNC Sekuritas
