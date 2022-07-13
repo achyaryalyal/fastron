@@ -794,7 +794,12 @@ rclone config
 # enter "1" for Full Access
 # paste folder ID from folder URL to root_folder_id. ex: 3Hty4Fkfvb3294xxxxxxxxxxxxxxxxxxf
 # just leave blank the service_account_file
-# enter "n" for Advanced Config
+# enter "y" for Advanced Config
+# just leave blank the auth_owner_only
+# enter "true" for use_trash
+# just leave blank the skip_gdocs, skip_checksum_gphotos, shared_with_me, trashed_only, export_formats, import_formats, allow_import_name_change, use_created_date, list_chunk, impersonate, alternate_export, upload_cutoff
+# enter "32M" for chunk_size
+# just leave blank the acknowledge_abuse, keep_revision_forever, size_as_quota, v2_download_min_size, pacer_min_sleep, pacer_burst, server_side_across_configs, disable_http2
 # enter "n" for Use Auto Config
 # go to the following link, copy code, paste to "Enter verification code"
 # enter "n" for Team Drive
@@ -817,14 +822,16 @@ rclone config
 # mount: rclone --vfs-cache-mode writes mount Gerobak:Data /path/to/local/mount --allow-non-empty --allow-other &
 # unmount: fusermount -u /path/to/local/mount
 # this is the path you mounted the storage to, if you don't know the path, run: mount | grep rclone
-
+#####################
 # Mount Drive On Boot
 nano /mount-google-drive.sh
 # paste it
 	#!/bin/bash
-	/usr/bin/rclone --vfs-cache-mode writes mount bbg-cabinet-mounting:cabinet-master /var/www/master/cabinet --allow-non-empty --allow-other &
-	/usr/bin/rclone --vfs-cache-mode writes mount bbg-cabinet-mounting:cabinet-development /var/www/development/cabinet --allow-non-empty --allow-other &
+	/usr/bin/rclone mount bbg-cabinet-mounting:cabinet-master /var/www/master/cabinet --allow-non-empty --allow-other --buffer-size 32M --drive-chunk-size 32M --vfs-cache-mode writes --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
+	/usr/bin/rclone mount bbg-cabinet-mounting:cabinet-development /var/www/development/cabinet --allow-non-empty --allow-other --vfs-cache-mode writes --buffer-size 32M --drive-chunk-size 32M --vfs-cache-mode writes --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
+# make it executable
 chmod +x /mount-google-drive.sh
+# add to cronjob
 crontab -e
 # see the cronjob at the bottom of this page
 
