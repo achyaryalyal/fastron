@@ -827,8 +827,8 @@ rclone config
 nano /mount-google-drive.sh
 # paste it
 	#!/bin/bash
-	/usr/bin/rclone mount bbg-cabinet-mounting:cabinet-master /var/www/master/cabinet --allow-non-empty --allow-other --buffer-size 32M --drive-chunk-size 32M --vfs-cache-mode writes --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
-	/usr/bin/rclone mount bbg-cabinet-mounting:cabinet-development /var/www/development/cabinet --allow-non-empty --allow-other --vfs-cache-mode writes --buffer-size 32M --drive-chunk-size 32M --vfs-cache-mode writes --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
+	/usr/bin/rclone mount bbg-cabinet-mounting:cabinet-master /var/www/master/cabinet --allow-non-empty --allow-other --dir-cache-time 72h --buffer-size 32M --drive-chunk-size 32M --vfs-cache-mode writes --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
+	/usr/bin/rclone mount bbg-cabinet-mounting:cabinet-development /var/www/development/cabinet --allow-non-empty --allow-other --dir-cache-time 72h --buffer-size 32M --drive-chunk-size 32M --vfs-cache-mode writes --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
 # make it executable
 chmod +x /mount-google-drive.sh
 # add to cronjob
