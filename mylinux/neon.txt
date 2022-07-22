@@ -386,12 +386,22 @@ $ chmod +x winetricks
 $ sh winetricks allfonts dotnet46 vcrun2008 vcrun2010 vcrun2013 vcrun2015
 
 =====================================
-Install Motion Trade Desktop Version from MNC Sekuritas
+Wine: Install Motion Trade Desktop Version from MNC Sekuritas
 =====================================
 https://otweb.mncsekuritas.id/repository/install.exe?1657255138
 # after login, click font symbol and set font: Arial --- Reguler --- 8 --- OK
 # setting General: last viewed menus, save pin (till application stop), use real time value update, theme 1 black (default)
 # setting Notification: use notification message (Both), all order result
+
+=====================================
+Wine: Install HOTS Desktop Version from Mirae Asset Sekuritas Indonesia
+=====================================
+https://hots.miraeasset.co.id
+
+=====================================
+Wine: Install POEMS ProTrader Desktop Version from Phillip Sekuritas Indonesia
+=====================================
+https://www.poems.co.id/Support/Download
 
 ======================================
 Install Vagrant
