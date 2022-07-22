@@ -402,6 +402,12 @@ https://hots.miraeasset.co.id
 Wine: Install POEMS ProTrader Desktop Version from Phillip Sekuritas Indonesia
 =====================================
 https://www.poems.co.id/Support/Download
+# copy a .PNG icon to:
+	/home/neon/.wine/drive_c/users/neon/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/PT. Phillip Sekuritas Indonesia/
+# open menu editor, click Wine > Programs > New Items
+	Name: ProTrader
+	Command: env WINEPREFIX="/home/neon/.wine" wine C:\\users\\neon\\AppData\\Roaming\\Microsoft\\Windows\\Start\ Menu\\Programs\\PT.\ Phillip\ Sekuritas\ Indonesia\\ProTrader.appref-ms
+	Work path (Advanced): /home/neon/.wine/drive_c/users/neon/AppData/Roaming/ProTrader/
 
 ======================================
 Install Vagrant
