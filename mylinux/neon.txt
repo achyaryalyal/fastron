@@ -383,12 +383,13 @@ $ winecfg
 $ cd "${HOME}/Downloads"
 $ wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
 $ chmod +x winetricks
-$ sh winetricks allfonts dotnet46 vcrun2008 vcrun2010 vcrun2013 vcrun2015 d3dx9 d3dx9_43 directx9 d3dx10
+$ sh winetricks allfonts dotnet472 vcrun2008 vcrun2010 vcrun2013 vcrun2015 d3dx9 d3dx9_43 directx9 d3dx10
 
 =====================================
 Wine: Install Motion Trade Desktop Version from MNC Sekuritas
 =====================================
 https://www.mncsekuritas.id/download-area
+# read the Prerequisite Tools: NET Framework 4.7.2 & VC++ Redist 2015 x86
 # open motion trade > login > set font (T icon): Arial --- Bold --- 8 --- OK
 # setting General: last viewed menus, save pin (till application stop), use real time value update, theme 1 black (default)
 # setting Notification: use notification message (Both), all order result
@@ -402,6 +403,7 @@ https://hots.miraeasset.co.id
 Wine: Install POEMS ProTrader Desktop Version from Phillip Sekuritas Indonesia
 =====================================
 https://www.poems.co.id/Support/Download
+# Minimum requirement: .Net Framework 4.6
 # copy a .PNG icon to:
 	/home/neon/.wine/drive_c/users/neon/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/PT. Phillip Sekuritas Indonesia/
 # open menu editor, click Wine > Programs > New Items
