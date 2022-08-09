@@ -15,6 +15,17 @@ Install Apps From APT via Konsole
 $ sudo apt install neofetch net-tools whois inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp qbittorrent peek pdfarranger pdfsam dolphin kaffeine ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager xserver-xorg-input-libinput xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
 
 =======================================
+Install WhatsApps From Snap
+=======================================
+# open discover, search "WhatSie" and install
+
+=====================================
+Install Telegram from Ubuntu PPA
+=====================================
+$ sudo add-apt-repository ppa:atareao/telegram
+$ sudo apt update && sudo apt install telegram
+
+=======================================
 Add swap space equals to RAM size
 =======================================
 # check has swap enabled, if output is empty, it means that your system does not have swap space enabled
@@ -363,12 +374,6 @@ SGJEOI-HRHTE-ROGNS-FNGVS-PDFJPE
 ------ END LICENSE ------
 
 =====================================
-Install Telegram from Ubuntu PPA
-=====================================
-$ sudo add-apt-repository ppa:atareao/telegram
-$ sudo apt update && sudo apt install telegram
-
-=====================================
 Install latest stable version of Wine
 =====================================
 $ sudo dpkg --add-architecture i386
@@ -393,23 +398,6 @@ https://www.mncsekuritas.id/download-area
 # open motion trade > login > set font (T icon): Arial --- Bold --- 8 --- OK
 # setting General: last viewed menus, save pin (till application stop), use real time value update, theme 1 black (default)
 # setting Notification: use notification message (Both), all order result
-
-=====================================
-Wine: Install HOTS Desktop Version from Mirae Asset Sekuritas Indonesia
-=====================================
-https://hots.miraeasset.co.id
-
-=====================================
-Wine: Install POEMS ProTrader Desktop Version from Phillip Sekuritas Indonesia
-=====================================
-https://www.poems.co.id/Support/Download
-# Minimum requirement: .Net Framework 4.6
-# copy a .PNG icon to:
-	/home/neon/.wine/drive_c/users/neon/AppData/Roaming/Microsoft/Windows/Start Menu/Programs/PT. Phillip Sekuritas Indonesia/
-# open menu editor, click Wine > Programs > New Items
-	Name: ProTrader
-	Command: env WINEPREFIX="/home/neon/.wine" wine C:\\users\\neon\\AppData\\Roaming\\Microsoft\\Windows\\Start\ Menu\\Programs\\PT.\ Phillip\ Sekuritas\ Indonesia\\ProTrader.appref-ms
-	Work path (Advanced): /home/neon/.wine/drive_c/users/neon/AppData/Roaming/ProTrader/
 
 ======================================
 Install Vagrant
