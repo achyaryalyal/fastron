@@ -17,7 +17,8 @@ $ sudo apt install neofetch net-tools whois inxi xserver-xorg-input-libinput xse
 =======================================
 Install WhatsApps From Snap
 =======================================
-# open discover, search "WhatSie" and install
+# open Discover, search "WhatSie" and install
+# open Menu Editor, in category Internet > New Item "WhatSie" > 
 
 =====================================
 Install Telegram from Ubuntu PPA
