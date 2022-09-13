@@ -834,6 +834,13 @@ chmod +x /mount-google-drive.sh
 # add to cronjob
 crontab -e
 # see the cronjob at the bottom of this page
+########## troubleshoot if nout mounted ###########
+# run single command of rclone mount: bash /mount-google-drive.sh
+# and error appears: Failed to create file system for "______:______": didn't find section in config file
+# because file config has been deleted, it caused by an unclean shutdown. please remember, rclone will re-write the config file on re-auth, so if you had an unclean shutdown just after that, so the file could go missing conceivably.
+# run: rclone config file
+# nano fot that file and you will see nothing in config file
+# so the solution is you must CREATE NEW REMOTE STORAGE
 
 ##################################
 # Install Code Server - VS Code in the browser (GAK PERLU)
