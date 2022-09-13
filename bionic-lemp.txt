@@ -841,6 +841,7 @@ crontab -e
 # run: rclone config file
 # nano fot that file and you will see nothing in config file
 # so the solution is you must CREATE NEW REMOTE STORAGE
+# and test list dir: rclone lsd Gerobak:
 
 ##################################
 # Install Code Server - VS Code in the browser (GAK PERLU)
