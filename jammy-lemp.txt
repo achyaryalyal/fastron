@@ -157,9 +157,9 @@ ramstat.sh
 ##################################
 NEW_USER="......." && adduser ${NEW_USER} && usermod -aG sudo ${NEW_USER} && usermod -aG www-data ${NEW_USER} && usermod -aG admin ${NEW_USER} && groups ${NEW_USER} && id ${NEW_USER}
 # TYPE root password and just ENTER when fill user profile
-	# you may ignore it: if you want to delete the user from group, run this command: gpasswd -d linuxsec sudo
-	# you may ignore it: if you want to delete the user, run this command: sudo deluser [USERNAME]
-	# you may ignore it: if you want to delete the user and its home directory and mail spool, use the --remove-home flag: sudo deluser --remove-home [USERNAME]
+	### if you want to delete the user from group, run this command: gpasswd -d linuxsec sudo
+	### if you want to delete the user, run this command: sudo deluser [USERNAME]
+	### if you want to delete the user and its home directory and mail spool, use the --remove-home flag: sudo deluser --remove-home [USERNAME]
 
 ##################################
 # Generate ssh public key
@@ -177,7 +177,7 @@ nano /etc/ssh/sshd_config
 	LoginGraceTime 10
 	PermitRootLogin no
 	PasswordAuthentication yes
-	ChallengeResponseAuthentication no
+	KbdInteractiveAuthentication no
 	UsePAM yes
 	X11Forwarding no
 	PrintMotd yes
@@ -185,7 +185,7 @@ nano /etc/ssh/sshd_config
 	ClientAliveCountMax 720
 	AcceptEnv LANG LC_*
 	Subsystem sftp  /usr/lib/openssh/sftp-server
-service ssh restart && echo "Please login ssh with new user created" && exit && exit
+service ssh restart && echo "Please login ssh with new created user and configured port" && exit && exit
 
 ##################################
 # Firewall with ufw
@@ -217,9 +217,10 @@ ufw allow https
 
 ufw show added
 ufw enable
+# Command may disrupt existing ssh connections. Proceed with operation (y|n)? y
 service ssh restart
 
-# if you want to delete a rule, just type: ufw delete [allow/deny] [PORT_NUMBER]
+### if you want to delete a rule, just type: ufw delete [allow/deny] [PORT_NUMBER]
 
 ##################################
 # Install Postfix with OpenDKIM
