@@ -72,7 +72,7 @@ sudo apt update && apt upgrade -y && apt autoremove -y --purge && apt autoclean 
 ##################################
 # Useful packages
 ##################################
-sudo add-apt-repository ppa:maxmind/ppa && sudo apt update && sudo apt install software-properties-common ghostscript neofetch curl wget git zip unzip rar unrar gnupg gnupg2 ca-certificates lsb-release apt-transport-https fail2ban haveged htop nload nmap nmon ntp pigz tree ccze mycli geoip-bin geoip-database geoip-database-extra geoipupdate libgeoip1 libmaxminddb0 libmaxminddb-dev mmdb-bin libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev
+sudo add-apt-repository ppa:maxmind/ppa && sudo apt update && sudo apt install software-properties-common ghostscript neofetch curl wget git zip unzip rar unrar gnupg gnupg2 ca-certificates lsb-release apt-transport-https fail2ban haveged htop nload nmap nmon ntp pigz tree ccze mycli geoip-bin geoip-database geoipupdate libgeoip1 libmaxminddb0 libmaxminddb-dev mmdb-bin libpcre3 libpcre3-dev zlibc zlib1g zlib1g-dev
 
 # GeoLite2 is geolocation free service. This data is less accurate than the paid service, GeoIP2.
 # check GeoIP version
