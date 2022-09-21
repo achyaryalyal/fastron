@@ -392,10 +392,12 @@ nano /etc/opendkim/trusted.hosts
 ##################################
 sudo apt install webp && cd /opt && git clone https://github.com/SoftCreatR/imei && cd imei && chmod +x imei.sh && ./imei.sh && identify -version
 
+sudo apt upgrade
+
 ##################################
 # Install Nginx
 ##################################
-sudo add-apt-repository ppa:nginx/stable && sudo apt update && sudo apt install -y nginx && nginx -v
+sudo apt install -y nginx-extras && nginx -v
 
 # Set up server configuration
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/stub_status.conf > /etc/nginx/conf.d/stub_status.conf
@@ -408,6 +410,8 @@ nano /etc/nginx/nginx.conf
 curl -sSL ........................ > /etc/nginx/sites-available/example.com
 # make sure these lines appear in the server block :
 	if ($badagent) { return 403; }
+
+# Add error.log owner
 chown www-data:www-data /var/log/nginx/error.log
 
 # Set up custom error page
@@ -422,9 +426,10 @@ wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/errorpa
 wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/nginx/errorpage/504.html
 chown -R www-data:www-data /var/www/errorpage
 
+# [You can ignore it]
 # Create a password file for Restricting Access with HTTP Basic Authentication
-sudo apt install apache2-utils
-htpasswd -c /etc/nginx/conf.d/.htpasswd [USER]
+# sudo apt install apache2-utils
+# htpasswd -c /etc/nginx/conf.d/.htpasswd [USER]
 
 # Create a symbolic link to activate server block
 sudo ln -s /etc/nginx/sites-available/example.com /etc/nginx/sites-enabled/
