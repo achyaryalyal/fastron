@@ -255,18 +255,14 @@ nano /etc/opendkim.conf
 	#Canonicalization     simple
 	#Mode                 sv
 	#SubDomains           no
-# uncomment them and replace simple with relaxed/simple. Change the mode from sv to s
-# add the following lines at the end of this file. (On Ubuntu 18.04, the UserID is already set to opendkim)
-	#OpenDKIM user
-	# Remember to add user postfix to group opendkim
-	UserID             opendkim
-
-	# Map domains in From addresses to keys used to sign messages
-	KeyTable           refile:/etc/opendkim/key.table
-	SigningTable       refile:/etc/opendkim/signing.table
-
+# uncomment them, change "simple" to "relaxed/simple", change "sv" to "s"
+# add the following lines at the end of this file. (On Ubuntu 22.04, the UserID is already set to opendkim)
+# Map domains in From addresses to keys used to sign messages
+	KeyTable                refile:/etc/opendkim/key.table
+	SigningTable            refile:/etc/opendkim/signing.table
+	
 	# A set of internal hosts whose mail should be signed
-	InternalHosts       /etc/opendkim/trusted.hosts
+	InternalHosts           /etc/opendkim/trusted.hosts
 
 ### Create Signing Table, key Table and Trusted Hosts File
 sudo mkdir /etc/opendkim && sudo chown -R opendkim:opendkim /etc/opendkim
@@ -306,17 +302,16 @@ key OK
 ### Connect Postfix with OpenDKIM
 nano /etc/opendkim.conf
 # find the following line:
-	Socket local:/var/run/opendkim/opendkim.sock
-# replace it with the following line. (If you can’t find the above line, then add the following line.)
-	Socket local:/var/spool/postfix/opendkim/opendkim.sock
+	Socket                  local:/run/opendkim/opendkim.sock
+# give comment at that line
+# uncomment this line: (If you can't find this line, just add it)
+	Socket                  local:/var/spool/postfix/opendkim/opendkim.sock
 sudo mkdir /var/spool/postfix/opendkim && sudo chown opendkim:postfix /var/spool/postfix/opendkim
 nano /etc/default/opendkim
 # if you can find the following line:
-	SOCKET="local:/var/run/opendkim/opendkim.sock"
-or
 	SOCKET=local:$RUNDIR/opendkim.sock
 # change it to:
-	SOCKET="local:/var/spool/postfix/opendkim/opendkim.sock"
+	SOCKET=local:/var/spool/postfix/opendkim/opendkim.sock
 nano /etc/postfix/main.cf
 # add the following lines at the end of this file to connect Postfix with OpenDKIM:
 	# Milter configuration
