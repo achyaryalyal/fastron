@@ -523,36 +523,39 @@ fail2ban-allstatus.sh
 	mount -o remount,rw /etc/fail2ban/jail.local
 
 ##################################
-# Install MariaDB 10.4.6
+# Install MariaDB 10.6.7
 ##################################
-sudo apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0xF1656F24C74CD1D8 && sudo add-apt-repository 'deb [arch=amd64,arm64,ppc64el] http://mirror.biznetgio.com/mariadb/repo/10.4/ubuntu bionic main' && sudo apt update && sudo apt install -y mariadb-server
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/my.cnf > /etc/mysql/my.cnf
-mysql_secure_installation
-        # Switch to unix_socket authentication [Y/n]? n
-  	# Change the root password? y
-  	# Remove anonymous users? y
-  	# Disallow root login remotely? y
-  	# Remove test database and access to it? y
-  	# Reload privilege tables now? y
-
-# stop mysql service to apply new InnoDB log file size
-service mysql stop
-
-# mv previous log file
-mv /var/lib/mysql/ib_logfile0 /var/lib/mysql/ib_logfile0.bak
-mv /var/lib/mysql/ib_logfile1 /var/lib/mysql/ib_logfile1.bak
-
-# increase mariadb open_files_limit
-curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/limits.conf > /etc/systemd/system/mariadb.service.d/limits.conf
-
-# reload daemon
-systemctl daemon-reload
-
-# restart mysql
-service mysql start
+sudo apt install mariadb-server
 
 # check version
 dpkg -l | grep mariadb
+
+curl -sSL https://github.com/achyaryalyal/fastron/raw/master/mariadb/my.cnf > /etc/mysql/my.cnf
+
+sudo mysql_secure_installation
+	# Switch to unix_socket authentication [Y/n]? n
+	# Change the root password? y
+	# Remove anonymous users? y
+	# Disallow root login remotely? y
+	# Remove test database and access to it? y
+	# Reload privilege tables now? y
+
+# increase mariadb open_files_limit
+mkdir /etc/systemd/system/mariadb.service.d/
+nano /etc/systemd/system/mariadb.service.d/limitnofile.conf
+# add this line:
+	[Service]
+	LimitNOFILE=1048576
+systemctl daemon-reload
+service mysql restart
+nano /etc/mysql/mariadb.conf.d/50-server.cnf
+# under [mysqld], add:
+	open_files_limit = 102400
+nano /etc/sysctl.conf
+# add this line:
+	fs.nr_open=1048576‬
+# then make it active with command
+sysctl -p
 
 # optimize and repair databases
 mysqlcheck -u root -p --auto-repair -o --optimize --all-databases
