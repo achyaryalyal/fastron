@@ -790,42 +790,51 @@ nano +7 atheos/components/user/login.php
 curl https://rclone.org/install.sh | sudo bash && rclone version
 rclone config
 # enter "n" for New Remote Storage
-# give it a name. ex: Gerobak
-# enter "13" or sometimes "16" for Google Drive
+# give it a name. ex: AMC
+# enter the number for Google Drive
 # just leave blank the client_id & client_secret
 # enter "1" for Full Access
-# paste folder ID from folder URL to root_folder_id. ex: 3Hty4Fkfvb3294xxxxxxxxxxxxxxxxxxf
 # just leave blank the service_account_file
 # enter "y" for Advanced Config
+# just leave blank the token, auth_url, token url
+# paste folder ID from folder URL to root_folder_id. ex: 3Hty4Fkfvb3294xxxxxxxxxxxxxxxxxxf
 # just leave blank the auth_owner_only
 # enter "true" for use_trash
-# just leave blank the skip_gdocs, skip_checksum_gphotos, shared_with_me, trashed_only, export_formats, import_formats, allow_import_name_change, use_created_date, list_chunk, impersonate, alternate_export, upload_cutoff
+# just leave blank the copy_shortcut_content, skip_gdocs, skip_checksum_gphotos, shared_with_me, trashed_only, starred_only, export_formats, import_formats, allow_import_name_change, list_chunk, impersonate, upload_cutoff
 # enter "32M" for chunk_size
-# just leave blank the acknowledge_abuse, keep_revision_forever, size_as_quota, v2_download_min_size, pacer_min_sleep, pacer_burst, server_side_across_configs, disable_http2
+# just leave blank the acknowledge_abuse, keep_revision_forever, v2_download_min_size, pacer_min_sleep, pacer_burst, server_side_across_configs, disable_http2, stop_on_upload_limit, stop_on_download_limit, skip_shortcuts, skip_dangling_shortcuts, resource_key, encoding, 
+# enter "n" fot Edit Advanced Config
 # enter "n" for Use Auto Config
-# go to the following link, copy code, paste to "Enter verification code"
-# enter "n" for Team Drive
+# config_token, in this step you will need rclone available on other machine that has a web browser available. Execute the following command on the machine with terminal (will redirect to web browser), then paste the result to config_token
+# enter "n" for Shared Drive (Team Drive)
 # enter "y" for Yes This is OK
 # enter "q" for Quit Config
-# list file: rclone ls Gerobak:
-# list dir: rclone lsd Gerobak:
-# list file & dir: rclone lsf Gerobak:
-# storage info: rclone about Gerobak:
-# make dir: rclone mkdir Gerobak:Data
-# copy file to destination: rclone copy hello.txt Gerobak:Data
-# copy file to local: rclone copy Gerobak:Data/hello.txt /path/to/local/
-# copy folder to local: rclone copy Gerobak:Data /path/to/local/
-# delete all file, not dir: rclone delete Gerobak:Data
-# delete empty dir: rclone rmdir Gerobak:Data
-# delete file & dir: rclone purge Gerobak:Data
-# sync source to destination: rclone sync hello.txt Gerobak:Data
-# move source to destination: rclone move hello.txt Gerobak:Data
-# print total size & number of objects: rclone size Gerobak:Data
-# mount: rclone --vfs-cache-mode writes mount Gerobak:Data /path/to/local/mount --allow-non-empty --allow-other &
+# list file: rclone ls AMC:
+# list dir: rclone lsd AMC:
+# list file & dir: rclone lsf AMC:
+# storage info: rclone about AMC:
+# make dir: rclone mkdir AMC:Data
+# copy file to destination: rclone copy hello.txt AMC:Data
+# copy file to local: rclone copy AMC:Data/hello.txt /path/to/local/
+# copy folder to local: rclone copy AMC:Data /path/to/local/
+# delete all file, not dir: rclone delete AMC:Data
+# delete empty dir: rclone rmdir AMC:Data
+# delete file & dir: rclone purge AMC:Data
+# sync source to destination: rclone sync hello.txt AMC:Data
+# move source to destination: rclone move hello.txt AMC:Data
+# print total size & number of objects: rclone size AMC:Data
+# mount: rclone --vfs-cache-mode writes mount AMC:Data /path/to/local/mount --allow-non-empty --allow-other &
 # unmount: fusermount -u /path/to/local/mount
 # this is the path you mounted the storage to, if you don't know the path, run: mount | grep rclone
-#####################
-# Mount Drive On Boot
+
+########## Rclone: Restore Project Backup From Remote To Specific Path ##########
+# make sure the machine no run any sync task or mount task on the project
+mkdir /var/www/restore-me && cd /var/www/restore-me
+rclone copy AMC:project/any-file.zip /var/www/restore-me
+mv /var/www/[TARGET_DIR_NAME] /var/www/[TARGET_DIR_NAME]_OLD && mv /var/www/restore-me /var/www/[TARGET_DIR_NAME]
+chown -R www-data:www-data /var/www/[TARGET_DIR_NAME] && chmod -R 775 /var/www/[TARGET_DIR_NAME]
+
+########## Rclone: Mount Drive On Boot ##########
 nano /mount-google-drive.sh
 # paste it
 	#!/bin/bash
@@ -836,14 +845,15 @@ chmod +x /mount-google-drive.sh
 # add to cronjob
 crontab -e
 # see the cronjob at the bottom of this page
-########## troubleshoot if nout mounted ###########
+
+########## Rclone: Troubleshoot if not mounted ###########
 # run single command of rclone mount: bash /mount-google-drive.sh
 # and error appears: Failed to create file system for "______:______": didn't find section in config file
 # because file config has been deleted, it caused by an unclean shutdown. please remember, rclone will re-write the config file on re-auth, so if you had an unclean shutdown just after that, so the file could go missing conceivably.
 # run: rclone config file
 # nano fot that file and you will see nothing in config file
 # so the solution is you must CREATE NEW REMOTE STORAGE
-# and test list dir: rclone lsd Gerobak:
+# and test list dir: rclone lsd AMC:
 
 ##################################
 # Install Code Server - VS Code in the browser (GAK PERLU)
