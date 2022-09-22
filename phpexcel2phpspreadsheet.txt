@@ -1,4 +1,28 @@
-// Create new PHPExcel object
+###########################
+### NEW INCLUDE LIBRARY ###
+###########################
+// Include PHPOffice/PhpSpreadsheet library
+include_once '../../lib/phpoffice/PhpOffice/autoload.php';
+use PhpOffice\PhpSpreadsheet\Spreadsheet;
+use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+
+#####################
+### NEW RICH TEXT ###
+#####################
+// Buat Judul Atas
+// Add rich-text string
+//$RichText = new \PhpOffice\PhpSpreadsheet\RichText\RichText();
+//$RichText->createText("DATA CAMABA ".$ta."\n");
+//$Payable = $RichText->createTextRun("PROGRAM STUDI ".$nm_prodi);
+//$Payable->getFont()->setBold(true);
+//$Payable->getFont()->setColor( new \PhpOffice\PhpSpreadsheet\Style\Color( \PhpOffice\PhpSpreadsheet\Style\Color::COLOR_BLUE) );
+//$RichText->createText("\nTAHUN AKADEMIK ".substr($smt_thn_ajaran,-9,9));
+//$spreadsheet->getActiveSheet()->getCell('A1')->setValue($RichText);
+
+##########################
+### SEARCH AND REPLACE ###
+##########################
+// Create new PhpExcel object
 // Create new PhpSpreadsheet object
 
 $objPHPExcel
@@ -58,4 +82,15 @@ new \PhpOffice\PhpSpreadsheet\RichText\RichText();
 =HyperLink(
 =HYPERLINK(
 
-semua yang ada new line \n kasih setWrapText(true) biar nampak new line nya
+//---------------------------------+
+//------------ ngoding ------------+
+//-------------- END --------------+
+//------------- here --------------+
+//-------------- :) ---------------+
+//---------------------------------+
+header('Content-Type: application/vnd.ms-excel');
+header('Content-Disposition: attachment;filename="'.$nm_file.'"');
+header('Cache-Control: max-age=0');
+$writer = \PhpOffice\PhpSpreadsheet\IOFactory::createWriter($spreadsheet, 'Xlsx');
+$writer->save('php://output');
+exit();
