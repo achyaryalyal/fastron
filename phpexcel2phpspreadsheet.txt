@@ -1,0 +1,61 @@
+// Create new PHPExcel object
+// Create new PhpSpreadsheet object
+
+$objPHPExcel
+$spreadsheet
+
+new PHPExcel();
+new Spreadsheet();
+
+'allborders'
+'allBorders'
+
+'wrap'
+'wrapText'
+
+'type' => PHPExcel_Style_Fill
+'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill
+
+'style' => PHPExcel_Style_Border
+'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border
+
+PHPExcel_Style_Style
+\PhpOffice\PhpSpreadsheet\Style\Style
+
+PHPExcel_Style_Alignment
+\PhpOffice\PhpSpreadsheet\Style\Alignment
+
+PHPExcel_Style_Borders
+\PhpOffice\PhpSpreadsheet\Style\Borders
+
+PHPExcel_Style_Border
+\PhpOffice\PhpSpreadsheet\Style\Border
+
+PHPExcel_Style_Color
+\PhpOffice\PhpSpreadsheet\Style\Color
+
+PHPExcel_Style_Fill
+\PhpOffice\PhpSpreadsheet\Style\Fill
+
+PHPExcel_Style_Font
+\PhpOffice\PhpSpreadsheet\Style\Font
+
+PHPExcel_Style_NumberFormat
+\PhpOffice\PhpSpreadsheet\Style\NumberFormat
+
+PHPExcel_Style_Protection
+\PhpOffice\PhpSpreadsheet\Style\Protection
+
+PHPExcel_Cell_DataType
+\PhpOffice\PhpSpreadsheet\Cell\DataType
+
+PHPExcel_Cell_DataValidation
+\PhpOffice\PhpSpreadsheet\Cell\DataValidation
+
+new PHPExcel_RichText();
+new \PhpOffice\PhpSpreadsheet\RichText\RichText();
+
+=HyperLink(
+=HYPERLINK(
+
+semua yang ada new line \n kasih setWrapText(true) biar nampak new line nya
