@@ -85,18 +85,15 @@ PHPExcel_Cell_DataType
 PHPExcel_Cell_DataValidation
 \PhpOffice\PhpSpreadsheet\Cell\DataValidation
 
-new PHPExcel_RichText();
-new \PhpOffice\PhpSpreadsheet\RichText\RichText();
+PHPExcel_IOFactory
+\PhpOffice\PhpSpreadsheet\IOFactory
 
 =HyperLink(
 =HYPERLINK(
 
-//---------------------------------+
-//------------ ngoding ------------+
-//-------------- END --------------+
-//------------- here --------------+
-//-------------- :) ---------------+
-//---------------------------------+
+################
+### NEW SAVE ###
+################
 header('Content-Type: application/vnd.ms-excel');
 header('Content-Disposition: attachment;filename="'.$nm_file.'"');
 header('Cache-Control: max-age=0');
