@@ -649,7 +649,7 @@ certbot renew --dry-run
 # If you see no errors, you're all set. When necessary, Certbot will renew your certificates and reload Nginx to pick up the changes. If the automated renewal process ever fails, Let’s Encrypt will send a message to the email you specified, warning you when your certificate is about to expire.
 
 ##################################
-# Install Monit
+# Install Monit 5.31.0
 ##################################
 sudo apt install -y monit
 
@@ -677,6 +677,7 @@ monit summary
 
 ##################################
 # Install Atheos 5.0.0 Almoner
+# https://github.com/Atheos/Atheos
 ##################################
 cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/master.zip && unzip master.zip && mv Atheos-master atheos && rm -rf master.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano +12 atheos/index.php
 
