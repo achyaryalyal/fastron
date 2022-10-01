@@ -416,6 +416,10 @@ $ sudo apt-get update && sudo apt-get install vagrant
 Install Apps From FLATPAK (via Discover)
 ======================================
 Spotify
+# Completely remove Flatpak Apps from your system:
+flatpak uninstall --all --delete-data
+flatpak repair
+sudo apt remove --autoremove flatpak
 
 =======================================
 Install latest stable version of Inkscape
