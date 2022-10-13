@@ -569,13 +569,14 @@ mkdir -p /var/www/.landscape && chmod -R og+rwX /var/www/.landscape
 # then, check default version: update-alternatives --config php && php -v
 
 ##################################
-# Install PhpMyAdmin 5.1.1
+# Install PhpMyAdmin 5.2.0
+# https://www.phpmyadmin.net/downloads/
 ##################################
-mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/5.1.1/phpMyAdmin-5.1.1-english.zip && unzip phpMyAdmin-5.1.1-english.zip && mv phpMyAdmin-5.1.1-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php && chown -R www-data:www-data /var/www/phpmyadmin
+mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAdmin-5.2.0-english.zip && unzip phpMyAdmin-5.2.0-english.zip && mv phpMyAdmin-5.2.0-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php && chown -R www-data:www-data /var/www/phpmyadmin
 
 # custom config
-sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = '$2a$07$8pApKkdpXx75tfmfmpz9q.xLPtoS6CikUbkxBuT5mHbOWke1pDPCO';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /var/www/phpmyadmin/config.inc.php
-sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin';/" /var/www/phpmyadmin/config.inc.php
+sed -i "s/$cfg\['blowfish_secret'\] =.*/$cfg\['blowfish_secret'\] = '5DS+D0TOqIn-ebPHX+cH7DoDrKadU3zw';\n\$cfg\['LoginCookieValidity'\] = '7200';/" /var/www/phpmyadmin/config.inc.php
+sed -i "s/$i++;/$i++;\n\$cfg\['Servers'\]\[\$i\]\['hide_db'\] = 'mysql|information_schema|performance_schema|test|phpmyadmin|sys';/" /var/www/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['DefaultCharset'] = 'utf8';" /var/www/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['DefaultConnectionCollation'] = 'utf8mb4_general_ci';" /var/www/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['MaxNavigationItems'] = 1000;" /var/www/phpmyadmin/config.inc.php
@@ -587,18 +588,19 @@ sed -i "$ a \$cfg['TitleServer'] = 'Data';" /var/www/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['TitleDefault'] = 'Data';" /var/www/phpmyadmin/config.inc.php
 
 # modificate auth
-nano +607 /var/www/phpmyadmin/libraries/classes/Response.php
+nano +505 /var/www/phpmyadmin/libraries/classes/ResponseRenderer.php
 
-# paste key & token params checker di function login, after line : $header->disableWarnings();
+# paste key & token params checker di function loginPage(), after line : $header->disableWarnings();
 	if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
 
-nano +47 /var/www/phpmyadmin/templates/login/form.twig
-	search label for="input_username" and find <input>, change type "text" to "password"
-	and under input tag, add this style: <style>body{background:linear-gradient(to right,#170071,#754600) !important;}h1{display:none !important;}</style>
+nano +79 /var/www/phpmyadmin/templates/login/form.twig
+
+# search label for="input_username" and find <input>, change type "text" to "password"
 
 nano +2 /var/www/phpmyadmin/templates/navigation/main.twig
-	<div id="pma_navigation" data-config-navigation-width="{{ config_navigation_width }}">
-	to be
+
+# replace this line: <div id="pma_navigation" data-config-navigation-width="{{ config_navigation_width }}">
+# with :
 	<div id="pma_navigation" data-config-navigation-width="{{ config_navigation_width }}" style="background-image:none;">
 
 # create server block: data-phpmyadmin
