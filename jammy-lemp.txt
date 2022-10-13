@@ -572,6 +572,8 @@ mkdir -p /var/www/.landscape && chmod -R og+rwX /var/www/.landscape
 # Install PhpMyAdmin 5.2.0
 # https://www.phpmyadmin.net/downloads/
 ##################################
+cd /var/www && date=$(date +%Y-%m-%d_%H-%M) && mv phpmyadmin phpmyadmin_old_${date}
+
 mkdir -p /var/www/phpmyadmin && cd /var/www/phpmyadmin && wget https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAdmin-5.2.0-english.zip && unzip phpMyAdmin-5.2.0-english.zip && mv phpMyAdmin-5.2.0-english*/* . && rm -rf phpMyAdmin-* && mv config.sample.inc.php config.inc.php && chown -R www-data:www-data /var/www/phpmyadmin
 
 # custom config
@@ -610,7 +612,7 @@ curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/data-phpmyadm
 nginx -t
 nginx -s reload
 
-# Go to data.[DOMAIN]/index.php
+# Go to data.[DOMAIN]/index.php with key & token params
 
 ##################################
 # Install Let's Encrypt
@@ -681,7 +683,9 @@ monit summary
 # Install Atheos 5.5.0
 # https://github.com/Atheos/Atheos
 ##################################
-cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/main.zip && unzip main.zip && mv Atheos-main atheos && rm -rf main.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano +12 atheos/index.php
+cd /var/www/master/app/lib && date=$(date +%Y-%m-%d_%H-%M) && mv atheos atheos_old_${date}
+
+wget https://github.com/Atheos/Atheos/archive/refs/heads/main.zip && unzip main.zip && mv Atheos-main atheos && rm -rf main.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano +12 atheos/index.php
 
 chown -R www-data:www-data /var/www
 
