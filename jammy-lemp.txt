@@ -691,9 +691,11 @@ chown -R www-data:www-data /var/www
 
 # add this to index.php before </head>:
 	<style>
-	.current_file{user-select:all;}
 	.pdf-icon:before{font-family:'Font Awesome 5 Free';font-weight:900;font-size:16px;content:"\f1c1";}
 	</style>
+
+# replace this in index.php: <span id="current_file"></span>
+	<span id="current_file" style="user-select:all;"></span>
 
 nano atheos/version.txt
 	v5.5.0
@@ -703,9 +705,24 @@ nano +7 atheos/components/user/login.php
 # edit login.php, find replace line 9: <input id="username" type="text" name="username" autofocus="autofocus" autocomplete="current-username">
 	<input id="username" type="password" name="username" autofocus="autofocus" autocomplete="current-username">
 
-# Go to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params. Setup it and fill `Absolute Path` with folder path you want to manage
+nano +15 atheos/components/transfer/dialog.php
 
-# 
+# add this line after $val = trim($val);
+	if (!$val) {return 0;} // fix
+
+# add this line after $last = strtolower($val[strlen($val)-1]);
+	$val = preg_replace('~\D~', '', $val); // fix
+
+nano +293 atheos/components/editor/init.js
+
+# replace this in init.js: path = (path.length < 30) ? path : '...' + path.substr(path.length - 30);
+	path = (path.length < 60) ? path : '...' + path.substr(path.length - 60);
+
+# Go to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params
+# Setup it
+# fill `Project` with PROJECT
+# fill `Absolute Path` with folder path you want to manage like /var/www
+# you can also leave blank in `Custom Domain`
 
 # Editor Settings
     ## Theme: Monokai
