@@ -676,10 +676,12 @@ monit status
 monit summary
 
 ##################################
-# Install Atheos 5.0.0 Almoner
+# Install Atheos 5.5.0
 # https://github.com/Atheos/Atheos
 ##################################
-cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/master.zip && unzip master.zip && mv Atheos-master atheos && rm -rf master.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano +12 atheos/index.php
+cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/Atheos/archive/refs/heads/main.zip && unzip main.zip && mv Atheos-main atheos && rm -rf main.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano +12 atheos/index.php
+
+chown -R www-data:www-data /var/www
 
 # add this to index.php line 12:
 	if(!isset($_GET['key']) && !isset($_GET['token'])) {
@@ -687,42 +689,33 @@ cd /var/www/master/app/lib && rm -rf atheos && wget https://github.com/Atheos/At
 		die('Forbidden');
 	}
 
-# edit index.php, find replace line 35: <title>Atheos IDE</title>
-	<title>Cloud IDE</title>
-
 # add this to index.php before </head>:
 	<style>
-	.ace_prompt_container{margin:35px 500px !important;}
+	.current_file{user-select:all;}
 	.pdf-icon:before{font-family:'Font Awesome 5 Free';font-weight:900;font-size:16px;content:"\f1c1";}
 	</style>
 
-# edit index.php, find replace line 96: <span id="current_file"></span>
-	<span id="current_file" style="user-select:all;"></span>
-
 nano atheos/version.txt
-	v5.0.0
+	v5.5.0
 
 nano +7 atheos/components/user/login.php
-
-# edit login.php, find replace line 7: <legend>Atheos <span>IDE</span></legend>
-	<legend>Cloud <span>IDE</span></legend>
 
 # edit login.php, find replace line 9: <input id="username" type="text" name="username" autofocus="autofocus" autocomplete="current-username">
 	<input id="username" type="password" name="username" autofocus="autofocus" autocomplete="current-username">
 
-# edit login.php, comment out footer link: <a id="github_link" href="https://www.github.com/Atheos/Atheos" target="_blank" rel="noreferrer noopener"><?php echo VERSION ?></a>
-<!-- <a id="github_link" href="https://www.github.com/Atheos/Atheos" target="_blank" rel="noreferrer noopener"><?php echo VERSION ?></a> -->
-
 # Go to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params. Setup it and fill `Absolute Path` with folder path you want to manage
+
+# 
 
 # Editor Settings
     ## Theme: Monokai
     ## Font Size: 14px
+    ## Enable Code Ligatures: Enabled
     ## Highlight Active Line: Enabled
     ## Print Margin: Disabled
     ## Print Margin Column: 80
     ## Indent Guides: Enabled
-    ## foldWidgets: Enabled
+    ## Show Fold Widgets: Enabled
     ## Line Wrap: Enabled
     ## Soft Tabs: Enabled
     ## Tab Size: 4
@@ -730,34 +723,11 @@ nano +7 atheos/components/user/login.php
 # System Settings
     ## Active File Loop Behavior: Loop only active tabs
     ## Sidebar Hover Duration: 300ms (default)
-    ## Show Hidden Files: False
+    ## Show Hidden Files: True
     ## Filemanager Trigger: Single Click
     ## Left Sidebar Trigger: Hover
     ## Right Sidebar Trigger: Hover
     ## ProjectDock Trigger: Single Click
-
-# users data: atheos/data/users.db.json
-{
-    "johndoe": {
-        "password": "$2y$11$xxxxxxxxxxxxxxxx", // php password_hash() function
-        "activeProject": "",
-        "creationDate": "2021-01-01 00:00:00",
-        "lastLogin": "2021-01-01 00:00:00",
-        "permissions": [
-            "configure",
-            "read",
-            "write"
-        ],
-        "userACL": "full",
-        "activeName": "MY PROJECT",
-        "activePath": "\/var\/www"
-    }
-}
-
-# projects data: atheos/data/projects.db.json
-{
-    "MY PROJECT": "\/var\/www"
-}
 
 ##################################
 # Install Rclone 1.59.2
