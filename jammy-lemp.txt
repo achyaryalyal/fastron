@@ -686,22 +686,21 @@ monit summary
 ##################################
 cd /var/www/master/app/lib && date=$(date +%Y-%m-%d_%H-%M) && mv atheos atheos_old_${date}
 
-wget https://github.com/Atheos/Atheos/archive/refs/heads/main.zip && unzip main.zip && mv Atheos-main atheos && rm -rf main.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos && nano +12 atheos/index.php
+wget https://github.com/Atheos/Atheos/archive/refs/heads/main.zip && unzip main.zip && mv Atheos-main atheos && rm -rf main.zip && chown -R www-data:www-data atheos && chmod -R 775 atheos
 
-chown -R www-data:www-data /var/www
+nano +12 atheos/index.php
 
 # add this to index.php line 12:
 	if(!isset($_GET['key']) && !isset($_GET['token'])) {
 		http_response_code(403);
 		die('Forbidden');
 	}
-
 # add this to index.php before </head>:
 	<style>
 	.pdf-icon:before{font-family:'Font Awesome 5 Free';font-weight:900;font-size:16px;content:"\f1c1";}
 	</style>
-
-# replace this in index.php: <span id="current_file"></span>
+# search "current_file", replace this line in index.php: <span id="current_file"></span>
+# with:
 	<span id="current_file" style="user-select:all;"></span>
 
 nano atheos/version.txt
@@ -716,7 +715,6 @@ nano +15 atheos/components/transfer/dialog.php
 
 # add this line after $val = trim($val);
 	if (!$val) {return 0;} // fix
-
 # add this line after $last = strtolower($val[strlen($val)-1]);
 	$val = preg_replace('~\D~', '', $val); // fix
 
@@ -724,6 +722,8 @@ nano +293 atheos/components/editor/init.js
 
 # replace this in init.js: path = (path.length < 30) ? path : '...' + path.substr(path.length - 30);
 	path = (path.length < 60) ? path : '...' + path.substr(path.length - 60);
+
+chown www-data:www-data /var/www
 
 # Go to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params
 # Setup it
