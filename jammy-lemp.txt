@@ -589,12 +589,6 @@ sed -i "$ a \$cfg['TitleDatabase'] = 'Data | @DATABASE@';" /var/www/phpmyadmin/c
 sed -i "$ a \$cfg['TitleServer'] = 'Data';" /var/www/phpmyadmin/config.inc.php
 sed -i "$ a \$cfg['TitleDefault'] = 'Data';" /var/www/phpmyadmin/config.inc.php
 
-# modificate auth
-nano +505 /var/www/phpmyadmin/libraries/classes/ResponseRenderer.php
-
-# paste key & token params checker di function loginPage(), after line : $header->disableWarnings();
-	if(!strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'key') !== FALSE && !strpos($_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'],'token') !== FALSE) {exit;}
-
 nano +79 /var/www/phpmyadmin/templates/login/form.twig
 
 # search label for="input_username" and find <input>, change type "text" to "password"
@@ -605,6 +599,13 @@ nano +2 /var/www/phpmyadmin/templates/navigation/main.twig
 # with :
 	<div id="pma_navigation" data-config-navigation-width="{{ config_navigation_width }}" style="background-image:none;">
 
+nano +16 /var/www/phpmyadmin/libraries/classes/Controllers/LogoutController.php
+
+# search "Redirect to other authenticated server"
+# replace this line: './index.php?route=/' . Url::getCommonRaw(['server' => $server], '&')
+# with :
+	'./index.php?route=/&key='.md5(time()).'&token='.md5(time()) . Url::getCommonRaw(['server' => $server], '&')
+
 # create server block: data-phpmyadmin
 curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/data-phpmyadmin > /etc/nginx/sites-available/data-phpmyadmin && sudo ln -s /etc/nginx/sites-available/data-phpmyadmin /etc/nginx/sites-enabled/
 
@@ -612,7 +613,7 @@ curl -sSL https://github.com/achyaryalyal/fastron/raw/master/nginx/data-phpmyadm
 nginx -t
 nginx -s reload
 
-# Go to data.[DOMAIN]/index.php with key & token params
+# Go to data.[DOMAIN]/index.php
 
 ##################################
 # Install Let's Encrypt
