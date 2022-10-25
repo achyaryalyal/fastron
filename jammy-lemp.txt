@@ -593,12 +593,6 @@ nano +79 /var/www/phpmyadmin/templates/login/form.twig
 
 # search label for="input_username" and find <input>, change type "text" to "password"
 
-nano +2 /var/www/phpmyadmin/templates/navigation/main.twig
-
-# replace this line: <div id="pma_navigation" data-config-navigation-width="{{ config_navigation_width }}">
-# with :
-	<div id="pma_navigation" data-config-navigation-width="{{ config_navigation_width }}" style="background-image:none;">
-
 nano +16 /var/www/phpmyadmin/libraries/classes/Controllers/LogoutController.php
 
 # search "Redirect to other authenticated server"
