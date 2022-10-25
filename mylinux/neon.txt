@@ -30,6 +30,7 @@ Install Spotify + Calaboka (ads silencer) From Snap
 =======================================
 # open Discover, search "Spotify" and install
 # open Discover, search "Calaboka" and install
+$ sudo snap connect calaboka:mpris spotify:spotify-mpris
 # open Menu Editor, in category Multimedia > New Item "Spotify"
 	Name: Spotify
 	Desc: 
