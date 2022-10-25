@@ -22,8 +22,20 @@ Install WhatsApps From Snap
 	Name: WhatSie
 	Desc: 
 	Comment: WhatsApp for Linux
-	Command: /snap/bin/whatsie
+	Program: /snap/bin/whatsie
 	Icon: whatsapp
+
+=======================================
+Install Spotify + Calaboka (ads silencer) From Snap
+=======================================
+# open Discover, search "Spotify" and install
+# open Discover, search "Calaboka" and install
+# open Menu Editor, in category Multimedia > New Item "Spotify"
+	Name: Spotify
+	Desc: 
+	Comment: Music for everyone
+	program: /snap/bin/spotify
+	Icon: spotify
 
 =====================================
 Install Telegram from Ubuntu PPA
@@ -413,10 +425,8 @@ $ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $
 $ sudo apt-get update && sudo apt-get install vagrant
 
 ======================================
-Install Apps From FLATPAK (via Discover)
+Completely remove Flatpak Apps from your system
 ======================================
-Spotify
-# Completely remove Flatpak Apps from your system:
 flatpak uninstall --all --delete-data
 flatpak repair
 sudo apt remove --autoremove flatpak
