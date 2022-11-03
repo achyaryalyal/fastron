@@ -712,6 +712,9 @@ nano +15 atheos/components/transfer/dialog.php
 # add this line after $last = strtolower($val[strlen($val)-1]);
 	$val = preg_replace('~\D~', '', $val); // fix
 
+# replace “ with " at line 60: <input type=“hidden” name=“MAX_FILE_SIZE” value=“<?php echo max_file_upload_in_bytes(); ?>”>
+	<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo max_file_upload_in_bytes(); ?>">
+
 nano +293 atheos/components/editor/init.js
 
 # replace this in init.js: path = (path.length < 30) ? path : '...' + path.substr(path.length - 30);
