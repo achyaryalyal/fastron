@@ -49,7 +49,8 @@ Intinya CloudPanel cocok untuk control panel turunan (bukan control panel induk)
 - tambah domain / subdomain -> BISA, tinggal pilih isinya berupa wordpress / any php site / any node.js site / just static html site / any python site
 - sertifikat ssl -> BISA, tinggal create and install sertifikat letsencrypt di bagian "SSL/TLS"
 - akses phpmyadmin -> BISA
-- tambah module / ekstensi php -> sudah lengkap semua, gak ada yang perlu ditambah
+- tambah module / ekstensi php -> SUDAH LENGKAP, gak ada yang perlu ditambah
 - install wordpress -> BISA dan support multisite
 - install moodle -> BISA
-- install ojs -> BELUM COBA
+- install ojs dan slims -> kemungkinan besar TIDAK BISA karena try and error buat manual script vhost sendiri
+ 
