@@ -43,14 +43,13 @@ Plus Minus CloudPanel
 Intinya CloudPanel cocok untuk control panel turunan (bukan control panel induk) karena di CloudPanel tidak ada fitur manajemen DNS
 - edit DNS record -> TIDAK BISA
 - tes kirim email dengan script php murni -> TIDAK BISA karena tidak ada mail server, sebab control panel ini memang fokusnya mengutamakan performa web server dan database server agar lebih ringan dan lincah tanpa dibebani oleh mail server
+- htaccess -> TIDAK BISA, harus convert dulu ke nginx rule melalui situs https://winginx.com/en/htaccess kemudian simpan rule tersebut di bagian Vhost tepat di bawah {{settings}}
 - ganti versi php -> BISA
 - edit php.ini -> BISA
-- support htaccess -> TIDAK SUPPORT, harus diconvert dulu ke nginx rule melalui situs https://winginx.com/en/htaccess kemudian simpan di bagian Vhost tepat di bawah {{settings}}
 - tambah domain / subdomain -> BISA, tinggal pilih isinya berupa wordpress / any php site / any node.js site / just static html site / any python site
 - sertifikat ssl -> BISA, tinggal create and install sertifikat letsencrypt di bagian "SSL/TLS"
 - akses phpmyadmin -> BISA
 - tambah module / ekstensi php -> SUDAH LENGKAP, gak ada yang perlu ditambah
 - install wordpress -> BISA dan support multisite
 - install moodle -> BISA
-- install ojs dan slims -> kemungkinan besar TIDAK BISA karena try and error buat manual script vhost sendiri
- 
+- install ojs dan slims -> kemungkinan besar TIDAK BISA karena harus try and error sendiri dalam membuat manual script Vhost
