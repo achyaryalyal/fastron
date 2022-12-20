@@ -16,6 +16,15 @@ sha256sum -c && sudo DB_ENGINE=MARIADB_10.9 bash install.sh
 # To update CloudPanel to the latest version, run the update script:
 clp-update
 
+===============
+Edit SSH Config
+===============
+nano /etc/ssh/sshd_config
+# set:
+	ClientAliveInterval 120
+	ClientAliveCountMax 720
+service ssh restart
+
 ===============================
 Install WordPress at CloudPanel
 ===============================
