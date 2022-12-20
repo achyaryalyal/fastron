@@ -31,6 +31,7 @@ Install WordPress at CloudPanel
 # Click on + Add Site and then click on Create a WordPress Site
 # Enter the Domain Name, Site Title, Admin User Name, Admin Password, and Admin E-Mail and click on Create
 # Done. The WordPress Site has been created
+# In "PHP Settings", make sure version=PHP 8.2, make sure max_input_vars=10000, make sure date.timezone=Asia/Jakarta;
 
 ============================
 Install Moodle at CloudPanel
