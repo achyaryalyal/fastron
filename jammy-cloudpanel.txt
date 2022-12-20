@@ -41,9 +41,10 @@ Install Moodle at CloudPanel
 cd /opt && curl -sL https://github.com/moodle/moodle/archive/refs/tags/v4.1.0.tar.gz | tar xfz -
 cp -R /opt/moodle-4.1.0/* /home/[USER_NAME]/htdocs/[SITE_DOMAIN]/
 rm -rf /opt/moodle-*
-# In "PHP Settings", make sure max_input_vars = 10000
+# In "PHP Settings", make sure version=PHP 8.2, make sure max_input_vars=10000, make sure date.timezone=Asia/Jakarta;
 # In "Databases", create a database
 # In "SSL/TLS", create and install Let's Encrypt Certificate
+# In "Cron Jobs", add cron job every minute: /usr/bin/php8.2 /home/bbg-spada/htdocs/spada.bbg.ac.id/admin/cli/cron.php
 # Open your site in the browser, and go through the Moodle Installer. Choose MariaDB as database engine. Make sure Your server environment meets all minimum requirements
 
 ============================
