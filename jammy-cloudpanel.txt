@@ -45,6 +45,12 @@ rm -rf /opt/moodle-*
 # install unoconv for moodle document converter, you can enable the plugin and fill the path: /usr/bin/unoconv
 sudo apt update && sudo apt install unoconv
 # In "PHP Settings", make sure version=PHP 8.2, make sure max_input_vars=10000, make sure date.timezone=Asia/Jakarta;
+# In "Vhost", put this line on the top:
+	# the zone that limit max 5 requests/sec from 1 single IP address and hold up to 10 MB of data
+	limit_req_zone $binary_remote_addr zone=moodle:10m rate=5r/s;
+# In "Vhost", put this line before try_files $uri ... ...
+	# limit zone request with a burst of 5
+	limit_req zone=moodle burst=5 nodelay;
 # In "Databases", create a database
 # In "SSL/TLS", create and install Let's Encrypt Certificate
 # In "Cron Jobs", add cron job every minute: /usr/bin/php8.2 /home/bbg-spada/htdocs/spada.bbg.ac.id/admin/cli/cron.php
