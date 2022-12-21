@@ -58,7 +58,7 @@ sudo apt update && sudo apt install unoconv
 # Open your site in the browser, and go through the Moodle Installer. Choose MariaDB as database engine. Make sure Your server environment meets all minimum requirements
 # Disable "Automated backup setup" in Administration -> Courses -> Backups -> Automated backup setup
 # Disable "Recycle bin" in Administration -> Plugins -> Admin tools -> Recycle bin
-# Disable all logging in Administration -> Plugins -> Logging -> Manage log stores
+# Make sure onluy Standard log is Enable in Administration -> Plugins -> Logging -> Manage log stores
 
 ============================
 Plus Minus CloudPanel
