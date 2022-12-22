@@ -54,12 +54,13 @@ sudo apt update && sudo apt install unoconv
 # In "Cron Jobs", add cron job every minute: /usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/cli/cron.php
 # In "Cron Jobs", add cron job every hourly: /usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/cli/scheduled_task.php --execute="\core\task\file_trash_cleanup_task"
 # In "Cron Jobs", add cron job every day at 4 AM: /usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/cli/kill_all_sessions.php
-# In "Cron Jobs", add cron job every week: old_files=($(/usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/script-moodle-list-old-files.php)) && for i in "${old_files[@]}"; do [ -f "$i" ] && rm "$i" && echo "$i deleted successfully"; done
+# In "Cron Jobs", add cron job every week: old_files=($(/usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/script-moodle-list-old-files.php)) && for i in "${old_files[@]}"; do [ -f "$i" ] && rm "$i" && echo "$i deleted successfully"; donec
 # Open your site in the browser, and go through the Moodle Installer. Choose MariaDB as database engine. Make sure Your server environment meets all minimum requirements
 # Disable "Automated backup setup" in Administration -> Courses -> Backups -> Automated backup setup
 # Disable "Recycle bin" in Administration -> Plugins -> Admin tools -> Recycle bin
 # Make sure onluy Standard log is Enable in Administration -> Plugins -> Logging -> Manage log stores
 # Make sure this file exist on wwwroot: favicon.ico, apple-touch-icon-120x120-precomposed.png, apple-touch-icon-120x120.png, apple-touch-icon-precomposed.png, apple-touch-icon.png
+# CloudPanel creates a dump of each database every night at 3:15 AM with a retention period of 7 days. All database backups can be found in the backups directory of the site user: /home/$site-user/backups/ To disable the database backup task, just comment out the line in /etc/cron.d/clp
 
 ============================
 Plus Minus CloudPanel
