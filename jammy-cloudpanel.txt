@@ -44,12 +44,15 @@ cp -R /opt/moodle-4.1.0/* /home/[USER_NAME]/htdocs/[SITE_DOMAIN]/
 rm -rf /opt/moodle-*
 # install unoconv for moodle document converter, you can enable the plugin and fill the path: /usr/bin/unoconv
 sudo apt update && sudo apt install unoconv
-# In "PHP Settings", make sure version=PHP 8.2, make sure max_input_vars=10000, make sure date.timezone=Asia/Jakarta;
+# In "PHP Settings"
+	make sure version=PHP 8.1; // because 8.2 still deprecated: Creation of dynamic property cache_config::$configlockmappings
+	make sure max_input_vars=10000;
+	make sure date.timezone=Asia/Jakarta;
 # In "Vhost", don't put rate limit because it's culprit for some services like /lib/ajax/service.php?sesskey=.... which makes dashboard dialog box error undefined 503
 # In "Databases", create a database
 # In "SSL/TLS", create and install Let's Encrypt Certificate
-# In "Cron Jobs", add cron job every minute: /usr/bin/php8.2 /home/bbg-spada/htdocs/spada.bbg.ac.id/admin/cli/cron.php
-# In "Cron Jobs", add cron job every hourly: /usr/bin/php8.2 /home/bbg-spada/htdocs/spada.bbg.ac.id/admin/cli/scheduled_task.php --execute="\core\task\file_trash_cleanup_task"
+# In "Cron Jobs", add cron job every minute: /usr/bin/php8.1 /home/bbg-spada/htdocs/spada.bbg.ac.id/admin/cli/cron.php
+# In "Cron Jobs", add cron job every hourly: /usr/bin/php8.1 /home/bbg-spada/htdocs/spada.bbg.ac.id/admin/cli/scheduled_task.php --execute="\core\task\file_trash_cleanup_task"
 # Open your site in the browser, and go through the Moodle Installer. Choose MariaDB as database engine. Make sure Your server environment meets all minimum requirements
 # Disable "Automated backup setup" in Administration -> Courses -> Backups -> Automated backup setup
 # Disable "Recycle bin" in Administration -> Plugins -> Admin tools -> Recycle bin
