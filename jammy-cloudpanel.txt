@@ -53,6 +53,8 @@ sudo apt update && sudo apt install unoconv
 # In "SSL/TLS", create and install Let's Encrypt Certificate
 # In "Cron Jobs", add cron job every minute: /usr/bin/php8.1 /home/bbg-spada/htdocs/spada.bbg.ac.id/admin/cli/cron.php
 # In "Cron Jobs", add cron job every hourly: /usr/bin/php8.1 /home/bbg-spada/htdocs/spada.bbg.ac.id/admin/cli/scheduled_task.php --execute="\core\task\file_trash_cleanup_task"
+# In "Cron Jobs", add cron job every day at 4 AM: /usr/bin/php8.1 /home/bbg-spada/htdocs/spada.bbg.ac.id/admin/cli/kill_all_sessions.php
+# In "Cron Jobs", add cron job every week: old_files=($(/usr/bin/php8.1 /home/bbg-spada/htdocs/spada.bbg.ac.id/admin/script-moodle-list-old-files.php)) && for i in "${old_files[@]}"; do [ -f "$i" ] && rm "$i" && echo "$i deleted successfully"; done
 # Open your site in the browser, and go through the Moodle Installer. Choose MariaDB as database engine. Make sure Your server environment meets all minimum requirements
 # Disable "Automated backup setup" in Administration -> Courses -> Backups -> Automated backup setup
 # Disable "Recycle bin" in Administration -> Plugins -> Admin tools -> Recycle bin
