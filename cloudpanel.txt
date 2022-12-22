@@ -16,6 +16,11 @@ sha256sum -c && sudo DB_ENGINE=MARIADB_10.9 bash install.sh
 # To update CloudPanel to the latest version, run the update script:
 clp-update
 
+# CloudPanel creates a dump of each backup database every midnight. To disable autobackup task, just comment out the line
+nano /etc/cron.d/clp
+#15 3 * * * clp /usr/bin/bash -c "/usr/bin/clpctl db:backup --ignoreDatabases='db1,db2' --retentionPeriod=7" &> /dev/null
+#15 4 * * * clp /home/clp/scripts/create_backup.sh &> /dev/null
+
 ===============
 Edit SSH Config
 ===============
@@ -60,7 +65,6 @@ sudo apt update && sudo apt install unoconv
 # Disable "Recycle bin" in Administration -> Plugins -> Admin tools -> Recycle bin
 # Make sure onluy Standard log is Enable in Administration -> Plugins -> Logging -> Manage log stores
 # Make sure this file exist on wwwroot: favicon.ico, apple-touch-icon-120x120-precomposed.png, apple-touch-icon-120x120.png, apple-touch-icon-precomposed.png, apple-touch-icon.png
-# CloudPanel creates a dump of each database every night at 3:15 AM with a retention period of 7 days. All database backups can be found in the backups directory of the site user: /home/$site-user/backups/ To disable the database backup task, just comment out the line in /etc/cron.d/clp
 
 ============================
 Plus Minus CloudPanel
