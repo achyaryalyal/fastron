@@ -59,7 +59,7 @@ sudo apt update && sudo apt install unoconv
 # Disable "Automated backup setup" in Administration -> Courses -> Backups -> Automated backup setup
 # Disable "Recycle bin" in Administration -> Plugins -> Admin tools -> Recycle bin
 # Make sure onluy Standard log is Enable in Administration -> Plugins -> Logging -> Manage log stores
-# Make sure favicon.ico exist
+# Make sure this file exist on wwwroot: favicon.ico, apple-touch-icon-120x120-precomposed.png, apple-touch-icon-120x120.png, apple-touch-icon-precomposed.png, apple-touch-icon.png
 
 ============================
 Plus Minus CloudPanel
