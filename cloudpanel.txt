@@ -69,6 +69,8 @@ sudo apt update && sudo apt install unoconv
 # Disable "Recycle bin" in Administration -> Plugins -> Admin tools -> Recycle bin
 # Make sure onluy Standard log is Enable in Administration -> Plugins -> Logging -> Manage log stores
 # Make sure this file exist on wwwroot: favicon.ico, apple-touch-icon-120x120-precomposed.png, apple-touch-icon-120x120.png, apple-touch-icon-precomposed.png, apple-touch-icon.png
+# You can check used moodledata directory size with this script and access https://[DOMAIN.COM]/admin/script-moodle-directory-size.php
+	curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/moodle/script-moodle-directory-size.php > /[YOUR_MOODLE_PATH]/admin/script-moodle-directory-size.php
 
 ============================
 Plus Minus CloudPanel
