@@ -58,7 +58,7 @@ sudo apt update && sudo apt install unoconv
 # In "SSL/TLS", create and install Let's Encrypt Certificate
 # In "Cron Jobs", add cron job every minute: /usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/cli/cron.php
 # In "Cron Jobs", add cron job every hourly: /usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/cli/scheduled_task.php --execute="\core\task\file_trash_cleanup_task"
-# In "Cron Jobs", add cron job every day at 4 AM: /usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/cli/kill_all_sessions.php
+# In "Cron Jobs", add cron job every monthly: /usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/cli/kill_all_sessions.php
 	curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/moodle/script-moodle-list-old-files.php > /[YOUR_MOODLE_PATH]/admin/script-moodle-list-old-files.php
 	curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/moodle/script-moodle-delete-old-files.sh > /[YOUR_MOODLE_PATH]/admin/script-moodle-delete-old-files.sh
 	chmod +x /[YOUR_MOODLE_PATH]/admin/script-moodle-delete-old-files.sh
