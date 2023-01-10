@@ -1,0 +1,104 @@
+//@version=5
+indicator('Trieng AI 30m', overlay=true, format=format.price, precision=2)
+
+// Trieng AI (Trend Indicator Easy Next Gen)
+// Easy -> price number has been rounded, just place it in metatrader order
+// Next Gen -> already equipped with signal buy, sell, stop loss, next buy stop and next sell stop
+
+// Inputs
+Periods = input(title='ATR Period', defval=2)
+src = input(ohlc4, title='Source')
+Multiplier = input.float(title='ATR Multiplier', step=0.1, defval=3.2)
+changeATR = input(title='Change ATR Calculation Method ?', defval=true)
+highlighting = input(title='Highlighter On/Off ?', defval=true)
+timeframe = 30 // force to 30 minutes
+
+// Functions
+atr2 = ta.sma(ta.tr, Periods)
+atr = changeATR ? ta.atr(Periods) : atr2
+
+up = src - Multiplier * atr
+up := math.round(up, 1)
+up1 = nz(up[1], up)
+up1 := math.round(up1, 1)
+up := close[1] > up1 ? math.max(up, up1) : up
+nextSellStop = up
+nextSellStop := math.round(nextSellStop, 1)
+strNextSellStop = str.tostring(nextSellStop)
+if str.contains(strNextSellStop, '.')
+    strNextSellStop := strNextSellStop + '0'
+else
+    strNextSellStop := strNextSellStop + '.00'
+
+dn = src + Multiplier * atr
+dn := math.round(dn, 1)
+dn1 = nz(dn[1], dn)
+dn1 := math.round(dn1, 1)
+dn := close[1] < dn1 ? math.min(dn, dn1) : dn
+nextBuyStop = dn
+nextBuyStop := math.round(nextBuyStop, 1)
+strNextBuyStop = str.tostring(nextBuyStop)
+if str.contains(strNextBuyStop, '.')
+    strNextBuyStop := strNextBuyStop + '0'
+else
+    strNextBuyStop := strNextBuyStop + '.00'
+
+trend = 1
+trend := nz(trend[1], trend)
+trend := trend == -1 and close > dn1 ? 1 : trend == 1 and close < up1 ? -1 : trend
+
+// Backgrounds
+bgcolor(trend == -1 ? color.rgb(250, 161, 164, 93) : color.rgb(144, 191, 249, 93), title="Trend Direction Background")
+
+// Plots & labels
+upPlot = plot(trend == 1 ? up : na, title='Uptrend Line (SL Buy)', style=plot.style_linebr, linewidth=3, color=color.rgb(0, 55, 205, 0))
+buySignal = trend == 1 and trend[1] == -1
+plotshape(buySignal ? nextBuyStop : na, title='Buy Signal', text='Buy', location=location.absolute, style=shape.labelup, size=size.tiny, color=color.rgb(0, 55, 205, 0), textcolor=color.rgb(255, 255, 255, 0), display=display.none)
+plotshape(barstate.islast ? up-2 : na, title='Label SL Buy & Sell Stop', text='SLB\n&\nSSt', location=location.absolute, style=shape.circle, size=size.tiny, color=na, textcolor=color.rgb(144, 191, 249, 0))
+
+dnPlot = plot(trend == 1 ? na : dn, title='Downtrend Line (SL Sell)', style=plot.style_linebr, linewidth=3, color=color.rgb(213, 0, 0, 0))
+sellSignal = trend == -1 and trend[1] == 1
+plotshape(sellSignal ? nextSellStop : na, title='Sell Signal', text='Sell', location=location.absolute, style=shape.labeldown, size=size.tiny, color=color.rgb(213, 0, 0, 0), textcolor=color.rgb(255, 255, 255, 0), display=display.none)
+plotshape(barstate.islast ? dn+2 : na, title='Label SL Sell & Buy Stop', text='SLS\n&\nBSt', location=location.absolute, style=shape.circle, size=size.tiny, color=na, textcolor=color.rgb(250, 161, 164, 0))
+
+plot(nextSellStop, title='Next Sell Stop Line', style=plot.style_linebr, linewidth=3, color=color.rgb(250, 161, 164, 70))
+plot(nextBuyStop, title='Next Buy Stop Line', style=plot.style_linebr, linewidth=3, color=color.rgb(144, 191, 249, 70))
+
+mPlot = plot(ohlc4, title='mPlot', style=plot.style_circles, linewidth=0, display=display.none)
+longFillColor = highlighting ? trend == 1 ? color.rgb(0, 55, 205, 70) : color.rgb(213, 0, 0, 50) : color.rgb(213, 0, 0, 50)
+shortFillColor = highlighting ? trend == -1 ? color.rgb(213, 0, 0, 70) : color.rgb(0, 55, 205, 50) : color.rgb(0, 55, 205, 50)
+fill(mPlot, upPlot, title='Uptrend Highlighter', color=longFillColor)
+fill(mPlot, dnPlot, title='Downtrend Highlighter', color=shortFillColor)
+
+// Labels
+var arrayPriceBuy = array.new_float(100)
+var arrayPriceSell = array.new_float(100)
+if buySignal
+    array.set(arrayPriceBuy, 1, nextBuyStop)
+if sellSignal
+    array.set(arrayPriceSell, 1, nextSellStop)
+lastProfitSell = array.get(arrayPriceSell, 1) - nextBuyStop
+string strLastProfitSell = str.tostring(lastProfitSell)
+pipsLastProfitSell = lastProfitSell * 10
+string strPipsLastProfitSell = str.tostring(pipsLastProfitSell)
+strPipsLastProfitSell := str.contains(strPipsLastProfitSell, '-') ? strPipsLastProfitSell : '+' + strPipsLastProfitSell
+
+lastProfitBuy = nextSellStop - array.get(arrayPriceBuy, 1)
+string strLastProfitBuy = str.tostring(lastProfitBuy)
+pipsLastProfitBuy = lastProfitBuy * 10
+string strPipsLastProfitBuy = str.tostring(pipsLastProfitBuy)
+strPipsLastProfitBuy := str.contains(strPipsLastProfitBuy, '-') ? strPipsLastProfitBuy : '+' + strPipsLastProfitBuy
+if buySignal
+    if syminfo.ticker=="GOLD"
+        label.new(bar_index, y=nextSellStop, text='B ▲ '+strNextBuyStop+'\nLast '+strPipsLastProfitSell+' pips', color=color.rgb(0, 55, 205, 0), textcolor=color.rgb(255, 255, 255, 0), style=label.style_label_up)
+    else
+        label.new(bar_index, y=nextSellStop, text='Buy', color=color.rgb(0, 55, 205, 0), textcolor=color.rgb(255, 255, 255, 0), style=label.style_label_up)
+if sellSignal
+    if syminfo.ticker=="GOLD"
+        label.new(bar_index, y=nextBuyStop, text='S ▼ '+strNextSellStop+'\nLast '+strPipsLastProfitBuy+' pips', color=color.rgb(213, 0, 0, 0), textcolor=color.rgb(255, 255, 255, 0), style=label.style_label_down)
+    else
+        label.new(bar_index, y=nextBuyStop, text='Sell', color=color.rgb(213, 0, 0, 0), textcolor=color.rgb(255, 255, 255, 0), style=label.style_label_down)
+
+// Alerts
+alertcondition(buySignal, title='Trieng AI Buy', message='🔵 {{ticker}}_BUY {{close}} 🔵 SL={{plot("Uptrend Line (SL Buy)")}} 🔵 Next Sell Stop={{plot("Next Sell Stop Line")}}')
+alertcondition(sellSignal, title='Trieng AI Sell', message='🔴 {{ticker}}_SELL {{close}} 🔴 SL={{plot("Downtrend Line (SL Sell)")}} 🔴 Next Buy Stop={{plot("Next Buy Stop Line")}}')
