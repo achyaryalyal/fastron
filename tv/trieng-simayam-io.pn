@@ -1,0 +1,92 @@
+//@version=5
+max_bars = 5000
+indicator("Trieng Simayam I/O", overlay = true, max_bars_back= max_bars)
+
+// Inputs
+in_table_pos = input.string(title="Table Location", defval="Top Right", 
+     options=["Top Right", "Middle Right", "Bottom Right", 
+              "Top Center", "Middle Center", "Bottom Center", 
+              "Top Left", "Middle Left", "Bottom Left"], 
+     group= "Table Styling", inline= "1")
+
+in_table_size = input.string(title="Table Size", defval="Small", 
+     options=["Auto", "Huge", "Large", "Normal", "Small", "Tiny"], 
+     group= "Table Styling", inline= "2")
+
+table_col = input.color(color.rgb(42, 46, 57), title="Table Background", group= "Table Styling", inline= "1")
+text_col = input.color(color.white, title="Text Color", group= "Table Styling", inline= "2")
+bg_1 = input.color(color.rgb(42, 70, 57), title="Color 1", group= "Table Styling", inline= "3")
+bg_2 = input.color(color.rgb(42, 100, 57), title="Color 2 ", group= "Table Styling", inline= "3")
+
+// Get Table Position
+table_pos(p) => 
+    switch p
+        "Top Right" => position.top_right
+        "Middle Right" => position.middle_right
+        "Bottom Right" => position.bottom_right
+        "Top Center" => position.top_center
+        "Middle Center" => position.middle_center
+        "Bottom Center" => position.bottom_center
+        "Top Left" => position.top_left
+        "Middle Left" => position.middle_left
+        => position.bottom_left
+
+// Get Table Size
+table_size(s) => 
+    switch s
+        "Auto" => size.auto
+        "Huge" => size.huge
+        "Large" => size.large
+        "Normal" => size.normal
+        "Small" => size.small
+        => size.tiny
+
+// Functions
+
+yumMeuh = math.round(request.security('GOLD', 'D', close), 2)
+yumMeuh := yumMeuh + 0.00000001
+string str_yumMeuh = str.tostring(yumMeuh, "#.##")
+kursDollar = request.security('USDIDR', 'D', close)
+string str_kursDollar = str.tostring(kursDollar, "#,###")
+idr = math.round(yumMeuh * kursDollar)
+string str_idr = str.tostring(idr, "#,###")
+
+gram_usd = yumMeuh / 31.1035
+string str_gram_usd = str.tostring(gram_usd, "#,###")
+gram_idr = math.round(gram_usd * kursDollar)
+string str_gram_idr = str.tostring(gram_idr, "#,###")
+
+mayam_usd = gram_usd * 3.3
+string str_mayam_usd = str.tostring(mayam_usd, "#,###")
+mayam_idr = math.round(mayam_usd * kursDollar)
+string str_mayam_idr = str.tostring(mayam_idr, "#,###")
+
+// Table
+var tbl = table.new(table_pos(in_table_pos), 3, 5, frame_color=#151715, frame_width=1, border_width=1, border_color=color.new(color.white, 100))
+
+table_cell(row, satuan, usd, kurs, idr, bg_col, txt_col, size_tbl)=>
+    table.cell(tbl, 0, row, satuan, bgcolor = bg_col, text_color= text_col, text_size= size_tbl)
+    table.cell(tbl, 1, row, usd, bgcolor = bg_col, text_color= text_col, text_size= size_tbl)
+    // table.cell(tbl, 2, row, kurs, bgcolor = bg_col, text_color= text_col, text_size= size_tbl)
+    table.cell(tbl, 2, row, idr, bgcolor = bg_col, text_color= text_col, text_size= size_tbl)
+
+table.cell(tbl, 0, 0, "Yum Meuh Uroe Nyoe\nKurs Dollar "+str_kursDollar, bgcolor=table_col, text_color=text_col, text_size=table_size(in_table_size))
+table.cell(tbl, 1, 0, "", bgcolor=table_col, text_color=text_col, text_size=table_size(in_table_size))
+table.cell(tbl, 2, 0, "", bgcolor=table_col, text_color=text_col, text_size=table_size(in_table_size))
+table.merge_cells(tbl, 0, 0, 2, 0)
+
+table.cell(tbl, 0, 1, "Satuan", bgcolor=bg_2, text_color=text_col, text_size=table_size(in_table_size))
+table.cell(tbl, 1, 1, "Lam USD", bgcolor=bg_2, text_color=text_col, text_size=table_size(in_table_size))
+table.cell(tbl, 2, 1, "Lam IDR", bgcolor=bg_2, text_color=text_col, text_size=table_size(in_table_size))
+
+table.cell(tbl, 0, 2, "Troy Ounce", bgcolor=bg_2, text_color=text_col, text_size=table_size(in_table_size))
+table.cell(tbl, 1, 2, str_yumMeuh, bgcolor=bg_1, text_color=text_col, text_size=table_size(in_table_size))
+table.cell(tbl, 2, 2, str_idr, bgcolor=bg_1, text_color=text_col, text_size=table_size(in_table_size))
+
+table.cell(tbl, 0, 3, "Gram", bgcolor=bg_2, text_color=text_col, text_size=table_size(in_table_size))
+table.cell(tbl, 1, 3, str_gram_usd, bgcolor=bg_1, text_color=text_col, text_size=table_size(in_table_size))
+table.cell(tbl, 2, 3, str_gram_idr, bgcolor=bg_1, text_color=text_col, text_size=table_size(in_table_size))
+
+table.cell(tbl, 0, 4, "Mayam", bgcolor=bg_2, text_color=text_col, text_size=table_size(in_table_size))
+table.cell(tbl, 1, 4, str_mayam_usd, bgcolor=bg_1, text_color=text_col, text_size=table_size(in_table_size))
+table.cell(tbl, 2, 4, str_mayam_idr, bgcolor=bg_1, text_color=text_col, text_size=table_size(in_table_size))
