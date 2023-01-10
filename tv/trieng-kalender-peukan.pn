@@ -1,0 +1,187 @@
+// This source code is subject to the terms of the Mozilla Public License 2.0 at https://mozilla.org/MPL/2.0/
+// © jdehorty
+// @version=5
+
+indicator(title="Trieng Kalender Peukan", overlay=true, scale=scale.none, max_lines_count=500, max_labels_count = 500)
+
+import jdehorty/EconomicCalendar/1 as calendar
+
+// Settings
+use = input(true, "only Abbreviation")
+
+show_fomc_meetings = input.bool(defval = true, title = "📅 FOMC", inline = "FOMC", group="⚙️ Settings", tooltip="The FOMC meets eight times a year to determine the course of monetary policy. The FOMC's decisions are announced in a press release at 2:15 p.m. ET on the day of the meeting. The press release is followed by a press conference at 2:30 p.m. ET. The FOMC's decisions are based on a review of economic and financial developments and its assessment of the likely effects of these developments on the economic outlook.")
+c_fomcMeeting = input.color(color.new(color.red, 50), title = "Color", group="⚙️ Settings", inline = "FOMC")
+t_fomcMeeting = "FOMC Meeting"
+show_fomc_minutes = input.bool(defval = true, title = "📅 FOMC Minutes", inline = "FOMCMinutes", group="⚙️ Settings", tooltip="The FOMC minutes are released three weeks after each FOMC meeting. The minutes provide a detailed account of the FOMC's discussion of economic and financial developments and its assessment of the likely effects of these developments on the economic outlook.")
+c_fomcMinutes = input.color(color.new(color.orange, 50), title = "Color", group="⚙️ Settings", inline = "FOMCMinutes")
+t_fomcMinutes = "FOMC Minutes"
+show_ppi = input.bool(defval = true, title = "📅 Producer Price Index (PPI)", inline = "PPI", group="⚙️ Settings", tooltip="The Producer Price Index (PPI) measures changes in the price level of goods and services sold by domestic producers. The PPI is a weighted average of prices of a basket of goods and services, such as transportation, food, and medical care. The PPI is a leading indicator of CPI.")
+c_ppi = input.color(color.new(color.yellow, 50), title = "Color", group="⚙️ Settings", inline = "PPI")
+t_ppi = use? 'PPI' : 'Producer Price Index'
+show_cpi = input.bool(defval = true, title = "📅 Consumer Price Index (CPI)", inline = "CPI", group="⚙️ Settings", tooltip="The Consumer Price Index (CPI) measures changes in the price level of goods and services purchased by households. The CPI is a weighted average of prices of a basket of consumer goods and services, such as transportation, food, and medical care. The CPI-U is the most widely used measure of inflation. The CPI-U is based on a sample of about 87,000 households and measures the change in the cost of a fixed market basket of goods and services purchased by urban consumers.")
+c_cpi = input.color(color.new(color.lime, 50), title = "Color", group="⚙️ Settings", inline = "CPI")
+t_cpi = use ? 'CPI' : 'Consumer Price Index'
+show_csi = input.bool(defval = true, title = "📅 Consumer Sentiment Index (CSI)", inline = "CSI", group="⚙️ Settings", tooltip="The University of Michigan's Consumer Sentiment Index (CSI) is a measure of consumer attitudes about the economy. The CSI is based on a monthly survey of 500 U.S. households. The index is based on consumers' assessment of present and future economic conditions. The CSI is a leading indicator of consumer spending, which accounts for about two-thirds of U.S. economic activity.")
+c_csi = input.color(color.new(color.aqua, 50), title = "Color", group="⚙️ Settings", inline = "CSI")
+t_csi = use ? 'CSI' : 'Consumer Sentiment Index'
+show_cci = input.bool(defval = true, title = "📅 Consumer Confidence Index (CCI)", inline = "CCI", group="⚙️ Settings", tooltip="The Conference Board's Consumer Confidence Index (CCI) is a measure of consumer attitudes about the economy. The CCI is based on a monthly survey of 5,000 U.S. households. The index is based on consumers' assessment of present and future economic conditions. The CCI is a leading indicator of consumer spending, which accounts for about two-thirds of U.S. economic activity.")
+c_cci = input.color(color.new(color.fuchsia, 50), title = "Color", group="⚙️ Settings", inline = "CCI")
+t_cci = use ? 'CCI' :  'Consumer Confidence Index' 
+show_nfp = input.bool(defval = true, title = "📅 Non-Farm Payroll (NFP)", inline = "NFP", group="⚙️ Settings", tooltip="The Non-Farm Payroll (NFP) is a measure of the change in the number of employed persons, excluding farm workers and government employees. The NFP is a leading indicator of consumer spending, which accounts for about two-thirds of U.S. economic activity.")
+c_nfp = input.color(color.new(color.silver, 50), title = "Color", group="⚙️ Settings", inline = "NFP")
+t_nfp = use ? 'NFP' : 'Non-Farm Payroll'
+
+// Calculate by adding 12 hours so that the head of the daily chart is not affected by the UTC offset from the origin server.
+timeOffset = input.int(title='Offset', defval=12, minval=-12, maxval=12)
+
+shapeColor = color.green
+
+// Functions
+is_newbar(res) =>
+    t = time(res)
+    ta.change(t) != 0 ? 1 : 0
+
+// For calculating vernal and autumnal equinox days
+unixtime = time + timeOffset * 60 * 60 * 1000
+yr = year(unixtime)
+yearMod = year(yr) % 4
+mn = month(unixtime)
+daym = dayofmonth(unixtime)
+dayw = dayofweek(unixtime)
+
+// Dates & Times
+getUnixTime(_eventArr, _index) => 
+    switch 
+        timeframe.isdaily and timeframe.multiplier > 1 => array.get(_eventArr, _index) - timeframe.multiplier*86400000 // -n days
+        timeframe.isweekly => array.get(_eventArr, _index) - timeframe.multiplier*604800000 // -n week(s)
+        timeframe.ismonthly => array.get(_eventArr, _index) - timeframe.multiplier*2592000000 // -n month(s)
+        timeframe.isminutes and timeframe.multiplier > 60 => array.get(_eventArr, _index) - timeframe.multiplier*60000 // -n minutes
+        => array.get(_eventArr, _index)
+
+// Show only for specific ticker
+if syminfo.ticker=="GOLD" or syminfo.ticker=="DXY"
+// Note: An offset of -n units is needed to realign events with the timeframe in which they occurred
+    if show_fomc_meetings
+        fomcMeetingsArr = calendar.fomcMeetings()
+        for i = 0 to array.size(fomcMeetingsArr) - 1
+            unixTime = getUnixTime(fomcMeetingsArr, i)
+            line.new(x1=unixTime, y1=high, x2=unixTime, y2=low, extend=extend.both,color=c_fomcMeeting, width=2, xloc=xloc.bar_time)
+            label.new(unixTime,y = 0, yloc=yloc.price, xloc=xloc.bar_time, textcolor=c_fomcMeeting, text=t_fomcMeeting, color=color.new(color.blue, 100))
+    if show_fomc_minutes
+        fomcMinutesArr = calendar.fomcMinutes()
+        for i = 0 to array.size(fomcMinutesArr) - 1
+            unixTime = getUnixTime(fomcMinutesArr, i)
+            line.new(x1=unixTime, y1=high, x2=unixTime, y2=low, extend=extend.both,color=c_fomcMinutes, width=2, xloc=xloc.bar_time)
+            label.new(unixTime,y = 0, yloc=yloc.price, xloc=xloc.bar_time, textcolor=c_fomcMinutes, text=t_fomcMinutes, color=color.new(color.blue, 100))
+    if show_ppi
+        ppiArr = calendar.ppiReleases()
+        for i = 0 to array.size(ppiArr) - 1
+            unixTime = getUnixTime(ppiArr, i)
+            line.new(x1=unixTime, y1=high, x2=unixTime, y2=low, extend=extend.both,color=c_ppi, width=2, xloc=xloc.bar_time)
+            label.new(unixTime,y = 0, yloc=yloc.price, xloc=xloc.bar_time, textcolor=c_ppi, text=t_ppi, color=color.new(color.blue, 100))
+    if show_cpi
+        cpiArr = calendar.cpiReleases()
+        for i = 0 to array.size(cpiArr) - 1
+            unixTime = getUnixTime(cpiArr, i)
+            line.new(x1=unixTime, y1=high, x2=unixTime, y2=low, extend=extend.both,color=c_cpi, width=2, xloc=xloc.bar_time)
+            label.new(unixTime,y = 0, yloc=yloc.price, xloc=xloc.bar_time, textcolor=c_cpi, text=t_cpi, color=color.new(color.blue, 100))
+    if show_csi
+        csiArr = calendar.csiReleases()
+        for i = 0 to array.size(csiArr) - 1
+            unixTime = getUnixTime(csiArr, i)
+            line.new(x1=unixTime, y1=high, x2=unixTime, y2=low, extend=extend.both,color=c_csi, width=2, xloc=xloc.bar_time)
+            label.new(unixTime,y = 0, yloc=yloc.price, xloc=xloc.bar_time, textcolor=c_csi, text=t_csi, color=color.new(color.blue, 100))
+    if show_cci
+        cciArr = calendar.cciReleases()
+        for i = 0 to array.size(cciArr) - 1
+            unixTime = getUnixTime(cciArr, i)
+            line.new(x1=unixTime, y1=high, x2=unixTime, y2=low, extend=extend.both,color=c_cci, width=2, xloc=xloc.bar_time)
+            label.new(unixTime,y = 0, yloc=yloc.price, xloc=xloc.bar_time, textcolor=c_cci, text=t_cci, color=color.new(color.blue, 100))
+    if show_nfp
+        nfpArr = calendar.nfpReleases()
+        for i = 0 to array.size(nfpArr) - 1
+            unixTime = getUnixTime(nfpArr, i)
+            line.new(x1=unixTime, y1=high, x2=unixTime, y2=low, extend=extend.both,color=c_nfp, width=2, xloc=xloc.bar_time)
+            label.new(unixTime,y = 0, yloc=yloc.price, xloc=xloc.bar_time, textcolor=c_nfp, text=t_nfp, color=color.new(color.blue, 100))
+
+//---------------------------------------------------------------------
+// Holiday UK
+newyearEng = mn == 1 and (daym == 1 or dayw == dayofweek.monday and (daym == 2 or daym == 3))
+
+// Easter Calculation
+eastMod = yr % 19
+d = 255 - eastMod * 11
+for counter = 1 to 1000 by 1
+    if d >= 51
+        d -= 30
+        d
+
+if d > 48
+    d -= 1
+    d
+e = (yr + math.floor(yr / 4) + d + 1) % 7
+q = d + 7 - e
+
+eastMonth = 3
+eastDay = q
+
+if q > 31
+    eastMonth := 4
+    eastDay := q - 31
+    eastDay
+
+afterTwoDays = unixtime + 24 * 60 * 60 * 1000 * 2
+agoOneDays = unixtime - 24 * 60 * 60 * 1000
+
+goodFriday = dayw == dayofweek.friday and month(afterTwoDays) == eastMonth and dayofmonth(afterTwoDays) == eastDay
+easterMonday = dayw == dayofweek.monday and month(agoOneDays) == eastMonth and dayofmonth(agoOneDays) == eastDay
+
+mayday = mn == 5 and dayw == dayofweek.monday and 1 <= daym and daym < 7 // 1-6 May
+springHoliday = mn == 5 and dayw == dayofweek.monday and 25 <= daym // 25 May
+
+summarHoliday = mn == 8 and dayw == dayofweek.monday and 25 <= daym // 25 Aug
+
+christmas = mn == 12 and daym == 25 // 25 Dec
+boxingDay = mn == 12 and daym == 26 // 26 Dec
+bankHoliday = mn == 12 and (dayw == dayofweek.monday and (daym == 27 or daym == 28) or dayw == dayofweek.tuesday and daym == 28) // 27-28 Dec
+
+//---------------------------------------------------------------------
+// Holiday US
+newyearAme = mn == 1 and (daym == 1 or dayw == dayofweek.monday and daym == 2) or mn == 12 and daym == 31 and dayw == dayofweek.friday
+
+king = mn == 1 and dayw == dayofweek.monday and 15 <= daym and daym <= 21 // 15-21 Jan
+president = mn == 2 and dayw == dayofweek.monday and 15 <= daym and daym <= 21 // 15-21 Feb
+
+memorialDay = springHoliday
+
+independenceDay = mn == 7 and (daym == 4 or daym == 3 and dayw == dayofweek.friday or daym == 5 and dayw == dayofweek.monday) // 3-5 Jul
+
+laborDay = mn == 9 and dayw == dayofweek.monday and 1 <= daym and daym <= 7 // 1-7 Sep
+thanksgivingDay = mn == 11 and dayw == dayofweek.thursday and 22 <= daym and daym <= 28 // 22-28 Nov
+
+// Half day on Friday after Thanksgiving
+thanksgivingNextDay = mn == 11 and dayw == dayofweek.friday and 23 <= daym and daym <= 29 // 23-29 Nov
+
+christmasAme = mn == 12 and (daym == 25 or dayw == dayofweek.monday and daym == 26 or dayw == dayofweek.friday and daym == 24) // 24-26 Dec
+
+isDaysFirst = is_newbar('1440')
+
+plotshape(isDaysFirst and newyearEng and newyearAme, style=shape.flag, location=location.top, text='UK: New Year\n America: New Year', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and goodFriday, style=shape.flag, location=location.top, text='UK: Good Friday', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and easterMonday, style=shape.flag, location=location.top, text='UK: Easter Monday', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and mayday, style=shape.flag, location=location.top, text='UK: May Day', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and springHoliday, style=shape.flag, location=location.top, text='UK: Spring Holiday\nUSA: Memorial Day', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and independenceDay, style=shape.flag, location=location.top, text='US: Independence Day', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and summarHoliday, style=shape.flag, location=location.top, text='UK: Summer Holiday', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and laborDay, style=shape.flag, location=location.top, text='US: Labor Day', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and thanksgivingDay, style=shape.flag, location=location.top, text='US: Thanksgiving Day', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and thanksgivingDay, style=shape.flag, location=location.top, text='US: Thanksgiving Day', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and thanksgivingNextDay, style=shape.flag, location=location.top, text='US: Thanksgiving Next Day', color=color.new(shapeColor, 0), textcolor=shapeColor)
+// If it's basically Christmas in England, it's Christmas in America too, but just in case the rules for substitute holidays are different.
+plotshape(isDaysFirst and christmas and christmasAme, style=shape.flag, location=location.top, text='UK: Christmas\nUSA:Christmas', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and christmas and not christmasAme, style=shape.flag, location=location.top, text='UK: Christmas', color=color.new(shapeColor, 0), textcolor=shapeColor)
+// plotshape(isDaysFirst and not christmas and christmasAme, style=shape.flag, location=location.top, text='America: Christmas (Transfer)', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and boxingDay and not christmasAme, style=shape.flag, location=location.top, text='UK: Boxing Day', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and boxingDay and christmasAme, style=shape.flag, location=location.top, text='UK: Boxing Day\nUSA: Christmas', color=color.new(shapeColor, 0), textcolor=shapeColor)
+plotshape(isDaysFirst and bankHoliday, style=shape.flag, location=location.top, text='UK: Bank Holiday', color=color.new(shapeColor, 0), textcolor=shapeColor)
+// plotshape(isDaysFirst and newyearAme, style=shape.flag, location=location.top, text='US: New Year (substitute)', color=color.new(shapeColor, 0), textcolor=shapeColor)
