@@ -1,0 +1,61 @@
+ssh root@[IP_ADDR]
+
+yum -y update && yum -y upgrade
+
+yum -y install perl curl
+
+iptables-save > ~/firewall.rules && systemctl stop firewalld.service && systemctl disable firewalld.service
+
+nano /etc/selinux/config
+# change SELINUX=enforcing to SELINUX=disabled
+hostnamectl set-hostname server.[YOUR_DOMAIN]
+
+swapon --show && fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
+nano /etc/fstab
+# paste it at last line:
+/swapfile swap swap defaults 0 0
+# check again
+swapon --show
+
+cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh latest
+
+service NetworkManager start && chkconfig NetworkManager on
+reboot
+
+# go to https://serverIP:2087
+# username WHM: root
+# password WHM: password of your server
+
+# read cPanel terms and agree to all if you wish!
+
+# in the next section, you should enter an email address to receive probable error notifications from WHM.
+
+# then you should enter 2 name servers. Name servers are used to connect your domain or subdomain to your WHM server.
+# ns1.[YOUR_DOMAIN]
+# ns2.[YOUR_DOMAIN]
+
+# reboot again the server to apply kernel and software updates
+
+# to start hosting a website, create a cPanel account on it
+
+# here are a few directories for cPanel installed stuff, in case we need to access it from the command line on AlmaLinux 8:
+# cPanel directories: /usr/local/cpanel
+# Third-party tools: /usr/local/cpanel/3rdparty/
+# Directories of addons or cPanel add-ons: /usr/local/cpanel/addons/
+# Basic files like PHPMyAdmin, themes: /usr/local/cpanel/base/
+# cPanel binaries: /usr/local/cpanel/bin/
+# CGI files: /usr/local/cpanel/cgi-sys/
+# Access to cPanel & Error event files: /usr/local/cpanel/logs/
+# WHM files: /usr/local/cpanel/whostmgr/
+# Apache configuration: /etc/httpd/conf/httpd.conf
+# Configuration of the Exim mail server: /etc/exim.conf
+# Named configuration files: /etc/named.conf
+# Configuration files ProFTP and Pureftpd: /etc/proftpd.conf and /etc/pure-ftpd.conf
+# cPanel user files: /var/cpanel/users/username
+# cPanel configuration files (tweak settings): /var/cpanel/cpanel.config
+# Network configuration files: /etc/sysconfig/network
+# Addons and subdomain information: /etc/userdomains
+# cPanel update files: /etc/cpupdate.conf
+# Clamav configuration files: /etc/clamav.conf
+# MySQL configuration files: /etc/my.cnf
+# PHP.ini configuration files: /usr/local/lib/php.ini
