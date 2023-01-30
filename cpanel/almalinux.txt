@@ -1,6 +1,6 @@
 ssh root@[IP_ADDR]
 
-yum -y update && yum -y upgrade
+yum -y update && yum -y upgrade && cat /etc/os-release
 
 yum -y install perl curl
 
