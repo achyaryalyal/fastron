@@ -2,15 +2,18 @@ ssh root@[IP_ADDR]
 
 yum -y update && yum -y upgrade && cat /etc/os-release
 
-yum -y install perl curl
-
-iptables-save > ~/firewall.rules && systemctl stop firewalld.service && systemctl disable firewalld.service
+yum -y install perl curl nano firewalld && iptables-save > ~/firewall.rules && systemctl stop firewalld && systemctl disable firewalld
 
 nano /etc/selinux/config
 # change SELINUX=enforcing to SELINUX=disabled
+
 hostnamectl set-hostname server.[YOUR_DOMAIN]
 
-swapon --show && fallocate -l 4G /swapfile && chmod 600 /swapfile && mkswap /swapfile && swapon /swapfile && swapon --show
+swapon --show
+fallocate -l 4G /swapfile && chmod 600 /swapfile
+mkswap /swapfile
+swapon /swapfile
+swapon --show
 nano /etc/fstab
 # paste it at last line:
 /swapfile swap swap defaults 0 0
@@ -20,6 +23,7 @@ swapon --show
 cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh latest
 
 service NetworkManager start && chkconfig NetworkManager on
+
 reboot
 
 # go to https://serverIP:2087
