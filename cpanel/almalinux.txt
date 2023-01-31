@@ -7,8 +7,6 @@ yum -y install perl curl nano firewalld && iptables-save > ~/firewall.rules && s
 nano /etc/selinux/config
 # change SELINUX=enforcing to SELINUX=disabled
 
-hostnamectl set-hostname server.[YOUR_DOMAIN]
-
 swapon --show
 fallocate -l 4G /swapfile && chmod 600 /swapfile
 mkswap /swapfile
