@@ -73,3 +73,14 @@ yum -y install glibc-langpack-id && perl -v
 # Clamav configuration files: /etc/clamav.conf
 # MySQL configuration files: /etc/my.cnf
 # PHP.ini configuration files: /usr/local/lib/php.ini
+
+# install CSF (ConfigServer Security & Firewall)
+cd /usr/src 
+rm -fv csf.tgz 
+wget https://download.configserver.com/csf.tgz 
+tar -xzf csf.tgz 
+cd csf 
+sh install.sh 
+vi /etc/csf/csf.conf and
+make TESTING=’0’ 
+csf -r
