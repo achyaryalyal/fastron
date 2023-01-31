@@ -4,6 +4,12 @@ ALMALINUX-8 + CPANEL
 
 ssh root@[IP_ADDR]
 
+nano /etc/ssh/sshd_config
+# set:
+	ClientAliveInterval 120
+	ClientAliveCountMax 720
+service sshd restart
+
 yum -y update && yum -y upgrade && yum -y install perl curl nano firewalld && iptables-save > ~/firewall.rules && systemctl stop firewalld && systemctl disable firewalld
 
 nano /etc/selinux/config
