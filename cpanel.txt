@@ -36,9 +36,7 @@ mkdir /root/cpanel_profile && nano /root/cpanel_profile/cpanel.config
 # add one of the following example configurations to the file to specify your desired version of MySQL or MariaDB
 mysql-version=10.6
 
-cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh latest
-
-service NetworkManager start && chkconfig NetworkManager on
+cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh latest && service NetworkManager start && chkconfig NetworkManager on
 
 # go to https://serverIP:2087
 # username WHM: root
