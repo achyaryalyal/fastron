@@ -1,3 +1,7 @@
+====================
+ALMALINUX-8 + CPANEL
+====================
+
 ssh root@[IP_ADDR]
 
 yum -y update && yum -y upgrade && yum -y install perl curl nano firewalld && iptables-save > ~/firewall.rules && systemctl stop firewalld && systemctl disable firewalld
