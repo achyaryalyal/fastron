@@ -31,11 +31,6 @@ cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh la
 
 service NetworkManager start && chkconfig NetworkManager on
 
-# fix perl warning where the locale is Indonesia
-yum -y install glibc-langpack-id && perl -v
-
-reboot
-
 # go to https://serverIP:2087
 # username WHM: root
 # password WHM: password of your server
@@ -49,6 +44,11 @@ reboot
 # ns2.[YOUR_DOMAIN]
 
 # reboot again the server to apply kernel and software updates
+reboot
+
+# ssh again
+# fix perl warning where the locale is Indonesia
+yum -y install glibc-langpack-id && perl -v
 
 # to start hosting a website, create a cPanel account on it
 
