@@ -59,6 +59,14 @@ cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh la
 # reboot again the server to apply kernel and software updates
 reboot
 
+# go again to https://serverIP:2087
+
+# open Networking Setup > Change Hostname
+# change with your hostname server.[YOUR_DOMAIN]
+
+# open Service Configuration > FTP Server Selection
+# select one, save
+
 # to start hosting a website, create a cPanel account on it
 # read "From WHM to Website" at https://docs.cpanel.net/knowledge-base/accounts/from-whm-to-website/
 
