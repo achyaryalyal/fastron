@@ -38,7 +38,13 @@ mysql-version=10.6
 
 cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh latest && service NetworkManager start && chkconfig NetworkManager on
 
-# go to https://serverIP:2087
+# while waiting for WHM installation to complete for about 20 minutes, let's set up our own nameservers
+# login to your domain provider client area
+# choose domain, go to "Private Name Server"
+# add ns1 and ns2 with your server public IP, save
+# go to "Nameservers", input ns1.[YOUR_DOMAIN] and ns2.[YOUR_DOMAIN], save
+
+# after the WHM installation is complete, go to https://serverIP:2087
 # username WHM: root
 # password WHM: password of your server
 
@@ -53,12 +59,22 @@ cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh la
 # reboot again the server to apply kernel and software updates
 reboot
 
-# ssh again
+# to start hosting a website, create a cPanel account on it
+# read "From WHM to Website" at https://docs.cpanel.net/knowledge-base/accounts/from-whm-to-website/
+
 # fix perl warning where the locale is Indonesia
 yum -y install glibc-langpack-id && perl -v
 
-# to start hosting a website, create a cPanel account on it
-# read "From WHM to Website" at https://docs.cpanel.net/knowledge-base/accounts/from-whm-to-website/
+# install CSF (ConfigServer Security & Firewall)
+cd /usr/src 
+rm -fv csf.tgz 
+wget https://download.configserver.com/csf.tgz 
+tar -xzf csf.tgz 
+cd csf 
+sh install.sh 
+vi /etc/csf/csf.conf and
+make TESTING=’0’ 
+csf -r
 
 # here are a few directories for cPanel installed stuff, in case we need to access it from the command line on AlmaLinux 8:
 # cPanel directories: /usr/local/cpanel
@@ -81,14 +97,3 @@ yum -y install glibc-langpack-id && perl -v
 # Clamav configuration files: /etc/clamav.conf
 # MySQL configuration files: /etc/my.cnf
 # PHP.ini configuration files: /usr/local/lib/php.ini
-
-# install CSF (ConfigServer Security & Firewall)
-cd /usr/src 
-rm -fv csf.tgz 
-wget https://download.configserver.com/csf.tgz 
-tar -xzf csf.tgz 
-cd csf 
-sh install.sh 
-vi /etc/csf/csf.conf and
-make TESTING=’0’ 
-csf -r
