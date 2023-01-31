@@ -51,6 +51,7 @@ reboot
 yum -y install glibc-langpack-id && perl -v
 
 # to start hosting a website, create a cPanel account on it
+# read "From WHM to Website" at https://docs.cpanel.net/knowledge-base/accounts/from-whm-to-website/
 
 # here are a few directories for cPanel installed stuff, in case we need to access it from the command line on AlmaLinux 8:
 # cPanel directories: /usr/local/cpanel
