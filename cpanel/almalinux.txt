@@ -32,7 +32,7 @@ cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh la
 service NetworkManager start && chkconfig NetworkManager on
 
 # fix perl warning where the locale is Indonesia
-dnf install glibc-langpack-id && perl -v
+yum -y install glibc-langpack-id && perl -v
 
 reboot
 
