@@ -36,7 +36,54 @@ mkdir /root/cpanel_profile && nano /root/cpanel_profile/cpanel.config
 # add one of the following example configurations to the file to specify your desired version of MySQL or MariaDB
 mysql-version=10.6
 
-cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh latest && service NetworkManager start && chkconfig NetworkManager on
+# install & reboot to apply kernel and software updates
+cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh latest && service NetworkManager start && chkconfig NetworkManager on && reboot
+
+# ssh again and fix perl warning with glibc-langpack-[ID_COUNTRY] where the locale is Indonesia
+yum -y install glibc-langpack-id && perl -v
+
+# update again hostname
+hostnamectl set-hostname server.[YOUR_DOMAIN]
+nano /etc/hosts
+# pastikan kembali di /etc/hosts masih ada server.[YOUR_DOMAIN]
+# jika belum ada, sisipkan di baris yang sama dengan ip server, lalu reboot
+
+# install CSF (ConfigServer Security & Firewall)
+cd /usr/src
+rm -fv csf.tgz
+wget https://download.configserver.com/csf.tgz
+tar -xzf csf.tgz
+cd csf
+sh install.sh
+vi /etc/csf/csf.conf and
+make TESTING='0'
+csf -r
+
+yum -y install perl-libwww-perl perl-Math-BigInt wget
+cd /usr/src
+rm -fv csf.tgz
+wget https://download.configserver.com/csf.tgz
+tar -xzf csf.tgz
+cd csf
+sh install.sh
+# check if your cloud server has the required iptable modules
+perl /usr/local/csf/bin/csftest.pl
+# make sure you disable firewalld and any other iptables firewall
+systemctl stop firewalld && systemctl disable firewalld
+nano /etc/csf/csf.conf
+	# Allow incoming TCP ports
+	TCP_IN = "20,21,22,25,53,80,110,143,443,465,587,993,995"
+	# Allow outgoing TCP ports
+	TCP_OUT = "20,21,22,25,53,80,110,113,443,587,993,995"
+	# lfd will not start while this is enabled
+	TESTING = "0"
+systemctl restart csf && systemctl restart lfd
+systemctl enable csf && systemctl enable lfd
+systemctl status csf && systemctl status lfd
+# restart CSF Firewall
+csf -r
+# [OPTIONAL] displays the current list of temporary allow and deny IP entries with their TTL and comments
+csf -t
 
 # while waiting for WHM installation to complete for about 20 minutes, let's set up our own nameservers
 # login to your domain provider client area
@@ -47,42 +94,20 @@ cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh la
 # after the WHM installation is complete, go to https://serverIP:2087
 # username WHM: root
 # password WHM: password of your server
-
 # read cPanel terms and agree to all if you wish!
-
-# in the next section, you should enter an email address to receive probable error notifications from WHM.
-
-# then you should enter 2 name servers. Name servers are used to connect your domain or subdomain to your WHM server.
+# in the next section, you should enter an email address to receive probable error notifications from WHM
+# then you should enter 2 name servers. Name servers are used to connect your domain or subdomain to your WHM server
 # ns1.[YOUR_DOMAIN]
 # ns2.[YOUR_DOMAIN]
 
-# reboot again the server to apply kernel and software updates
-reboot
-
-# go again to https://serverIP:2087
-
-# open Networking Setup > Change Hostname
+# open WHM > Networking Setup > Change Hostname
 # change with your hostname server.[YOUR_DOMAIN]
 
-# open Service Configuration > FTP Server Selection
+# open WHM > Service Configuration > FTP Server Selection
 # select one, save
 
 # to start hosting a website, create a cPanel account on it
 # read "From WHM to Website" at https://docs.cpanel.net/knowledge-base/accounts/from-whm-to-website/
-
-# fix perl warning where the locale is Indonesia
-yum -y install glibc-langpack-id && perl -v
-
-# install CSF (ConfigServer Security & Firewall)
-cd /usr/src 
-rm -fv csf.tgz 
-wget https://download.configserver.com/csf.tgz 
-tar -xzf csf.tgz 
-cd csf 
-sh install.sh 
-vi /etc/csf/csf.conf and
-make TESTING=’0’ 
-csf -r
 
 # here are a few directories for cPanel installed stuff, in case we need to access it from the command line on AlmaLinux 8:
 # cPanel directories: /usr/local/cpanel
