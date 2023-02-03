@@ -71,6 +71,10 @@ sudo apt update && sudo apt install unoconv
 # Make sure this file exist on wwwroot: favicon.ico, apple-touch-icon-120x120-precomposed.png, apple-touch-icon-120x120.png, apple-touch-icon-precomposed.png, apple-touch-icon.png
 # You can check used moodledata directory size with this script and access https://[DOMAIN.COM]/admin/script-moodle-directory-size.php
 	curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/moodle/script-moodle-directory-size.php > /[YOUR_MOODLE_PATH]/admin/script-moodle-directory-size.php
+# nano /[YOUR_MOODLE_PATH]/course/edit_form.php
+# $mform->addElement('text', 'shortname', get_string('shortnamecourse'), 'maxlength="100" size="20"');
+# change to:
+# $mform->addElement('text', 'shortname', 'Course code dari OPEN SIMKA', 'maxlength="100" minlength="16" size="20"');
 
 ============================
 Plus Minus CloudPanel
