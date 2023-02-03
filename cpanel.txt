@@ -48,33 +48,6 @@ cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh la
 # after the WHM installation is complete, ssh again and fix perl warning with glibc-langpack-[ID_COUNTRY] where the locale is Indonesia
 yum -y install glibc-langpack-id && perl -v
 
-# update again hostname
-hostnamectl set-hostname server.[YOUR_DOMAIN]
-nano /etc/hosts
-# pastikan kembali di /etc/hosts masih ada server.[YOUR_DOMAIN]
-# jika belum ada, sisipkan di baris yang sama dengan ip server, lalu reboot
-
-# install CSF (ConfigServer Security & Firewall)
-yum -y install perl-libwww-perl perl-LWP-Protocol-https perl-GDGraph perl-Math-BigInt wget tar
-cd /usr/src
-rm -fv csf.tgz
-wget https://download.configserver.com/csf.tgz
-tar -xzf csf.tgz
-cd csf
-sh install.sh
-# check if your cloud server has the required iptable modules
-perl /usr/local/csf/bin/csftest.pl
-# make sure you disable firewalld and any other iptables firewall
-systemctl stop firewalld && systemctl disable firewalld
-nano /etc/csf/csf.conf
-	# change testing 1 to 0
-	TESTING = "0"
-systemctl restart csf && systemctl restart lfd
-systemctl enable csf && systemctl enable lfd
-systemctl status csf && systemctl status lfd
-# restart CSF Firewall
-csf -r
-
 # open WHM at https://serverIP:2087
 # you will see warning "Your connection is not private", just click Advanced > Proceed
 # username WHM: root
@@ -115,3 +88,24 @@ csf -r
 # Clamav configuration files: /etc/clamav.conf
 # MySQL configuration files: /etc/my.cnf
 # PHP.ini configuration files: /usr/local/lib/php.ini
+
+# install CSF (ConfigServer Security & Firewall)
+yum -y install perl-libwww-perl perl-LWP-Protocol-https perl-GDGraph perl-Math-BigInt wget tar
+cd /usr/src
+rm -fv csf.tgz
+wget https://download.configserver.com/csf.tgz
+tar -xzf csf.tgz
+cd csf
+sh install.sh
+# check if your cloud server has the required iptable modules
+perl /usr/local/csf/bin/csftest.pl
+# make sure you disable firewalld and any other iptables firewall
+systemctl stop firewalld && systemctl disable firewalld
+nano /etc/csf/csf.conf
+	# change testing 1 to 0
+	TESTING = "0"
+systemctl restart csf && systemctl restart lfd
+systemctl enable csf && systemctl enable lfd
+systemctl status csf && systemctl status lfd
+# restart CSF Firewall
+csf -r
