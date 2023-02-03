@@ -39,7 +39,13 @@ mysql-version=10.6
 # install & reboot to apply kernel and software updates
 cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh latest && service NetworkManager start && chkconfig NetworkManager on && reboot
 
-# ssh again and fix perl warning with glibc-langpack-[ID_COUNTRY] where the locale is Indonesia
+# while waiting for WHM installation to complete for about 20 minutes, let's set up our own nameservers
+# login to your domain provider client area
+# choose domain, go to "Private Name Server"
+# add ns1 and ns2 with your server public IP, save
+# go to "Nameservers", input ns1.[YOUR_DOMAIN] and ns2.[YOUR_DOMAIN], save
+
+# after the WHM installation is complete, ssh again and fix perl warning with glibc-langpack-[ID_COUNTRY] where the locale is Indonesia
 yum -y install glibc-langpack-id && perl -v
 
 # update again hostname
@@ -69,13 +75,7 @@ systemctl status csf && systemctl status lfd
 # restart CSF Firewall
 csf -r
 
-# while waiting for WHM installation to complete for about 20 minutes, let's set up our own nameservers
-# login to your domain provider client area
-# choose domain, go to "Private Name Server"
-# add ns1 and ns2 with your server public IP, save
-# go to "Nameservers", input ns1.[YOUR_DOMAIN] and ns2.[YOUR_DOMAIN], save
-
-# after the WHM installation is complete, go to https://serverIP:2087
+# open WHM at https://serverIP:2087
 # username WHM: root
 # password WHM: password of your server
 # read cPanel terms and agree to all if you wish!
