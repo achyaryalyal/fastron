@@ -61,11 +61,7 @@ perl /usr/local/csf/bin/csftest.pl
 # make sure you disable firewalld and any other iptables firewall
 systemctl stop firewalld && systemctl disable firewalld
 nano /etc/csf/csf.conf
-	# Allow incoming TCP ports
-	TCP_IN = "20,21,22,25,53,80,110,143,443,465,587,993,995"
-	# Allow outgoing TCP ports
-	TCP_OUT = "20,21,22,25,53,80,110,113,443,587,993,995"
-	# lfd will not start while this is enabled
+	# change testing 1 to 0
 	TESTING = "0"
 systemctl restart csf && systemctl restart lfd
 systemctl enable csf && systemctl enable lfd
