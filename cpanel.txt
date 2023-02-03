@@ -68,8 +68,6 @@ systemctl enable csf && systemctl enable lfd
 systemctl status csf && systemctl status lfd
 # restart CSF Firewall
 csf -r
-# [OPTIONAL] displays the current list of temporary allow and deny IP entries with their TTL and comments
-csf -t
 
 # while waiting for WHM installation to complete for about 20 minutes, let's set up our own nameservers
 # login to your domain provider client area
