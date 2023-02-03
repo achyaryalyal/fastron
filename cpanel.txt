@@ -4,12 +4,6 @@ ALMALINUX-8 + CPANEL
 
 ssh root@[IP_ADDR]
 
-nano /etc/ssh/sshd_config
-# set:
-	ClientAliveInterval 120
-	ClientAliveCountMax 720
-service sshd restart
-
 yum -y update && yum -y upgrade && yum -y install perl curl nano firewalld && iptables-save > ~/firewall.rules && systemctl stop firewalld && systemctl disable firewalld
 
 nano /etc/selinux/config
@@ -45,7 +39,14 @@ cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh la
 # add ns1 and ns2 with your server public IP, save
 # go to "Nameservers", input ns1.[YOUR_DOMAIN] and ns2.[YOUR_DOMAIN], save
 
-# after the WHM installation is complete, ssh again and fix perl warning with glibc-langpack-[ID_COUNTRY] where the locale is Indonesia
+# after the WHM installation is complete, ssh again and fix short time login
+nano /etc/ssh/sshd_config
+# set:
+	ClientAliveInterval 120
+	ClientAliveCountMax 720
+service sshd restart
+
+# fix perl warning with glibc-langpack-[ID_COUNTRY] where the locale is Indonesia
 yum -y install glibc-langpack-id && perl -v
 
 # open WHM at https://serverIP:2087
