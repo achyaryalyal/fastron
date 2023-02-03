@@ -76,6 +76,7 @@ systemctl status csf && systemctl status lfd
 csf -r
 
 # open WHM at https://serverIP:2087
+# you will see warning "Your connection is not private", just click Advanced > Proceed
 # username WHM: root
 # password WHM: password of your server
 # read cPanel terms and agree to all if you wish!
