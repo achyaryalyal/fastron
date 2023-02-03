@@ -49,7 +49,7 @@ nano /etc/hosts
 # jika belum ada, sisipkan di baris yang sama dengan ip server, lalu reboot
 
 # install CSF (ConfigServer Security & Firewall)
-yum -y install perl-libwww-perl perl-Math-BigInt wget
+yum -y install perl-libwww-perl perl-LWP-Protocol-https perl-GDGraph perl-Math-BigInt wget tar
 cd /usr/src
 rm -fv csf.tgz
 wget https://download.configserver.com/csf.tgz
