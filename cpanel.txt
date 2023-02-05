@@ -128,3 +128,4 @@ systemctl enable csf && systemctl enable lfd
 systemctl status csf && systemctl status lfd
 # restart CSF Firewall
 csf -r
+# WHM > Plugins > ConfigServer Security & Firewall
