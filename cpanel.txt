@@ -66,8 +66,10 @@ yum -y install glibc-langpack-id && perl -v
 # install Let's Encrypt as Auto SSL Provider
 /usr/local/cpanel/scripts/install_lets_encrypt_autossl_provider
 # WHM > SSL/TLS > Manage AutoSSL
-# in the Providers tab, select the Let's Encrypt option. The interface will display the Terms of Service section.
-# review Let's Encrypt terms of service. If you agree, select the I agree to these terms of service option. Save.
+# in the Providers tab, select the Let's Encrypt option
+# select "I agree to these terms of service option"
+# select "Recreate my current registration with "Let's Encrypt"
+# save
 
 # open WHM > Service Configuration > FTP Server Selection
 # select one, save
