@@ -129,3 +129,9 @@ systemctl status csf && systemctl status lfd
 # restart CSF Firewall
 csf -r
 # WHM > Plugins > ConfigServer Security & Firewall
+
+# install/enable php legacy version
+WHM > Software EasyApache 4 > Documentation
+# click tab "PHP Version", select what you want to install/enable
+# click tab "PHP Extensions", select what you want to install/enable
+# Provision
