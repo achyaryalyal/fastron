@@ -135,3 +135,4 @@ WHM > Software EasyApache 4 > Documentation
 # click tab "PHP Version", select what you want to install/enable
 # click tab "PHP Extensions", select what you want to install/enable
 # Provision
+# WHM > Software > MultiPHP Manager, make sure the version is installed/enabled with "cgi" as php handler
