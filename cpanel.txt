@@ -56,11 +56,12 @@ yum -y install glibc-langpack-id && perl -v
 # read cPanel terms and agree to all if you wish!
 # in the next section, you should enter an email address to receive probable error notifications from WHM
 # then you should enter 2 name servers. Name servers are used to connect your domain or subdomain to your WHM server
-# ns1.[YOUR_DOMAIN]
-# ns2.[YOUR_DOMAIN]
+# ns1.[YOUR_DOMAIN] > configure address records > confirm the IPv4 address to create an A record
+# ns2.[YOUR_DOMAIN] > configure address records > confirm the IPv4 address to create an A record
 
 # open WHM > Networking Setup > Change Hostname
 # change with your hostname server.[YOUR_DOMAIN]
+# add an A Entry for Your Hostname
 
 # open WHM > Service Configuration > FTP Server Selection
 # select one, save
