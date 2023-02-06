@@ -137,6 +137,13 @@ WHM > Software EasyApache 4 > Documentation
 # Provision
 # WHM > Software > MultiPHP Manager, make sure the version is installed/enabled with "cgi" as php handler
 
+# update resolver IPs with Google Public DNS
+# log in to WHM as root
+# navigate to Home >> Networking Setup >> Resolver Configuration
+# select "Proceed"
+# update the IPs with: 8.8.8.8 and 8.8.4.4
+# save the new configuration
+
 # Troubleshoot: The MySQL server is currently offline. adminbin Cpanel/cpmysql/DBCACHE: exit 255
 /scripts/rebuild_dbmap [CPANEL_USERNAME] && /scripts/restartsrv_mysql
 
