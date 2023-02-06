@@ -144,6 +144,9 @@ WHM > Software EasyApache 4 > Documentation
 # update the IPs with: 8.8.8.8 and 8.8.4.4
 # save
 
+# Troubleshoot: Access from client IP blocked
+# try to disable your firewall, CSF or cPHulk
+
 # Troubleshoot: The MySQL server is currently offline. adminbin Cpanel/cpmysql/DBCACHE: exit 255
 /scripts/rebuild_dbmap [CPANEL_USERNAME] && /scripts/restartsrv_mysql
 
