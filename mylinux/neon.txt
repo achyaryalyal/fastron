@@ -445,7 +445,7 @@ $ sudo apt update && sudo apt install -y inkscape
 Install Apps Manually From .DEB Package
 =======================================
 Download WPS Office For Linux
-	https://linux.wps.com
+	https://www.wps.com/office/linux/
 Download Zoom Meeting
 	https://zoom.us/download
 Download Sejda PDF Desktop (PDF Editor)
