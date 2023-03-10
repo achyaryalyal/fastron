@@ -1024,6 +1024,16 @@ service clamav-daemon restart
 ##################################
 
 ###################################
+######## Switch APT Mirror ########
+###################################
+sudo apt update
+sudo apt install python3-pip
+pip3 --version
+sudo pip3 install apt-mirror-updater
+apt-mirror-updater --list-mirrors
+sudo apt-mirror-updater -c "[PASTE_MIRROR_URL_HERE]"
+
+###################################
 ########## Make Zip File ##########
 ###################################
 # no pswd:
