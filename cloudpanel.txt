@@ -81,6 +81,21 @@ sudo apt update && sudo apt install unoconv
 # $mform->addElement('text', 'shortname', 'Course code dari OPEN SIMKA', 'maxlength="100" minlength="16" size="20"');
 
 ============================
+Install Slims at CloudPanel
+============================
+# Click on + Add Site and then click on Create a PHP Site
+# Select the Application Slims 4, enter Domain Name, Site User, Site User Password, and click on Create
+# Creating a Slims Project (v9.5.2 support PHP 8)
+# make sure, you have installed YAZ [optional]
+apt install php-dev php-pear yaz libyaz5 libyaz-dev libnet-z3950-zoom-perl
+pecl channel-update pecl.php.net
+pecl install yaz
+# In "Vhost", don't put rate limit because it's culprit for some services like /lib/ajax/service.php?sesskey=.... which makes dashboard dialog box error undefined 503
+# add extension=yaz.so; to phpsetting, save
+# In "Databases", create a database
+# In "SSL/TLS", create and install Let's Encrypt Certificate
+
+============================
 Plus Minus CloudPanel
 ============================
 Intinya CloudPanel cocok untuk control panel turunan (bukan control panel induk) karena di CloudPanel tidak ada fitur manajemen DNS
