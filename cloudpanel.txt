@@ -112,6 +112,10 @@ pecl install yaz
     'url' => 'index.php?p=login'
   ],
 # to edit quote in visitor page, edit file /template/default/visitor_template.php, edit some array value in "this.quotes" line 134
+  this.quotes = {
+    content: "Dengan ilmu, logika menjadi tajam. Dan dengan akhlak, hati menjadi lembut.",
+    author: "UBBG Library"
+  }
 # replace
   <label for="exampleInputPassword1"><?= __('Institution')?></label>
 # with
