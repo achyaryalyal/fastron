@@ -111,7 +111,11 @@ pecl install yaz
     'url' => 'index.php?p=login'
   ],
 # to edit quote in visitor page, edit file /template/default/visitor_template.php, edit some array value in "this.quotes" line 134
-# to edit text button in visitor page, edit same file, change "Masuk" to "Check In"
+# to edit text button in visitor page, edit same file, change "Masuk" to "Check-In"
+# add class "invisible" to:
+  <div class="text-right invisible">
+    <small class="text-grey-dark"><?= __('Powered by ')?> <code>SLiMS</code></small>
+  </div>
 
 ============================
 Plus Minus CloudPanel
