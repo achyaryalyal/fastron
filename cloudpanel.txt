@@ -112,6 +112,14 @@ pecl install yaz
     'url' => 'index.php?p=login'
   ],
 # to edit quote in visitor page, edit file /template/default/visitor_template.php, edit some array value in "this.quotes" line 134
+# replace
+  <label for="exampleInputPassword1"><?= __('Institution')?></label>
+# with
+  <label for="exampleInputPassword1">Nama Institusi <span style="color:orange">(hanya diisi bila Anda berasal dari luar kampus UBBG)</span></label>
+# replace
+  <small id="emailHelp" class="form-text text-muted"><?= __('Enough fill your member ID if you are member of ').$sysconf['library_name']; ?></small>
+# with
+  <small id="emailHelp" class="form-text text-muted">Khusus anggota/mahasiswa UBBG cukup entrikan ID Anggota saja</small>
 # to edit text button in visitor page, edit same file, change "Masuk" to "Check-In"
 # add class "invisible" to:
   <div class="text-right invisible">
