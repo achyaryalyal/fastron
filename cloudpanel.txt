@@ -117,6 +117,10 @@ pecl install yaz
     author: "UBBG Library"
   }
 # replace
+  <p class="lead">
+# with
+  <p class="lead" style="color:darkgray;">
+# replace
   <label for="exampleInputPassword1"><?= __('Institution')?></label>
 # with
   <label for="exampleInputPassword1">Nama Institusi <span style="color:orange">(hanya diisi bila Anda berasal dari luar kampus UBBG)</span></label>
