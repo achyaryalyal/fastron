@@ -99,11 +99,16 @@ pecl install yaz
 # In "Databases", create a database
 # In "SSL/TLS", create and install Let's Encrypt Certificate
 # to customize theme: Login Admin > Tema > Default > Customize
+# to activate all default plugin: Login > Sistem > Plugin
 # to activate visitor link, just leave empty in: Login Admin > Sistem > Pengaturan Sistem > IP Yang Diizinkan
 # to show visitor link, edit file /template/default/parts/_navbar.php line 26, add this array:
   'visitor' => [
-    'text' => __('Pengunjung'),
+    'text' => __('Check-In Pengunjung'),
     'url' => 'index.php?p=visitor'
+  ],
+  'login' => [
+    'text' => __('Login Sistem'),
+    'url' => 'index.php?p=login'
   ],
 # to edit quote in visitor page, edit file /template/default/visitor_template.php, edit some array value in "this.quotes" line 134
 # to edit text button in visitor page, edit same file, change "Masuk" to "Check In"
