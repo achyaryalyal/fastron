@@ -116,15 +116,13 @@ pecl install yaz
   <label for="exampleInputPassword1"><?= __('Institution')?></label>
 # with
   <label for="exampleInputPassword1">Nama Institusi <span style="color:orange">(hanya diisi bila Anda berasal dari luar kampus UBBG)</span></label>
-# replace
-  <small id="emailHelp" class="form-text text-muted"><?= __('Enough fill your member ID if you are member of ').$sysconf['library_name']; ?></small>
-# with
-  <small id="emailHelp" class="form-text text-muted">Khusus anggota/mahasiswa UBBG cukup entrikan ID Anggota saja</small>
+# add comment to:
+  <!--<small id="emailHelp" class="form-text text-muted"><?= __('Enough fill your member ID if you are member of ').$sysconf['library_name']; ?></small>-->
 # to edit text button in visitor page, edit same file, change "Masuk" to "Check-In"
-# add class "invisible" to:
-  <div class="text-right invisible">
+# add comment to:
+  <!--<div class="text-right invisible">
     <small class="text-grey-dark"><?= __('Powered by ')?> <code>SLiMS</code></small>
-  </div>
+  </div>-->
 
 ============================
 Plus Minus CloudPanel
