@@ -3,7 +3,7 @@ SISTER @ UBUNTU 22.04
 #####################
 # DNS Zone
 #####################
-sister.bbg.ac.id			14400		A			117.53.46.95
+sister.bbg.ac.id		14400		A		117.53.46.95
 www.sister.bbg.ac.id.		14400		CNAME		sister.bbg.ac.id
 
 
@@ -11,7 +11,7 @@ www.sister.bbg.ac.id.		14400		CNAME		sister.bbg.ac.id
 # SSH
 #####################
 ssh root@117.53.46.95
-4jARHhywSRxa
+???????????
 
 
 #####################
