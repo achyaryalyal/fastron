@@ -110,8 +110,14 @@ cd sisterdev
 composer install
 # continue as root/super user [yes]? yes
 php artisan key:generate
-[IGNORE] nano config/app.php
-[IGNORE] # ctrl + w : app_key, paste APP_KEY here
+nano config/app.php
+# ctrl + w : app_key, paste APP_KEY here
+	'env' => env('APP_ENV', 'production'),
+	'debug' => env('APP_DEBUG', false),
+	'url' => 'http://localhost',
+	'timezone' => 'Asia/Jakarta',
+	'locale' => env('LOCALE','id'),
+	'fallback_locale' => env('FALLBACK_LOCALE','id'),
 # show laravel version
 php artisan --version
 
