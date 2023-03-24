@@ -181,8 +181,7 @@ certbot certonly --email sister@bbg.ac.id --agree-tos --rsa-key-size 4096 --webr
 #####################
 wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
 echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/postgresql-pgdg.list > /dev/null
-sudo apt-get update -y && sudo apt-get install postgresql-9.5 -y
-sudo psql --version
+sudo apt-get update -y && sudo apt-get install postgresql-9.5 -y && sudo psql --version
 
 sudo -u postgres psql
 # Don't worry about "could not change directory to "/root": Permission denied"
