@@ -110,8 +110,10 @@ cd sisterdev
 composer install
 # continue as root/super user [yes]? yes
 php artisan key:generate
-nano config/app.php
-# ctrl + w : app_key, paste APP_KEY here
+[IGNORE] nano config/app.php
+[IGNORE] # ctrl + w : app_key, paste APP_KEY here
+# show laravel version
+php artisan --version
 
 nano .env
 # In case you are installing Laravel in a development environment, you can leave the APP_DEBUG option enabled, as this will give you important debug information while testing the application from a browser. The APP_ENV variable should be set to "development" in this case.
@@ -125,6 +127,7 @@ nano .env
 	DB_USERNAME: Username to connect to the database.
 	DB_PASSWORD: Password to connect to the database.
 # save and exit
+
 # edit nginx server block and point root to public directory of your project
 nano /etc/nginx/sites-available/sisterdev
     listen 80;
@@ -304,12 +307,12 @@ php artisan serve
 # create db
 CREATE DATABASE belajar;
 # list db
-\l
+\l+
 # select db
 \c belajar
 # show tables
-belajar=# \dt
-# if you dont have APP_KEY in .env, just run: php artisan key:generate
+\dt+
+# before edit .env, if you don't have APP_KEY in .env, just run: php artisan key:generate
 nano .env
 	DB_CONNECTION=pgsql
 	DB_HOST=localhost
@@ -317,3 +320,6 @@ nano .env
 	DB_DATABASE=<nama-database>
 	DB_USERNAME=<username>
 	DB_PASSWORD=<password>
+php artisan migrate
+php artisan make:seeder TabelBukuSeeder
+php artisan db:seed
