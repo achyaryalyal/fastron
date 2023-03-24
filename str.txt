@@ -1,4 +1,4 @@
-SISTER @ UBUNTU 22.04
+@ UBUNTU 22.04
 
 #####################
 # DNS Zone
@@ -281,6 +281,11 @@ php artisan serve
 php artisan config:clear
 # This will clear the cache in config files.
 # Now it will definitely work! Cheers!
+
+
+# Don't forget to clear your cache before testing:
+php artisan config:cache
+php artisan config:clear
 
 
 # Laravel config/database.php uses the .env file for database name,username asnd password, Please change your .env file
