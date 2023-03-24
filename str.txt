@@ -320,6 +320,43 @@ nano .env
 	DB_DATABASE=<nama-database>
 	DB_USERNAME=<username>
 	DB_PASSWORD=<password>
+php artisan make:migration create_buku_table --create=buku
+nano database/migrations/XXXX_XX_XX_XXXXXX_create_buku_table.php
+	public function up()
+	{
+	    Schema::create('buku', function (Blueprint $table) {
+		$table->bigIncrements('id');
+		$table->string('judul', 60);
+		$table->string('penulis', 30);
+		$table->integer('stok');
+		$table->boolean('buku_terjemahan')->default(false);
+		$table->longText('deskripsi')->nullable();
+		$table->timestamps();
+	    });
+	}
 php artisan migrate
 php artisan make:seeder TabelBukuSeeder
+nano database/seeds/TabelBukuSeeder.php
+	public function run()
+	{
+	    $faker = \Faker\Factory::create();
+	    \DB::table('buku')->truncate();
+	    for ($i=0; $i < 100; $i++) { 
+		DB::table('buku')->insert([
+		    'judul' => $faker->sentence(3),
+		    'penulis' => $faker->name,
+		    'stok' => $faker->numberBetween(1, 10),
+		    'buku_terjemahan' => $faker->randomElement([true, false]),
+		    'deskripsi' => $faker->text(100),
+		    'created_at' => date('Y-m-d h:i:s'),
+		    'updated_at' => date('Y-m-d h:i:s')
+		]);
+	    }
+	}
+nano database/seeds/DatabaseSeeder
+	public function run()
+	{
+	    $this->call(TabelBukuSeeder::class);
+	}
 php artisan db:seed
+# if no error, now table `buku` has 100 dummy data
