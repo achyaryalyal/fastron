@@ -462,8 +462,8 @@ $ sudo apt update
 $ sudo apt install python3-pip
 $ pip3 --version
 # sudo pip3 install gdown
-# gdown --id [ID_FILE]
-# gdown --id 8k75RK28JRL19wpT22B-DY9We3TVXnnQX
+# gdown [URL]
+# gdown https://drive.google.com/uc?id=0B9P1L--7Wd2vU3VUVlFnbTgtS2c
 # sudo pip3 install slowloris
 # slowloris -h
 # slowloris --randuseragents [DOMAIN]
