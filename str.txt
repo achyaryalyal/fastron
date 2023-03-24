@@ -297,3 +297,23 @@ DB_PASSWORD=myproject
 composer dump-autoload
 # then run your project
 php artisan serve
+
+
+
+
+# create db
+CREATE DATABASE belajar;
+# list db
+\l
+# select db
+\c belajar
+# show tables
+belajar=# \dt
+# if you dont have APP_KEY in .env, just run: php artisan key:generate
+nano .env
+	DB_CONNECTION=pgsql
+	DB_HOST=localhost
+	DB_PORT=5432
+	DB_DATABASE=<nama-database>
+	DB_USERNAME=<username>
+	DB_PASSWORD=<password>
