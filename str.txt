@@ -167,7 +167,7 @@ curl -l http://sisterdev.bbg.ac.id
 
 
 ##################################
-# LET'S ENCRYPT
+# LET'S ENCRYPT (last step)
 ##################################
 sudo apt install -y certbot
 
