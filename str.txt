@@ -186,14 +186,15 @@ sudo apt-get update -y && sudo apt-get install postgresql-9.5 -y && sudo psql --
 sudo -u postgres psql
 # Don't worry about "could not change directory to "/root": Permission denied"
 
-# Be sure to replace the xxxxxxx below with an actual password
-ALTER USER postgres WITH ENCRYPTED PASSWORD 'xxxxxxx';
+# You can change 'postgresql123' with another actual password
+ALTER USER postgres WITH ENCRYPTED PASSWORD 'postgresql123';
 
 # If you did this correct, you should get the following output: ALTER ROLE
 # Go ahead and quit by type:
 \q
 
 sudo nano /etc/postgresql/9.5/main/pg_hba.conf
+
 # Change: local   all   postgres   peer
 # To: local   all   postgres   md5
 sudo service postgresql restart
