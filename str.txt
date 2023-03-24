@@ -121,6 +121,11 @@ nano config/app.php
 # show laravel version
 php artisan --version
 
+# check db connection status
+php artisan tinker
+DB::connection()->getPdo();
+# if connection is OK, you should see: CONNECTION_STATUS: "Connection OK; waiting to send.",
+
 nano .env
 # In case you are installing Laravel in a development environment, you can leave the APP_DEBUG option enabled, as this will give you important debug information while testing the application from a browser. The APP_ENV variable should be set to "development" in this case.
 # In case you are installing Laravel in a production environment, you should disable the APP_DEBUG option, because it shows to the final user sensitive information about your application. The APP_ENV in this case should be set to "production"
@@ -310,7 +315,11 @@ php artisan serve
 
 
 
-# create db
+
+
+
+
+# LATIHAN: create db
 CREATE DATABASE belajar;
 # list db
 \l+
