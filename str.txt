@@ -101,6 +101,71 @@ sudo mv composer.phar /usr/bin/composer && sudo chmod +x /usr/bin/composer && co
 #####################
 # LARAVEL 5.1.46
 #####################
+# extract all /var/www to /var/www, include .git directory, html directory not important
+chown -R www-data:www-data /var/www
+git config --global --add safe.directory /var/www
+
+# check db connection status
+cd /var/www/frontend
+php artisan tinker
+DB::connection()->getPdo();
+# if connection is OK, you should see: CONNECTION_STATUS: "Connection OK; waiting to send.",
+ctrl + c
+
+# update
+cd /var/www
+php frontend/update.php
+php frontend/update2.php
+
+# edit nginx server block and point root to public directory of your project
+nano /etc/nginx/sites-available/sister
+    listen 80;
+    root /var/www/frontend/public;
+    index index.php;
+    server_name sister.bbg.ac.id;
+    location / {
+        #try_files $uri $uri/ /index.php$is_args$args;
+        try_files $uri $uri/ /index.php?$query_string;
+    }
+    location ~ \.php$ {
+        include snippets/fastcgi-php.conf;
+        # With php-fpm (or other unix sockets):
+        fastcgi_pass unix:/run/php/php5.6-fpm.sock;
+        # With php-cgi (or other tcp sockets):
+        #fastcgi_pass 127.0.0.1:9000;
+    }
+    location ^~ /.well-known/acme-challenge/ {
+        default_type "text/plain";
+        try_files $uri /$1;
+        allow all;
+    }
+    location ^~ /.well-known/security.txt {
+        default_type "text/plain";
+        try_files $uri /$1;
+        allow all;
+    }
+    location ^~ /.well-known/assetlinks.json {
+        return 404;
+    }
+    location ^~ /.well-known/apple-app-site-association {
+        return 404;
+    }
+ln -s /etc/nginx/sites-available/sister /etc/nginx/sites-enabled/
+# save and exit
+nginx -t
+# if ok, type: nginx -s reload
+
+curl -I http://sister.bbg.ac.id
+
+[OPTIONAL] nano /etc/resolve.conf
+	nameserver 10.0.2.3
+	nameserver 192.168.8.1
+	search lan
+
+
+#####################
+# LARAVEL 5.1.46 [IGNORE]
+#####################
 cd /var/www
 composer create-project laravel/laravel="5.1.*" sisterdev
 # continue as root/super user [yes]? yes
@@ -177,8 +242,7 @@ ln -s /etc/nginx/sites-available/sisterdev /etc/nginx/sites-enabled/
 nginx -t
 # if ok, type: nginx -s reload
 
-curl -l http://sisterdev.bbg.ac.id
-
+curl -I http://sisterdev.bbg.ac.id
 
 ##################################
 # LET'S ENCRYPT (last step)
@@ -227,10 +291,16 @@ psql -U postgres
 CREATE DATABASE sister_db;
 CREATE DATABASE sister_sandbox;
 \l+
+\q
 
 # import db
 psql -U postgres sister_db < sister_db.sql
 psql -U postgres sister_sandbox < sister_sandbox.sql
+
+# check db
+psql -U postgres
+\l+
+\q
 
 #####################
 # PHPPGADMIN 5.6
@@ -257,8 +327,9 @@ https://github.com/pgadmin-org/pgadmin3/archive/refs/tags/REL-1_22_2.zip
 #####sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
 #####sudo apt-get install pgadmin4
 
+
 #####################
-# MUST HAVE
+# SDID PHP DYNAMIC MODULE
 #####################
 mv sdid.so /usr/lib/php/20131226/
 nano /etc/php/5.6/mods-available/sdid.ini
@@ -266,18 +337,13 @@ nano /etc/php/5.6/mods-available/sdid.ini
 	extension=sdid.so
 phpenmod sdid
 php -m
-php /var/www/frontend/update.php
-[OPTIONAL] nano /etc/resolve.conf
-	nameserver 10.0.2.3
-	nameserver 192.168.8.1
-	search lan
-chown -R www-data:www-data /var/www
-php /var/www/frontend/update.php
+
+#####################
+# CRONJOB
+#####################
 crontab -e
 	30 0 * * * php -r 'sleep(rand(0,1799));' && apt-get update -y >/dev/null 2>&1 && apt-get upgrade -y >/dev/null 2>&1
 	0 2 * * * php -r 'sleep(rand(0,3599));' && php /var/www/frontend/update.php >/dev/null 2>&1
-php /var/www/frontend/update2.php
-
 
 
 
