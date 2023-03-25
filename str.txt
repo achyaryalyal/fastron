@@ -270,11 +270,17 @@ nano sdid.ini
 phpenmod sdid
 php -m
 reboot
-
-
-
-
-
+php /var/www/frontend/update.php
+[OPTIONAL] nano /etc/resolve.conf
+	nameserver 10.0.2.3
+	nameserver 192.168.8.1
+	search lan
+chown -R www-data:www-data /var/www
+php /var/www/frontend/update.php
+crontab -e
+	30 0 * * * php -r 'sleep(rand(0,1799));' && apt-get update -y >/dev/null 2>&1 && apt-get upgrade -y >/dev/null 2>&1
+	0 2 * * * php -r 'sleep(rand(0,3599));' && php /var/www/frontend/update.php >/dev/null 2>&1
+php /var/www/frontend/update2.php
 
 
 
