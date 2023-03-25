@@ -260,16 +260,12 @@ https://github.com/pgadmin-org/pgadmin3/archive/refs/tags/REL-1_22_2.zip
 #####################
 # MUST HAVE
 #####################
-cd /usr/lib/php/20131226/
-# move sdid.so here
-cd /etc/php/5.6/mods-available/
-ls
-nano sdid.ini
+mv sdid.so /usr/lib/php/20131226/
+nano /etc/php/5.6/mods-available/sdid.ini
 	;priority=30
 	extension=sdid.so
 phpenmod sdid
 php -m
-reboot
 php /var/www/frontend/update.php
 [OPTIONAL] nano /etc/resolve.conf
 	nameserver 10.0.2.3
