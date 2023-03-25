@@ -227,9 +227,9 @@ crontab -e
 ##################################
 sudo apt install -y certbot
 
-certbot certonly --dry-run --email sister@bbg.ac.id --agree-tos --rsa-key-size 4096 --webroot -w /var/www/html -d sister.bbg.ac.id
+certbot certonly --dry-run --email sister@bbg.ac.id --agree-tos --rsa-key-size 4096 --webroot -w /var/www/html -d sister.bbg.ac.id -d www.sister.bbg.ac.id
 
-certbot certonly --email sister@bbg.ac.id --agree-tos --rsa-key-size 4096 --webroot -w /var/www/html -d sister.bbg.ac.id
+certbot certonly --email sister@bbg.ac.id --agree-tos --rsa-key-size 4096 --webroot -w /var/www/html -d sister.bbg.ac.id -d www.sister.bbg.ac.id
 
 
 #####################
