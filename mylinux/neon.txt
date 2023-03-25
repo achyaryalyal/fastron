@@ -56,6 +56,15 @@ $ nano /etc/fstab
 # paste it
 /swapfile swap swap defaults 0 0
 
+=======================================
+[EMERGENCY ONLY] Remove swap
+=======================================
+$ free -m
+$ swapoff -a
+$ rm /swapfile
+$ nano /etc/fstab
+# comment out line swap
+
 =================================
 Auto Mount NTFS Partition
 =================================
