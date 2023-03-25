@@ -210,7 +210,7 @@ ALTER USER postgres WITH ENCRYPTED PASSWORD 'postgresql123';
 sudo nano /etc/postgresql/9.5/main/pg_hba.conf
 
 # Change: local   all   postgres   peer
-# To: local   all   postgres   md5
+# To: local   all   postgres   trust
 sudo service postgresql restart
 
 # Now if we want to connect to PostgreSQL we can using the postgres user and a password.
@@ -257,7 +257,31 @@ https://github.com/pgadmin-org/pgadmin3/archive/refs/tags/REL-1_22_2.zip
 #####sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
 #####sudo apt-get install pgadmin4
 
+#####################
+# MUST HAVE
+#####################
+cd /usr/lib/php/20131226/
+# move sdid.so here
+cd /etc/php/5.6/mods-available/
+ls
+nano sdid.ini
+	;priority=30
+	extension=sdid.so
+phpenmod sdid
+php -m
+reboot
 
+
+
+
+
+
+
+
+
+``````````````````````````
+TROUBLESHOOT LARAVEL
+``````````````````````````
 
 # Solution 1
 # Edit in .env file is located in the laravel 5 root directory
