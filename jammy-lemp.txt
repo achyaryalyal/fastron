@@ -1037,8 +1037,10 @@ sudo apt-mirror-updater -c "[PASTE_MIRROR_URL_HERE]"
 ########## Make Zip File ##########
 ###################################
 # no pswd:
-zip [final_file_name].zip [any_file/dir_1] [any_file/dir_2] [any_file/dir_3]
-# with pswd:
+zip -r [final_file_name].zip [any_file/dir_1] [any_file/dir_2] [any_file/dir_3]
+# with pswd prompted:
+zip -re [type_pswd_here] [final_file_name].zip [any_file/dir_1] [any_file/dir_2] [any_file/dir_3]
+# with pswd entered directly:
 zip -P [type_pswd_here] [final_file_name].zip [any_file/dir_1] [any_file/dir_2] [any_file/dir_3]
 # unzip:
 unzip [file_name].zip
