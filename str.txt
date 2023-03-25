@@ -223,13 +223,25 @@ crontab -e
 
 
 ##################################
-# LET'S ENCRYPT (last step)
+# LET'S ENCRYPT
 ##################################
 sudo apt install -y certbot
 
-certbot certonly --dry-run --email sister@bbg.ac.id --agree-tos --rsa-key-size 4096 --webroot -w /var/www/html -d sister.bbg.ac.id -d www.sister.bbg.ac.id
+certbot certonly --dry-run --email ??? --agree-tos --rsa-key-size 4096 --webroot -w /var/www/frontend/public -d sister.bbg.ac.id -d www.sister.bbg.ac.id
 
-certbot certonly --email sister@bbg.ac.id --agree-tos --rsa-key-size 4096 --webroot -w /var/www/html -d sister.bbg.ac.id -d www.sister.bbg.ac.id
+certbot certonly --email ??? --agree-tos --rsa-key-size 4096 --webroot -w /var/www/frontend/public -d sister.bbg.ac.id -d www.sister.bbg.ac.id
+
+
+##################################
+# SMTP
+##################################
+Izinkan aplikasi yang kurang aman dari pengaturan gmail: AKTIF
+Mail Server Driver: smtp
+Mail Server Host: smtp.gmail.com
+Mail Server Port: 587
+Mail Server Username: ...
+Mail Server Password: ...
+Mail Server Encryption: tls
 
 
 #####################
