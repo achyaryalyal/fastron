@@ -213,6 +213,13 @@ nginx -t
 
 curl -I http://sister.bbg.ac.id
 
+nano /var/www/frontend/resources/views/login_layout.blade.php
+    <style>
+    html, body {background: #170071;background: -moz-linear-gradient(left, #170071 0%, #754600 100%); background: -webkit-linear-gradient(to left, #170071 0%, #754600 100%); background: linear-gradient(to right, #170071, #754600);}
+    </style>
+    <body class="gray-bg bg-cover">
+    <!--<body class="gray-bg bg-cover" style="background: url({!! asset('bg_login_new.jpg') !!}) no-repeat fixed;">-->
+
 
 #####################
 # CRONJOB
@@ -263,6 +270,14 @@ https://github.com/pgadmin-org/pgadmin4/archive/refs/tags/REL-1_1.zip
 # OPTIONAL: PG-ADMIN 3 REL-1_22_2
 #####################
 https://github.com/pgadmin-org/pgadmin3/archive/refs/tags/REL-1_22_2.zip
+
+
+
+
+
+
+
+
 
 
 
