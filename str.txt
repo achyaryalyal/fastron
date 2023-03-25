@@ -218,14 +218,17 @@ psql -U postgres
 # show list database
 \l+
 
+# export db [IGNORE IT]
 pg_dump -U postgres sister_db > sister_db.sql
 pg_dump -U postgres sister_sandbox > sister_sandbox.sql
 
+# create db
 psql -U postgres
 CREATE DATABASE sister_db;
 CREATE DATABASE sister_sandbox;
 \l+
 
+# import db
 psql -U postgres sister_db < sister_db.sql
 psql -U postgres sister_sandbox < sister_sandbox.sql
 
