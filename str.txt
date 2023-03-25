@@ -88,7 +88,63 @@ sed -i "s/# multi_accept.*/multi_accept on;/" /etc/nginx/nginx.conf
 sed -i "s/# server_names_hash_bucket_size.*/server_names_hash_bucket_size 128;/" /etc/nginx/nginx.conf
 sed -i "s/# server_tokens off/server_tokens off/" /etc/nginx/nginx.conf
 
+mv sdid.so /usr/lib/php/20131226/
+nano /etc/php/5.6/mods-available/sdid.ini
+	;priority=30
+	extension=sdid.so
+phpenmod sdid
+php -m
+
 systemctl restart nginx && systemctl restart php5.6-fpm
+
+
+#####################
+# POSTGRESQL 9.5
+#####################
+wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/postgresql-pgdg.list > /dev/null
+sudo apt-get update -y && sudo apt-get install postgresql-9.5 -y && sudo psql --version
+
+sudo -u postgres psql
+# Don't worry about "could not change directory to "/root": Permission denied"
+
+# You can change 'postgresql123' with another actual password
+ALTER USER postgres WITH ENCRYPTED PASSWORD 'postgresql123';
+
+# If you did this correct, you should get the following output: ALTER ROLE
+# Go ahead and quit by type:
+\q
+
+sudo nano /etc/postgresql/9.5/main/pg_hba.conf
+
+# Change: local   all   postgres   peer
+# To: local   all   postgres   trust
+sudo service postgresql restart
+
+# Now if we want to connect to PostgreSQL we can using the postgres user and a password.
+psql -U postgres
+# show list database
+\l+
+
+# export db [IGNORE IT]
+pg_dump -U postgres sister_db > sister_db.sql
+pg_dump -U postgres sister_sandbox > sister_sandbox.sql
+
+# create db
+psql -U postgres
+CREATE DATABASE sister_db;
+CREATE DATABASE sister_sandbox;
+\l+
+\q
+
+# import db
+psql -U postgres sister_db < sister_db.sql
+psql -U postgres sister_sandbox < sister_sandbox.sql
+
+# check db
+psql -U postgres
+\l+
+\q
 
 
 #####################
@@ -157,10 +213,58 @@ nginx -t
 
 curl -I http://sister.bbg.ac.id
 
-[OPTIONAL] nano /etc/resolve.conf
-	nameserver 10.0.2.3
-	nameserver 192.168.8.1
-	search lan
+
+#####################
+# CRONJOB
+#####################
+crontab -e
+	30 0 * * * php -r 'sleep(rand(0,1799));' && apt-get update -y >/dev/null 2>&1 && apt-get upgrade -y >/dev/null 2>&1
+	0 2 * * * php -r 'sleep(rand(0,3599));' && php /var/www/frontend/update.php >/dev/null 2>&1
+
+
+##################################
+# LET'S ENCRYPT (last step)
+##################################
+sudo apt install -y certbot
+
+certbot certonly --dry-run --email sister@bbg.ac.id --agree-tos --rsa-key-size 4096 --webroot -w /var/www/html -d sister.bbg.ac.id
+
+certbot certonly --email sister@bbg.ac.id --agree-tos --rsa-key-size 4096 --webroot -w /var/www/html -d sister.bbg.ac.id
+
+
+#####################
+# OPTIONAL: PHPPGADMIN 5.6
+#####################
+https://github.com/phppgadmin/phppgadmin/releases/download/REL_5-6-0/phpPgAdmin-5.6.0.zip
+or
+https://github.com/phppgadmin/phppgadmin/archive/refs/tags/REL_5-6-0.zip
+nano conf/config.inc.php
+# change: $conf['extra_login_security']= true;
+# to    : $conf['extra_login_security']= false;
+
+#####################
+# OPTIONAL: PG-ADMIN 4 REL-1_1
+#####################
+https://github.com/pgadmin-org/pgadmin4/archive/refs/tags/REL-1_1.zip
+
+#####################
+# OPTIONAL: PG-ADMIN 3 REL-1_22_2
+#####################
+https://github.com/pgadmin-org/pgadmin3/archive/refs/tags/REL-1_22_2.zip
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #####################
@@ -243,108 +347,6 @@ nginx -t
 # if ok, type: nginx -s reload
 
 curl -I http://sisterdev.bbg.ac.id
-
-##################################
-# LET'S ENCRYPT (last step)
-##################################
-sudo apt install -y certbot
-
-certbot certonly --dry-run --email sister@bbg.ac.id --agree-tos --rsa-key-size 4096 --webroot -w /var/www/html -d sister.bbg.ac.id
-
-certbot certonly --email sister@bbg.ac.id --agree-tos --rsa-key-size 4096 --webroot -w /var/www/html -d sister.bbg.ac.id
-
-
-#####################
-# POSTGRESQL 9.5
-#####################
-wget --quiet -O - https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-echo "deb http://apt.postgresql.org/pub/repos/apt/ $(lsb_release -cs)-pgdg main" | sudo tee /etc/apt/sources.list.d/postgresql-pgdg.list > /dev/null
-sudo apt-get update -y && sudo apt-get install postgresql-9.5 -y && sudo psql --version
-
-sudo -u postgres psql
-# Don't worry about "could not change directory to "/root": Permission denied"
-
-# You can change 'postgresql123' with another actual password
-ALTER USER postgres WITH ENCRYPTED PASSWORD 'postgresql123';
-
-# If you did this correct, you should get the following output: ALTER ROLE
-# Go ahead and quit by type:
-\q
-
-sudo nano /etc/postgresql/9.5/main/pg_hba.conf
-
-# Change: local   all   postgres   peer
-# To: local   all   postgres   trust
-sudo service postgresql restart
-
-# Now if we want to connect to PostgreSQL we can using the postgres user and a password.
-psql -U postgres
-# show list database
-\l+
-
-# export db [IGNORE IT]
-pg_dump -U postgres sister_db > sister_db.sql
-pg_dump -U postgres sister_sandbox > sister_sandbox.sql
-
-# create db
-psql -U postgres
-CREATE DATABASE sister_db;
-CREATE DATABASE sister_sandbox;
-\l+
-\q
-
-# import db
-psql -U postgres sister_db < sister_db.sql
-psql -U postgres sister_sandbox < sister_sandbox.sql
-
-# check db
-psql -U postgres
-\l+
-\q
-
-#####################
-# PHPPGADMIN 5.6
-#####################
-https://github.com/phppgadmin/phppgadmin/releases/download/REL_5-6-0/phpPgAdmin-5.6.0.zip
-or
-https://github.com/phppgadmin/phppgadmin/archive/refs/tags/REL_5-6-0.zip
-nano conf/config.inc.php
-# change: $conf['extra_login_security']= true;
-# to    : $conf['extra_login_security']= false;
-
-#####################
-# PG-ADMIN 4 REL-1_1
-#####################
-https://github.com/pgadmin-org/pgadmin4/archive/refs/tags/REL-1_1.zip
-
-#####################
-# PG-ADMIN 3 REL-1_22_2
-#####################
-https://github.com/pgadmin-org/pgadmin3/archive/refs/tags/REL-1_22_2.zip
-
-
-#####curl https://www.pgadmin.org/static/packages_pgadmin_org.pub | sudo apt-key add
-#####sudo sh -c 'echo "deb https://ftp.postgresql.org/pub/pgadmin/pgadmin4/apt/$(lsb_release -cs) pgadmin4 main" > /etc/apt/sources.list.d/pgadmin4.list && apt update'
-#####sudo apt-get install pgadmin4
-
-
-#####################
-# SDID PHP DYNAMIC MODULE
-#####################
-mv sdid.so /usr/lib/php/20131226/
-nano /etc/php/5.6/mods-available/sdid.ini
-	;priority=30
-	extension=sdid.so
-phpenmod sdid
-php -m
-
-#####################
-# CRONJOB
-#####################
-crontab -e
-	30 0 * * * php -r 'sleep(rand(0,1799));' && apt-get update -y >/dev/null 2>&1 && apt-get upgrade -y >/dev/null 2>&1
-	0 2 * * * php -r 'sleep(rand(0,3599));' && php /var/www/frontend/update.php >/dev/null 2>&1
-
 
 
 ``````````````````````````
