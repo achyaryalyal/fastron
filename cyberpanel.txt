@@ -78,6 +78,9 @@ https://community.cyberpanel.net/docs?topic=87
 # Manually Extending SSL to WWW
 https://community.cyberpanel.net/docs?category=51&topic=89
 
+# How to Set up Wildcard SSL on CyberPanel/OpenLiteSpeed
+https://community.cyberpanel.net/t/how-to-set-up-wildcard-ssl-on-cyberpanel-openlitespeed/30652
+
 # How to fix SSL issues in CyberPanel
 https://community.cyberpanel.net/docs?category=51&topic=90
 
