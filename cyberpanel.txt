@@ -25,11 +25,34 @@ swapon --show
 
 cd /opt
 sh <(curl https://cyberpanel.net/install.sh || wget -O - https://cyberpanel.net/install.sh)
+# Install CyberPanel
+# Full installation
+# Setup Remote MySQL: N
+# Enter key to continue with latest version
+# randomly generate one: r
+# Memcached: Y
+# Redis: Y
+# Watchdog: Yes
 
+# The installation process will proceed automatically. It will take 5-10 minutes, depending on the speed of your server.
+# At the end of the installation process, you will be presented with the following screen which contains important information about your configuration. Select and copy it to a safe location for future reference.
 
+# Restart Server: N
 
+# Access CyberPanel
+URL: https://<Your Server's IP Address>:8090 
+Username: admin
+Password: <the password you set during installation>
 
-
-
-
+# If you get a 503 error after installing CyberPanel, you can do one of the following things.
+# [Option 1] Check LSCPD Status.
+systemctl status lscpd
+# If LSCPD is not running, start LSCPD using:
+systemctl start lscpd
+# [Option 2] Manually set up virtualevn
+source /usr/local/CyberCP/bin/activate
+pip install --ignore-installed -r /usr/local/CyberCP/requirments.txt
+deactivate
+virtualenv --system-site-packages /usr/local/CyberCP
+systemctl restart lscpd
 
