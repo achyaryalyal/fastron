@@ -81,6 +81,24 @@ https://community.cyberpanel.net/docs?category=51&topic=89
 # How to Set up Wildcard SSL on CyberPanel/OpenLiteSpeed
 https://community.cyberpanel.net/t/how-to-set-up-wildcard-ssl-on-cyberpanel-openlitespeed/30652
 
+/root/.acme.sh/acme.sh --issue -d cyberpanel.xyz -d www.cyberpanel.xyz --cert-file  
+/etc/letsencrypt/live/cyberpanel.xyz/cert.pem --key-file  
+/etc/letsencrypt/live/cyberpanel.xyz/privkey.pem --fullchain-file  
+/etc/letsencrypt/live/cyberpanel.xyz/fullchain.pem -w  
+/home/cyberpanel.xyz/public\_html --force
+
+This is how i issue and renew my wildcard certificate for a wordpress multisite.
+
+/root/.acme.sh/acme.sh --issue -d bbg.ac.id -d '*.bbg.ac.id' --dns --force \
+ --yes-I-know-dns-manual-mode-enough-go-ahead-please --cert-file /etc/letsencrypt/live/bbg.ac.id/cert.pem --key-file /etc/letsencrypt/live/bbg.ac.id/privkey.pem --fullchain-file /etc/letsencrypt/live/bbg.ac.id/fullchain.pem
+
+In this case you need to create a TXT record named "_acme-challenge.bbg.ac.id" and add the code there to dns confirm the domain.
+After you issue your wildcard, you need to renew it using the --renew instead of the --issue command.
+This is how it works for me, i don’t know if this is the correct way.
+
+/root/.acme.sh/acme.sh --renew -d bbg.ac.id -d '*.bbg.ac.id' --dns --force \
+ --yes-I-know-dns-manual-mode-enough-go-ahead-please --cert-file /etc/letsencrypt/live/bbg.ac.id/cert.pem --key-file /etc/letsencrypt/live/bbg.ac.id/privkey.pem --fullchain-file /etc/letsencrypt/live/bbg.ac.id/fullchain.pem
+ 
 # How to fix SSL issues in CyberPanel
 https://community.cyberpanel.net/docs?category=51&topic=90
 
