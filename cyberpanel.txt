@@ -64,6 +64,7 @@ https://community.cyberpanel.net/docs?category=12&topic=91
 
 # Creating Website
 https://community.cyberpanel.net/docs?topic=92
+# Additional Features: SSL, open_basedir Protection
 
 # View and manage Databases/Table from Cloud Platform
 https://community.cyberpanel.net/docs?category=21&topic=145
