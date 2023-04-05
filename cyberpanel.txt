@@ -56,3 +56,39 @@ deactivate
 virtualenv --system-site-packages /usr/local/CyberCP
 systemctl restart lscpd
 
+# Packages
+https://community.cyberpanel.net/docs?category=12&topic=91
+
+# Creating Website
+https://community.cyberpanel.net/docs?topic=92
+
+# View and manage Databases/Table from Cloud Platform
+https://community.cyberpanel.net/docs?category=21&topic=145
+
+# Rewrite Rules
+https://community.cyberpanel.net/docs?category=12&topic=96
+
+# Issuing SSL for website
+https://community.cyberpanel.net/docs?topic=87
+
+# Manually Extending SSL to WWW
+https://community.cyberpanel.net/docs?category=51&topic=89
+
+# How to fix SSL issues in CyberPanel
+https://community.cyberpanel.net/docs?category=51&topic=90
+
+# How To Set HSTS Header (Strict-Transport-Security) Using CyberPanel (OpenLiteSpeed)
+https://community.cyberpanel.net/docs?category=12&topic=102
+
+# Install/Uninstall PHP Extensions
+https://community.cyberpanel.net/docs?topic=129
+
+# PHP Configurations
+https://community.cyberpanel.net/docs?category=28&topic=128
+
+# CyberPanel on SSL
+https://community.cyberpanel.net/docs?topic=88
+
+# Cron Jobs
+https://community.cyberpanel.net/docs?category=12&topic=97
+
