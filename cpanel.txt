@@ -42,6 +42,7 @@ cd /home && curl -o latest -L https://securedownloads.cpanel.net/latest && sh la
 # after the WHM installation is complete, ssh again and fix short time login
 nano /etc/ssh/sshd_config
 # set:
+	LoginGraceTime 120
 	ClientAliveInterval 120
 	ClientAliveCountMax 720
 service sshd restart
