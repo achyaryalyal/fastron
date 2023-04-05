@@ -56,6 +56,9 @@ deactivate
 virtualenv --system-site-packages /usr/local/CyberCP
 systemctl restart lscpd
 
+# Manage DNS
+https://community.cyberpanel.net/docs?category=52&topic=105
+
 # Packages
 https://community.cyberpanel.net/docs?category=12&topic=91
 
