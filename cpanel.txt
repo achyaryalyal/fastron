@@ -64,22 +64,17 @@ yum -y install glibc-langpack-id && perl -v
 # change with your hostname server.[YOUR_DOMAIN]
 # add an A Entry for Your Hostname
 
-# install Let's Encrypt as Auto SSL Provider
-/usr/local/cpanel/scripts/install_lets_encrypt_autossl_provider
-# WHM > SSL/TLS > Manage AutoSSL
-# in the Providers tab, select the Let's Encrypt option
-# select "I agree to these terms of service option"
-# select "Recreate my current registration with "Let's Encrypt"
-# save
+# Don't install Let's Encrypt as Auto SSL Provider !! karena rawan kena rate limit ketika issue an certificate
+# To uninstall the Cpanel / WHM plugin for Let's Encrypt, login to your SSH for root and run the following:
+/usr/local/cpanel/scripts/uninstall_lets_encrypt_autossl_provider
+# It might take sometime, once completed, it should remove let's encrypt as a provider from your AutoSSL plugin
 
 # install Self-Signed Certificate to Hostname
 # WHM > Service Configuration > Manage Service SSL Certificates
-# select the following services and click on "Browse Certificate"
-# select hostname and click on "Use Certificates"
-# then click on "Install" at the bottom of page
-# once you have installed the self-signed certificate, run the following command to check SSL certificates
+# click "Reset" in all services
+# once you have installed automatic self-signed certificate, run the following command to check SSL certificates
 /usr/local/cpanel/bin/checkallsslcerts
-# the self signed SSL certificates will be replaced with a valid Let's Encrypt certificate while running above command. Once it is completed, you can access WHM with the hostname https://[YOUR_HOSTNAME]:2087
+# once it is completed, you can access WHM with the hostname https://[YOUR_HOSTNAME]:2087
 
 # open WHM > Service Configuration > FTP Server Selection
 # select one, save
