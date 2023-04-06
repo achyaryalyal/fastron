@@ -152,12 +152,20 @@ WHM > Software EasyApache 4 > Documentation
 # Troubleshoot: The MySQL server is currently offline. adminbin Cpanel/cpmysql/DBCACHE: exit 255
 /scripts/rebuild_dbmap [CPANEL_USERNAME] && /scripts/restartsrv_mysql
 
+# Troubleshoot: Increase the maximum upload limit in phpMyAdmin
+# Login to WHM as the root user
+# Navigate to: Home > Server Configuration > Tweak Settings
+# Click on the PHP tab
+# For the "cPanel PHP max upload size" option, increase the upload limit to your desired value. Values higher than 2047MB are not permitted.
+# For the "cPanel PHP max POST size" option, increase the POST value to the same or higher. Values higher than 2047MB are not permitted.
+# Click Save
+
 # Troubleshoot: A and CNAME records are not displayed in cPanel's Zone Editor
 # Login to WHM as the root user
-# Navigate to: Home »Packages »Feature Manager »Feature Lists
+# Navigate to: Home > Packages > Feature Manager > Feature Lists
 # Select the feature list that your account uses from the dropdown
 # Click the blue Edit button
 # Enter the word "Zone" into the search box
 # Ensure that both of the "Zone Editor" features have a check next to them
-# Click the blue save button
+# Click Save
 # Log back into the cPanel account and verify that the A and CNAME records now show
