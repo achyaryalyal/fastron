@@ -82,6 +82,18 @@ yum -y install glibc-langpack-id && perl -v
 # to start hosting a website, create a cPanel account on it
 # read "From WHM to Website" at https://docs.cpanel.net/knowledge-base/accounts/from-whm-to-website/
 
+# MUST DO: disable cookies IP validation (it often logs out suddenly, because "Your IP address has changed. Please log in again")
+# log in to WHM as root
+# navigate to Home > Service Configuration > Tweak Settings > Security > Cookie IP validation
+# choose "disabled"
+# save
+
+# MUST DO: disable external SMTP restrictment
+# log in to WHM as root
+# navigate to Home > Server Configuration > Tweak Settings > Mail > "Restrict outgoing SMTP to root, exim, and mailman (FKA SMTP Tweak)"
+# choose "Off"
+# save
+
 # here are a few directories for cPanel installed stuff, in case we need to access it from the command line on AlmaLinux 8:
 # cPanel directories: /usr/local/cpanel
 # Third-party tools: /usr/local/cpanel/3rdparty/
@@ -104,7 +116,21 @@ yum -y install glibc-langpack-id && perl -v
 # MySQL configuration files: /etc/my.cnf
 # PHP.ini configuration files: /usr/local/lib/php.ini
 
-# install CSF (ConfigServer Security & Firewall)
+# install/enable php legacy version
+WHM > Software EasyApache 4 > Documentation
+# click tab "PHP Version", select what you want to install/enable
+# click tab "PHP Extensions", select what you want to install/enable
+# Provision
+# WHM > Software > MultiPHP Manager, make sure the version is installed/enabled with "cgi" as php handler
+
+# update resolver IPs with Google Public DNS
+# log in to WHM as root
+# navigate to Home > Networking Setup > Resolver Configuration
+# select "Proceed"
+# update the IPs with: 8.8.8.8 and 8.8.4.4
+# save
+
+# install CSF (ConfigServer Security & Firewall) ---> RAWAN Access from client IP blocked
 yum -y install perl-libwww-perl perl-LWP-Protocol-https perl-GDGraph perl-Math-BigInt wget tar
 cd /usr/src
 rm -fv csf.tgz
@@ -125,26 +151,6 @@ systemctl status csf && systemctl status lfd
 # restart CSF Firewall
 csf -r
 # WHM > Plugins > ConfigServer Security & Firewall
-
-# install/enable php legacy version
-WHM > Software EasyApache 4 > Documentation
-# click tab "PHP Version", select what you want to install/enable
-# click tab "PHP Extensions", select what you want to install/enable
-# Provision
-# WHM > Software > MultiPHP Manager, make sure the version is installed/enabled with "cgi" as php handler
-
-# disable cookies IP validation (it often logs out suddenly, because "Your IP address has changed. Please log in again")
-# log in to WHM as root
-# navigate to Home > Service Configuration > Tweak Settings > Security > Cookie IP validation
-# choose "disabled"
-# save
-
-# update resolver IPs with Google Public DNS
-# log in to WHM as root
-# navigate to Home > Networking Setup > Resolver Configuration
-# select "Proceed"
-# update the IPs with: 8.8.8.8 and 8.8.4.4
-# save
 
 # Troubleshoot: Access from client IP blocked
 # try to disable your firewall, CSF or cPHulk
