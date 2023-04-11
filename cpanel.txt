@@ -82,17 +82,60 @@ yum -y install glibc-langpack-id && perl -v
 # to start hosting a website, create a cPanel account on it
 # read "From WHM to Website" at https://docs.cpanel.net/knowledge-base/accounts/from-whm-to-website/
 
+# MUST DO: show A and CNAME records in cPanel's Zone Editor
+# log in to WHM as the root user
+# navigate to: WHM> Packages > Feature Manager > Feature Lists
+# select the feature list that your account uses from the dropdown
+# click the blue Edit button
+# enter the word "Zone" into the search box
+# ensure that both of the "Zone Editor" features have a check next to them
+# click Save
+# log back into the cPanel account and verify that the A and CNAME records now show
+
 # MUST DO: disable cookies IP validation (it often logs out suddenly, because "Your IP address has changed. Please log in again")
 # log in to WHM as root
-# navigate to Home > Service Configuration > Tweak Settings > Security > Cookie IP validation
+# navigate to WHM > Service Configuration > Tweak Settings > Security > Cookie IP validation
 # choose "disabled"
 # save
 
 # MUST DO: disable external SMTP restrictment
 # log in to WHM as root
-# navigate to Home > Server Configuration > Tweak Settings > Mail > "Restrict outgoing SMTP to root, exim, and mailman (FKA SMTP Tweak)"
-# choose "Off"
+# navigate to WHM > Server Configuration > Tweak Settings > Mail
+# for the "Restrict outgoing SMTP to root, exim, and mailman (FKA SMTP Tweak)" turn "Off"
 # save
+
+# MUST DO: increase maximum upload limit
+# log in to WHM as root
+# navigate to: WHM > Server Configuration > Tweak Settings > PHP
+# for the "cPanel PHP memory limit", increase to your desired value (Max 16384).
+	512
+# for the "cPanel PHP max upload size", increase to your desired value (Max 2047).
+	512
+# for the "cPanel PHP max POST size", increase to the same or higher (Max 2047).
+	512
+# save
+
+# install/enable php legacy version
+WHM > Software EasyApache 4 > Documentation
+# click tab "PHP Version", select what you want to install/enable
+# click tab "PHP Extensions", select what you want to install/enable
+# Provision
+# WHM > Software > MultiPHP Manager, make sure the version is installed/enabled with "cgi" as php handler
+# WHM > Software > MultiPHP INI Editor, make sure all php version set with this value:
+allow_url_fopen: Disabled
+display_errors: Disabled
+enable_dl: Disabled
+file_uploads: Enabled
+max_execution_time: 30
+max_input_time: 60
+max_input_vars: 1000
+memory_limit: 256M
+post_max_size: 20M
+session.gc_maxlifetime: 10800
+session.save_path ---> sesuai dengan versi php
+upload_max_filesize: 20M
+zlib.output_compression: Enabled
+# WAJIB REBOOT TO TAKE EFFECT: WHM > System Reboot > Forceful Server Reboot > Proceed
 
 # here are a few directories for cPanel installed stuff, in case we need to access it from the command line on AlmaLinux 8:
 # cPanel directories: /usr/local/cpanel
@@ -116,21 +159,22 @@ yum -y install glibc-langpack-id && perl -v
 # MySQL configuration files: /etc/my.cnf
 # PHP.ini configuration files: /usr/local/lib/php.ini
 
-# install/enable php legacy version
-WHM > Software EasyApache 4 > Documentation
-# click tab "PHP Version", select what you want to install/enable
-# click tab "PHP Extensions", select what you want to install/enable
-# Provision
-# WHM > Software > MultiPHP Manager, make sure the version is installed/enabled with "cgi" as php handler
+# Troubleshoot: The MySQL server is currently offline. adminbin Cpanel/cpmysql/DBCACHE: exit 255
+/scripts/rebuild_dbmap [CPANEL_USERNAME] && /scripts/restartsrv_mysql
 
+# Troubleshoot: Access from client IP blocked
+# try to disable your firewall, CSF or cPHulk
+
+# !!! RAWAN ERROR
 # update resolver IPs with Google Public DNS
 # log in to WHM as root
-# navigate to Home > Networking Setup > Resolver Configuration
+# navigate to WHM > Networking Setup > Resolver Configuration
 # select "Proceed"
 # update the IPs with: 8.8.8.8 and 8.8.4.4
 # save
 
-# install CSF (ConfigServer Security & Firewall) ---> RAWAN Access from client IP blocked
+# !!! RAWAN ERROR
+# install CSF (ConfigServer Security & Firewall)
 yum -y install perl-libwww-perl perl-LWP-Protocol-https perl-GDGraph perl-Math-BigInt wget tar
 cd /usr/src
 rm -fv csf.tgz
@@ -151,27 +195,3 @@ systemctl status csf && systemctl status lfd
 # restart CSF Firewall
 csf -r
 # WHM > Plugins > ConfigServer Security & Firewall
-
-# Troubleshoot: Access from client IP blocked
-# try to disable your firewall, CSF or cPHulk
-
-# Troubleshoot: The MySQL server is currently offline. adminbin Cpanel/cpmysql/DBCACHE: exit 255
-/scripts/rebuild_dbmap [CPANEL_USERNAME] && /scripts/restartsrv_mysql
-
-# Troubleshoot: Increase the maximum upload limit in phpMyAdmin
-# Login to WHM as the root user
-# Navigate to: Home > Server Configuration > Tweak Settings
-# Click on the PHP tab
-# For the "cPanel PHP max upload size" option, increase the upload limit to your desired value. Values higher than 2047MB are not permitted.
-# For the "cPanel PHP max POST size" option, increase the POST value to the same or higher. Values higher than 2047MB are not permitted.
-# Click Save
-
-# Troubleshoot: A and CNAME records are not displayed in cPanel's Zone Editor
-# Login to WHM as the root user
-# Navigate to: Home > Packages > Feature Manager > Feature Lists
-# Select the feature list that your account uses from the dropdown
-# Click the blue Edit button
-# Enter the word "Zone" into the search box
-# Ensure that both of the "Zone Editor" features have a check next to them
-# Click Save
-# Log back into the cPanel account and verify that the A and CNAME records now show
