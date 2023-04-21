@@ -129,6 +129,9 @@ Install WordPress at CloudPanel
   }
   # END HARDENING
 # In "PHP Settings", make sure version=PHP 8.2, make sure max_input_vars=10000, make sure date.timezone=Asia/Jakarta;
+# In "Cron Jobs", add cron job every hourly: /usr/bin/php8.2 /[YOUR_WORDPRESS_PATH]/wp-cron.php >/dev/null 2>&1
+# and then you must disable wp-cron at the WordPress wp-config.php, just add this:
+  define('DISABLE_WP_CRON', true);
 
 ============================
 Install Moodle at CloudPanel
