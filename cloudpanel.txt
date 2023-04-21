@@ -129,9 +129,9 @@ Install WordPress at CloudPanel
   }
   # END HARDENING
 # In "PHP Settings", make sure version=PHP 8.2, make sure max_input_vars=10000, make sure date.timezone=Asia/Jakarta;
-# In "Cron Jobs", add cron job every hourly: /usr/bin/php8.2 /[YOUR_WORDPRESS_PATH]/wp-cron.php >/dev/null 2>&1
-# and then you must disable wp-cron at the WordPress wp-config.php, just add this:
+# wp-cron.php script executes a complex process, such as copying files or optimising images, this can cause the execution of the page to happen more slowly whilst this processes. To avoid this, WordPress can be configured to disable wp-cron.php from executing on page load and instead, have the server trigger this command peridically. You must disable wp-cron at the WordPress wp-config.php, just add this:
   define('DISABLE_WP_CRON', true);
+# In "Cron Jobs", add cron job every hourly: /usr/bin/php8.2 /[YOUR_WORDPRESS_PATH]/wp-cron.php >/dev/null 2>&1
 
 ============================
 Install Moodle at CloudPanel
