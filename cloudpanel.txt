@@ -40,6 +40,94 @@ Install WordPress at CloudPanel
 # Click on + Add Site and then click on Create a WordPress Site
 # Enter the Domain Name, Site Title, Admin User Name, Admin Password, and Admin E-Mail and click on Create
 # Done. The WordPress Site has been created
+# In "Vhost", don't put rate limit because it's culprit for some services like /lib/ajax/service.php?sesskey=.... which makes dashboard dialog box error undefined 503
+# In "Vhost", add this before location / {:
+  # START HARDENING
+  if ($request_method !~ ^(GET|POST)$ ) {
+    return 444;
+  }
+  location = /robots.txt {
+    allow all;
+    log_not_found off;
+    access_log off;
+    try_files $uri /index.php?$args;
+  }
+  location ~* ^/(wp-content)/(.*?)\.(zip|gz|tar|bzip2|7z)\$ {
+    deny all;
+  }
+  location ~* .(pl|cgi|py|sh|lua|asp)$ {
+   return 444;
+  }
+  location ~* /(wp-config.php|readme.html|license.txt|nginx.conf) {
+   deny all;
+  }
+  location = /wp-config.txt {
+    deny all;
+    access_log off;
+    log_not_found off;
+  }
+  location /wp-content/uploads/ {
+    location ~ \.php$ {
+    #Prevent Direct Access Of PHP Files From Web Browsers
+      deny all;
+    }
+    # webp rewrite rules
+    location ~ \.(png|jpe?g)$ {
+      add_header Vary "Accept-Encoding";
+      add_header "Access-Control-Allow-Origin" "*";
+      add_header Cache-Control "public, no-transform";
+      access_log off;
+      log_not_found off;
+      expires max;
+      try_files $uri  $uri =404;
+    }
+  }
+  location /xmlrpc.php {
+    deny all;
+    access_log off;
+    log_not_found off;
+    return 444;
+  }
+  location ~* ^/wp-content/plugins/.+\.(txt|log|md)$ {
+    deny all;
+    error_page 403 =404 / ;
+  }
+  location ^~ /wp-admin/install.php {
+    deny all;
+    error_page 403 =404 / ;
+  }
+  location ^~ /wp-admin/upgrade.php {
+    deny all;
+    error_page 403 =404 / ;
+  }
+  location ~* /(?:uploads|files)/.*\.php$ {
+    deny all;
+  }
+  location ~ /\.(svn|git)/* {
+    deny all;
+    access_log off;
+    log_not_found off;
+  }
+  location ~ /\.ht {
+    deny all;
+    access_log off;
+    log_not_found off;
+  }
+  location ~ /\.user.ini {
+    deny all;
+    access_log off;
+    log_not_found off;
+  }
+  location ~* ^/wp-content/uploads/.*.(html|htm|shtml|php|js|swf)$ {
+    deny all;
+  }
+  location ~* ^/(?:wp-content|wp-includes)/.*\.php$ {
+    deny all;
+  }
+  location ~* ^/wp-content/uploads/.*\.(?:s?html?|php|js|swf)$ {
+    deny all;
+  }
+  # END HARDENING
 # In "PHP Settings", make sure version=PHP 8.2, make sure max_input_vars=10000, make sure date.timezone=Asia/Jakarta;
 
 ============================
@@ -58,6 +146,10 @@ sudo apt update && sudo apt install unoconv
 	make sure max_input_vars=10000;
 	make sure date.timezone=Asia/Jakarta;
 # In "Vhost", don't put rate limit because it's culprit for some services like /lib/ajax/service.php?sesskey=.... which makes dashboard dialog box error undefined 503
+# In "Vhost", add this before {{settings}}:
+  # START HARDENING
+  add_header Strict-Transport-Security "max-age=31536000; includeSubdomains; preload";
+  # END HARDENING
 # In "Databases", create a database
 # In "SSL/TLS", create and install Let's Encrypt Certificate
 # In "Cron Jobs", add cron job every minute: /usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/cli/cron.php
