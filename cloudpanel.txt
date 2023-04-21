@@ -88,6 +88,10 @@ Install WordPress at CloudPanel
     log_not_found off;
     return 444;
   }
+  location ~ /wp-json/wp/v2/ {
+    deny all;
+    error_page 403 =404 / ;
+  }
   location ~* ^/wp-content/plugins/.+\.(txt|log|md)$ {
     deny all;
     error_page 403 =404 / ;
