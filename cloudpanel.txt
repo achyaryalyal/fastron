@@ -232,6 +232,30 @@ pecl install yaz
   </div>-->
 
 ============================
+Create a wildcard TLS/SSL certificate for your domain using acme.sh and Cloudflare DNS API for domain verification
+============================
+# Login Cloudflare > My profile > API Tokens > Create Token > Edit zone DNS > Use template
+# Permissions = Edit; Zone Resources = Select your domain; click "Continue to summary"; click "Create token"
+# Install acme.sh:
+curl https://get.acme.sh | sh -s email=[YOUR_EMAIL_DOMAIN_HERE]
+export CF_Token="[YOUR_CLOUDFLARE_DNS_API_KEY_HERE]"
+bash /root/.acme.sh/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
+# Your Cloudflare DNS API key is stored in /root/.acme.sh/account.conf file and we can see it using the cat
+cat /root/.acme.sh/account.conf
+# Display the content of the CSR
+DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh --showcsr --csr "${CONFIG_ROOT}/$DOMAIN.csr"
+# Set ACME client maintained by Let's Encrypt (not ZeroSSL by default)
+bash /root/.acme.sh/acme.sh --server letsencrypt --set-default-ca
+# Issue a cert (CRT file) from existing CSR
+DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh --signcsr --csr "${CONFIG_ROOT}/$DOMAIN.csr" --dns dns_cf
+# Installing Let's Encrypt wildcard certificate
+DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh -d "$DOMAIN" --install-cert --reloadcmd "systemctl reload nginx" --fullchain-file "${CONFIG_ROOT}/fullchain.cer" --key-file "${CONFIG_ROOT}/$DOMAIN.key" --cert-file "${CONFIG_ROOT}/$DOMAIN.cer"
+# It's automatically configure a cron jobs to renew our wildcard based certificate
+crontab -l
+35 0 * * * "/root/.acme.sh"/acme.sh --cron --home "/root/.acme.sh" > /dev/null
+# we can also do the manual TLS/SSL cert renewal: bash /root/.acme.sh/acme.sh --renew --force --dns dns_cf --ocsp-must-staple --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
+
+============================
 Plus Minus CloudPanel
 ============================
 Intinya CloudPanel cocok untuk control panel turunan (bukan control panel induk) karena di CloudPanel tidak ada fitur manajemen DNS
