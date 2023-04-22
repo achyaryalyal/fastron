@@ -234,7 +234,9 @@ pecl install yaz
 ============================
 Create a wildcard TLS/SSL certificate for your domain using acme.sh and Cloudflare DNS API for domain verification
 ============================
-# Login Cloudflare > My profile > API Tokens > Create Token > Edit zone DNS > Use template
+# Login Cloudflare
+# Make sure on SSL overview, the minimum is "Full"
+# Go to My Profile > API Tokens > Create Token > Edit Zone DNS > Use template
 # Permissions = Edit; Zone Resources = Select your domain; click "Continue to summary"; click "Create token"
 # Install acme.sh:
 curl https://get.acme.sh | sh -s email=[YOUR_EMAIL_DOMAIN_HERE]
@@ -244,7 +246,7 @@ bash /root/.acme.sh/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength 
 cat /root/.acme.sh/account.conf
 # Display the content of the CSR
 DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh --showcsr --csr "${CONFIG_ROOT}/$DOMAIN.csr"
-# Set ACME client maintained by Let's Encrypt (not ZeroSSL by default)
+# Set ACME client maintained by Let's Encrypt (not ZeroSSL by default since August-1st 2021)
 bash /root/.acme.sh/acme.sh --server letsencrypt --set-default-ca
 # Issue a cert (CRT file) from existing CSR
 DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh --signcsr --csr "${CONFIG_ROOT}/$DOMAIN.csr" --dns dns_cf
