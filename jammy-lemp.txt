@@ -441,7 +441,7 @@ nginx -s reload
 cd /opt && git clone https://github.com/google/ngx_brotli.git && cd ngx_brotli && git submodule update --init && cd .. && ls
 nginx -v
 wget http://nginx.org/download/nginx-[VERSION].tar.gz
-tar zxvf nginx-[VERSION].tar.gz
+tar -xvzf nginx-[VERSION].tar.gz
 cd nginx-[VERSION]
 ./configure --with-compat --add-dynamic-module=/opt/ngx_brotli
 make
@@ -1044,6 +1044,24 @@ zip -re [type_pswd_here] [final_file_name].zip [any_file/dir_1] [any_file/dir_2]
 zip -P [type_pswd_here] [final_file_name].zip [any_file/dir_1] [any_file/dir_2] [any_file/dir_3]
 # unzip:
 unzip [file_name].zip
+
+###################################
+########## Make Tar File ##########
+###################################
+# compress:
+tar -cvzf [final_file_name].tar.gz [any_file/dir_1] [any_file/dir_2] [any_file/dir_3]
+# compress with exclude:
+tar -cvzf [final_file_name].tar.gz [any_file/dir_1] --exclude=[any_file/dir_2] --exclude=[any_file/dir_3]
+# compress with exclude by extension:
+tar -cvzf [final_file_name].tar.gz [any_file/dir_1] --exclude=*.mp4
+# encrypt tar file (appends a .cpt extension):
+ccrypt [final_file_name].tar.gz
+# decrypt tar file with .cpt extension:
+ccrypt --decrypt [final_file_name].tar.cpt
+# extract:
+tar -xvzf [final_file_name].tar.gz
+# extract to given directory:
+tar -xvzf [final_file_name].tar.gz -C /tmp/
 
 ####################################
 ######### NANO jump to EOF #########
