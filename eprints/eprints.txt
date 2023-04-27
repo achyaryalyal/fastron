@@ -101,6 +101,54 @@ certbot --apache certonly
 # Certificate is saved at: /etc/letsencrypt/live/[YOUR_SUBDOMAIN]/fullchain.pem
 # Key is saved at:         /etc/letsencrypt/live/[YOUR_SUBDOMAIN]/privkey.pem
 
+mkdir /usr/share/eprints/archives/[YOUR_REPO_ID]/ssl/
+nano /usr/share/eprints/archives/[YOUR_REPO_ID]/ssl/securevhost.conf
+
+<VirtualHost *:443>
+ServerName YOUR-REPOSITORY-DOMAIN:443
+# Enable HSTS
+Header always set Strict-Transport-Security "max-age=63072000;"
+
+SSLEngine on
+SSLProtocol all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
+SSLHonorCipherOrder on
+SSLCipherSuite ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256
+
+SSLCertificateFile /etc/letsencrypt/live/[YOUR_SUBDOMAIN]/cert.pem
+SSLCertificateKeyFile /etc/letsencrypt/live/[YOUR_SUBDOMAIN]/privkey.pem
+SSLCertificateChainFile /etc/letsencrypt/live/[YOUR_SUBDOMAIN]/chain.pem
+
+SetEnvIf User-Agent ".*MSIE.*" \
+nokeepalive ssl-unclean-shutdown \
+downgrade-1.0 force-response-1.0
+
+LogLevel warn
+ErrorLog logs/ssl_error_log
+TransferLog logs/ssl_access_log
+CustomLog logs/ssl_request_log \
+"%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+
+Include EPRINTS_PATH/cfg/apache_ssl/REPOID.conf
+PerlTransHandler +EPrints::Apache::Rewrite 
+</VirtualHost>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 nano /etc/apache2/sites-available/000-default.conf
 
 <VirtualHost *:80>
