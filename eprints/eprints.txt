@@ -23,34 +23,32 @@ swapon --show
 nano /etc/apt/sources.list.d/eprints.list
 deb http://deb.eprints-hosting.org/3.4/stable/ ./
 wget -O /etc/apt/trusted.gpg.d/eprints.gpg http://deb.eprints.org/keyFile.gpg && apt-get update
-or
-wget -O - http://deb.eprints-hosting.org/keyFile | apt-key add - && apt update && apt upgrade -y
+##### or
+##### wget -O - http://deb.eprints-hosting.org/keyFile | apt-key add - && apt update && apt upgrade -y
 
 # install xpdf
-wget http://security.ubuntu.com/ubuntu/pool/main/p/poppler/libpoppler73_0.62.0-2ubuntu2.12_amd64.deb
-wget http://archive.ubuntu.com/ubuntu/pool/universe/x/xpdf/xpdf_3.04-7_amd64.deb
-dpkg -i libpoppler73_0.62.0-2ubuntu2.12_amd64.deb && apt install --fix-broken -y
-dpkg -i xpdf_3.04-7_amd64.deb && apt install --fix-broken -y
+apt install libpoppler-dev xpdf
+##### or
+##### wget http://security.ubuntu.com/ubuntu/pool/main/p/poppler/libpoppler73_0.62.0-2ubuntu2.12_amd64.deb
+##### wget http://archive.ubuntu.com/ubuntu/pool/universe/x/xpdf/xpdf_3.04-7_amd64.deb
+##### dpkg -i libpoppler73_0.62.0-2ubuntu2.12_amd64.deb && apt install --fix-broken -y
+##### dpkg -i xpdf_3.04-7_amd64.deb && apt install --fix-broken -y
 
-# show current release
-apt-cache show eprints
-# install the selected version
-apt install eprints=3.4.4
-or
+# install eprints
 apt install eprints -y
-# EPrints 3.4 will be installed to /usr/share/eprints/
+# it will be installed to: /usr/share/eprints/
 
 # download publications flavoured repository
 wget https://files.eprints.org/2715/2/eprints-3.4.4-flavours.tar.gz
 tar -xzvf eprints-3.4.4-flavours.tar.gz -C /usr/share/eprints/
 mv /usr/share/eprints/eprints-3.4.4/flavours /usr/share/eprints/
 rmdir /usr/share/eprints/eprints-3.4.4/
-or
-wget https://files.eprints.org/2715/2/eprints-3.4.4-flavours.tar.gz
-tar -xzvf eprints-3.4.4-flavours.tar.gz
-mv eprints-3.4.4/flavours/pub_lib /usr/share/eprints/flavours
-chmod -R g+w /usr/share/eprints/flavours/pub_lib
-chown -R eprints:eprints /usr/share/eprints/flavours/pub_lib
+##### or
+##### wget https://files.eprints.org/2715/2/eprints-3.4.4-flavours.tar.gz
+##### tar -xzvf eprints-3.4.4-flavours.tar.gz
+##### mv eprints-3.4.4/flavours/pub_lib /usr/share/eprints/flavours
+##### chmod -R g+w /usr/share/eprints/flavours/pub_lib
+##### chown -R eprints:eprints /usr/share/eprints/flavours/pub_lib
 
 # set password for mysql
 mysql -u root
