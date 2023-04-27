@@ -168,8 +168,11 @@ systemctl reload apache2
 CREATE USER 'eprints'@'localhost' IDENTIFIED by 'changeme';
 GRANT ALL PRIVILEGES ON *.* TO 'eprints'@'localhost' WITH GRANT OPTION;
 
-# Troubleshoot: Di versi terbaru ini, untuk edit page seperti menambah logo header itu dimana ya?
-# bisa dicopy dari themes eprints yang lama ke config archives, kemudian brand.pl yang ada di lib/cfg.d di copy kedalam config archives kita. kemudian panggil nama themesnya
+# Troubleshoot: Untuk edit page seperti menambah logo header itu dimana ya?
+# menambahkan Logo di Eprints 3.4.3 Pub dan Mengganti Tema: https://www.youtube.com/watch?v=FhHnO1DQj_s
+# bisa dicopy dari themes eprints yang lama ke config archives
+# kemudian brand.pl yang ada di lib/cfg.d di copy kedalam config archives kita
+# kemudian panggil nama themesnya
 
 # Make sure you remove or disable your archive's cfg/cfg.d/https.pl if it exists as it may override the configuration below. Once you have updated your configuration you must run generate_apacheconf to regenerate configuration for Apache before restarting the web server.
 # config HTTP Only
