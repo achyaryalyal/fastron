@@ -28,7 +28,8 @@ wget -O /etc/apt/trusted.gpg.d/eprints.gpg http://deb.eprints.org/keyFile.gpg &&
 apt install libpoppler-dev xpdf -y
 
 # install eprints
-apt install eprints -y
+apt-cache show eprints
+apt-get install eprints=3.4.4
 # it will be installed to: /usr/share/eprints/
 
 # set password for mysql
