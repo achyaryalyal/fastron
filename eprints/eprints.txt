@@ -98,7 +98,9 @@ nano /etc/apache2/sites-available/000-default.conf
 # tambahkan ServerName di dalam konfigurasi VirtualHost
 	ServerName [YOUR_SUBDOMAIN]
 a2ensite eprints
-a2enmod rewrite env headers mime dir ssl setenvif && systemctl restart apache2
+a2enmod rewrite env headers mime dir ssl setenvif
+apachectl configtest
+systemctl restart apache2
 
 # install let's encrypt
 sudo apt install -y certbot python3-certbot-apache && certbot --version
@@ -108,7 +110,48 @@ certbot certonly --email [ALAMAT_EMAIL_KHUSUS_UNTUK_EPRINTS] --agree-tos --rsa-k
 
 nano /etc/apache2/sites-available/000-default.conf
 
+<VirtualHost *:80>
+ServerAdmin webmaster@localhost
+DocumentRoot /usr/share/eprints
+DirectoryIndex index.php
+<Directory /usr/share/eprints>
+Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
+AllowOverride All Options=ExecCGI,Includes,IncludesNOEXEC,Indexes,MultiViews,SymLinksIfOwnerMatch
+allow from all
+Require all granted
+</Directory>
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+<VirtualHost *:443>
+ServerAdmin webmaster@localhost
+DocumentRoot /usr/share/eprints
+DirectoryIndex index.php
+SSLEngine on
+SSLCertificateFile "/etc/letsencrypt/live/[YOUR_SUBDOMAIN]/fullchain.pem"
+SSLCertificateKeyFile "/etc/letsencrypt/live/[YOUR_SUBDOMAIN]/privkey.pem"
+SSLOpenSSLConfCmd DHParameters "/etc/apache2/dhparam.pem"
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+SSLProtocol all -SSLv3
+SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA
+SSLHonorCipherOrder on
+SSLCompression off
+SSLSessionTickets off
+<Directory /usr/share/eprints>
+Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
+AllowOverride All Options=ExecCGI,Includes,IncludesNOEXEC,Indexes,MultiViews,SymLinksIfOwnerMatch
+allow from all
+Require all granted
+</Directory>
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+apachectl configtest
 systemctl restart apache2
+
+crontab -e
+	30 0 * * * php -r 'sleep(rand(0,1799));' && apt update -y >/dev/null 2>&1 && apt upgrade -y >/dev/null 2>&1
 
 # go to your subdomain with https://[YOUR_SUBDOMAIN]
 
