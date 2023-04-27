@@ -151,64 +151,14 @@ systemctl reload apache2
 nano /etc/apache2/sites-available/eprints
 # add the following line, changing the path as appropriate:
 Include /usr/share/eprints/archives/[YOUR_REPO_ID]/ssl/securevhost.conf
-
-
-
-
-
-
-
-
-
-
-
-
-
-nano /etc/apache2/sites-available/000-default.conf
-
-<VirtualHost *:80>
-ServerAdmin webmaster@localhost
-DocumentRoot /usr/share/eprints
-DirectoryIndex index.php
-<Directory /usr/share/eprints>
-Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
-AllowOverride All Options=ExecCGI,Includes,IncludesNOEXEC,Indexes,MultiViews,SymLinksIfOwnerMatch
-allow from all
-Require all granted
-</Directory>
-ErrorLog ${APACHE_LOG_DIR}/error.log
-CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-<VirtualHost *:443>
-ServerAdmin webmaster@localhost
-DocumentRoot /usr/share/eprints
-DirectoryIndex index.php
-SSLEngine on
-SSLCertificateFile "/etc/letsencrypt/live/[YOUR_SUBDOMAIN]/fullchain.pem"
-SSLCertificateKeyFile "/etc/letsencrypt/live/[YOUR_SUBDOMAIN]/privkey.pem"
-SSLOpenSSLConfCmd DHParameters "/etc/ssl/certs/dhparam.pem"
-Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
-SSLProtocol all -SSLv3
-SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA
-SSLHonorCipherOrder on
-SSLCompression off
-SSLSessionTickets off
-<Directory /usr/share/eprints>
-Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
-AllowOverride All Options=ExecCGI,Includes,IncludesNOEXEC,Indexes,MultiViews,SymLinksIfOwnerMatch
-allow from all
-Require all granted
-</Directory>
-ErrorLog ${APACHE_LOG_DIR}/error.log
-CustomLog ${APACHE_LOG_DIR}/access.log combined
-</VirtualHost>
-
 apachectl configtest
 systemctl reload apache2
 
 # go to your subdomain with https://[YOUR_SUBDOMAIN]
 
 # don't forget to register your repository at http://roar.eprints.org/
+# and
+# https://rama.kemdikbud.go.id/
 
 # Troubleshoot: MySQL root user cannot be used
 CREATE USER 'eprints'@'localhost' IDENTIFIED by 'changeme';
@@ -219,20 +169,3 @@ GRANT ALL PRIVILEGES ON *.* TO 'eprints'@'localhost' WITH GRANT OPTION;
 # bisa dicopy dari themes eprints yang lama ke config archives
 # kemudian brand.pl yang ada di lib/cfg.d di copy kedalam config archives kita
 # kemudian panggil nama themesnya
-
-# Make sure you remove or disable your archive's cfg/cfg.d/https.pl if it exists as it may override the configuration below. Once you have updated your configuration you must run generate_apacheconf to regenerate configuration for Apache before restarting the web server.
-# config HTTP Only
-$c->{host} = 'example.eprints.org';
-$c->{port} = 80;
-$c->{securehost} = undef;
-$c->{secureport} = undef;
-# config HTTPS When You Login
-$c->{host} = 'example.eprints.org';
-$c->{port} = 80;
-$c->{securehost} = $c->{host};
-$c->{secureport} = 443;
-# config HTTPS Only
-$c->{host} = undef;
-$c->{port} = 80;
-$c->{securehost} = 'example.eprints.org';
-$c->{secureport} = 443;
