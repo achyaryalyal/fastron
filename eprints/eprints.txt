@@ -105,6 +105,9 @@ systemctl restart apache2
 # install let's encrypt
 sudo apt install -y certbot python3-certbot-apache && certbot --version
 openssl dhparam -dsaparam -out /etc/apache2/dhparam.pem 4096
+mkdir /usr/share/eprints/.well-known/
+mkdir /usr/share/eprints/.well-known/acme-challenge/
+chown www-data:www-data -R /usr/share/eprints/.well-known/
 certbot certonly --dry-run --email [ALAMAT_EMAIL_KHUSUS_UNTUK_EPRINTS] --agree-tos --rsa-key-size 4096 --webroot -w /usr/share/eprints -d [YOUR_SUBDOMAIN]
 certbot certonly --email [ALAMAT_EMAIL_KHUSUS_UNTUK_EPRINTS] --agree-tos --rsa-key-size 4096 --webroot -w /usr/share/eprints -d [YOUR_SUBDOMAIN]
 
