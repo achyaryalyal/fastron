@@ -19,3 +19,69 @@ nano /etc/fstab
 /swapfile swap swap defaults 0 0
 # check again
 swapon --show
+
+nano /etc/apt/sources.list.d/eprints.list
+deb http://deb.eprints-hosting.org/3.4/stable/ ./
+wget -O - http://deb.eprints-hosting.org/keyFile | apt-key add -
+apt update && apt upgrade -y
+
+wget http://security.ubuntu.com/ubuntu/pool/main/p/poppler/libpoppler73_0.62.0-2ubuntu2.12_amd64.deb
+wget http://archive.ubuntu.com/ubuntu/pool/universe/x/xpdf/xpdf_3.04-7_amd64.deb
+dpkg -i libpoppler73_0.62.0-2ubuntu2.12_amd64.deb && apt install --fix-broken -y
+dpkg -i xpdf_3.04-7_amd64.deb && apt install --fix-broken -y
+
+apt install eprints -y
+
+wget https://files.eprints.org/2500/8/eprints-3.4.2-flavours.tar.gz
+tar -xzvf eprints-3.4.2-flavours.tar.gz
+mv eprints-3.4.2/flavours/pub_lib /usr/share/eprints/flavours
+chmod -R g+w /usr/share/eprints/flavours/pub_lib
+chown -R eprints:eprints /usr/share/eprints/flavours/pub_lib
+
+# set password for mysql
+mysql -u root
+USE mysql;
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'rahasia';
+FLUSH PRIVILEGES;
+exit
+
+su -l eprints
+./bin/epadmin create pub
+# Archive ID? eprints
+# Configure vital settings? [yes] ? ENTER
+# Hostname? [YOUR_SUBDOMAIN]
+# Webserver Port [80] ? ENTER
+# Alias (enter # when done) [#] ? ENTER
+# Path [/] ? ENTER
+# HTTPS Hostname [] ? ENTER
+# Administrator Email? [YOUR_SYSTEM_EMAIL_OR_ADMIN_EMAIL]
+# Archive Name [Test Repository] ? [YOUR_REPOSITORY_NAME]
+# Organisation Name [Organisation of Test] ? [YOUR_ORG_NAME]
+# Write these core settings? [yes] ? ENTER
+# Configure database? [yes] ? ENTER
+# Database Name [eprints] ? ENTER
+# MySQL Host [localhost] ? ENTER
+# MySQL Port (# for no setting) [#] ? ENTER
+# MySQL Socket (# for no setting) [#] ? ENTER
+# Database User [eprints] ? ENTER
+# Database Password [h6oJF41f] ENTER
+# Database Engine [InnoDB] ? ENTER
+# Write these database settings? [yes] ? ENTER
+# Create database "eprints" [yes] ? ENTER
+# Database Superuser Username [root] ? ENTER
+# Database Superuser Password? rahasia
+# Create database tables? [yes] ? ENTER
+# Create an initial user? [yes] ? ENTER
+# Enter a username [admin] ? ENTER
+# Select a user type (user|editor|admin) [admin] ? ENTER
+# Do you want to build the static web pages? [yes] ? ENTER
+# Do you want to import the LOC subjects and sample divisions? [yes] ? ENTER
+# Do you want to update the apache config files? (you still need to add the 'Include' line) [yes] ? ENTER
+exit
+nano /etc/apache2/sites-available/000-default.conf
+# tambahkan ServerName di dalam konfigurasi VirtualHost
+	ServerName IP_SERVER
+a2ensite eprints
+systemctl restart apache2
+systemctl status apache2
+# go to your subdomain with https://________
