@@ -84,7 +84,7 @@ a2enmod rewrite env headers mime dir ssl setenvif
 a2ensite eprints
 # must disable the default site otherwise the default Apache page will still be shown
 a2dissite 000-default
-apachectl configtest
+apachectl -t
 systemctl reload apache2
 
 crontab -e
@@ -140,7 +140,7 @@ sudo su eprints
 cd /usr/share/eprints/
 ./bin/generate_apacheconf --system --replace
 exit
-apachectl configtest
+apachectl -t
 systemctl reload apache2
 
 nano /etc/apache2/sites-available/eprints
