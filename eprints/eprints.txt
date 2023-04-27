@@ -32,19 +32,19 @@ apt-cache show eprints
 apt-get install eprints=3.4.4
 # it will be installed to: /usr/share/eprints/
 
-# set password for mysql
-mysql -u root
-USE mysql;
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '[YOUR_PASSWORD]';
-FLUSH PRIVILEGES;
-exit
-
 # install publications flavour
 wget https://files.eprints.org/2715/2/eprints-3.4.4-flavours.tar.gz
 tar -xzvf eprints-3.4.4-flavours.tar.gz -C /usr/share/eprints/
 mv /usr/share/eprints/eprints-3.4.4/flavours /usr/share/eprints/
 rmdir /usr/share/eprints/eprints-3.4.4/
 rm eprints-3.4.4-flavours.tar.gz
+
+# set password for mysql
+mysql -u root
+USE mysql;
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '[YOUR_PASSWORD]';
+FLUSH PRIVILEGES;
+exit
 
 sudo su eprints
 cd /usr/share/eprints/
