@@ -106,28 +106,27 @@ nano /usr/share/eprints/archives/[YOUR_REPO_ID]/ssl/securevhost.conf
 
 <VirtualHost *:443>
 ServerName [YOUR_SUBDOMAIN]:443
-# Enable HSTS
-Header always set Strict-Transport-Security "max-age=63072000;"
-
 SSLEngine on
-SSLProtocol all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
-SSLHonorCipherOrder on
-SSLCipherSuite ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256
-
 SSLCertificateFile /etc/letsencrypt/live/[YOUR_SUBDOMAIN]/cert.pem
 SSLCertificateKeyFile /etc/letsencrypt/live/[YOUR_SUBDOMAIN]/privkey.pem
 SSLCertificateChainFile /etc/letsencrypt/live/[YOUR_SUBDOMAIN]/chain.pem
-
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+# Header always set Strict-Transport-Security "max-age=63072000;"
+SSLProtocol all -SSLv3
+# SSLProtocol all -SSLv2 -SSLv3 -TLSv1 -TLSv1.1
+SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA
+SSLHonorCipherOrder on
+SSLCompression off
+SSLSessionTickets off
+# SSLCipherSuite ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1305:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES128-GCM-SHA256:ECDHE-ECDSA-AES256-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-ECDSA-AES128-SHA256:ECDHE-RSA-AES128-SHA256
 SetEnvIf User-Agent ".*MSIE.*" \
 nokeepalive ssl-unclean-shutdown \
 downgrade-1.0 force-response-1.0
-
 LogLevel warn
 ErrorLog ${APACHE_LOG_DIR}/ssl_error_log
 TransferLog ${APACHE_LOG_DIR}/ssl_access_log
 CustomLog ${APACHE_LOG_DIR}/ssl_request_log \
 "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
-
 Include /usr/share/eprints/cfg/apache_ssl/[YOUR_REPO_ID].conf
 PerlTransHandler +EPrints::Apache::Rewrite 
 </VirtualHost>
