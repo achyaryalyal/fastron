@@ -23,33 +23,13 @@ swapon --show
 nano /etc/apt/sources.list.d/eprints.list
 deb http://deb.eprints-hosting.org/3.4/stable/ ./
 wget -O /etc/apt/trusted.gpg.d/eprints.gpg http://deb.eprints.org/keyFile.gpg && apt-get update
-##### or
-##### wget -O - http://deb.eprints-hosting.org/keyFile | apt-key add - && apt update && apt upgrade -y
 
 # install xpdf
 apt install libpoppler-dev xpdf
-##### or
-##### wget http://security.ubuntu.com/ubuntu/pool/main/p/poppler/libpoppler73_0.62.0-2ubuntu2.12_amd64.deb
-##### wget http://archive.ubuntu.com/ubuntu/pool/universe/x/xpdf/xpdf_3.04-7_amd64.deb
-##### dpkg -i libpoppler73_0.62.0-2ubuntu2.12_amd64.deb && apt install --fix-broken -y
-##### dpkg -i xpdf_3.04-7_amd64.deb && apt install --fix-broken -y
 
 # install eprints
 apt install eprints -y
 # it will be installed to: /usr/share/eprints/
-
-# download publications flavoured repository
-wget https://files.eprints.org/2715/2/eprints-3.4.4-flavours.tar.gz
-tar -xzvf eprints-3.4.4-flavours.tar.gz -C /usr/share/eprints/
-mv /usr/share/eprints/eprints-3.4.4/flavours /usr/share/eprints/
-rmdir /usr/share/eprints/eprints-3.4.4/
-rm eprints-3.4.4-flavours.tar.gz
-##### or
-##### wget https://files.eprints.org/2715/2/eprints-3.4.4-flavours.tar.gz
-##### tar -xzvf eprints-3.4.4-flavours.tar.gz
-##### mv eprints-3.4.4/flavours/pub_lib /usr/share/eprints/flavours
-##### chmod -R g+w /usr/share/eprints/flavours/pub_lib
-##### chown -R eprints:eprints /usr/share/eprints/flavours/pub_lib
 
 # set password for mysql
 mysql -u root
@@ -58,7 +38,15 @@ ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '[YOUR_PA
 FLUSH PRIVILEGES;
 exit
 
-su -l eprints
+# install publications flavour
+wget https://files.eprints.org/2715/2/eprints-3.4.4-flavours.tar.gz
+tar -xzvf eprints-3.4.4-flavours.tar.gz -C /usr/share/eprints/
+mv /usr/share/eprints/eprints-3.4.4/flavours /usr/share/eprints/
+rmdir /usr/share/eprints/eprints-3.4.4/
+rm eprints-3.4.4-flavours.tar.gz
+
+sudo su eprints
+cd /usr/share/eprints/
 ./bin/epadmin create pub
 # Archive ID? eprints
 # Configure vital settings? [yes] ? ENTER
@@ -66,8 +54,7 @@ su -l eprints
 # Webserver Port [80] ? ENTER
 # Alias (enter # when done) [#] ? ENTER
 # Path [/] ? ENTER
-# HTTPS Hostname [] ? [YOUR_SUBDOMAIN]
-Secure Webserver Port [443] ? [ENTER]
+# HTTPS Hostname [] ? ENTER
 # Administrator Email? [YOUR_SYSTEM_EMAIL_OR_ADMIN_EMAIL]
 # Archive Name [Test Repository] ? [YOUR_REPOSITORY_NAME]
 # Organisation Name [Organisation of Test] ? [YOUR_ORG_NAME]
@@ -92,15 +79,35 @@ Secure Webserver Port [443] ? [ENTER]
 # Do you want to import the LOC subjects and sample divisions? [yes] ? ENTER
 # Do you want to update the apache config files? (you still need to add the 'Include' line) [yes] ? ENTER
 exit
-# make sure that your main apache config file contains the line:
-	Include /usr/share/eprints/cfg/apache.conf
-nano /etc/apache2/sites-available/000-default.conf
-# tambahkan ServerName di dalam konfigurasi VirtualHost
-	ServerName [YOUR_SUBDOMAIN]
-a2ensite eprints
 a2enmod rewrite env headers mime dir ssl setenvif
+a2ensite eprints
 apachectl configtest
-systemctl restart apache2
+systemctl reload apache2
+
+crontab -e
+	30 0 * * * php -r 'sleep(rand(0,1799));' && apt update -y >/dev/null 2>&1 && apt upgrade -y >/dev/null 2>&1
+
+# go to your subdomain with http://[YOUR_SUBDOMAIN]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # install let's encrypt
 sudo apt install -y certbot python3-certbot-apache && certbot --version
@@ -151,10 +158,7 @@ CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 
 apachectl configtest
-systemctl restart apache2
-
-crontab -e
-	30 0 * * * php -r 'sleep(rand(0,1799));' && apt update -y >/dev/null 2>&1 && apt upgrade -y >/dev/null 2>&1
+systemctl reload apache2
 
 # go to your subdomain with https://[YOUR_SUBDOMAIN]
 
