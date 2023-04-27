@@ -105,7 +105,7 @@ mkdir /usr/share/eprints/archives/[YOUR_REPO_ID]/ssl/
 nano /usr/share/eprints/archives/[YOUR_REPO_ID]/ssl/securevhost.conf
 
 <VirtualHost *:443>
-ServerName YOUR-REPOSITORY-DOMAIN:443
+ServerName [YOUR_SUBDOMAIN]:443
 # Enable HSTS
 Header always set Strict-Transport-Security "max-age=63072000;"
 
@@ -123,19 +123,34 @@ nokeepalive ssl-unclean-shutdown \
 downgrade-1.0 force-response-1.0
 
 LogLevel warn
-ErrorLog logs/ssl_error_log
-TransferLog logs/ssl_access_log
-CustomLog logs/ssl_request_log \
+ErrorLog ${APACHE_LOG_DIR}/ssl_error_log
+TransferLog ${APACHE_LOG_DIR}/ssl_access_log
+CustomLog ${APACHE_LOG_DIR}/ssl_request_log \
 "%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
 
-Include EPRINTS_PATH/cfg/apache_ssl/REPOID.conf
+Include /usr/share/eprints/cfg/apache_ssl/[YOUR_REPO_ID].conf
 PerlTransHandler +EPrints::Apache::Rewrite 
 </VirtualHost>
 
+nano /usr/share/eprints/archives/[YOUR_REPO_ID]/cfg/cfg.d/10_core.pl
+# make sure conf like this:
+$c->{host} = undef;
+$c->{port} = 80;
+$c->{aliases} = [];
+$c->{securehost} = '[YOUR_SUBDOMAIN]';
+$c->{secureport} = 443;
+$c->{http_root} = undef;
 
+sudo su eprints
+cd /usr/share/eprints/
+./bin/generate_apacheconf --system --replace
+exit
+apachectl configtest
+systemctl reload apache2
 
-
-
+nano /etc/apache2/sites-available/eprints
+# add the following line, changing the path as appropriate:
+Include /usr/share/eprints/archives/[YOUR_REPO_ID]/ssl/securevhost.conf
 
 
 
