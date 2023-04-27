@@ -107,6 +107,23 @@ systemctl restart apache2
 systemctl status apache2
 # go to your subdomain with https://________
 
+# Make sure you remove or disable your archive's cfg/cfg.d/https.pl if it exists as it may override the configuration below. Once you have updated your configuration you must run generate_apacheconf to regenerate configuration for Apache before restarting the web server.
+# config HTTP Only
+$c->{host} = 'example.eprints.org';
+$c->{port} = 80;
+$c->{securehost} = undef;
+$c->{secureport} = undef;
+# config HTTPS When You Login
+$c->{host} = 'example.eprints.org';
+$c->{port} = 80;
+$c->{securehost} = $c->{host};
+$c->{secureport} = 443;
+# config HTTPS Only
+$c->{host} = undef;
+$c->{port} = 80;
+$c->{securehost} = 'example.eprints.org';
+$c->{secureport} = 443;
+
 # Troubleshoot: MySQL root user cannot be used
 CREATE USER 'eprints'@'localhost' IDENTIFIED by 'changeme';
 GRANT ALL PRIVILEGES ON *.* TO 'eprints'@'localhost' WITH GRANT OPTION;
