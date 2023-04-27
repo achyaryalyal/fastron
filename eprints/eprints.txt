@@ -114,7 +114,7 @@ crontab -e
 
 # install let's encrypt
 sudo apt install -y certbot python3-certbot-apache && certbot --version
-openssl dhparam -dsaparam -out /etc/apache2/dhparam.pem 4096
+openssl dhparam -dsaparam -out /etc/ssl/certs/dhparam.pem 4096
 mkdir /usr/share/eprints/.well-known/
 mkdir /usr/share/eprints/.well-known/acme-challenge/
 chown www-data:www-data -R /usr/share/eprints/.well-known/
@@ -143,7 +143,7 @@ DirectoryIndex index.php
 SSLEngine on
 SSLCertificateFile "/etc/letsencrypt/live/[YOUR_SUBDOMAIN]/fullchain.pem"
 SSLCertificateKeyFile "/etc/letsencrypt/live/[YOUR_SUBDOMAIN]/privkey.pem"
-SSLOpenSSLConfCmd DHParameters "/etc/apache2/dhparam.pem"
+SSLOpenSSLConfCmd DHParameters "/etc/ssl/certs/dhparam.pem"
 Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
 SSLProtocol all -SSLv3
 SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA
