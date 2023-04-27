@@ -1,6 +1,6 @@
-===============
-Install EPrints
-===============
+===================================
+Install EPrints on Ubuntu 22.04 LTS
+===================================
 sudo apt-get update -y && apt-get upgrade -y && apt-get autoremove -y --purge && apt-get autoclean -y
 sudo apt-get install -y nano ntp neofetch curl wget git zip unzip rar unrar
 hostnamectl set-hostname [YOUR_HOSTNAME] && hostname
