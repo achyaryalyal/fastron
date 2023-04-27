@@ -66,7 +66,8 @@ su -l eprints
 # Webserver Port [80] ? ENTER
 # Alias (enter # when done) [#] ? ENTER
 # Path [/] ? ENTER
-# HTTPS Hostname [] ? ENTER
+# HTTPS Hostname [] ? [YOUR_SUBDOMAIN]
+Secure Webserver Port [443] ? [ENTER]
 # Administrator Email? [YOUR_SYSTEM_EMAIL_OR_ADMIN_EMAIL]
 # Archive Name [Test Repository] ? [YOUR_REPOSITORY_NAME]
 # Organisation Name [Organisation of Test] ? [YOUR_ORG_NAME]
@@ -91,10 +92,17 @@ su -l eprints
 # Do you want to import the LOC subjects and sample divisions? [yes] ? ENTER
 # Do you want to update the apache config files? (you still need to add the 'Include' line) [yes] ? ENTER
 exit
+# make sure that your main apache config file contains the line:
+	Include /usr/share/eprints/cfg/apache.conf
+# then stop and start your webserver
+# then try connecting to your repository
+# don't forget to register your repository at http://roar.eprints.org/
+
 nano /etc/apache2/sites-available/000-default.conf
 # tambahkan ServerName di dalam konfigurasi VirtualHost
 	ServerName IP_SERVER
 a2ensite eprints
+a2enmod ssl
 systemctl restart apache2
 systemctl status apache2
 # go to your subdomain with https://________
