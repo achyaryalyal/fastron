@@ -54,7 +54,7 @@ rm eprints-3.4.4-flavours.tar.gz
 # set password for mysql
 mysql -u root
 USE mysql;
-ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'rahasia';
+ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY '[YOUR_PASSWORD]';
 FLUSH PRIVILEGES;
 exit
 
@@ -83,7 +83,7 @@ Secure Webserver Port [443] ? [ENTER]
 # Write these database settings? [yes] ? ENTER
 # Create database "eprints" [yes] ? ENTER
 # Database Superuser Username [root] ? ENTER
-# Database Superuser Password? rahasia
+# Database Superuser Password? [YOUR_PASSWORD]
 # Create database tables? [yes] ? ENTER
 # Create an initial user? [yes] ? ENTER
 # Enter a username [admin] ? ENTER
@@ -94,18 +94,29 @@ Secure Webserver Port [443] ? [ENTER]
 exit
 # make sure that your main apache config file contains the line:
 	Include /usr/share/eprints/cfg/apache.conf
-# then stop and start your webserver
-# then try connecting to your repository
-# don't forget to register your repository at http://roar.eprints.org/
-
 nano /etc/apache2/sites-available/000-default.conf
 # tambahkan ServerName di dalam konfigurasi VirtualHost
-	ServerName IP_SERVER
+	ServerName [YOUR_SUBDOMAIN]
 a2ensite eprints
-a2enmod ssl
+a2enmod rewrite env headers mime dir ssl setenvif && systemctl restart apache2
+
+# install let's encrypt
+sudo apt install -y certbot python3-certbot-apache && certbot --version
+openssl dhparam -dsaparam -out /etc/apache2/dhparam.pem 4096
+certbot certonly --dry-run --email [ALAMAT_EMAIL_KHUSUS_UNTUK_EPRINTS] --agree-tos --rsa-key-size 4096 --webroot -w /usr/share/eprints -d [YOUR_SUBDOMAIN]
+certbot certonly --email [ALAMAT_EMAIL_KHUSUS_UNTUK_EPRINTS] --agree-tos --rsa-key-size 4096 --webroot -w /usr/share/eprints -d [YOUR_SUBDOMAIN]
+
+nano /etc/apache2/sites-available/000-default.conf
+
 systemctl restart apache2
-systemctl status apache2
-# go to your subdomain with https://________
+
+# go to your subdomain with https://[YOUR_SUBDOMAIN]
+
+# don't forget to register your repository at http://roar.eprints.org/
+
+# Troubleshoot: MySQL root user cannot be used
+CREATE USER 'eprints'@'localhost' IDENTIFIED by 'changeme';
+GRANT ALL PRIVILEGES ON *.* TO 'eprints'@'localhost' WITH GRANT OPTION;
 
 # Make sure you remove or disable your archive's cfg/cfg.d/https.pl if it exists as it may override the configuration below. Once you have updated your configuration you must run generate_apacheconf to regenerate configuration for Apache before restarting the web server.
 # config HTTP Only
@@ -123,7 +134,3 @@ $c->{host} = undef;
 $c->{port} = 80;
 $c->{securehost} = 'example.eprints.org';
 $c->{secureport} = 443;
-
-# Troubleshoot: MySQL root user cannot be used
-CREATE USER 'eprints'@'localhost' IDENTIFIED by 'changeme';
-GRANT ALL PRIVILEGES ON *.* TO 'eprints'@'localhost' WITH GRANT OPTION;
