@@ -82,6 +82,8 @@ cd /usr/share/eprints/
 exit
 a2enmod rewrite env headers mime dir ssl setenvif
 a2ensite eprints
+# must disable the default site otherwise the default Apache page will still be shown
+a2dissite 000-default
 apachectl configtest
 systemctl reload apache2
 
