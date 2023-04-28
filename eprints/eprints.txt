@@ -156,7 +156,20 @@ systemctl reload apache2
 # and
 # https://rama.kemdikbud.go.id/
 
-# [OPTIONAL] install phpmyadmin with php 7.4
+# Troubleshoot EPrints: MySQL root user cannot be used
+CREATE USER 'eprints'@'localhost' IDENTIFIED by 'changeme';
+GRANT ALL PRIVILEGES ON *.* TO 'eprints'@'localhost' WITH GRANT OPTION;
+
+# Troubleshoot EPrints: Add Logo and Change Theme
+# https://www.youtube.com/watch?v=FhHnO1DQj_s
+# bisa dicopy dari themes eprints yang lama ke config archives
+# kemudian brand.pl yang ada di lib/cfg.d di copy kedalam config archives kita
+# kemudian panggil nama themesnya
+
+############################################
+# [OPTIONAL]
+# Install phpmyadmin with php 7.4
+############################################
 sudo apt install software-properties-common
 sudo add-apt-repository ppa:ondrej/php
 sudo apt update
@@ -183,7 +196,6 @@ nano +79 /var/www/phpmyadmin/templates/login/form.twig
 # search label for="input_username" and find <input>, change type "text" to "password"
 nano /etc/apache2/sites-available/data-phpmyadmin.conf
 # copy and paste it:
-
 <VirtualHost *:80>
 ServerName [YOUR_PHPMYADMIN_SUBDOMAIN]
 DocumentRoot /var/www/phpmyadmin/
@@ -198,21 +210,16 @@ Require all denied
 ErrorLog ${APACHE_LOG_DIR}/error.log
 CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
-
 # enable it
 a2ensite data-phpmyadmin.conf
 systemctl reload apache2
 # go to http://[YOUR_PHPMYADMIN_SUBDOMAIN]
-
 certbot --apache certonly
-
 # Successfully received certificate.
 # Certificate is saved at: /etc/letsencrypt/live/[YOUR_PHPMYADMIN_SUBDOMAIN]/fullchain.pem
 # Key is saved at:         /etc/letsencrypt/live/[YOUR_PHPMYADMIN_SUBDOMAIN]/privkey.pem
-
 > /etc/apache2/sites-available/data-phpmyadmin.conf && nano /etc/apache2/sites-available/data-phpmyadmin.conf
 # copy and paste it:
-
 <VirtualHost *:80>
 ServerName [YOUR_PHPMYADMIN_SUBDOMAIN]
 Redirect permanent / https://[YOUR_PHPMYADMIN_SUBDOMAIN]
@@ -241,16 +248,61 @@ Require all denied
 ErrorLog ${APACHE_LOG_DIR}/error.log
 CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
-
 systemctl reload apache2
 # go to https://[YOUR_PHPMYADMIN_SUBDOMAIN]
 
-# Troubleshoot: MySQL root user cannot be used
-CREATE USER 'eprints'@'localhost' IDENTIFIED by 'changeme';
-GRANT ALL PRIVILEGES ON *.* TO 'eprints'@'localhost' WITH GRANT OPTION;
-
-# Troubleshoot: Untuk edit page seperti menambah logo header itu dimana ya?
-# menambahkan Logo di Eprints 3.4.3 Pub dan Mengganti Tema: https://www.youtube.com/watch?v=FhHnO1DQj_s
-# bisa dicopy dari themes eprints yang lama ke config archives
-# kemudian brand.pl yang ada di lib/cfg.d di copy kedalam config archives kita
-# kemudian panggil nama themesnya
+############################################
+# [OPTIONAL]
+# Migrate ojs
+############################################
+# import db to phpmyadmin
+# put OJS web path dan OJS filedir path to /var/www/
+nano /etc/apache2/sites-available/[YOUR_OJS].conf
+<VirtualHost *:80>
+ServerName [YOUR_OJS]
+DocumentRoot /var/www/[YOUR_OJS]/
+Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
+DirectoryIndex index.php
+<Directory "/var/www/[YOUR_OJS]">
+AllowOverride All
+</Directory>
+ErrorLog /var/www/[YOUR_OJS]/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+# enable it
+a2ensite [YOUR_OJS].conf
+systemctl reload apache2
+# go to http://[YOUR_OJS]
+certbot --apache certonly
+# Successfully received certificate.
+# Certificate is saved at: /etc/letsencrypt/live/[YOUR_OJS]/fullchain.pem
+# Key is saved at:         /etc/letsencrypt/live/[YOUR_OJS]/privkey.pem
+> /etc/apache2/sites-available/[YOUR_OJS].conf && nano /etc/apache2/sites-available/[YOUR_OJS].conf
+# copy and paste it:
+<VirtualHost *:80>
+ServerName [YOUR_OJS]
+Redirect permanent / https://[YOUR_OJS]
+</VirtualHost>
+<VirtualHost *:443>
+ServerName [YOUR_OJS]
+DocumentRoot /var/www/[YOUR_OJS]/
+Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
+DirectoryIndex index.php
+<Directory "/var/www/[YOUR_OJS]">
+AllowOverride All
+</Directory>
+SSLEngine on
+SSLCertificateFile /etc/letsencrypt/live/[YOUR_OJS]/cert.pem
+SSLCertificateKeyFile /etc/letsencrypt/live/[YOUR_OJS]/privkey.pem
+SSLCertificateChainFile /etc/letsencrypt/live/[YOUR_OJS]/chain.pem
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+SSLProtocol all -SSLv2 -SSLv3
+SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA
+SSLHonorCipherOrder on
+SSLCompression off
+SSLSessionTickets off
+ErrorLog /var/www/[YOUR_OJS]/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+systemctl reload apache2
+# go to https://[YOUR_OJS]
