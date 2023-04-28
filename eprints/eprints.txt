@@ -185,9 +185,9 @@ nano /etc/apache2/sites-available/data-phpmyadmin.conf
 # copy and paste it:
 
 <VirtualHost *:80>
-ServerAdmin webmaster@localhost
-ServerName dataserver004.bbg.ac.id
+ServerName [YOUR_PHPMYADMIN_SUBDOMAIN]
 DocumentRoot /var/www/phpmyadmin/
+Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
 DirectoryIndex index.php
 <Directory /var/www/phpmyadmin/templates>
 Require all denied
@@ -202,7 +202,48 @@ CustomLog ${APACHE_LOG_DIR}/access.log combined
 # enable it
 a2ensite data-phpmyadmin.conf
 systemctl reload apache2
-# go to [SERVER_ADDR]/phpmyadmin
+# go to http://[YOUR_PHPMYADMIN_SUBDOMAIN]
+
+certbot --apache certonly
+
+# Successfully received certificate.
+# Certificate is saved at: /etc/letsencrypt/live/[YOUR_PHPMYADMIN_SUBDOMAIN]/fullchain.pem
+# Key is saved at:         /etc/letsencrypt/live/[YOUR_PHPMYADMIN_SUBDOMAIN]/privkey.pem
+
+> /etc/apache2/sites-available/data-phpmyadmin.conf && nano /etc/apache2/sites-available/data-phpmyadmin.conf
+# copy and paste it:
+
+<VirtualHost *:80>
+ServerName [YOUR_PHPMYADMIN_SUBDOMAIN]
+Redirect permanent / https://[YOUR_PHPMYADMIN_SUBDOMAIN]
+</VirtualHost>
+<VirtualHost *:443>
+ServerName [YOUR_PHPMYADMIN_SUBDOMAIN]
+DocumentRoot /var/www/phpmyadmin/
+Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
+DirectoryIndex index.php
+SSLEngine on
+SSLCertificateFile /etc/letsencrypt/live/[YOUR_PHPMYADMIN_SUBDOMAIN]/cert.pem
+SSLCertificateKeyFile /etc/letsencrypt/live/[YOUR_PHPMYADMIN_SUBDOMAIN]/privkey.pem
+SSLCertificateChainFile /etc/letsencrypt/live/[YOUR_PHPMYADMIN_SUBDOMAIN]/chain.pem
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload"
+SSLProtocol all -SSLv2 -SSLv3
+SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-AES256-SHA384:ECDHE-RSA-AES256-SHA
+SSLHonorCipherOrder on
+SSLCompression off
+SSLSessionTickets off
+<Directory /var/www/phpmyadmin/templates>
+Require all denied
+</Directory>
+<Directory /var/www/phpmyadmin/libraries>
+Require all denied
+</Directory>
+ErrorLog ${APACHE_LOG_DIR}/error.log
+CustomLog ${APACHE_LOG_DIR}/access.log combined
+</VirtualHost>
+
+systemctl reload apache2
+# go to https://[YOUR_PHPMYADMIN_SUBDOMAIN]
 
 # Troubleshoot: MySQL root user cannot be used
 CREATE USER 'eprints'@'localhost' IDENTIFIED by 'changeme';
