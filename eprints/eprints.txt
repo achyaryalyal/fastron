@@ -198,9 +198,9 @@ nano /etc/apache2/sites-available/data-phpmyadmin.conf
 # copy and paste it:
 <VirtualHost *:80>
 ServerName [YOUR_PHPMYADMIN_SUBDOMAIN]
-DocumentRoot /var/www/phpmyadmin/
-Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
+DocumentRoot /var/www/phpmyadmin
 DirectoryIndex index.php
+Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
 <Directory /var/www/phpmyadmin/templates>
 Require all denied
 </Directory>
@@ -226,9 +226,9 @@ Redirect permanent / https://[YOUR_PHPMYADMIN_SUBDOMAIN]
 </VirtualHost>
 <VirtualHost *:443>
 ServerName [YOUR_PHPMYADMIN_SUBDOMAIN]
-DocumentRoot /var/www/phpmyadmin/
-Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
+DocumentRoot /var/www/phpmyadmin
 DirectoryIndex index.php
+Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
 SSLEngine on
 SSLCertificateFile /etc/letsencrypt/live/[YOUR_PHPMYADMIN_SUBDOMAIN]/cert.pem
 SSLCertificateKeyFile /etc/letsencrypt/live/[YOUR_PHPMYADMIN_SUBDOMAIN]/privkey.pem
@@ -285,12 +285,8 @@ Redirect permanent / https://[YOUR_OJS]
 </VirtualHost>
 <VirtualHost *:443>
 ServerName [YOUR_OJS]
-DocumentRoot /var/www/[YOUR_OJS]/
-Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
+DocumentRoot /var/www/[YOUR_OJS]
 DirectoryIndex index.php
-<Directory "/var/www/[YOUR_OJS]">
-AllowOverride All
-</Directory>
 SSLEngine on
 SSLCertificateFile /etc/letsencrypt/live/[YOUR_OJS]/cert.pem
 SSLCertificateKeyFile /etc/letsencrypt/live/[YOUR_OJS]/privkey.pem
@@ -301,6 +297,12 @@ SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-A
 SSLHonorCipherOrder on
 SSLCompression off
 SSLSessionTickets off
+<Directory /var/www/[YOUR_OJS]>
+Options -Indexes +IncludesNOEXEC +SymLinksIfOwnerMatch +ExecCGI
+AllowOverride All Options=ExecCGI,Includes,IncludesNOEXEC,Indexes,MultiViews,SymLinksIfOwnerMatch
+allow from all
+Require all granted
+</Directory>
 ErrorLog /var/www/[YOUR_OJS]/error.log
 CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
