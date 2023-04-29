@@ -122,9 +122,6 @@ SSLCipherSuite ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384:ECDHE-RSA-A
 SSLHonorCipherOrder on
 SSLCompression off
 SSLSessionTickets off
-SetEnvIf User-Agent ".*MSIE.*" \
-nokeepalive ssl-unclean-shutdown \
-downgrade-1.0 force-response-1.0
 ErrorLog ${APACHE_LOG_DIR}/error_eprints.log
 CustomLog ${APACHE_LOG_DIR}/access_eprints.log combined
 Include /usr/share/eprints/cfg/apache_ssl/eprints.conf
