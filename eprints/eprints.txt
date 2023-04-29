@@ -80,7 +80,14 @@ cd /usr/share/eprints/
 # Do you want to import the LOC subjects and sample divisions? [yes] ? ENTER
 # Do you want to update the apache config files? (you still need to add the 'Include' line) [yes] ? ENTER
 exit
+# prevent error "could not reliably determine the server's fully qualified domain name"
+nano /etc/apache2/apache2.conf
+# paste it to last line
+ServerName localhost
+# save & exit
+# enable some apache modules
 a2enmod rewrite deflate env headers mime dir ssl http2 setenvif
+# don't remove eprints in sites-available, it's symbolic link for eprints.conf, just enable eprints.conf
 a2ensite eprints.conf
 # must disable the default site otherwise the default Apache page will still be shown
 a2dissite 000-default.conf
