@@ -81,9 +81,9 @@ cd /usr/share/eprints/
 # Do you want to update the apache config files? (you still need to add the 'Include' line) [yes] ? ENTER
 exit
 a2enmod rewrite deflate env headers mime dir ssl http2 setenvif
-a2ensite eprints
+a2ensite eprints.conf
 # must disable the default site otherwise the default Apache page will still be shown
-a2dissite 000-default
+a2dissite 000-default.conf
 apachectl -t
 systemctl reload apache2
 
