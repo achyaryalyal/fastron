@@ -125,11 +125,8 @@ SSLSessionTickets off
 SetEnvIf User-Agent ".*MSIE.*" \
 nokeepalive ssl-unclean-shutdown \
 downgrade-1.0 force-response-1.0
-LogLevel warn
-ErrorLog ${APACHE_LOG_DIR}/ssl_error_log
-TransferLog ${APACHE_LOG_DIR}/ssl_access_log
-CustomLog ${APACHE_LOG_DIR}/ssl_request_log \
-"%t %h %{SSL_PROTOCOL}x %{SSL_CIPHER}x \"%r\" %b"
+ErrorLog ${APACHE_LOG_DIR}/error_eprints.log
+CustomLog ${APACHE_LOG_DIR}/access_eprints.log combined
 Include /usr/share/eprints/cfg/apache_ssl/eprints.conf
 PerlTransHandler +EPrints::Apache::Rewrite 
 </VirtualHost>
