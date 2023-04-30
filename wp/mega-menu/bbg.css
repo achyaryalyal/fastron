@@ -1,0 +1,82 @@
+/** Push menu onto new line **/ 
+#{$wrap} {
+	clear: both;
+	font-family: 'Roboto Condensed',Helvetica,Arial,Lucida,sans-serif;
+	margin: 10px 10px 15px 0;
+}
+#{$wrap} #{$menu} > li.mega-menu-item > a.mega-menu-link {
+     text-shadow: 0 0 2px #777;
+}
+#{$wrap}, #{$wrap} #{$menu} > li.mega-menu-item > a.mega-menu-link, #{$wrap} #{$menu} > li.mega-menu-item > a.mega-menu-link:hover, #{$wrap} #{$menu} > li.mega-menu-item.mega-current-menu-ancestor > a.mega-menu-link, #{$wrap} #{$menu} > li.mega-menu-item.mega-current-menu-ancestor > a.mega-menu-link:hover {
+	background: none !important;
+	font-weight: bold;
+}
+#{$wrap} #{$menu} > li.mega-menu-megamenu > ul.mega-sub-menu, #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu, #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link {
+	background: #2f2a95 !important;
+}
+#{$wrap} #{$menu} > li.mega-menu-item-has-children > a.mega-menu-link > span.mega-indicator {
+    display: inline-block;
+    height: auto;
+    width: auto;
+    background: 0 0;
+    position: relative;
+    pointer-events: auto;
+    left: auto;
+    min-width: auto;
+    line-height: inherit;
+    color: inherit;
+    font-size: inherit;
+    padding: 0;
+    margin: 0 0 0 2px;
+}
+#{$wrap}.mega-keyboard-navigation > li.mega-menu-item > a.mega-menu-link:focus, #{$wrap} #{$menu} > li.mega-menu-item > a.mega-menu-link:hover, #{$wrap} #{$menu} > li.mega-menu-item.mega-toggle-on > a.mega-menu-link, #{$wrap} #{$menu} > li.mega-menu-item.mega-current-menu-item > a.mega-menu-link, #{$wrap} #{$menu} > li.mega-menu-item.mega-current-menu-ancestor > a.mega-menu-link, #{$wrap} #{$menu} > li.mega-menu-item.mega-current-page-ancestor > a.mega-menu-link, #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link, #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link:hover, #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link:focus {
+	font-weight: bold;
+}
+#{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link {
+	line-height: 20px;
+}
+#{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu {
+	width: auto;
+	min-width: 200px;
+}
+#{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link {
+	padding: 10px 10px 10px 10px;
+}
+#{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link {
+	color: #fff;
+}
+#{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link:hover, #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link:focus {
+	color: yellow;
+}
+@media only screen and (max-width: 980px) {
+	#{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item {
+    	padding-left: 20px;
+	}
+}
+@media only screen and (max-width: 768px) {
+	#{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item {
+    	padding-left: 20px;
+	}
+}
+#{$wrap} .mega-menu-toggle {
+	background: none !important;
+	margin: -10px 0 -3px 0;
+}
+@media only screen and (max-width: 980px) {
+	#{$wrap} .mega-menu-toggle {
+    	margin: 0 0 -3px 0;
+	}
+}
+#{$wrap} .mega-menu-toggle .mega-toggle-block-0 .mega-toggle-animated-inner, #{$wrap} .mega-menu-toggle .mega-toggle-block-0 .mega-toggle-animated-inner::before, #{$wrap} .mega-menu-toggle .mega-toggle-block-0 .mega-toggle-animated-inner::after {
+	background-color: #fff;
+}
+@media only screen and (max-width: 980px) {
+	#{$wrap} .mega-menu-toggle + #{$menu} {
+		background: #2f2a95 !important;
+	}
+}
+@media only screen and (max-width: 768px) {
+	#{$wrap} .mega-menu-toggle + #{$menu} {
+    	background: #2f2a95 !important;
+	}
+}
