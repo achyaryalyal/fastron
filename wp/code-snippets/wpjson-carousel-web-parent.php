@@ -149,7 +149,7 @@ function init_slick_footer() {
 			arrows: true,
 			dots: false,
 			autoplay: true,
-			autoplaySpeed: 1500,
+			autoplaySpeed: 2000,
 			slidesToShow: 3,
 			slidesToScroll: 1,
 			infinite: true,
