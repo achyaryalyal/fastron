@@ -57,10 +57,14 @@ function load_slickcss() {
 		position: relative;
 		transition-property: transform;
 		margin: 0 15px;
+		border-radius: 10px;
 	}
 	.wpjc-single-item {
-		background: #FF8200;
-		border: 1px solid #DDD;
+		background: #1181bd;
+		background: -moz-linear-gradient(left, #1181bd 0%, #2f2a95 100%);
+		background: -webkit-linear-gradient(left, #1181bd 0%, #2f2a95 100%);
+		background: linear-gradient(to right, #1181bd 0%, #2f2a95 100%);
+		border: 1px solid #1181bd;
 		overflow: hidden;
 		vertical-align: middle;
 		float: none;
@@ -68,7 +72,8 @@ function load_slickcss() {
 		direction: ltr;
 	}
 	.wpjc-single-item:hover {
-		background: #2F2A95;
+		background: #FF8200;
+		border: 1px solid #FF8200;
 	}
 	.wpjc-slide-image {
 		line-height: 0;
@@ -87,9 +92,9 @@ function load_slickcss() {
 		height: auto;
 		box-shadow: none;
 	}
-	.wpjp-all-captions {
+	.wpjc-all-captions {
 		overflow: hidden;
-		padding: 5px 15px 3px 15px;
+		padding: 1px;
 	}
 	.wpjc-post-meta {
 		margin: 0;
@@ -114,10 +119,7 @@ function load_slickcss() {
 	.wpjc-single-item h2 a {
 		color: #FFF;
     	text-decoration: none;
-	}
-	.wpjc-single-item h2 a:hover {
-		color: #FF8200;
-	    text-decoration: none;
+		text-shadow: 0 0 3px #111;
 	}
 	.slick-dots li button:before {
 		color: #CCC !important;
