@@ -4,10 +4,10 @@
 
 function wpjan($atts = [], $content = null, $tag = '') {
 	// normalize attribute keys, lowercase
-    $atts = array_change_key_case( (array) $atts, CASE_LOWER );
+	$atts = array_change_key_case((array) $atts, CASE_LOWER);
 	
 	// override default attributes with user attributes
-    $my_atts = shortcode_atts(
+	$my_atts = shortcode_atts(
 		array(
 			'limit' => 'WordPress.org',
 		), $atts, $tag
@@ -19,23 +19,23 @@ function wpjan($atts = [], $content = null, $tag = '') {
 	$id_category_announcement_parent = 70;
 	$id_category_announcement_child = 1;
 	
-	$url_1 = "https://bbg.ac.id/wp-json/wp/v2/posts?categories=".$id_category_announcement_parent."&per_page=".$items;
+	$url_1 = 'https://bbg.ac.id/wp-json/wp/v2/posts?categories='.$id_category_announcement_parent.'&per_page='.$items;
 	$json_1 = file_get_contents($url_1);
 	$arr_1 = json_decode($json_1, FALSE);
 	
-	$url_2 = "https://baa.bbg.ac.id/wp-json/wp/v2/posts?categories=".$id_category_announcement_child."&per_page=".$items;
+	$url_2 = 'https://baa.bbg.ac.id/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
 	$json_2 = file_get_contents($url_2);
 	$arr_2 = json_decode($json_2, FALSE);
 	
-	$url_3 = "https://buk.bbg.ac.id/wp-json/wp/v2/posts?categories=".$id_category_announcement_child."&per_page=".$items;
+	$url_3 = 'https://buk.bbg.ac.id/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
 	$json_3 = file_get_contents($url_3);
 	$arr_3 = json_decode($json_3, FALSE);
 	
-	$url_4 = "https://btik.bbg.ac.id/wp-json/wp/v2/posts?categories=".$id_category_announcement_child."&per_page=".$items;
+	$url_4 = 'https://btik.bbg.ac.id/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
 	$json_4 = file_get_contents($url_4);
 	$arr_4 = json_decode($json_4, FALSE);
 	
-	$url_5 = "https://birmas.bbg.ac.id/wp-json/wp/v2/posts?categories=".$id_category_announcement_child."&per_page=".$items;
+	$url_5 = 'https://birmas.bbg.ac.id/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
 	$json_5 = file_get_contents($url_5);
 	$arr_5 = json_decode($json_5, FALSE);
 	
@@ -45,7 +45,7 @@ function wpjan($atts = [], $content = null, $tag = '') {
 	$arr_sort_date = array_column($arr, 'date');
 	array_multisort($arr_sort_date, SORT_DESC, $arr);
 	
-	$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman</h2>
+	$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Roboto Condensed\',\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman</h2>
 		<ul style="border-radius:4px;border:2px solid #eee;padding:0;">';
 	for($i=0; $i<$total_items; $i++) {
 		$x = $i + 1;
