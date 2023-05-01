@@ -2,7 +2,7 @@
 #{$wrap} {
 	clear: both;
 	font-family: 'Roboto Condensed',Helvetica,Arial,Lucida,sans-serif;
-	margin: 10px 10px 15px 0;
+	margin: 0;
 }
 #{$wrap} #{$menu} > li.mega-menu-item > a.mega-menu-link {
 	text-shadow: 0 0 2px #555;
