@@ -13,7 +13,7 @@ function wpjan_get_self() {
 	$json = file_get_contents($url);
 	$arr = json_decode($json, FALSE);
 	
-	$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Roboto Condensed\',\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman '.strtolower($subdomain_child).'</h2>
+	$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Roboto Condensed\',\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman '.strtoupper($subdomain_child).'</h2>
 		<ul style="border-radius:4px;border:2px solid #eee;padding:0;">';
 	for($i=0; $i<$items; $i++) {
 		$x = $i + 1;
