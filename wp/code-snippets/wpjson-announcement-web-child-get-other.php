@@ -40,7 +40,7 @@ function wpjan_get_other() {
 	
 	$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Roboto Condensed\',\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman Institusi</h2>
 		<ul style="border-radius:4px;border:2px solid #eee;padding:0;">';
-	for($i=0; $i<$items; $i++) {
+	for($i=0; $i<$total_items; $i++) {
 		$x = $i + 1;
 		if(isset($arr[$i]->title->rendered) && $x<=$limit) {
 			$j = $i + 1;
