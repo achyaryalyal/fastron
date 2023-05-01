@@ -38,7 +38,7 @@ function wpjan_get_other() {
 	$arr_sort_date = array_column($arr, 'date');
 	array_multisort($arr_sort_date, SORT_DESC, $arr);
 	
-	$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Roboto Condensed\',\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman Lainnya</h2>
+	$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Roboto Condensed\',\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman Institusi</h2>
 		<ul style="border-radius:4px;border:2px solid #eee;padding:0;">';
 	for($i=0; $i<$items; $i++) {
 		$x = $i + 1;
