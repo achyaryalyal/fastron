@@ -4,10 +4,11 @@
 
 function wpjc() {
 	$items = 6; // SET UP HERE
-	$url = "https://bbg.ac.id/wp-json/wp/v2/posts?per_page=".$items."&_embed";
+	$domain = 'bbg.ac.id'; // SET UP HERE
+	
+	$url = 'https://'.$domain.'/wp-json/wp/v2/posts?per_page='.$items.'&_embed';
 	$json = file_get_contents($url);
 	$arr = json_decode($json, FALSE);
-	
 	$result = '<div class="wpjc slider">';
 	for($i=0; $i<$items; $i++) {
 		$j = $i + 1;
