@@ -3,22 +3,21 @@
 /////////////////////////////////
 
 function wpjc() {
+	$limit = 6; // SET UP HERE
 	$id_tag_child = 37; // SET UP HERE
-	$subdomain = 'baa'; // SET UP HERE
+	$subdomain_child = 'baa'; // SET UP HERE
+	$domain_parent = 'bbg.ac.id'; // SET UP HERE
 	
-	$items = 6;
-	$url_1 = "https://bbg.ac.id/wp-json/wp/v2/posts?tags=".$id_tag_child."&per_page=".$items."&_embed";
+	$items = $limit;
+	$url_1 = "https://'.$domain_parent.'/wp-json/wp/v2/posts?tags=".$id_tag_child."&per_page=".$items."&_embed";
 	$json_1 = file_get_contents($url_1);
 	$arr_1 = json_decode($json_1, FALSE);
-	
 	$id_category_announcement_child = 1;
-	$url_2 = "https://'.$subdomain.'.bbg.ac.id/wp-json/wp/v2/posts?categories=".$id_category_announcement_child."&per_page=".$items."&_embed";
+	$url_2 = "https://'.$subdomain_child.'.'.$domain_parent.'/wp-json/wp/v2/posts?categories=".$id_category_announcement_child."&per_page=".$items."&_embed";
 	$json_2 = file_get_contents($url_2);
 	$arr_2 = json_decode($json_2, FALSE);
-	
 	$total_items = $items * 2;
 	$arr = array_merge($arr_1, $arr_2);
-	
 	$arr_sort_date = array_column($arr, 'date');
 	array_multisort($arr_sort_date, SORT_DESC, $arr);
 	
