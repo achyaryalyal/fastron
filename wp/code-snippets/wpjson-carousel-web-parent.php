@@ -3,7 +3,7 @@
 /////////////////////////////////
 
 function wpjc() {
-	$items = 6; // set limit HERE
+	$items = 6; // SET UP HERE
 	$url = "https://bbg.ac.id/wp-json/wp/v2/posts?per_page=".$items."&_embed";
 	$json = file_get_contents($url);
 	$arr = json_decode($json, FALSE);
