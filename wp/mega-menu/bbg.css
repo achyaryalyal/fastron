@@ -2,7 +2,7 @@
 #{$wrap} {
 	clear: both;
 	font-family: 'Roboto Condensed',Helvetica,Arial,Lucida,sans-serif;
-	margin: 0;
+	margin: 2px 0;
 }
 #{$wrap} #{$menu} > li.mega-menu-item > a.mega-menu-link {
 	text-shadow: 0 0 2px #555;
@@ -13,6 +13,10 @@
 }
 #{$wrap} #{$menu} > li.mega-menu-megamenu > ul.mega-sub-menu, #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu, #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link {
 	background: #2f2a95 !important;
+}
+#{$wrap} #{$menu} > li.mega-menu-item > a.mega-menu-link {
+	line-height: 36px !important;
+    height: 36px !important;
 }
 #{$wrap}.mega-keyboard-navigation > li.mega-menu-item > a.mega-menu-link:focus, #{$wrap} #{$menu} > li.mega-menu-item > a.mega-menu-link:hover, #{$wrap} #{$menu} > li.mega-menu-item.mega-toggle-on > a.mega-menu-link, #{$wrap} #{$menu} > li.mega-menu-item.mega-current-menu-item > a.mega-menu-link, #{$wrap} #{$menu} > li.mega-menu-item.mega-current-menu-ancestor > a.mega-menu-link, #{$wrap} #{$menu} > li.mega-menu-item.mega-current-page-ancestor > a.mega-menu-link, #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link, #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link:hover, #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link:focus {
 	font-weight: bold;
