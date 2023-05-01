@@ -3,7 +3,7 @@
 /////////////////////////////////
 
 function wpjs() {
-	$limit = 6; // SET UP HERE
+	$limit = 3; // SET UP HERE
 	$id_tag_child = 37; // SET UP HERE
 	$subdomain_child = 'baa'; // SET UP HERE
 	$domain_parent = 'bbg.ac.id'; // SET UP HERE
@@ -38,9 +38,9 @@ function wpjs() {
 			$image = @$arr[$i]->_embedded->{'wp:featuredmedia'}[0]->media_details->sizes->{'et-pb-post-main-image'}->source_url;
 			if(!$image) {$image = '/wp-content/featured-400x250.webp';}
       $result .= '<article id="post-'.$i.'" class="et_pb_post clearfix et_pb_blog_item_0_0 post-'.$i.' post type-post status-publish format-standard has-post-thumbnail hentry">
-						<div class="et_pb_image_container"><a href="'.$link.'" class="entry-featured-image-url"><img decoding="async" loading="lazy" src="'.$image.'" alt="" class="" width="400" height="250"></a></div> <!-- .et_pb_image_container -->
-						<h3 class="entry-title"><a href="'.$link.'">'.$title.'</a></h3>
-						<p class="post-meta"><span class="published">'.$date_converted.'</span></p>
+						<div class="et_pb_image_container" style="border:1px solid #d8d8d8;"><a href="'.$link.'" class="entry-featured-image-url"><img decoding="async" loading="lazy" src="'.$image.'" alt="" class="" width="400" height="250"></a></div>
+						<h3 class="entry-title"><a href="'.$link.'" style="color:#ff8200;font-size:16px;font-weight:700;">'.$title.'</a></h3>
+						<p class="post-meta"><span class="published" style="color:#666;font-size:16px;">'.$date_converted.'</span></p>
 						<div class="post-content"><div class="post-content-inner et_multi_view_hidden"></div></div>
 					</article>';
 		}
