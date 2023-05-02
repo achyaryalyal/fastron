@@ -131,9 +131,9 @@ Install WordPress at CloudPanel
   location ~* ^/wp-content/uploads/.*\.(?:s?html?|php|js|swf)$ {
     deny all;
   }
-  rewrite ^/nologin$ /wp-nologin.php; # plugin wps hide login, go to /permisi to login
-  location = /nologin/ {return 301 /wp-nologin.php;} # plugin wps hide login, go to /permisi to login
-  rewrite ^/wp-login(.*)$ /wp-nologin.php; # HANYA AKTIFKAN BARIS INI SETELAH WPS HIDE LOGIN DIARAHKAN KE /permisi
+  rewrite ^/nologin$ /wp-nologin.php; # plugin wps hide login, go to /....... to login
+  location = /nologin/ {return 301 /wp-nologin.php;} # plugin wps hide login, go to /....... to login
+  rewrite ^/wp-login(.*)$ /wp-nologin.php; # HANYA AKTIFKAN BARIS INI SETELAH WPS HIDE LOGIN DIARAHKAN KE /.......
   # END HARDENING
 # In "PHP Settings", make sure version=PHP 8.2, make sure max_input_vars=10000, make sure date.timezone=Asia/Jakarta;
 # wp-cron.php script executes a complex process, such as copying files or optimising images, this can cause the execution of the page to happen more slowly whilst this processes. To avoid this, WordPress can be configured to disable wp-cron.php from executing on page load and instead, have the server trigger this command periodically. We highly recommend running wp-cron via linux crontab rather than WordPress’s default way, irrespective of size or traffic of your site. So, you must disable wp-cron at the WordPress wp-config.php, just add this:
