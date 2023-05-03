@@ -1,0 +1,1 @@
+while true; do date; curl 'https://api.ipify.org?format=json'; echo "\n"; sleep 5; done;
