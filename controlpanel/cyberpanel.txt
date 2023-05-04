@@ -40,10 +40,19 @@ cd /opt && sh <(curl https://cyberpanel.net/install.sh || wget -O - https://cybe
 
 # Restart Server: N
 
-# Access CyberPanel
+###################################################################
 URL: https://<Your Server's IP Address>:8090 
 Username: admin
 Password: <the password you set during installation>
+###################################################################
+If your provider has a network-level firewall
+Please make sure you have opened following port for both in/out:
+TCP: 8090 for CyberPanel
+TCP: 80, TCP: 443 and UDP: 443 for webserver
+TCP: 21 and TCP: 40110-40210 for FTP
+TCP: 25, TCP: 587, TCP: 465, TCP: 110, TCP: 143 and TCP: 993 for mail service
+TCP: 53 and UDP: 53 for DNS service
+###################################################################
 
 # If you get a 503 error after installing CyberPanel, you can do one of the following things.
 # [Option 1] Check LSCPD Status.
