@@ -26,8 +26,9 @@ swapon --show
 
 cd /opt
 sh <(curl https://cyberpanel.net/install.sh || wget -O - https://cyberpanel.net/install.sh)
-# Install CyberPanel
-# Full installation
+# Install CyberPanel: 1
+# Install CyberPanel with OpenLiteSpeed: 1
+# Full installation: Y
 # Setup Remote MySQL: N
 # Enter key to continue with latest version
 # randomly generate one: r
