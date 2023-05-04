@@ -29,7 +29,7 @@ cd /opt && sh <(curl https://cyberpanel.net/install.sh || wget -O - https://cybe
 # Install CyberPanel with OpenLiteSpeed: 1
 # Full installation: Y
 # Setup Remote MySQL: N
-# Enter key to continue with latest version
+# Press "Enter" key to continue with latest version
 # randomly generate one: r
 # Memcached: Y
 # Redis: Y
