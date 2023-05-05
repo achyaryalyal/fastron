@@ -199,6 +199,8 @@ pecl install yaz
 	make sure date.timezone=Asia/Jakarta;
 	make sure extension=yaz.so;
 # In "Vhost", don't put rate limit because it's culprit for some services like /lib/ajax/service.php?sesskey=.... which makes dashboard dialog box error undefined 503
+# In "Vhost", paste it under: index index.php index.html;
+	error_page 404 =200 /;
 # In "Databases", create a database
 # In "SSL/TLS", create and install Let's Encrypt Certificate
 # to customize theme: Login Admin > Tema > Default > Customize
