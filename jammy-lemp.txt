@@ -650,7 +650,7 @@ certbot renew --dry-run
 ##################################
 # Install Monit 5.31.0
 ##################################
-sudo apt install -y monit
+sudo apt install -y monit && monit --version
 
 nano /etc/monit/monitrc
 
@@ -660,19 +660,30 @@ set httpd port 2812 and
   allow localhost
   allow admin:monit
 
-systemctl start monit
+sudo monit -t
+sudo monit reload
 
-systemctl enable monit
+sudo systemctl enable monit
+sudo /lib/systemd/systemd-sysv-install enable monit
 
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/monit/custom.conf > /etc/monit/conf.d/custom.conf
+sudo systemctl restart monit && sudo monit status && sudo monit summary
 
-monit -t
+# for nginx (not apache):
+sudo ln -s /etc/monit/conf-available/nginx /etc/monit/conf-enabled/
 
-monit reload
+# for apache (not nginx):
+sudo ln -s /etc/monit/conf-available/apache2 /etc/monit/conf-enabled/
 
-monit status
+# for mysql (not mariadb):
+sudo ln -s /etc/monit/conf-available/mysql /etc/monit/conf-enabled/
 
-monit summary
+# for mariadb (not mysql):
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/monit/mariadb > /etc/monit/conf-available/mariadb
+sudo ln -s /etc/monit/conf-available/mariadb /etc/monit/conf-enabled/
+
+sudo monit -t
+sudo monit reload
+sudo monit status && sudo monit summary
 
 ##################################
 # Install Atheos 5.5.0
