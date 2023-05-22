@@ -35,6 +35,44 @@ nano /etc/ssh/sshd_config
 service ssh restart
 
 ===============================
+Install Monit at CloudPanel
+===============================
+sudo apt install -y monit && monit --version
+
+nano /etc/monit/monitrc
+
+# uncomment httpd like following lines
+set httpd port 2812 and
+  use address localhost
+  allow localhost
+  allow admin:monit
+
+sudo monit -t
+sudo monit reload
+
+sudo systemctl enable monit
+sudo /lib/systemd/systemd-sysv-install enable monit
+
+sudo systemctl restart monit && sudo monit status && sudo monit summary
+
+# for nginx (not apache):
+sudo ln -s /etc/monit/conf-available/nginx /etc/monit/conf-enabled/
+
+# for apache (not nginx):
+sudo ln -s /etc/monit/conf-available/apache2 /etc/monit/conf-enabled/
+
+# for mysql (not mariadb):
+sudo ln -s /etc/monit/conf-available/mysql /etc/monit/conf-enabled/
+
+# for mariadb (not mysql):
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/monit/mariadb > /etc/monit/conf-available/mariadb
+sudo ln -s /etc/monit/conf-available/mariadb /etc/monit/conf-enabled/
+
+sudo monit -t
+sudo monit reload
+sudo monit status && sudo monit summary
+
+===============================
 Install WordPress at CloudPanel
 ===============================
 # Click on + Add Site and then click on Create a WordPress Site
