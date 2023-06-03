@@ -795,6 +795,7 @@ rclone config
 # copy file to local: rclone copy AMC:Data/hello.txt /path/to/local/
 # copy folder to local: rclone copy AMC:Data /path/to/local/
 # delete all file, not dir: rclone delete AMC:Data
+# delete single file: rclone deletefile AMC:Data:info.txt
 # delete empty dir: rclone rmdir AMC:Data
 # delete file & dir: rclone purge AMC:Data
 # sync source to destination: rclone sync hello.txt AMC:Data
