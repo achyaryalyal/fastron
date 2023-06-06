@@ -786,6 +786,7 @@ rclone config
 # enter "n" for Shared Drive (Team Drive)
 # enter "y" for Yes This is OK
 # enter "q" for Quit Config
+# list all the remotes in the config file: rclone listremotes
 # list file: rclone ls AMC:
 # list dir: rclone lsd AMC:
 # list file & dir: rclone lsf AMC:
