@@ -177,7 +177,12 @@ Install WordPress at CloudPanel
   location ~/(wp-login|wp-login/) {return 403; error_page 403 /wp-nologin.php;} # AKTIFKAN SETELAH DIARAHKAN KE /....
   location = /wp-login.php {return 403; error_page 403 /wp-nologin.php;} # AKTIFKAN SETELAH DIARAHKAN KE /....
   # END HARDENING
-# In "PHP Settings", make sure version=PHP 8.2, make sure max_input_vars=10000, make sure date.timezone=Asia/Jakarta;
+# In "PHP Settings"
+	make sure version=PHP 8.2
+	make sure max_input_vars=10000
+	date.timezone=Asia/Jakarta;
+	display_errors=off;
+	disable_functions=pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,gzinflate,phpinfo;
 # wp-cron.php script executes a complex process, such as copying files or optimising images, this can cause the execution of the page to happen more slowly whilst this processes. To avoid this, WordPress can be configured to disable wp-cron.php from executing on page load and instead, have the server trigger this command periodically. We highly recommend running wp-cron via linux crontab rather than WordPress’s default way, irrespective of size or traffic of your site. So, you must disable wp-cron at the WordPress wp-config.php, just add this:
   define('DISABLE_WP_CRON', true);
 # In "Cron Jobs", add cron job every hourly: /usr/bin/php8.2 /[YOUR_WORDPRESS_PATH]/wp-cron.php >/dev/null 2>&1
@@ -196,7 +201,9 @@ sudo apt update && sudo apt install unoconv
 # In "PHP Settings"
 	make sure version=PHP 8.1; // because 8.2 still deprecated: Creation of dynamic property cache_config::$configlockmappings
 	make sure max_input_vars=10000;
-	make sure date.timezone=Asia/Jakarta;
+	date.timezone=Asia/Jakarta;
+	display_errors=off;
+	disable_functions=pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,gzinflate,phpinfo;
 # In "Vhost", don't put rate limit because it's culprit for some services like /lib/ajax/service.php?sesskey=.... which makes dashboard dialog box error undefined 503
 # In "Vhost", add this before {{settings}}:
   # START HARDENING
@@ -237,8 +244,10 @@ pecl install yaz
 # In "PHP Settings"
 	make sure version=PHP 8.1; // because 8.2 still deprecated: Creation of dynamic property cache_config::$configlockmappings
 	make sure max_input_vars=10000;
-	make sure date.timezone=Asia/Jakarta;
-	make sure extension=yaz.so;
+	extension=yaz.so;
+	date.timezone=Asia/Jakarta;
+	display_errors=off;
+	disable_functions=pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,gzinflate,phpinfo;
 # In "Vhost", don't put rate limit because it's culprit for some services like /lib/ajax/service.php?sesskey=.... which makes dashboard dialog box error undefined 503
 # In "Vhost", paste it under: index index.php index.html;
 	error_page 404 /;
