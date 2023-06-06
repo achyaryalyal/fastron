@@ -828,7 +828,8 @@ rclone config
 # sync source to destination: rclone sync hello.txt AMC:Data
 # move source to destination: rclone move hello.txt AMC:Data
 # print total size & number of objects: rclone size AMC:Data
-# mount: rclone --vfs-cache-mode writes mount AMC:Data /path/to/local/mount --allow-non-empty --allow-other &
+# mount example 1: rclone mount AMC:Data /path/to/local/mount --allow-non-empty --allow-other --vfs-cache-mode writes &
+# mount example 2: rclone mount spada-storage-mounting: /home/bbg-spada/htdocs/spadadata/filedir-google-drive --allow-non-empty --allow-other --dir-cache-time 72h --buffer-size 32M --drive-chunk-size 32M --vfs-cache-mode writes --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
 # unmount: fusermount -u /path/to/local/mount
 # this is the path you mounted the storage to, if you don't know the path, run: mount | grep rclone
 
