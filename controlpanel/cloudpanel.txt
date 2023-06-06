@@ -30,6 +30,7 @@ Edit SSH Config
 ===============
 nano /etc/ssh/sshd_config
 # set:
+	Port 10022
 	ClientAliveInterval 120
 	ClientAliveCountMax 720
 service ssh restart
