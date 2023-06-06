@@ -801,12 +801,18 @@ rclone config
 # enter "32M" for chunk_size
 # just leave blank the acknowledge_abuse, keep_revision_forever, v2_download_min_size, pacer_min_sleep, pacer_burst, server_side_across_configs, disable_http2, stop_on_upload_limit, stop_on_download_limit, skip_shortcuts, skip_dangling_shortcuts, resource_key, encoding, 
 # enter "n" for Edit Advanced Config
-# enter "n" for Use Auto Config
-# config_token, in this step you will need rclone available on other machine that has a web browser available. Execute the following command on the machine with terminal (will redirect to web browser), then paste the result to config_token
+# Use web browser to automatically authenticate rclone with remote?
+# y if the machine running rclone has a web browser you can use
+# n if running rclone on a (remote) machine without web browser access --> right choice for linux server
+# For this to work, you will need rclone available on a machine that has a web browser available
+# paste it to other linux machine have rclone: rclone authorize "drive" "___??___"
+# copy and paste config_token
 # enter "n" for Shared Drive (Team Drive)
 # enter "y" for Yes This is OK
 # enter "q" for Quit Config
-# list all the remotes in the config file: rclone listremotes
+
+### HOW TO USE ###
+# list all remotes: rclone listremotes
 # list file: rclone ls AMC:
 # list dir: rclone lsd AMC:
 # list file & dir: rclone lsf AMC:
