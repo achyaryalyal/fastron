@@ -780,7 +780,7 @@ rclone config
 # just leave blank the copy_shortcut_content, skip_gdocs, skip_checksum_gphotos, shared_with_me, trashed_only, starred_only, export_formats, import_formats, allow_import_name_change, list_chunk, impersonate, upload_cutoff
 # enter "32M" for chunk_size
 # just leave blank the acknowledge_abuse, keep_revision_forever, v2_download_min_size, pacer_min_sleep, pacer_burst, server_side_across_configs, disable_http2, stop_on_upload_limit, stop_on_download_limit, skip_shortcuts, skip_dangling_shortcuts, resource_key, encoding, 
-# enter "n" fot Edit Advanced Config
+# enter "n" for Edit Advanced Config
 # enter "n" for Use Auto Config
 # config_token, in this step you will need rclone available on other machine that has a web browser available. Execute the following command on the machine with terminal (will redirect to web browser), then paste the result to config_token
 # enter "n" for Shared Drive (Team Drive)
