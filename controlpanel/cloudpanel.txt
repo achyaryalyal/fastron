@@ -34,6 +34,8 @@ nano /etc/ssh/sshd_config
 	ClientAliveInterval 120
 	ClientAliveCountMax 720
 service ssh restart
+# access CloudPanel menu Adnmin Area > Security
+# change SSH port from 22 to 10022 in ipv4 and ipv6, type "SSH" at description
 
 ===============================
 Install Monit at CloudPanel
