@@ -764,8 +764,28 @@ chown www-data:www-data /var/www
 ##################################
 # Install Rclone 1.59.2
 ##################################
+### METHOD 1 ###
 curl https://rclone.org/install.sh | sudo bash && rclone version
 rclone config
+
+### METHOD 2 ###
+cd /opt
+# Fetch and unpack
+curl -O https://downloads.rclone.org/rclone-current-linux-amd64.zip
+unzip rclone-current-linux-amd64.zip
+cd rclone-*-linux-amd64
+# Copy binary file
+sudo cp rclone /usr/bin/
+sudo chown root:root /usr/bin/rclone
+sudo chmod 755 /usr/bin/rclone
+# Install manpage
+sudo mkdir -p /usr/local/share/man/man1
+sudo cp rclone.1 /usr/local/share/man/man1/
+sudo mandb
+# Run setup
+rclone config
+
+### HOW TO SETUP ###
 # enter "n" for New Remote Storage
 # give it a name. ex: AMC
 # enter the number for Google Drive
