@@ -310,7 +310,8 @@ DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /r
 DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh -d "$DOMAIN" --install-cert --reloadcmd "systemctl reload nginx" --fullchain-file "${CONFIG_ROOT}/fullchain.cer" --key-file "${CONFIG_ROOT}/$DOMAIN.key" --cert-file "${CONFIG_ROOT}/$DOMAIN.cer"
 # It's automatically configure a cron jobs to renew our wildcard based certificate
 crontab -l
-35 0 * * * "/root/.acme.sh"/acme.sh --cron --home "/root/.acme.sh" > /dev/null
+	# automatic certificates renewal
+	35 0 * * * "/root/.acme.sh"/acme.sh --cron --home "/root/.acme.sh" > /dev/null
 # we can also do the manual TLS/SSL cert renewal: bash /root/.acme.sh/acme.sh --renew --force --dns dns_cf --ocsp-must-staple --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
 
 ============================
