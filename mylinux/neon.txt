@@ -220,6 +220,16 @@ $ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge 
 # minimize google chrome > right click on titlebar > more actions > add property > No titlebar and frame > Force > Yes > apply
 
 =====================================
+Install Tor Browser
+=====================================
+sudo apt install torbrowser-launcher
+# updating TOR screwed up my client : "Download Error: 404"
+sudo -i
+# https://askubuntu.com/questions/1445050/updating-tor-screwed-up-my-client-download-error-404 
+# exit from root
+# launch tor browser
+
+=====================================
 Setting Workspace
 =====================================
 Workspace > Workspace Behavior > Desktop Effects > Blur > configure
