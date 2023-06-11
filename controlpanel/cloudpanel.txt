@@ -32,7 +32,7 @@ nano /etc/cron.d/clp
 #15 3 * * * clp /usr/bin/bash -c "/usr/bin/clpctl db:backup --ignoreDatabases='db1,db2' --retentionPeriod=7" &> /dev/null
 #15 4 * * * clp /home/clp/scripts/create_backup.sh &> /dev/null
 
-# troubleshoot: "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
+# TROUBLESHOOT: "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
 sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
 sudo apt update
 
@@ -252,6 +252,7 @@ chmod +x /home/bbg-spada/mount-spada-google-drive.sh
 crontab -e
 	# mount drive on boot
 	@reboot sh /home/bbg-spada/mount-spada-google-drive.sh
+# TROUBLESHOOT: Fix – broken page issue after Moodle 3.x installation on Nginx web server => https://dartinnovations.com/fix-broken-page-issue-after-moodle-3-x-installation-on-nginx-web-server/ 
 
 ============================
 Install Slims at CloudPanel
