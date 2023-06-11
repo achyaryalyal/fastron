@@ -14,7 +14,15 @@ sha256sum -c && sudo DB_ENGINE=MARIADB_10.9 bash install.sh
 # Ignore the self-signed certificate warning and click on Advanced and Proceed to continue to CloudPanel
 
 # Change default timezone
-# Go to Admin Area > Instance > Setting > Timezone > Asia/Jakarta
+# Go to Admin Area > Instance > Setting > Timezone > Asia/Jakarta > Save
+# It's recommended to reboot the instance after changing the timezone
+
+# Reboot server from CloudPanel
+# Go to Admin Area > Instance > Reboot (at top right)
+
+# Set CloudPanel custom domain
+# Go to Admin Area > Settings > General > Domain Name > Save
+# make sure DNS record has pointed to this server
 
 # To update CloudPanel to the latest version, run the update script:
 clp-update
