@@ -230,6 +230,17 @@ sudo apt update && sudo apt install unoconv
 # $mform->addElement('text', 'shortname', get_string('shortnamecourse'), 'maxlength="100" size="20"');
 # change to:
 # $mform->addElement('text', 'shortname', 'Course code dari OPEN SIMKA', 'maxlength="100" minlength="16" size="20"');
+# ADDITIONAL FOR MOUNTING "FILEDIR" WITH GOOGLE DRIVE
+nano /home/bbg-spada/mount-spada-google-drive.sh
+# paste it
+	#!/bin/bash
+	/usr/bin/rclone rclone mount spada-storage-mounting: /home/bbg-spada/htdocs/spadadata/filedir --allow-non-empty --allow-other --dir-cache-time 72h --buffer-size 32M --drive-chunk-size 32M --vfs-cache-mode writes --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
+# make it executable
+chmod +x /home/bbg-spada/mount-spada-google-drive.sh
+# add to cronjob
+crontab -e
+	# mount drive on boot
+	@reboot sh /home/bbg-spada/mount-spada-google-drive.sh
 
 ============================
 Install Slims at CloudPanel
