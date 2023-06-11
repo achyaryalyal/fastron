@@ -13,6 +13,9 @@ sha256sum -c && sudo DB_ENGINE=MARIADB_10.9 bash install.sh
 # You can now access CloudPanel via Browser: https://yourIpAddress:8443
 # Ignore the self-signed certificate warning and click on Advanced and Proceed to continue to CloudPanel
 
+# Change default timezone
+# Go to Admin Area > Instance > Setting > Timezone > Asia/Jakarta
+
 # To update CloudPanel to the latest version, run the update script:
 clp-update
 
