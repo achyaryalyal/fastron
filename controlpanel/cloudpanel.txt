@@ -272,8 +272,9 @@ pecl install yaz
 	display_errors=off;
 	disable_functions=pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,gzinflate,phpinfo;
 # In "Vhost", don't put rate limit because it's culprit for some services like /lib/ajax/service.php?sesskey=.... which makes dashboard dialog box error undefined 503
-# In "Vhost", paste it under: index index.php index.html;
-	error_page 404 /;
+# In "Vhost", add this before location / {:
+	error_page 404 https://$host;
+	try_files $uri $uri/ =404;
 # In "Databases", create a database
 # In "SSL/TLS", create and install Let's Encrypt Certificate
 # to customize theme: Login Admin > Tema > Default > Customize
