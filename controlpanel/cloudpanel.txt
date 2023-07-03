@@ -42,10 +42,10 @@ nano /etc/cron.d/clp
 #15 4 * * * clp /home/clp/scripts/create_backup.sh &> /dev/null
 
 # Manual backup site
-site="myweb-site" && domain="myweb.com" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site}/htdocs/ && tar -cvzf ${domain}-${date}.tar.gz ${domain} && mv ${domain}-${date}.tar.gz /home/${site}/backups/ && cd /home/${site}/backups/ && chown ${site}:${site} ${domain}-${date}.tar.gz && ls -lah
+site_user="______" && site_domain="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/htdocs/ && tar -cvzf ${site_domain}-${date}.tar.gz ${site_domain} && mv ${site_domain}-${date}.tar.gz /home/${site_user}/backups/ && cd /home/${site_user}/backups/ && chown ${site_user}:${site_user} ${site_domain}-${date}.tar.gz && ls -lah
 
 # Manual backup database
-site="myweb-site" && db="myweb-db" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site}/backups/databases/ && clpctl db:export --databaseName=${db} --file=${db}-${date}.sql.gz && chown ${site}:${site} ${db}-${date}.sql.gz && ls -lah
+site_user="______" && site_db="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/backups/databases/ && clpctl db:export --databaseName=${site_db} --file=${site_db}-${date}.sql.gz && chown ${site_user}:${site_user} ${site_db}-${date}.sql.gz && ls -lah
 
 # TROUBLESHOOT: "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
 sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
