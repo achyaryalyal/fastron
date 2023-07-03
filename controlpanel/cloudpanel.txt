@@ -42,10 +42,10 @@ nano /etc/cron.d/clp
 #15 4 * * * clp /home/clp/scripts/create_backup.sh &> /dev/null
 
 # Manual backup site
-site="bbg-site" && domain="bbg.ac.id" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site}/htdocs/ && tar -cvzf ${domain}-${date}.tar.gz ${domain} && mv ${domain}-${date}.tar.gz /home/${site}/backups/ && cd /home/${site}/backups/ && chown ${site}:${site} ${domain}-${date}.tar.gz && ls -lah
+site="myweb-site" && domain="myweb.com" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site}/htdocs/ && tar -cvzf ${domain}-${date}.tar.gz ${domain} && mv ${domain}-${date}.tar.gz /home/${site}/backups/ && cd /home/${site}/backups/ && chown ${site}:${site} ${domain}-${date}.tar.gz && ls -lah
 
 # Manual backup database
-site="bbg-site" && db="bbg-db" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site}/backups/databases/ && clpctl db:export --databaseName=${db} --file=${db}-${date}.sql.gz && chown ${site}:${site} ${db}-${date}.sql.gz && ls -lah
+site="myweb-site" && db="myweb-db" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site}/backups/databases/ && clpctl db:export --databaseName=${db} --file=${db}-${date}.sql.gz && chown ${site}:${site} ${db}-${date}.sql.gz && ls -lah
 
 # TROUBLESHOOT: "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
 sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
