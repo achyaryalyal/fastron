@@ -1,0 +1,73 @@
+# edit inc/template-functions.php and replace
+
+            if (is_page_template('tmpl-front-page.php')) {
+                if (is_active_sidebar('home-sidebar-widgets')) {
+                    $classes[] = 'align-content-left';
+                } else {
+                    $classes[] = 'full-width-content';
+                }
+            } else {
+                if (is_active_sidebar('sidebar-1')) {
+                    $classes[] = 'align-content-left';
+                } else {
+                    $classes[] = 'full-width-content';
+                }
+            }
+
+# to this:
+
+            if (is_page_template('tmpl-front-page.php')) {
+                // if (is_active_sidebar('home-sidebar-widgets')) {
+                    $classes[] = 'align-content-left';
+                // } else {
+                //     $classes[] = 'full-width-content';
+                // }
+            } else {
+                // if (is_active_sidebar('sidebar-1')) {
+                    $classes[] = 'align-content-left';
+                // } else {
+                //     $classes[] = 'full-width-content';
+                // }
+            }
+
+
+# edit inc/hooks/hook-front-page.php and replace
+
+                <?php if (is_active_sidebar( 'home-sidebar-widgets') && $frontpage_layout != 'full-width-content' ) { ?>
+                <?php 
+                        $sticky_sidebar_class = '';
+                        $sticky_sidebar = covernews_get_option('frontpage_sticky_sidebar');
+                    if($sticky_sidebar){
+                        $sticky_sidebar_class = covernews_get_option('frontpage_sticky_sidebar_position');
+
+                    }
+                    ?>
+                <div id="secondary" class="sidebar-area <?php echo esc_attr($sticky_sidebar_class); ?>">
+                    <aside class="widget-area">
+
+                            <?php dynamic_sidebar('home-sidebar-widgets'); ?>
+
+                    </aside>
+                </div>
+                <?php } ?>
+
+# to this:
+
+                <?php //if (is_active_sidebar( 'home-sidebar-widgets') && $frontpage_layout != 'full-width-content' ) { ?>
+                <?php 
+                        $sticky_sidebar_class = '';
+                        $sticky_sidebar = covernews_get_option('frontpage_sticky_sidebar');
+                    if($sticky_sidebar){
+                        $sticky_sidebar_class = covernews_get_option('frontpage_sticky_sidebar_position');
+
+                    }
+                    ?>
+                <div id="secondary" class="sidebar-area <?php echo esc_attr($sticky_sidebar_class); ?>" style="padding-top:10px;">
+                    <aside class="widget-area">
+
+                            <?php // dynamic_sidebar('home-sidebar-widgets'); ?>
+                            <?php dynamic_sidebar('sidebar-1'); ?>
+
+                    </aside>
+                </div>
+                <?php //} ?>
