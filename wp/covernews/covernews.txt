@@ -1,3 +1,7 @@
+======================================
+Replace Home Sidebar with Main Sidebar
+======================================
+
 # edit inc/template-functions.php and replace
 
             if (is_page_template('tmpl-front-page.php')) {
