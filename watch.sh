@@ -1,6 +1,6 @@
 #!/bin/bash
 
-url=https://www.google.com
+url=https://ytb.id/watch?v=XYZ
 
 menit=1m
 
