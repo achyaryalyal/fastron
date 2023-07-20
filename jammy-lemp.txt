@@ -73,8 +73,12 @@ sudo apt update && apt upgrade -y && apt autoremove -y --purge && apt autoclean 
 # Useful packages
 ##################################
 reboot
-sudo add-apt-repository ppa:maxmind/ppa && sudo apt update && sudo apt install software-properties-common ghostscript neofetch curl wget git zip unzip rar unrar gnupg gnupg2 ca-certificates lsb-release apt-transport-https fail2ban haveged htop nload nmap nmon ntp pigz tree ccze mycli geoip-bin geoip-database geoipupdate libgeoip1 libmaxminddb0 libmaxminddb-dev mmdb-bin libpcre3 libpcre3-dev zlib1g zlib1g-dev
+sudo apt update && sudo apt install software-properties-common ghostscript neofetch curl wget git zip unzip rar unrar gnupg gnupg2 ca-certificates lsb-release apt-transport-https fail2ban haveged htop nload nmap nmon ntp pigz tree ccze mycli libpcre3 libpcre3-dev zlib1g zlib1g-dev
 
+# GEOLITE
+sudo add-apt-repository ppa:maxmind/ppa
+sudo apt update
+sudo apt install geoipupdate mmdb-bin geoip-bin geoip-database libgeoip1 libgeoip-dev libmaxminddb0 libmaxminddb-dev
 # GeoLite2 is geolocation free service. This data is less accurate than the paid service, GeoIP2.
 # check GeoIP version
 geoipupdate --version
@@ -85,9 +89,10 @@ geoipupdate --version
 nano /etc/GeoIP.conf
 	AccountID 999999
 	LicenseKey 000000000000
-	EditionIDs GeoLite2-Country GeoLite2-City
+	EditionIDs GeoLite2-ASN GeoLite2-City GeoLite2-Country
 # update
 geoipupdate -v
+# follow instruction at: https://github.com/leev/ngx_http_geoip2_module
 
 # configure timezone. Select: Asia->Jakarta
 systemctl enable ntp && dpkg-reconfigure tzdata && date
