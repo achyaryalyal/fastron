@@ -47,6 +47,9 @@ site_user="______" && site_domain="______" && date=$(date +%Y-%m-%d_%H-%M) && cd
 # Manual backup database
 site_user="______" && site_db="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/backups/databases/ && clpctl db:export --databaseName=${site_db} --file=${site_db}-${date}.sql.gz && chown ${site_user}:${site_user} ${site_db}-${date}.sql.gz && ls -lah
 
+# import database
+clpctl db:import --databaseName=my-database --file=dump.sql.gz
+
 # TROUBLESHOOT: "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
 sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
 sudo apt update
