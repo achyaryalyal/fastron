@@ -75,7 +75,7 @@ sudo apt update && apt upgrade -y && apt autoremove -y --purge && apt autoclean 
 reboot
 sudo apt update && sudo apt install software-properties-common ghostscript neofetch curl wget git zip unzip rar unrar gnupg gnupg2 ca-certificates lsb-release apt-transport-https fail2ban haveged htop nload nmap nmon ntp pigz tree ccze mycli libpcre3 libpcre3-dev zlib1g zlib1g-dev
 
-# GEOLITE
+# GEOLITE (GAK PAKAI LAGI KARENA PERFORMANCE ISSUE)
 sudo add-apt-repository ppa:maxmind/ppa
 sudo apt update
 sudo apt install geoipupdate mmdb-bin geoip-bin geoip-database libgeoip1 libgeoip-dev libmaxminddb0 libmaxminddb-dev
@@ -1226,7 +1226,7 @@ service fail2ban restart
   1  0  *  *  0 root /sbin/shutdown -r now "weekly reboot"   # reboot every sunday at 00:01 am
 
 # update GeoIP databases every sunday at 02:00 AM
-00  2  *  *  0 /usr/bin/geoipupdate -v
+####00  2  *  *  0 /usr/bin/geoipupdate -v
 
 # re-ownership php session directory every day at 03:00 AM
 00  3  *  *  * chown -R www-data:www-data /var/lib/php/sessions
