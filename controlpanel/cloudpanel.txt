@@ -56,6 +56,9 @@ clpctl db:show:master-credentials
 # Create user with no global privileges, but check all in database privileges except GRANT
 # [Not Recommended] For allowing to create database, just comment out line $cfg['ShowCreateDb'] = false; at:
 	nano /home/clp/htdocs/app/files/public/phpmyadmin/config.inc.php
+# Manual import database:
+	gunzip < file.sql.gz | mysql -u [DB_USER] -p [DB_NAME]
+	mysql -u [DB_USER] -p [DB_NAME] < file.sql
 
 # TROUBLESHOOT: "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
 sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
