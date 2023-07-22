@@ -53,7 +53,9 @@ clpctl db:import --databaseName=my-database --file=dump.sql.gz
 # Database Show Master Credentials
 clpctl db:show:master-credentials
 # Access https://yourIpAddress/phpmyadmin/index.php and login with any credential
-# [Not Recommended] For allowing to create database, just comment out line $cfg['ShowCreateDb'] = false; at /home/clp/htdocs/app/files/public/phpmyadmin/config.inc.php
+# Create user with no global privileges, but check all in database privileges except GRANT
+# [Not Recommended] For allowing to create database, just comment out line $cfg['ShowCreateDb'] = false; at:
+	nano /home/clp/htdocs/app/files/public/phpmyadmin/config.inc.php
 
 # TROUBLESHOOT: "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
 sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
