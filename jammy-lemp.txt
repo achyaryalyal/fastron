@@ -652,6 +652,10 @@ certbot renew --dry-run --cert-name [SUBDOMAIN].example.com
 certbot renew --dry-run
 # If you see no errors, you're all set. When necessary, Certbot will renew your certificates and reload Nginx to pick up the changes. If the automated renewal process ever fails, Let’s Encrypt will send a message to the email you specified, warning you when your certificate is about to expire.
 
+# Finding SSL certificate expiration date from a PEM encoded certificate file
+openssl x509 -enddate -noout -in /etc/nginx/ssl/domain.cer
+openssl x509 -enddate -noout -in /etc/letsencrypt/live/domain/fullchain.pem;
+
 ##################################
 # Install Monit 5.31.0
 ##################################
