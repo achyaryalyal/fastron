@@ -727,20 +727,18 @@ nano +7 atheos/components/user/login.php
 
 nano +15 atheos/components/transfer/dialog.php
 
-# add this line after $val = trim($val);
+# [VERSI 5.5.0 TIDAK PERLU LAGI EDIT] add this line after $val = trim($val);
 	if (!$val) {return 0;} // fix
-# add this line after $last = strtolower($val[strlen($val)-1]);
+# [VERSI 5.5.0 TIDAK PERLU LAGI EDIT] add this line after $last = strtolower($val[strlen($val)-1]);
 	$val = preg_replace('~\D~', '', $val); // fix
-
-# replace “ with " at line 60: <input type=“hidden” name=“MAX_FILE_SIZE” value=“<?php echo max_file_upload_in_bytes(); ?>”>
+# [VERSI 5.5.0 TIDAK PERLU LAGI EDIT] replace “ with " at line 60: <input type=“hidden” name=“MAX_FILE_SIZE” value=“<?php echo max_file_upload_in_bytes(); ?>”>
 	<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo max_file_upload_in_bytes(); ?>">
 
 nano +293 atheos/components/editor/init.js
-
 # replace this in init.js: path = (path.length < 30) ? path : '...' + path.substr(path.length - 30);
 	path = (path.length < 60) ? path : '...' + path.substr(path.length - 60);
 
-chown www-data:www-data /var/www
+chown -R www-data:www-data atheos && chmod -R 775 atheos
 
 # Go to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params
 # Setup it
