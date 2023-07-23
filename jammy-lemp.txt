@@ -702,8 +702,6 @@ cd /var/www/master/app/lib && date=$(date +%Y-%m-%d_%H-%M) && mv atheos atheos_o
 
 wget https://github.com/Atheos/Atheos/archive/refs/heads/main.zip && unzip main.zip && mv Atheos-main atheos && rm -rf main.zip
 
-chown -R www-data:www-data atheos && chmod -R 777 atheos
-
 nano +12 atheos/index.php
 
 # add this to index.php line 12:
