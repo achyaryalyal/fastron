@@ -36,6 +36,21 @@ nano /home/clp/htdocs/app/files/templates/Partial/footer.html.twig
 # To update CloudPanel to the latest version, run the update script:
 clp-update
 
+# Tune up CloudPanel MariaDB
+nano /etc/mysql/mariadb.conf.d/100-cloudpanel.cnf
+# add this line after [mysqld]
+	sql_mode = "NO_ENGINE_SUBSTITUTION"
+# set thread_cache_size from 32 to 128
+# set table_open_cache from 2048 to 500000
+# set innodb_buffer_pool_size from 512M to 2G
+# set innodb_log_file_size from 1G to 256M
+# set innodb_log_buffer_size from 10M to 512M
+# set myisam_sort_buffer_size from 128M to 512M
+# set open_files_limit from 65535 to 500000
+# set table_open_cache from 2048 to 500000
+systemctl restart mariadb
+# make sure no strict mode in query result "SELECT @@SQL_MODE, @@GLOBAL.SQL_MODE;" to make your coding no more warning/error
+
 # CloudPanel creates a dump of each backup database every midnight. To disable autobackup task, just comment out the line
 nano /etc/cron.d/clp
 #15 3 * * * clp /usr/bin/bash -c "/usr/bin/clpctl db:backup --ignoreDatabases='db1,db2' --retentionPeriod=7" &> /dev/null
