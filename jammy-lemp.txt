@@ -751,6 +751,10 @@ nano +23 atheos/config.php
 # set LIFETIME to TRUE
 	define("LIFETIME", true);
 
+nano +59 atheos/common.php
+# add session.gc_maxlifetime after session.cookie_lifetime
+	ini_set('session.gc_maxlifetime', 36000);
+
 # Login to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params
 
 # Editor Settings
