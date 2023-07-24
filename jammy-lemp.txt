@@ -717,8 +717,9 @@ nano +12 atheos/index.php
 # with:
 	<span id="current_file" style="user-select:all;"></span>
 
-nano atheos/version.txt
-	v5.5.0
+nano +54 atheos/common.php
+# make sure the version same with [FILE_TAR_GZ] file name
+	define("VERSION", "v5.5.0");
 
 nano +7 atheos/components/user/login.php
 
@@ -727,11 +728,11 @@ nano +7 atheos/components/user/login.php
 
 nano +15 atheos/components/transfer/dialog.php
 
-# [VERSI 5.5.0 TIDAK PERLU LAGI EDIT] add this line after $val = trim($val);
+# add this line after $val = trim($val);
 	if (!$val) {return 0;} // fix
-# [VERSI 5.5.0 TIDAK PERLU LAGI EDIT] add this line after $last = strtolower($val[strlen($val)-1]);
+# add this line after $last = strtolower($val[strlen($val)-1]);
 	$val = preg_replace('~\D~', '', $val); // fix
-# [VERSI 5.5.0 TIDAK PERLU LAGI EDIT] replace “ with " at line 60: <input type=“hidden” name=“MAX_FILE_SIZE” value=“<?php echo max_file_upload_in_bytes(); ?>”>
+# replace “ with " at line 60: <input type=“hidden” name=“MAX_FILE_SIZE” value=“<?php echo max_file_upload_in_bytes(); ?>”>
 	<input type="hidden" name="MAX_FILE_SIZE" value="<?php echo max_file_upload_in_bytes(); ?>">
 
 nano +293 atheos/components/editor/init.js
