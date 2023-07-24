@@ -418,6 +418,7 @@ ls
 mv [FOLDER_EXTRACTED] atheos
 ls
 rm [FILE_TAR_GZ]
+ls
 nano +12 atheos/index.php
 # add this to index.php line 12:
 	if(!isset($_GET['key']) && !isset($_GET['token'])) {
@@ -447,9 +448,9 @@ nano +15 atheos/components/transfer/dialog.php
 nano +293 atheos/components/editor/init.js
 # replace this in init.js: path = (path.length < 30) ? path : '...' + path.substr(path.length - 30);
 	path = (path.length < 60) ? path : '...' + path.substr(path.length - 60);
-# owner according to project, for /var/www the owner must clp:clp
+# set permissions on dirs & files, owner according to project, for /var/www the owner must clp:clp
 chown -R clp:clp atheos && chmod -R 775 atheos
-# Go to [IP_OR_DOMAIN]/app/ide/atheos/index.php with key & token params
+# Visit [IP_OR_DOMAIN]/app/ide/atheos/index.php with key & token params
 # Setup it
 # fill `Project` with PROJECT
 # fill `Absolute Path` with folder path you want to manage, make sure that folder owner same with atheos folder owner, if you want to manage /var/www so run: "chown -R clp:clp /var/www" or change to www-data:www-data for non cloudpanel
