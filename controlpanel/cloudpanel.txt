@@ -387,7 +387,7 @@ crontab -l
 Plus Minus CloudPanel
 ============================
 Intinya CloudPanel cocok untuk control panel turunan (bukan control panel induk) karena di CloudPanel tidak ada fitur manajemen DNS
-- edit DNS record -> TIDAK BISA
+- edit DNS record -> TIDAK BISA namun bisa menggunakan DNS dari Cloudflare
 - tes kirim email dengan script php murni -> TIDAK BISA karena tidak ada mail server, sebab control panel ini memang fokusnya mengutamakan performa web server dan database server agar lebih ringan dan lincah tanpa dibebani oleh mail server
 - htaccess -> TIDAK BISA, harus convert dulu ke nginx rule melalui situs https://winginx.com/en/htaccess kemudian simpan rule tersebut di bagian Vhost tepat di bawah {{settings}}
 - ganti versi php -> BISA
@@ -398,4 +398,5 @@ Intinya CloudPanel cocok untuk control panel turunan (bukan control panel induk)
 - tambah module / ekstensi php -> SUDAH LENGKAP, gak ada yang perlu ditambah
 - install wordpress -> BISA dan support multisite
 - install moodle -> BISA
-- install ojs dan slims -> kemungkinan besar TIDAK BISA karena harus try and error sendiri dalam membuat manual script Vhost
+- install slims -> BISA
+- install ojs -> tidak bisa karena ojs lebih ke apache/litespeed
