@@ -717,13 +717,18 @@ nano +12 atheos/index.php
 # with:
 	<span id="current_file" style="user-select:all;"></span>
 
-nano +59 atheos/common.php
-# change value to 0. The value 0 means "until the browser is closed"
-	ini_set("session.cookie_lifetime", 0);
-
 nano +54 atheos/common.php
 # make sure the version same with [FILE_TAR_GZ] file name
 	define("VERSION", "v5.5.0");
+
+nano +59 atheos/common.php
+# change value to 0, the value 0 means "until the browser is closed"
+	ini_set("session.cookie_lifetime", 0);
+
+nano +77 atheos/traits/checks.php
+# comment out session_unset and session_destroy to prevent an unexpected logout
+	//session_unset();
+	//session_destroy();
 
 nano +7 atheos/components/user/login.php
 
