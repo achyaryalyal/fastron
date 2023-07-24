@@ -746,10 +746,7 @@ chown -R www-data:www-data atheos && chmod -R 775 atheos
 # fill `Project` with PROJECT
 # fill `Absolute Path` with folder path you want to manage like /var/www
 # you can also leave blank in `Custom Domain`
-
-nano +59 atheos/common.php
-# add session.gc_maxlifetime after session.cookie_lifetime
-	ini_set("session.gc_maxlifetime", 36000);
+# click "Install"
 
 # Login to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params
 
