@@ -431,9 +431,6 @@ nano +12 atheos/index.php
 nano +54 atheos/common.php
 # make sure the version same with [FILE_TAR_GZ] file name
 	define("VERSION", "v5.5.0");
-nano atheos/version.txt
-# type or paste the version according to [FILE_TAR_GZ] file name
-	v5.5.0
 nano +7 atheos/components/user/login.php
 # edit login.php, find replace line 9: <input id="username" type="text" name="username" autofocus="autofocus" autocomplete="current-username">
 	<input id="username" type="password" name="username" autofocus="autofocus" autocomplete="current-username">
