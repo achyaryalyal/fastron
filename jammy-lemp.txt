@@ -1165,7 +1165,10 @@ cd /path/to/source && cp -fr * /path/to/target
 ######### recursively search string #########
 #############################################
 cd [DIRECTORY]
-grep -nr "YOUR_STRING"
+# show string inside file
+grep -nr "YOUR_STRING" [optional]
+# hide string inside file
+grep -nr "YOUR_STRING" [optional] | awk -F':' '{print $1":"$2}'
 
 #########################################################
 ######### recursively search string and sort it #########
