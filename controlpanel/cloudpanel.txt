@@ -75,6 +75,9 @@ clpctl db:show:master-credentials
 	gunzip < file.sql.gz | mysql -u [DB_USER] -p [DB_NAME]
 	mysql -u [DB_USER] -p [DB_NAME] < file.sql
 
+# Another project in /var/www
+# yes you can handle it but make sure the owner is clp:clp not www-data:www-data
+
 # TROUBLESHOOT: "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
 sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
 sudo apt update
