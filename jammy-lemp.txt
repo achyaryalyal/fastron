@@ -747,6 +747,12 @@ chown -R www-data:www-data atheos && chmod -R 775 atheos
 # fill `Absolute Path` with folder path you want to manage like /var/www
 # you can also leave blank in `Custom Domain`
 
+nano +23 atheos/config.php
+# set LIFETIME to TRUE
+	define("LIFETIME", true);
+
+# Login to [IP_OR_DOMAIN]/app/lib/atheos/index.php with key & token params
+
 # Editor Settings
     ## Theme: Monokai
     ## Font Size: 14px
