@@ -459,9 +459,6 @@ chown -R clp:clp atheos && chmod -R 775 atheos
 # `Anonymous Analytics` enabled
 # `Timezone` GMT+07:00
 # click "Install"
-nano +59 atheos/common.php
-# add session.gc_maxlifetime after session.cookie_lifetime
-	ini_set("session.gc_maxlifetime", 36000);
 # Login to [IP_OR_DOMAIN]/app/ide/atheos/index.php with key & token params
 # SETTING: Editor Settings
     ## Theme: Monokai
