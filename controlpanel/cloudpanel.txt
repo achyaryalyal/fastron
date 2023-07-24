@@ -459,6 +459,10 @@ chown -R clp:clp atheos && chmod -R 775 atheos
 # `Anonymous Analytics` enabled
 # `Timezone` GMT+07:00
 # click "Install"
+nano +23 atheos/config.php
+# set LIFETIME to TRUE
+	define("LIFETIME", true);
+# Login to [IP_OR_DOMAIN]/app/ide/atheos/index.php with key & token params
 # SETTING: Editor Settings
     ## Theme: Monokai
     ## Font Size: 14px
