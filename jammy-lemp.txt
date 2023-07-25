@@ -730,6 +730,10 @@ nano +77 atheos/traits/checks.php
 	//session_unset();
 	//session_destroy();
 
+nano +119 atheos/components/user/init.js
+# comment out atheos.user.logout to prevent an unexpected logout
+	//atheos.user.logout();
+
 nano +7 atheos/components/user/login.php
 
 # edit login.php, find replace line 9: <input id="username" type="text" name="username" autofocus="autofocus" autocomplete="current-username">
