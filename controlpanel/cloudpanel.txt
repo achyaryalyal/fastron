@@ -5,6 +5,16 @@ Install CloudPanel
 # Before running the installer, we need to update the system and install the required packages
 apt update && apt -y upgrade && apt -y install curl wget sudo && apt -y autoremove && reboot
 
+# Extend swap file
+# check swap status
+swapon --show
+# disable and remove existing
+dphys-swapfile swapoff && dphys-swapfile uninstall
+# edit CONF_SWAPSIZE and CONF_MAXSWAP to desired size in MB, ex: 4096 for 4GB
+nano /etc/dphys-swapfile
+# create and enable it
+dphys-swapfile setup && dphys-swapfile swapon && swapon --show
+
 # Run the installer with your preferred Database Engine
 curl -sS https://installer.cloudpanel.io/ce/v2/install.sh -o install.sh; \
 echo "d67e37c0fb0f3dd7f642f2c21e621e1532cadefb428bb0e3af56467d9690b713  install.sh" | \
