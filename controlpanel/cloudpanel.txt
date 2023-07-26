@@ -36,6 +36,14 @@ nano /home/clp/htdocs/app/files/templates/Partial/footer.html.twig
 # To update CloudPanel to the latest version, run the update script:
 clp-update
 
+# edit imagick policy for pdf file in order to convert PDF-to-image with Imagick, the version could be -6 or -7
+nano /etc/ImageMagick-6/policy.xml
+# change line
+	<policy domain="coder" rights="none" pattern="PDF" />
+# to be:
+	<policy domain="coder" rights="read|write" pattern="PDF" />
+# then restart web nginx and php
+
 # Tune up CloudPanel MariaDB
 nano /etc/mysql/mariadb.conf.d/100-cloudpanel.cnf
 # add this line after [mysqld]
