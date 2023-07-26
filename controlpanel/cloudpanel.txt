@@ -445,9 +445,6 @@ nano +77 atheos/traits/checks.php
 nano +119 atheos/components/user/init.js
 # comment out atheos.user.logout to prevent an unexpected logout
 	//atheos.user.logout();
-nano +7 atheos/components/user/login.php
-# edit login.php, find replace line 9: <input id="username" type="text" name="username" autofocus="autofocus" autocomplete="current-username">
-	<input id="username" type="password" name="username" autofocus="autofocus" autocomplete="current-username">
 nano +15 atheos/components/transfer/dialog.php
 # add this line after $val = trim($val);
 	if (!$val) {return 0;} // fix
