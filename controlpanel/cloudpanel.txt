@@ -460,6 +460,7 @@ nano +77 atheos/traits/checks.php
 # comment out session_unset and session_destroy to prevent an unexpected logout
 	//session_unset();
 	//session_destroy();
+	//Common::send("error", "Security violation.");
 nano +119 atheos/components/user/init.js
 # comment out atheos.user.logout to prevent an unexpected logout
 	//atheos.user.logout();
