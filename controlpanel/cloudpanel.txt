@@ -74,6 +74,22 @@ nano /etc/cron.d/clp
 #15 3 * * * clp /usr/bin/bash -c "/usr/bin/clpctl db:backup --ignoreDatabases='db1,db2' --retentionPeriod=7" &> /dev/null
 #15 4 * * * clp /home/clp/scripts/create_backup.sh &> /dev/null
 
+# Keep nginx logs of last 30 days for project in /var/www
+nano /etc/logrotate.d/nginx
+/var/www/logs/nginx/*.log {
+    su root root
+    daily
+    missingok
+    rotate 7 
+    dateext
+    dateformat -%Y-%m-%d
+    create 0640 clp clp
+    postrotate
+      /etc/init.d/nginx reload &> /dev/null || true
+    endscript
+}
+logrotate /etc/logrotate.d/nginx
+
 # Manual backup site
 site_user="______" && site_domain="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/htdocs/ && tar -cvzf ${site_domain}-${date}.tar.gz ${site_domain} && mv ${site_domain}-${date}.tar.gz /home/${site_user}/backups/ && cd /home/${site_user}/backups/ && chown ${site_user}:${site_user} ${site_domain}-${date}.tar.gz && ls -lah
 
