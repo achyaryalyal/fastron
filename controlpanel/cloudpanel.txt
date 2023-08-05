@@ -294,7 +294,7 @@ rm -rf /opt/moodle-*
 sudo apt update && sudo apt install unoconv
 # In "PHP Settings"
 	make sure version=PHP 8.1; // because 8.2 still deprecated: Creation of dynamic property cache_config::$configlockmappings
-	make sure max_execution_time=3m;
+	make sure max_execution_time=3m; // prevent fatal error during upgrade: Maximum execution time of 30 seconds exceeded
 	make sure max_input_vars=100000;
 	date.timezone=Asia/Jakarta;
 	display_errors=off;
