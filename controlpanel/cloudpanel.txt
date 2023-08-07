@@ -75,25 +75,29 @@ nano /etc/mysql/mariadb.conf.d/100-cloudpanel.cnf
 systemctl restart mariadb
 # make sure no strict mode in query result "SELECT @@SQL_MODE, @@GLOBAL.SQL_MODE;" to make your coding no more warning/error
 
-=============================
-DISABLE DEFAULT BACKUP SCRIPT
-=============================
+================
+BACKUP & RESTORE
+================
 # CloudPanel creates a dump of each backup database every midnight. To disable autobackup task, just comment out the line
 nano /etc/cron.d/clp
 #15 3 * * * clp /usr/bin/bash -c "/usr/bin/clpctl db:backup --ignoreDatabases='db1,db2' --retentionPeriod=7" &> /dev/null
 #15 4 * * * clp /home/clp/scripts/create_backup.sh &> /dev/null
 
-# Manual backup site
+# Backup site manually
 site_user="______" && site_domain="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/htdocs/ && tar -cvzf ${site_domain}-${date}.tar.gz ${site_domain} && mv ${site_domain}-${date}.tar.gz /home/${site_user}/backups/ && cd /home/${site_user}/backups/ && chown ${site_user}:${site_user} ${site_domain}-${date}.tar.gz && ls -lah
 
-# Manual backup (export) database
+# Backup (export) database manually
 site_user="______" && site_db="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/backups/databases/ && clpctl db:export --databaseName=${site_db} --file=${site_db}-${date}.sql.gz && chown ${site_user}:${site_user} ${site_db}-${date}.sql.gz && ls -lah
 
-# Import database
+# Restore (import) database
 clpctl db:import --databaseName=my-database --file=dump.sql.gz
 
-# Database Show Master Credentials
+# Database show master credentials
 clpctl db:show:master-credentials
+
+==========
+PHPMYADMIN
+==========
 # Access https://yourIpAddress/phpmyadmin/index.php and login with any credential
 # Create user with no global privileges, but check all in database privileges except GRANT
 # [Not Recommended] For allowing to create database, just comment out line $cfg['ShowCreateDb'] = false; at:
@@ -144,7 +148,7 @@ nginx -s reload
 =========
 GPG ERROR
 =========
-# TROUBLESHOOT: "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
+# TROUBLESHOOT "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
 sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
 sudo apt update
 
@@ -185,7 +189,7 @@ fail2ban-client status sshd
 # If you are using Cloudflare proxy, you can set up a couple of rules at /etc/fail2ban/action.d/cloudflare.conf
 
 ===========================
-Install Monit at CloudPanel
+INSTALL MONIT AT CLOUDPANEL
 ===========================
 sudo apt install -y monit && monit --version
 
@@ -223,7 +227,7 @@ sudo monit reload
 sudo monit status && sudo monit summary
 
 ===============================
-Install WordPress at CloudPanel
+INSTALL WORDPRESS AT CLOUDPANEL
 ===============================
 # Click on + Add Site and then click on Create a WordPress Site
 # Enter the Domain Name, Site Title, Admin User Name, Admin Password, and Admin E-Mail and click on Create
@@ -338,7 +342,7 @@ Install WordPress at CloudPanel
 # In "Cron Jobs", add cron job every hourly: /usr/bin/php8.2 /[YOUR_WORDPRESS_PATH]/wp-cron.php >/dev/null 2>&1
 
 ============================
-Install Moodle at CloudPanel
+INSTALL MOODLE AT CLOUDPANEL
 ============================
 # Click on + Add Site and then click on Create a PHP Site
 # Select the Application Moodle 4, enter Domain Name, Site User, Site User Password, and click on Create
@@ -394,9 +398,9 @@ crontab -e
 	@reboot sh /home/bbg-spada/mount-spada-google-drive.sh
 # TROUBLESHOOT: Fix – broken page issue after Moodle 3.x installation on Nginx web server => https://dartinnovations.com/fix-broken-page-issue-after-moodle-3-x-installation-on-nginx-web-server/ 
 
-============================
-Install Slims at CloudPanel
-============================
+===========================
+INSTALL SLIMS AT CLOUDPANEL
+===========================
 # Click on + Add Site and then click on Create a PHP Site
 # Select the Application Slims 4, enter Domain Name, Site User, Site User Password, and click on Create
 # Creating a Slims Project (v9.5.2 support PHP 8)
@@ -450,54 +454,9 @@ pecl install yaz
     <small class="text-grey-dark"><?= __('Powered by ')?> <code>SLiMS</code></small>
   </div>-->
 
-============================
-Create a wildcard TLS/SSL certificate for your domain using acme.sh and Cloudflare DNS API for domain verification
-============================
-# Login Cloudflare
-# Make sure on SSL overview, the minimum is "Full"
-# Go to My Profile > API Tokens > Create Token > Edit Zone DNS > Use template
-# Permissions = Edit; Zone Resources = Select your domain; click "Continue to summary"; click "Create token"
-# Install acme.sh:
-curl https://get.acme.sh | sh -s email=[YOUR_EMAIL_DOMAIN_HERE]
-export CF_Token="[YOUR_CLOUDFLARE_DNS_API_KEY_HERE]"
-bash /root/.acme.sh/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
-# Your Cloudflare DNS API key is stored in /root/.acme.sh/account.conf file and we can see it using the cat
-cat /root/.acme.sh/account.conf
-# Display the content of the CSR
-DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh --showcsr --csr "${CONFIG_ROOT}/$DOMAIN.csr"
-# Set ACME client maintained by Let's Encrypt (not ZeroSSL by default since August-1st 2021)
-bash /root/.acme.sh/acme.sh --server letsencrypt --set-default-ca
-# Issue a cert (CRT file) from existing CSR
-DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh --signcsr --csr "${CONFIG_ROOT}/$DOMAIN.csr" --dns dns_cf
-# Installing Let's Encrypt wildcard certificate
-DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh -d "$DOMAIN" --install-cert --reloadcmd "systemctl reload nginx" --fullchain-file "${CONFIG_ROOT}/fullchain.cer" --key-file "${CONFIG_ROOT}/$DOMAIN.key" --cert-file "${CONFIG_ROOT}/$DOMAIN.cer"
-# It's automatically configure a cron jobs to renew our wildcard based certificate
-crontab -l
-	# automatic certificates renewal every day at 00:35 WIB
-	35 0 * * * "/root/.acme.sh"/acme.sh --cron --home "/root/.acme.sh" > /dev/null
-# we can also do the manual TLS/SSL cert renewal: bash /root/.acme.sh/acme.sh --renew --force --dns dns_cf --ocsp-must-staple --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
-
-============================
-Plus Minus CloudPanel
-============================
-Intinya CloudPanel cocok untuk control panel turunan (bukan control panel induk) karena di CloudPanel tidak ada fitur manajemen DNS
-- edit DNS record -> TIDAK BISA namun bisa menggunakan DNS dari Cloudflare
-- tes kirim email dengan script php murni -> TIDAK BISA karena tidak ada mail server, sebab control panel ini memang fokusnya mengutamakan performa web server dan database server agar lebih ringan dan lincah tanpa dibebani oleh mail server
-- htaccess -> TIDAK BISA, harus convert dulu ke nginx rule melalui situs https://winginx.com/en/htaccess kemudian simpan rule tersebut di bagian Vhost tepat di bawah {{settings}}
-- ganti versi php -> BISA
-- edit php.ini -> BISA
-- tambah domain / subdomain -> BISA, tinggal pilih isinya berupa wordpress / any php site / any node.js site / just static html site / any python site
-- sertifikat ssl -> BISA, tinggal create and install sertifikat letsencrypt di bagian "SSL/TLS"
-- akses phpmyadmin -> BISA
-- tambah module / ekstensi php -> SUDAH LENGKAP, gak ada yang perlu ditambah
-- install wordpress -> BISA dan support multisite
-- install moodle -> BISA
-- install slims -> BISA
-- install ojs -> tidak bisa karena ojs lebih ke apache/litespeed
-
-============================
-Tambahan: Install IDE Atheos https://github.com/Atheos/Atheos
-============================
+===================================================
+INSTALL IDE ATHEOS https://github.com/Atheos/Atheos
+===================================================
 # open ide directory: cd [APP_PATH]/ide
 # or create ide directory: cd [APP_PATH] && mkdir ide && cd ide
 # BACKUP OLD: date=$(date +%Y-%m-%d_%H-%M) && mv atheos atheos_old_${date}
@@ -580,18 +539,63 @@ chown -R clp:clp atheos && chmod -R 775 atheos
     ## Right Sidebar Trigger: Hover
     ## ProjectDock Trigger: Single Click
 
-============================
-Tambahan: Display current CPU usage as a percentage
-============================
+====================================
+DISPLAY CURRENT CPU USAGE PERCENTAGE
+====================================
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/cpustat.sh > /etc/cpustat.sh
 chmod +x /etc/cpustat.sh && chmod 0755 /etc/cpustat.sh
 cp /etc/cpustat.sh /usr/bin/.
 cpustat.sh
 
-============================
-Tambahan: Display current processes of the most RAM consuming
-============================
+=======================================
+DISPLAY CURRENT RAM CONSUMING PROCESSES
+=======================================
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/ramstat.sh > /etc/ramstat.sh
 chmod +x /etc/ramstat.sh && chmod 0755 /etc/ramstat.sh
 cp /etc/ramstat.sh /usr/bin/.
 ramstat.sh
+
+===================================================
+WILDCARD TLS/SSL USING ACME.SH & CLOUDFLARE DNS API
+===================================================
+# Login Cloudflare
+# Make sure on SSL overview, the minimum is "Full"
+# Go to My Profile > API Tokens > Create Token > Edit Zone DNS > Use template
+# Permissions = Edit; Zone Resources = Select your domain; click "Continue to summary"; click "Create token"
+# Install acme.sh:
+curl https://get.acme.sh | sh -s email=[YOUR_EMAIL_DOMAIN_HERE]
+export CF_Token="[YOUR_CLOUDFLARE_DNS_API_KEY_HERE]"
+bash /root/.acme.sh/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
+# Your Cloudflare DNS API key is stored in /root/.acme.sh/account.conf file and we can see it using the cat
+cat /root/.acme.sh/account.conf
+# Display the content of the CSR
+DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh --showcsr --csr "${CONFIG_ROOT}/$DOMAIN.csr"
+# Set ACME client maintained by Let's Encrypt (not ZeroSSL by default since August-1st 2021)
+bash /root/.acme.sh/acme.sh --server letsencrypt --set-default-ca
+# Issue a cert (CRT file) from existing CSR
+DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh --signcsr --csr "${CONFIG_ROOT}/$DOMAIN.csr" --dns dns_cf
+# Installing Let's Encrypt wildcard certificate
+DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh -d "$DOMAIN" --install-cert --reloadcmd "systemctl reload nginx" --fullchain-file "${CONFIG_ROOT}/fullchain.cer" --key-file "${CONFIG_ROOT}/$DOMAIN.key" --cert-file "${CONFIG_ROOT}/$DOMAIN.cer"
+# It's automatically configure a cron jobs to renew our wildcard based certificate
+crontab -l
+	# automatic certificates renewal every day at 00:35 WIB
+	35 0 * * * "/root/.acme.sh"/acme.sh --cron --home "/root/.acme.sh" > /dev/null
+# we can also do the manual TLS/SSL cert renewal: bash /root/.acme.sh/acme.sh --renew --force --dns dns_cf --ocsp-must-staple --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
+
+============================
+Plus Minus CloudPanel
+============================
+Intinya CloudPanel cocok untuk control panel turunan (bukan control panel induk) karena di CloudPanel tidak ada fitur manajemen DNS
+- edit DNS record -> TIDAK BISA namun bisa menggunakan DNS dari Cloudflare
+- tes kirim email dengan script php murni -> TIDAK BISA karena tidak ada mail server, sebab control panel ini memang fokusnya mengutamakan performa web server dan database server agar lebih ringan dan lincah tanpa dibebani oleh mail server
+- htaccess -> TIDAK BISA, harus convert dulu ke nginx rule melalui situs https://winginx.com/en/htaccess kemudian simpan rule tersebut di bagian Vhost tepat di bawah {{settings}}
+- ganti versi php -> BISA
+- edit php.ini -> BISA
+- tambah domain / subdomain -> BISA, tinggal pilih isinya berupa wordpress / any php site / any node.js site / just static html site / any python site
+- sertifikat ssl -> BISA, tinggal create and install sertifikat letsencrypt di bagian "SSL/TLS"
+- akses phpmyadmin -> BISA
+- tambah module / ekstensi php -> SUDAH LENGKAP, gak ada yang perlu ditambah
+- install wordpress -> BISA dan support multisite
+- install moodle -> BISA
+- install slims -> BISA
+- install ojs -> tidak bisa karena ojs lebih ke apache/litespeed
