@@ -107,7 +107,7 @@ PHPMYADMIN
 	mysql -u [DB_USER] -p [DB_NAME] < file.sql
 
 ===========================
-ANOTHER PROJECT in /var/www
+ANOTHER PROJECT IN /var/www
 ===========================
 # Yes, you can handle it but make sure the owner is clp:clp (not www-data:www-data)
 
@@ -153,7 +153,7 @@ sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
 sudo apt update
 
 ===============
-Edit SSH Config
+EDIT SSH CONFIG
 ===============
 nano /etc/ssh/sshd_config
 # set:
@@ -171,6 +171,7 @@ Configure Fail2ban to Protect SSH with No Proxied Cloudflare DNS
 # To see the status of Fail2ban run:
 systemctl status fail2ban
 # Make a new Fail2ban config file named jail.local, the jail.local one will override the main Fail2ban config called jail.conf
+# `port` line must match with ssh config
 nano /etc/fail2ban/jail.local
 	[DEFAULT]
 	bantime = 10m
