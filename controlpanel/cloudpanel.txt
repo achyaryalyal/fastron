@@ -74,6 +74,28 @@ nano /etc/cron.d/clp
 #15 3 * * * clp /usr/bin/bash -c "/usr/bin/clpctl db:backup --ignoreDatabases='db1,db2' --retentionPeriod=7" &> /dev/null
 #15 4 * * * clp /home/clp/scripts/create_backup.sh &> /dev/null
 
+# Manual backup site
+site_user="______" && site_domain="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/htdocs/ && tar -cvzf ${site_domain}-${date}.tar.gz ${site_domain} && mv ${site_domain}-${date}.tar.gz /home/${site_user}/backups/ && cd /home/${site_user}/backups/ && chown ${site_user}:${site_user} ${site_domain}-${date}.tar.gz && ls -lah
+
+# Manual backup (export) database
+site_user="______" && site_db="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/backups/databases/ && clpctl db:export --databaseName=${site_db} --file=${site_db}-${date}.sql.gz && chown ${site_user}:${site_user} ${site_db}-${date}.sql.gz && ls -lah
+
+# Import database
+clpctl db:import --databaseName=my-database --file=dump.sql.gz
+
+# Database Show Master Credentials
+clpctl db:show:master-credentials
+# Access https://yourIpAddress/phpmyadmin/index.php and login with any credential
+# Create user with no global privileges, but check all in database privileges except GRANT
+# [Not Recommended] For allowing to create database, just comment out line $cfg['ShowCreateDb'] = false; at:
+	nano /home/clp/htdocs/app/files/public/phpmyadmin/config.inc.php
+# Manual import database:
+	gunzip < file.sql.gz | mysql -u [DB_USER] -p [DB_NAME]
+	mysql -u [DB_USER] -p [DB_NAME] < file.sql
+
+# Another project in /var/www
+# yes you can handle it but make sure the owner is clp:clp not www-data:www-data
+
 # Keep nginx logs of last 30 days for project in /var/www
 nano /etc/logrotate.d/nginx
 /var/www/logs/nginx/*.log {
@@ -90,28 +112,6 @@ nano /etc/logrotate.d/nginx
 }
 logrotate /etc/logrotate.d/nginx
 
-# Manual backup site
-site_user="______" && site_domain="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/htdocs/ && tar -cvzf ${site_domain}-${date}.tar.gz ${site_domain} && mv ${site_domain}-${date}.tar.gz /home/${site_user}/backups/ && cd /home/${site_user}/backups/ && chown ${site_user}:${site_user} ${site_domain}-${date}.tar.gz && ls -lah
-
-# Manual backup database
-site_user="______" && site_db="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/backups/databases/ && clpctl db:export --databaseName=${site_db} --file=${site_db}-${date}.sql.gz && chown ${site_user}:${site_user} ${site_db}-${date}.sql.gz && ls -lah
-
-# import database
-clpctl db:import --databaseName=my-database --file=dump.sql.gz
-
-# Database Show Master Credentials
-clpctl db:show:master-credentials
-# Access https://yourIpAddress/phpmyadmin/index.php and login with any credential
-# Create user with no global privileges, but check all in database privileges except GRANT
-# [Not Recommended] For allowing to create database, just comment out line $cfg['ShowCreateDb'] = false; at:
-	nano /home/clp/htdocs/app/files/public/phpmyadmin/config.inc.php
-# Manual import database:
-	gunzip < file.sql.gz | mysql -u [DB_USER] -p [DB_NAME]
-	mysql -u [DB_USER] -p [DB_NAME] < file.sql
-
-# Another project in /var/www
-# yes you can handle it but make sure the owner is clp:clp not www-data:www-data
-
 # TROUBLESHOOT: "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
 sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
 sudo apt update
@@ -127,6 +127,29 @@ nano /etc/ssh/sshd_config
 service ssh restart
 # access CloudPanel menu Adnmin Area > Security
 # change SSH port from 22 to 10022 in ipv4 and ipv6, type "SSH" at description
+
+==================
+Configure Fail2ban to Protect SSH No Proxied Cloudflare
+==================
+# CloudPanel on a fresh install has fail2ban but it’s inactive
+# To see the status of Fail2ban run:
+systemctl status fail2ban
+# Make a new Fail2ban config file named jail.local, the jail.local one will override the main Fail2ban config called jail.conf
+nano /etc/fail2ban/jail.local
+	[DEFAULT]
+	bantime = 10m
+	findtime = 10m
+	maxretry = 5
+	[sshd]
+	enabled = true
+	logpath = %(sshd_log)s
+	port = 10022
+	banaction = iptables
+	maxretry = 3
+# After you make changes, restart Fail2ban:
+systemctl restart fail2ban
+# Now your server is analyzing logs and banning IP addresses. Check the status of the jail by running:
+fail2ban-client status sshd
 
 ===============================
 Install Monit at CloudPanel
