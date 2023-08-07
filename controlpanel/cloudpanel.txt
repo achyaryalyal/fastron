@@ -4,22 +4,10 @@ INSTALL CLOUDPANEL
 # You need an empty server with Ubuntu 22.04 or Debian 11 with root access
 # Before running the installer, we need to update the system and install the required packages
 apt update && apt -y upgrade && apt -y install curl wget sudo && apt -y autoremove && reboot
-
-# Extend swap file
-# check swap status
-swapon --show
-# disable and remove existing
-dphys-swapfile swapoff && dphys-swapfile uninstall
-# edit CONF_SWAPSIZE and CONF_MAXSWAP to desired size in MB, ex: 4096 for 4GB
-nano /etc/dphys-swapfile
-# create and enable it
-dphys-swapfile setup && dphys-swapfile swapon && swapon --show
-
 # Run the installer with your preferred Database Engine
 curl -sS https://installer.cloudpanel.io/ce/v2/install.sh -o install.sh; \
 echo "d67e37c0fb0f3dd7f642f2c21e621e1532cadefb428bb0e3af56467d9690b713  install.sh" | \
 sha256sum -c && sudo DB_ENGINE=MARIADB_10.9 bash install.sh
-
 # To hide CloudPanel <footer> tag, try edit script below:
 nano /home/clp/htdocs/app/files/public/assets/css/style.css
 	search for .footer and add => display: none;
@@ -28,23 +16,44 @@ nano /home/clp/htdocs/app/files/templates/Partial/footer.html.twig
 		<footer class="footer fixed-bottom">
 	replace to:
 		<footer class="footer fixed-bottom" style="display:none;">
-
 # You can now access CloudPanel via Browser: https://yourIpAddress:8443
 # Ignore the self-signed certificate warning and click on Advanced and Proceed to continue to CloudPanel
 
-# Change default timezone
+============
+SET TIMEZONE
+============
 # Go to Admin Area > Instance > Setting > Timezone > Asia/Jakarta > Save
 # It's recommended to reboot the instance after changing the timezone
 
+=================
+REBOOT CLOUDPANEL
+=================
 # Reboot server from CloudPanel
 # Go to Admin Area > Instance > Reboot (at top right)
 
+=============================
+CLOUDPANEL WITH CUSTOM DOMAIN
+=============================
 # Set CloudPanel custom domain
 # Go to Admin Area > Settings > General > Domain Name > Save
 # make sure DNS record has pointed to this server
 
-# To update CloudPanel to the latest version, run the update script:
+=================
+UPDATE CLOUDPANEL
+=================
 clp-update
+
+=====================
+EXTEND SWAP FILE SIZE
+=====================
+# check swap status
+swapon --show
+# disable and remove existing
+dphys-swapfile swapoff && dphys-swapfile uninstall
+# edit CONF_SWAPSIZE and CONF_MAXSWAP to desired size in MB, ex: 4096 for 4GB
+nano /etc/dphys-swapfile
+# create and enable it
+dphys-swapfile setup && dphys-swapfile swapon && swapon --show
 
 =======
 IMAGICK
@@ -164,9 +173,9 @@ service ssh restart
 # access CloudPanel menu Adnmin Area > Security
 # change SSH port from 22 to 10022 in ipv4 and ipv6, type "SSH" at description
 
-========
-FAIL2BAN
-========
+=========================
+ACTIVATE FAIL2BAN FOR SSH
+=========================
 # CloudPanel on a fresh install has fail2ban but it’s inactive
 # To see the status of Fail2ban run:
 systemctl status fail2ban
