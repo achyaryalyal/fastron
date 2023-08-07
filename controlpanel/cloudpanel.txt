@@ -129,7 +129,7 @@ service ssh restart
 # change SSH port from 22 to 10022 in ipv4 and ipv6, type "SSH" at description
 
 ==================
-Configure Fail2ban to Protect SSH No Proxied Cloudflare
+Configure Fail2ban to Protect SSH with No Proxied Cloudflare DNS
 ==================
 # CloudPanel on a fresh install has fail2ban but it’s inactive
 # To see the status of Fail2ban run:
@@ -150,6 +150,7 @@ nano /etc/fail2ban/jail.local
 systemctl restart fail2ban
 # Now your server is analyzing logs and banning IP addresses. Check the status of the jail by running:
 fail2ban-client status sshd
+# If you are using Cloudflare proxy, you can set up a couple of rules at /etc/fail2ban/action.d/cloudflare.conf
 
 ===============================
 Install Monit at CloudPanel
