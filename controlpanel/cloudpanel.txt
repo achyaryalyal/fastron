@@ -112,6 +112,7 @@ NGINX LOGGING
 =============
 # Keep nginx logs of last 30 days for project in /var/www
 nano /etc/logrotate.d/nginx
+# Add this line
 /var/www/logs/nginx/*.log {
     su root root
     daily
@@ -119,7 +120,7 @@ nano /etc/logrotate.d/nginx
     rotate 7 
     dateext
     dateformat -%Y-%m-%d
-    create 0640 clp clp
+    create 0660 clp clp
     postrotate
       /etc/init.d/nginx reload &> /dev/null || true
     endscript
