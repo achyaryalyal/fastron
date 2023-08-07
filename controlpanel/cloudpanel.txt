@@ -164,9 +164,9 @@ service ssh restart
 # access CloudPanel menu Adnmin Area > Security
 # change SSH port from 22 to 10022 in ipv4 and ipv6, type "SSH" at description
 
-================================================================
-Configure Fail2ban to Protect SSH with No Proxied Cloudflare DNS
-================================================================
+========
+FAIL2BAN
+========
 # CloudPanel on a fresh install has fail2ban but it’s inactive
 # To see the status of Fail2ban run:
 systemctl status fail2ban
@@ -193,36 +193,27 @@ fail2ban-client status sshd
 INSTALL MONIT AT CLOUDPANEL
 ===========================
 sudo apt install -y monit && monit --version
-
 nano /etc/monit/monitrc
-
 # uncomment httpd like following lines
-set httpd port 2812 and
-  use address localhost
-  allow localhost
-  allow admin:monit
-
+	set httpd port 2812 and
+	  use address localhost
+  	  allow localhost
+  	  allow admin:monit
 sudo monit -t
 sudo monit reload
-
 sudo systemctl enable monit
 sudo /lib/systemd/systemd-sysv-install enable monit
-
 sudo systemctl restart monit && sudo monit status && sudo monit summary
-
 # for nginx (not apache):
 sudo ln -s /etc/monit/conf-available/nginx /etc/monit/conf-enabled/
-
 # for apache (not nginx):
 sudo ln -s /etc/monit/conf-available/apache2 /etc/monit/conf-enabled/
-
 # for mysql (not mariadb):
 sudo ln -s /etc/monit/conf-available/mysql /etc/monit/conf-enabled/
-
 # for mariadb (not mysql):
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/monit/mariadb > /etc/monit/conf-available/mariadb
 sudo ln -s /etc/monit/conf-available/mariadb /etc/monit/conf-enabled/
-
+# test config, reload, check status & summary
 sudo monit -t
 sudo monit reload
 sudo monit status && sudo monit summary
