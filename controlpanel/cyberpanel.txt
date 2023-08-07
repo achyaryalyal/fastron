@@ -54,6 +54,12 @@ TCP: 25, TCP: 587, TCP: 465, TCP: 110, TCP: 143 and TCP: 993 for mail service
 TCP: 53 and UDP: 53 for DNS service
 ###################################################################
 
+crontab -e
+# 1 => nano
+# below 7 0 * * * "/root/.acme.sh"/acme.sh ....... just paste this
+# additional cronjob script in case the renewal script above fails to execute
+35 0 * * * /bin/bash /root/.acme.sh/acme.sh --cron --home "/root/.acme.sh" >/dev/null
+
 # please run this command to prevent postfix error permission
 ln -s /usr/sbin/sendmail /usr/sbin/sendmail.postfix
 
