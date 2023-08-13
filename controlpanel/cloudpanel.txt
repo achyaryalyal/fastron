@@ -186,6 +186,7 @@ nano /etc/fail2ban/jail.local
 	bantime = 10m
 	findtime = 10m
 	maxretry = 5
+	backend = systemd
 	[sshd]
 	enabled = true
 	logpath = %(sshd_log)s
