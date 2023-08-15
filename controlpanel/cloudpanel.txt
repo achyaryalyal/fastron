@@ -109,8 +109,11 @@ PHPMYADMIN
 ==========
 # Access https://yourIpAddress/phpmyadmin/index.php and login with any credential
 # Create user with no global privileges, but check all in database privileges except GRANT
-# [Not Recommended] For allowing to create database, just comment out line $cfg['ShowCreateDb'] = false; at:
-	nano /home/clp/htdocs/app/files/public/phpmyadmin/config.inc.php
+nano /home/clp/htdocs/app/files/public/phpmyadmin/config.inc.php
+# comment out this line to allow create database manually
+	//$cfg['ShowCreateDb'] = false;
+# put this line to change maximum viewable tables from default 250
+	$cfg['MaxTableList'] = 500;
 # Manual import database:
 	gunzip < file.sql.gz | mysql -u [DB_USER] -p [DB_NAME]
 	mysql -u [DB_USER] -p [DB_NAME] < file.sql
