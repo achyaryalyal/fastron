@@ -168,6 +168,32 @@ GRANT ALL PRIVILEGES ON *.* TO 'eprints'@'localhost' WITH GRANT OPTION;
 # kemudian panggil nama themesnya
 
 ############################################
+# ACTIVATE FAIL2BAN FOR SSH
+############################################
+sudo apt install fail2ban
+# To see the status of Fail2ban run:
+systemctl status fail2ban
+# Make a new Fail2ban config file named jail.local, the jail.local one will override the main Fail2ban config called jail.conf
+# `port` line must match with ssh config
+nano /etc/fail2ban/jail.local
+	[DEFAULT]
+	bantime = 10m
+	findtime = 10m
+	maxretry = 5
+	backend = systemd
+	[sshd]
+	enabled = true
+	logpath = %(sshd_log)s
+	port = 10022
+	banaction = iptables
+	maxretry = 3
+# After you make changes, restart Fail2ban:
+systemctl restart fail2ban
+# Now your server is analyzing logs and banning IP addresses. Check the status of the jail by running:
+fail2ban-client status sshd
+# If you are using Cloudflare proxy, you can set up a couple of rules at /etc/fail2ban/action.d/cloudflare.conf
+
+############################################
 # [OPTIONAL]
 # Install phpmyadmin with php 7.4
 ############################################
