@@ -95,7 +95,10 @@ apachectl -t
 systemctl reload apache2
 
 crontab -e
+	# auto apt update and upgrade
 	30 0 * * * php -r 'sleep(rand(0,1799));' && apt update -y >/dev/null 2>&1 && apt upgrade -y >/dev/null 2>&1
+	# reboot server every day at 04:00 AM
+	00  4  *  *  * /sbin/shutdown -r now
 
 # go to your subdomain with http://[YOUR_SUBDOMAIN]
 
