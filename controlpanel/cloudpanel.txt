@@ -131,7 +131,9 @@ ANOTHER PROJECT SUBDOMAIN TLS/SSL USING ACME.SH
 curl https://get.acme.sh | sh -s email=[YOUR_EMAIL_DOMAIN_HERE]
 export CF_Token="[YOUR_CLOUDFLARE_DNS_API_KEY_HERE]"
 bash /root/.acme.sh/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
-# Use Nginx Mode
+# Set ACME client maintained by Let's Encrypt (not ZeroSSL by default since August-1st 2021)
+bash /root/.acme.sh/acme.sh --server letsencrypt --set-default-ca
+### Issue certificate use nginx mode ###
 acme.sh --issue --nginx -d example.com -d www.example.com -d cp.example.com
 # Use example.key for ssl_certificate_key
 # Use fullchain.cer for ssl_certificate
