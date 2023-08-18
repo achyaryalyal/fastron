@@ -123,6 +123,19 @@ ANOTHER PROJECT IN /var/www
 ===========================
 # Yes, you can handle it but make sure the owner is clp:clp (not www-data:www-data)
 
+===============================================
+ANOTHER PROJECT SUBDOMAIN TLS/SSL USING ACME.SH
+===============================================
+# Verify it's installed: acme.sh --version
+# Install acme.sh:
+curl https://get.acme.sh | sh -s email=[YOUR_EMAIL_DOMAIN_HERE]
+export CF_Token="[YOUR_CLOUDFLARE_DNS_API_KEY_HERE]"
+bash /root/.acme.sh/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
+# Use Nginx Mode
+acme.sh --issue --nginx -d example.com -d www.example.com -d cp.example.com
+# Use example.key for ssl_certificate_key
+# Use fullchain.cer for ssl_certificate
+
 =============
 NGINX LOGGING
 =============
@@ -567,6 +580,7 @@ WILDCARD TLS/SSL USING ACME.SH & CLOUDFLARE DNS API
 # Make sure on SSL overview, the minimum is "Full"
 # Go to My Profile > API Tokens > Create Token > Edit Zone DNS > Use template
 # Permissions = Edit; Zone Resources = Select your domain; click "Continue to summary"; click "Create token"
+# Verify it's installed: acme.sh --version
 # Install acme.sh:
 curl https://get.acme.sh | sh -s email=[YOUR_EMAIL_DOMAIN_HERE]
 export CF_Token="[YOUR_CLOUDFLARE_DNS_API_KEY_HERE]"
