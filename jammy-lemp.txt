@@ -1113,6 +1113,7 @@ unzip [file_name].zip
 ###################################
 ########## Make Tar File ##########
 ###################################
+# note: to turn off the output from tar commands, just remove -v parameter (verbose mode)
 # compress:
 tar -cvzf [final_file_name].tar.gz [any_file/dir_1] [any_file/dir_2] [any_file/dir_3]
 # compress with exclude:
