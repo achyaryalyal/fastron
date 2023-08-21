@@ -283,7 +283,7 @@ systemctl reload apache2
 
 ############################################
 # [OPTIONAL]
-# Migrate ojs
+# Migrate OJS
 ############################################
 # import db to phpmyadmin
 # put OJS web path dan OJS filedir path to /var/www/
@@ -338,3 +338,76 @@ CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 systemctl reload apache2
 # go to https://[YOUR_OJS]
+
+############################################
+# [OPTIONAL]
+# Apache Logging
+############################################
+# Keep apache logs of last 30 days for project in /var/www
+nano /etc/logrotate.d/apache2
+# Add this line, make sure "7" in rotate:
+/var/www/ejournal.bbg.ac.id/*.log {
+    su root root
+    daily
+    missingok
+    rotate 7
+    compress
+    delaycompress
+    notifempty
+    create 660 www-data www-data
+    sharedscripts
+    prerotate
+        if [ -d /etc/logrotate.d/httpd-prerotate ]; then
+            run-parts /etc/logrotate.d/httpd-prerotate
+        fi
+    endscript
+    postrotate
+        if pgrep -f ^/usr/sbin/apache2 > /dev/null; then
+            invoke-rc.d apache2 reload 2>&1 | logger -t apache2.logrotate
+        fi
+    endscript
+}
+/var/www/eproceeding.bbg.ac.id/*.log {
+    su root root
+    daily
+    missingok
+    rotate 7
+    compress
+    delaycompress
+    notifempty
+    create 660 www-data www-data
+    sharedscripts
+    prerotate
+        if [ -d /etc/logrotate.d/httpd-prerotate ]; then
+            run-parts /etc/logrotate.d/httpd-prerotate
+        fi
+    endscript
+    postrotate
+        if pgrep -f ^/usr/sbin/apache2 > /dev/null; then
+            invoke-rc.d apache2 reload 2>&1 | logger -t apache2.logrotate
+        fi
+    endscript
+}
+/var/www/jim.bbg.ac.id/*.log {
+    su root root
+    daily
+    missingok
+    rotate 7
+    compress
+    delaycompress
+    notifempty
+    create 660 www-data www-data
+    sharedscripts
+    prerotate
+        if [ -d /etc/logrotate.d/httpd-prerotate ]; then
+            run-parts /etc/logrotate.d/httpd-prerotate
+        fi
+    endscript
+    postrotate
+        if pgrep -f ^/usr/sbin/apache2 > /dev/null; then
+            invoke-rc.d apache2 reload 2>&1 | logger -t apache2.logrotate
+        fi
+    endscript
+}
+# Execute it
+logrotate /etc/logrotate.d/apache2
