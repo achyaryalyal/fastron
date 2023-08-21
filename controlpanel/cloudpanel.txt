@@ -156,6 +156,7 @@ nano /etc/logrotate.d/nginx
       /etc/init.d/nginx reload &> /dev/null || true
     endscript
 }
+# Execute it
 logrotate /etc/logrotate.d/nginx
 
 # Disable logging for requests with HTTP status codes 2xx (Success) and 3xx (Redirection)
