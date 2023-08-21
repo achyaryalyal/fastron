@@ -143,7 +143,7 @@ NGINX LOGGING
 =============
 # Keep nginx logs of last 30 days for project in /var/www
 nano /etc/logrotate.d/nginx
-# Add this line
+# Add this line, make sure "7" in rotate:
 /var/www/logs/nginx/*.log {
     su root root
     daily
