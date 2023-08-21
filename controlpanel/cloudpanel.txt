@@ -178,6 +178,15 @@ nano /etc/nginx/nginx.conf
 nginx -t
 nginx -s reload
 
+======
+RCLONE
+======
+# create a symbolic link rclone.conf to clp user
+# to prevent log NOTICE: Config file "/home/clp/.config/rclone/rclone.conf" not found
+# make sure rclone.conf file has been created at /root/.config/rclone/
+# run this command:
+ln -s /root/.config/rclone/rclone.conf /home/clp/.config/rclone/
+
 =========
 GPG ERROR
 =========
