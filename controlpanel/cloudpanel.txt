@@ -43,6 +43,25 @@ UPDATE CLOUDPANEL
 =================
 clp-update
 
+=========
+GPG ERROR
+=========
+# TROUBLESHOOT "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
+sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
+sudo apt update
+
+============================
+NGINX WARNING ON TEST CONFIG
+============================
+nginx -t
+# nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate
+nano /etc/nginx/nginx.conf
+# set off OCSP Stapling
+	ssl_stapling off;
+	ssl_stapling_verify off;
+nginx -t
+nginx -s reload
+
 =====================
 EXTEND SWAP FILE SIZE
 =====================
@@ -185,13 +204,6 @@ RCLONE
 # make sure rclone.conf file has been created at /root/.config/rclone/
 # run this command:
 ln -s /root/.config/rclone/rclone.conf /home/clp/.config/rclone/
-
-=========
-GPG ERROR
-=========
-# TROUBLESHOOT "W: GPG error: https://dl.yarnpkg.com/debian stable InRelease: The following signatures were invalid"
-sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
-sudo apt update
 
 ===============
 EDIT SSH CONFIG
