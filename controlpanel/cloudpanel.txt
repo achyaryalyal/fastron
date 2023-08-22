@@ -127,6 +127,7 @@ nano /home/clp/htdocs/app/files/public/phpmyadmin/config.inc.php
 ANOTHER PROJECT IN /var/www
 ===========================
 # Yes, you can handle it but make sure the owner is clp:clp (not www-data:www-data)
+# Make sure server block for that domain/subdomain in /etc/nginx/sites-enabled ends with "____.conf"
 
 ===============================================
 ANOTHER PROJECT SUBDOMAIN TLS/SSL USING ACME.SH
