@@ -66,10 +66,10 @@ nano /etc/ImageMagick-6/policy.xml
 	<policy domain="coder" rights="read|write" pattern="PDF" />
 # then restart web nginx and php
 
-======
-LIBPNG
-======
-sudo apt install libpng-dev
+==============
+LIBPNG + LIBGD
+==============
+sudo apt install libpng-dev libgd-dev
 
 =======
 MARIADB
