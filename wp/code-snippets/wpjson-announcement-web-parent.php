@@ -2,10 +2,6 @@
 // WPJSON Announcement Web Parent (Multi Handle Asynchronously)
 ////////////////////////////////////////////
 
-////////////////////////////////////////////
-// WPJSON Announcement Web Parent (Multi Handle Asynchronously)
-////////////////////////////////////////////
-
 function wpjan() {
 	$limit = 5; // SET UP HERE
 	$domain_parent = 'bbg.ac.id'; // SET UP HERE
