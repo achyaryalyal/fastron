@@ -81,6 +81,7 @@ function wpjan() {
 		if(isset($arr[$i]->title->rendered) && $x<=$limit) {
 			$j = $i + 1;
 			$title = strtoupper($arr[$i]->title->rendered);
+			$title = preg_replace('/\s+/', ' ', $title); // remove multiple whitespaces
 			$link = $arr[$i]->link;
 			$subdomain = parse_url($link); $subdomain = $subdomain['host'];
 			$date = $arr[$i]->date;
