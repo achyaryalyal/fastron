@@ -13,6 +13,7 @@ function wpjc() {
 	for($i=0; $i<$items; $i++) {
 		$j = $i + 1;
 		$title = $arr[$i]->title->rendered;
+		$title = str_replace(array('&nbsp; ', ' &nbsp;'), ' ', $title);
 		$title = preg_replace('/\s+/', ' ', $title); // remove multiple whitespaces
 		$link = $arr[$i]->link;
 		$date = $arr[$i]->date;
