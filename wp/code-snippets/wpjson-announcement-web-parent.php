@@ -82,12 +82,12 @@ function wpjan() {
 			}
 			$date_converted = date("j F Y", $date_strtotime);
 			$date_converted = wpjan_konversi_tanggal("j F Y", $date_converted, $bahasa="id");
-			$result .= '<li class="list_pengumuman"><h3 class="font-osc"><a href="'.$link.'" target="_blank">'.$print_title.'</a></h3><p><span><i class="fa fa-calendar-alt"></i> '.$date_converted.' <i class="fa fa-id-card-alt p-l-6"></i> '.$subdomain.'</span></p></li>';
+			$result .= '<li class="wpjan-list"><h3 class="font-osc"><a href="'.$link.'" target="_blank">'.$print_title.'</a></h3><p><i class="fa fa-calendar-alt"></i> '.$date_converted.' <i class="fa fa-id-card-alt p-l-6"></i> '.$subdomain.'</p></li>';
 		}
 	}
 	$result .= '</ul>
 	<style>
-	.list_pengumuman {
+	.wpjan-list {
 		background: linear-gradient(140deg, #fafdfd 0%, #98f4fe 51%, #79d5f8 75%);
 		background: #fafdfd;
 		background: -moz-linear-gradient(-50deg, #fafdfd 0%, #98f4fe 51%, #79d5f8 75%);
@@ -98,10 +98,9 @@ function wpjan() {
 		background: linear-gradient(135deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
 		text-align:left;border-bottom:1px solid #eaeaea;padding:3px 0 10px 5px;line-height:18px;overflow:hidden;
 	}
-	.list_pengumuman h3 {color:#337ab7;font-size:14px;font-weight:600;line-height:18px;margin:0;padding:4px 0;}
-	.list_pengumuman p {font-family:Arimo,sans-serif;font-size:10px;margin:1px;padding:0;}
-	.list_pengumuman p span {color:#444;font-size:11px;}
-	.list_pengumuman p span i.p-l-6 {padding-left:6px;}
+	.wpjan-list h3 {color:#337ab7;font-size:14px;font-weight:600;line-height:18px;margin:0;padding:4px 0;}
+	.wpjan-list p {font-family:Arimo,sans-serif;font-size:10px;margin:1px;padding:0;color:#444;font-size:11px;}
+	.wpjan-list p i.p-l-6 {padding-left:6px;}
 	</style>';
 	return $result;
 } 
