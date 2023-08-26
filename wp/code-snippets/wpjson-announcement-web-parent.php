@@ -5,41 +5,27 @@
 function wpjan() {
 	$limit = 5; // SET UP HERE
 	$domain_parent = 'bbg.ac.id'; // SET UP HERE
-	$link_image_title = 'https://bbg.ac.id/wp-content/uploads/2023/08/BBG-ANNOUNCEMENTS-100.png';
-	$image_width = 158;
-	$image_height = 20;
+	$subdomain_file_lembaga = 'file.'.$domain_parent; // SET UP HERE
+	$link_image_title = 'https://bbg.ac.id/wp-content/uploads/2023/08/BBG-ANNOUNCEMENTS-100.png'; // SET UP HERE
+	$image_width = 158; // SET UP HERE
+	$image_height = 20; // SET UP HERE
 	
-	$items = 3; // set UP HERE
+	$items = 3; // SET UP HERE
 	$id_category_announcement_parent = 70;
 	$id_category_announcement_child = 1;
 	$url_1 = 'https://'.$domain_parent.'/wp-json/wp/v2/posts?categories='.$id_category_announcement_parent.'&per_page='.$items;
-	//$json_1 = file_get_contents($url_1);
-	//$arr_1 = json_decode($json_1, FALSE);
 	
 	$subdomain_child = 'baa'; // SET UP HERE
 	$url_2 = 'https://'.$subdomain_child.'.'.$domain_parent.'/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
-	//$json_2 = file_get_contents($url_2);
-	//$arr_2 = json_decode($json_2, FALSE);
 	
 	$subdomain_child = 'buk'; // SET UP HERE
 	$url_3 = 'https://'.$subdomain_child.'.'.$domain_parent.'/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
-	//$json_3 = file_get_contents($url_3);
-	//$arr_3 = json_decode($json_3, FALSE);
 	
 	$subdomain_child = 'btik'; // SET UP HERE
 	$url_4 = 'https://'.$subdomain_child.'.'.$domain_parent.'/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
-	//$json_4 = file_get_contents($url_4);
-	//$arr_4 = json_decode($json_4, FALSE);
 	
 	$subdomain_child = 'birmas'; // SET UP HERE
 	$url_5 = 'https://'.$subdomain_child.'.'.$domain_parent.'/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
-	//$json_5 = file_get_contents($url_5);
-	//$arr_5 = json_decode($json_5, FALSE);
-	
-	//$total_items = $items * 5;
-	//$arr = array_merge($arr_1, $arr_2, $arr_3, $arr_4, $arr_5);
-	//$arr_sort_date = array_column($arr, 'date');
-	//array_multisort($arr_sort_date, SORT_DESC, $arr);
 	
 	$urls = [$url_1, $url_2, $url_3, $url_4, $url_5];
 	$mh = curl_multi_init();
@@ -76,6 +62,7 @@ function wpjan() {
 	/* $result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Roboto Condensed\',\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman</h2> */
 	$result = '<h2 style="margin:0px;padding-bottom:20px;text-align:center;"><img decoding="async" loading="lazy" width="'.$image_width.'" height="'.$image_height.'" src="'.$link_image_title.'" alt="Pengumuman" title="Pengumuman" class="wp-image-12694"></h2>
 		<ul style="border-radius:4px;border:2px solid #eee;padding:0;">';
+	$date_today = date('Y-m-d');
 	for($i=0; $i<$total_items; $i++) {
 		$x = $i + 1;
 		if(isset($arr[$i]->title->rendered) && $x<=$limit) {
@@ -86,9 +73,16 @@ function wpjan() {
 			$link = $arr[$i]->link;
 			$subdomain = parse_url($link); $subdomain = $subdomain['host'];
 			$date = $arr[$i]->date;
-			$date_converted = date("j F Y", strtotime($date));
+			$date_strtotime = strtotime($date);
+			if($date_strtotime >= $date_today) {
+				$print_title = $title.' <img src="https://'.$subdomain_file_lembaga.'/assets/img/icon/new.gif" alt="new">';
+			}
+			else {
+				$print_title = $title;
+			}
+			$date_converted = date("j F Y", $date_strtotime);
 			$date_converted = wpjan_konversi_tanggal("j F Y", $date_converted, $bahasa="id");
-			$result .= '<li class="list_pengumuman"><h3 class="font-osc"><a href="'.$link.'" target="_blank">'.$title.'</a></h3><p><span><i class="fa fa-calendar-alt"></i> '.$date_converted.' <i class="fa fa-id-card-alt p-l-6"></i> '.$subdomain.'</span></p></li>';
+			$result .= '<li class="list_pengumuman"><h3 class="font-osc"><a href="'.$link.'" target="_blank">'.$print_title.'</a></h3><p><span><i class="fa fa-calendar-alt"></i> '.$date_converted.' <i class="fa fa-id-card-alt p-l-6"></i> '.$subdomain.'</span></p></li>';
 		}
 	}
 	$result .= '</ul>
