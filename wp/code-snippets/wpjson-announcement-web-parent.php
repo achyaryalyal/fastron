@@ -86,23 +86,23 @@ function wpjan() {
 		}
 	}
 	$result .= '</ul>
-<style>
-.list_pengumuman {
-	background: linear-gradient(140deg, #fafdfd 0%, #98f4fe 51%, #79d5f8 75%);
-	background: #fafdfd;
-	background: -moz-linear-gradient(-50deg, #fafdfd 0%, #98f4fe 51%, #79d5f8 75%);
-	background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#fafdfd), color-stop(51%,#98f4fe), color-stop(75%,#79d5f8));
-	background: -webkit-linear-gradient(-50deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
-	background: -o-linear-gradient(-50deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
-	background: -ms-linear-gradient(-50deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
-	background: linear-gradient(135deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
-	text-align:left;border-bottom:1px solid #eaeaea;padding:3px 0 10px 5px;line-height:18px;overflow:hidden;
-}
-.list_pengumuman h3 {color:#337ab7;font-size:14px;font-weight:600;line-height:18px;margin:0;padding:4px 0;}
-.list_pengumuman p {font-family:Arimo,sans-serif;font-size:10px;margin:1px;padding:0;}
-.list_pengumuman p span {color:#444;font-size:11px;}
-.list_pengumuman p span i.p-l-6 {padding-left:6px;}
-</style>';
+	<style>
+	.list_pengumuman {
+		background: linear-gradient(140deg, #fafdfd 0%, #98f4fe 51%, #79d5f8 75%);
+		background: #fafdfd;
+		background: -moz-linear-gradient(-50deg, #fafdfd 0%, #98f4fe 51%, #79d5f8 75%);
+		background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#fafdfd), color-stop(51%,#98f4fe), color-stop(75%,#79d5f8));
+		background: -webkit-linear-gradient(-50deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
+		background: -o-linear-gradient(-50deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
+		background: -ms-linear-gradient(-50deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
+		background: linear-gradient(135deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
+		text-align:left;border-bottom:1px solid #eaeaea;padding:3px 0 10px 5px;line-height:18px;overflow:hidden;
+	}
+	.list_pengumuman h3 {color:#337ab7;font-size:14px;font-weight:600;line-height:18px;margin:0;padding:4px 0;}
+	.list_pengumuman p {font-family:Arimo,sans-serif;font-size:10px;margin:1px;padding:0;}
+	.list_pengumuman p span {color:#444;font-size:11px;}
+	.list_pengumuman p span i.p-l-6 {padding-left:6px;}
+	</style>';
 	return $result;
 } 
 add_shortcode('wpjson_announcement', 'wpjan');
