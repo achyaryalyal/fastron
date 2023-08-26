@@ -61,7 +61,7 @@ function wpjan() {
 	
 	/* $result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Roboto Condensed\',\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman</h2> */
 	$result = '<h2 style="margin:0px;padding-bottom:20px;text-align:center;"><img decoding="async" loading="lazy" width="'.$image_width.'" height="'.$image_height.'" src="'.$link_image_title.'" alt="Pengumuman" title="Pengumuman" class="wp-image-12694"></h2>
-		<ul style="border-radius:4px;border:2px solid #eee;padding:0;">';
+		<ul class="wpjan">';
 	$date_today = date('Y-m-d');
 	for($i=0; $i<$total_items; $i++) {
 		$x = $i + 1;
@@ -87,9 +87,10 @@ function wpjan() {
 	}
 	$result .= '</ul>
 	<style>
+	.wpjan {border-radius:4px;border:2px solid #eee;padding:0 !important;}
 	.wpjan-list {
-		background: linear-gradient(140deg, #fafdfd 0%, #98f4fe 51%, #79d5f8 75%);
 		background: #fafdfd;
+		background: linear-gradient(140deg, #fafdfd 0%, #98f4fe 51%, #79d5f8 75%);
 		background: -moz-linear-gradient(-50deg, #fafdfd 0%, #98f4fe 51%, #79d5f8 75%);
 		background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#fafdfd), color-stop(51%,#98f4fe), color-stop(75%,#79d5f8));
 		background: -webkit-linear-gradient(-50deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
