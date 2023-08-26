@@ -5,11 +5,15 @@
 function wpjc() {
 	$items = 6; // SET UP HERE
 	$domain_parent = 'bbg.ac.id'; // SET UP HERE
+	$subdomain_file_lembaga = 'file.'.$domain_parent; // SET UP HERE
+	$durasi_new = 2880; // 2880 minutes = 2 days
 	
 	$url = 'https://'.$domain_parent.'/wp-json/wp/v2/posts?per_page='.$items.'&_embed';
 	$json = file_get_contents($url);
 	$arr = json_decode($json, FALSE);
 	$result = '<div class="wpjc slider">';
+	$now = date('Y-m-d H:i:s');
+	$now_strtotime = strtotime($now);
 	for($i=0; $i<$items; $i++) {
 		$j = $i + 1;
 		$title = $arr[$i]->title->rendered;
@@ -17,17 +21,26 @@ function wpjc() {
 		$title = preg_replace('/\s+/', ' ', $title); // remove multiple whitespaces
 		$link = $arr[$i]->link;
 		$date = $arr[$i]->date;
-		$date_converted = date("j F Y", strtotime($date));
+		$date_strtotime = strtotime($date);
+		$interval = abs($now_strtotime - $date_strtotime);
+		$interval = round($interval / 60);
+		$date_converted = date("j F Y", $date_strtotime);
 		$date_converted = wpjc_konversi_tanggal("j F Y", $date_converted, $bahasa="id");
+		if($interval < $durasi_new) {
+			$print_date_converted = $date_converted.' <img src="https://'.$subdomain_file_lembaga.'/assets/img/icon/new.gif" alt="new" class="wpjc-new">';
+		}
+		else {
+			$print_date_converted = $date_converted;
+		}
 		$image = @$arr[$i]->_embedded->{'wp:featuredmedia'}[0]->media_details->sizes->{'et-pb-post-main-image'}->source_url;
 		if(!$image) {$image = '/wp-content/featured-400x250.webp';}
 		$result .= '<article class="wpjc-single-item">
 				<figure class="wpjc-slide-image">
-					<a href="'.$link.'"> <img decoding="async" loading="lazy" class="skip-lazy" src="'.$image.'" alt="" width="400" height="250"></a>
+					<a href="'.$link.'"> <img decoding="async" loading="lazy" class="skip-lazy" src="'.$image.'" alt="thumbnail" width="400" height="250"></a>
 				</figure>
 				<div class="wpjc-all-captions">
 					<h2 class="wpjc-post-title"><a href="'.$link.'">'.$title.'</a></h2>
-					<div class="wpjc-post-meta"><i class="fa fa-calendar-alt"></i> <time datetime="'.$date.'">'.$date_converted.'</time></div>
+					<div class="wpjc-post-meta"><i class="fa fa-calendar-alt"></i> <time datetime="'.$date.'">'.$print_date_converted.'</time></div>
 				</div>
 			</article>';
 	}
@@ -94,6 +107,11 @@ function load_slickcss() {
 		max-width: 100%;
 		height: auto;
 		box-shadow: none;
+	}
+	.wpjc-new {
+		display: inline-block;
+		padding-left: 5px;
+		vertical-align: middle;
 	}
 	.wpjc-all-captions {
 		overflow: hidden;
