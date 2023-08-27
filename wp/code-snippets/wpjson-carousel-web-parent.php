@@ -109,9 +109,9 @@ function load_slickcss() {
 		box-shadow: none;
 	}
 	.wpjc-new {
-		display: inline-block;
-		padding-left: 5px;
-		vertical-align: middle;
+		display: inline-block !important;
+		padding-left: 5px !important;
+		vertical-align: middle !important;
 	}
 	.wpjc-all-captions {
 		overflow: hidden;
