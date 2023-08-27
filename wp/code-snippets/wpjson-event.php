@@ -1,5 +1,5 @@
 /////////////////////////////////
-// WPJSON Event
+// WPJSON Event Web Parent
 /////////////////////////////////
 
 function wpjev() {
@@ -8,11 +8,23 @@ function wpjev() {
 	$subdomain_file_lembaga = 'file.'.$domain;
 	$object = 'event'; // SET UP HERE
 	$url = 'https://opensimka.bbg.ac.id/json/'.$object.'/'.$limit; // SET UP HERE
+	$header_mode = 'image'; // SET UP HERE: text or image
+	$header_text = 'Event'; // SET UP HERE
+	$header_image = 'https://bbg.ac.id/wp-content/uploads/2023/08/BBG-EVENTS-100.png'; // SET UP HERE
+	$header_image_width = 117; // SET UP HERE
+	$header_image_height = 20; // SET UP HERE
 	
 	$json = file_get_contents($url);
 	$arr = json_decode($json, TRUE);
 	$tgl_today = date('Y-m-d');
-	$result = '<ul class="wpjev">';
+	
+	if($header_mode=='text') {
+		$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Roboto Condensed\',\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">'.$header_text.'</h2>';
+	}
+	else {
+		$result = '<h2 style="margin:0px;padding-bottom:20px;text-align:center;"><img decoding="async" loading="lazy" width="'.$header_image_width.'" height="'.$header_image_height.'" src="'.$header_image.'" alt="'.$header_text.'" title="'.$header_text.'" class="wp-image-12694"></h2>';
+	}
+	$result .= '<ul class="wpjev">';
 	foreach($arr['event'] as $key => $value) {
 	    $id_event = $value['id_event'];
 		$nm_event = $value['nm_event'];
@@ -58,8 +70,8 @@ function wpjev() {
 		filter:progid:DXImageTransform.Microsoft.gradient( startColorstr=\'#fef5c8\', endColorstr=\'#ffd983\',GradientType=1 );
 		border-bottom:1px solid #eaeaea;line-height:16px;overflow:hidden;padding:3px 5px;text-align:left;
     }
-	.wpjev-list h3 {color:#b77633;font-size:14px;font-weight:600;line-height:18px;margin:0;}
-	.wpjev-list p {font-size:10px;margin:1px;padding:0;color:#444;font-size:11px;}
+	.wpjev-list h3 {color:#b77633;font-size:14px;font-weight:600;line-height:18px;margin:0;padding:4px 0;}
+	.wpjev-list p {font-size:11px;margin:1px;padding:0;color:#444;}
 	.wpjev-list p i.p-r-2 {padding-right:2px;}
     </style>';
 	return $result;
