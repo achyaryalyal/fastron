@@ -1,14 +1,16 @@
-////////////////////////////////////////////
-// WPJSON Announcement Web Parent (Multi Handle Asynchronously)
-////////////////////////////////////////////
+/////////////////////////////////
+// WPJSON Announcement Web Parent
+/////////////////////////////////
 
 function wpjan() {
 	$limit = 5; // SET UP HERE
 	$domain_parent = 'bbg.ac.id'; // SET UP HERE
 	$subdomain_file_lembaga = 'file.'.$domain_parent; // SET UP HERE
-	$link_image_title = 'https://bbg.ac.id/wp-content/uploads/2023/08/BBG-ANNOUNCEMENTS-100.png'; // SET UP HERE
-	$image_width = 158; // SET UP HERE
-	$image_height = 20; // SET UP HERE
+	$header_mode = 'image'; // SET UP HERE: text or image
+	$header_text = 'Pengumuman'; // SET UP HERE
+	$header_image = 'https://bbg.ac.id/wp-content/uploads/2023/08/BBG-ANNOUNCEMENTS-100.png'; // SET UP HERE
+	$header_image_width = 158; // SET UP HERE
+	$header_image_height = 20; // SET UP HERE
 	
 	$items = 3; // SET UP HERE
 	$id_category_announcement_parent = 70;
@@ -27,6 +29,7 @@ function wpjan() {
 	$subdomain_child = 'birmas'; // SET UP HERE
 	$url_5 = 'https://'.$subdomain_child.'.'.$domain_parent.'/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
 	
+	// Multi handle asynchronously
 	$urls = [$url_1, $url_2, $url_3, $url_4, $url_5];
 	$mh = curl_multi_init();
 	$requests = [];
@@ -59,9 +62,13 @@ function wpjan() {
 	$arr_sort_date = array_column($arr, 'date');
 	array_multisort($arr_sort_date, SORT_DESC, $arr);
 	
-	/* $result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Roboto Condensed\',\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">Pengumuman</h2> */
-	$result = '<h2 style="margin:0px;padding-bottom:20px;text-align:center;"><img decoding="async" loading="lazy" width="'.$image_width.'" height="'.$image_height.'" src="'.$link_image_title.'" alt="Pengumuman" title="Pengumuman" class="wp-image-12694"></h2>
-		<ul class="wpjan">';
+	if($header_mode=='text') {
+		$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Roboto Condensed\',\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">'.$header_text.'</h2>';
+	}
+	else {
+		$result = '<h2 style="margin:0px;padding-bottom:20px;text-align:center;"><img decoding="async" loading="lazy" width="'.$header_image_width.'" height="'.$header_image_height.'" src="'.$header_image.'" alt="'.$header_text.'" title="'.$header_text.'" class="wp-image-12694"></h2>';
+	}
+	$result .= '<ul class="wpjan">';
 	$date_today = date('Y-m-d');
 	for($i=0; $i<$total_items; $i++) {
 		$x = $i + 1;
@@ -97,10 +104,10 @@ function wpjan() {
 		background: -o-linear-gradient(-50deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
 		background: -ms-linear-gradient(-50deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
 		background: linear-gradient(135deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
-		text-align:left;border-bottom:1px solid #eaeaea;padding:3px 0 10px 5px;line-height:18px;overflow:hidden;
+		border-bottom:1px solid #eaeaea;line-height:16px;overflow:hidden;padding:3px 5px;text-align:left;
 	}
 	.wpjan-list h3 {color:#337ab7;font-size:14px;font-weight:600;line-height:18px;margin:0;padding:4px 0;}
-	.wpjan-list p {font-family:Arimo,sans-serif;font-size:10px;margin:1px;padding:0;color:#444;font-size:11px;}
+	.wpjan-list p {font-size:11px;margin:1px;padding:0;color:#444;}
 	.wpjan-list p i.p-l-6 {padding-left:6px;}
 	</style>';
 	return $result;
