@@ -29,7 +29,7 @@
 	min-width: 200px;
 }
 #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link {
-	padding: 10px 10px 10px 10px;
+	padding: 7px 10px;
 }
 #{$wrap} #{$menu} > li.mega-menu-flyout ul.mega-sub-menu li.mega-menu-item a.mega-menu-link {
 	color: #fff;
