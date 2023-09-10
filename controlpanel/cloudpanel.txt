@@ -120,7 +120,7 @@ nano /etc/cron.d/clp
 site_user="______" && site_domain="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/htdocs/ && tar -cvzf ${site_domain}-${date}.tar.gz ${site_domain} && mv ${site_domain}-${date}.tar.gz /home/${site_user}/backups/ && cd /home/${site_user}/backups/ && chown ${site_user}:${site_user} ${site_domain}-${date}.tar.gz && ls -lah
 
 # Backup (export) database manually
-site_user="______" && site_db="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/backups/databases/ && clpctl db:export --databaseName=${site_db} --file=${site_db}-${date}.sql.gz && chown ${site_user}:${site_user} ${site_db}-${date}.sql.gz && ls -lah
+site_user="______" && site_db="______" && date=$(date +%Y-%m-%d_%H-%M) && cd /home/${site_user}/backups/databases/ && /usr/bin/clpctl db:export --databaseName=${site_db} --file=${site_db}-${date}.sql.gz && chown ${site_user}:${site_user} ${site_db}-${date}.sql.gz && ls -lah
 
 # Restore (import) database
 clpctl db:import --databaseName=my-database --file=dump.sql.gz
