@@ -187,3 +187,20 @@ Also minify inline JS/ CSS? Y
 Opsi Lain-lain? centang semua
 - Simpan
 - Open tab Extra, check the radio "Google Fonts: Gabungkan dan tautkan di head (font akan dimuat cepat tetapi memblokir perenderan), includes display:swap."
+
+===================
+FIX ERROR: HTML VALIDATOR IN DIVI CSS
+===================
+replace "background-repeat-y:no-repeat;" to "background-repeat:no-repeat;" from file
+style-static-cpt.min.css
+style-static.min.css
+style-static-cpt-rtl.min.css
+style-static-rtl.min.css
+includes/builder/feature/dynamic-assets/assets/css/section_cpt.css
+includes/builder/feature/dynamic-assets/assets/css/section.css
+
+===================
+FIX REDIRECTED TO /wp-admin/upgrade.php?_wp_http_referer=%2Fwp-admin%2F AFTER LOGIN
+===================
+cek database > tabel "options" > value of "db_version" > paste value dari database's version pada wp-include/version.php
+akses kembali laman wp-admin
