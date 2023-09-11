@@ -1,0 +1,189 @@
+===============
+BUAT SITUS BARU
+===============
+1. Pastikan hasil akhir URLnya adalah menggunakan https, bukan http. Cara pastiinnya bisa melalui menu paling atas:
+    Situs Milik Saya > Admin Jaringan > Situs > di bagian situs, klik "sunting situs" > pastikan menggunakan https bukan http > Save
+2. Menu pos > hapus semua halo dunia > buka tong sampah lalu "hapus secara permanen"
+3. Menu pos > kategori > sunting "Tak Berkategori" jadi "Pengumuman" dengan slug "pengumuman" huruf kecil semua
+4. Menu laman > hapus semua laman contoh > buka tong sampah lalu "hapus secara permanen"
+5. Buat laman "Peta Situs" > masukkan shortcode berikut lalu terbitkan:
+    [simple-sitemap types="post" orderby="date" order="desc"]
+    [simple-sitemap types="page" orderby="title" order="asc"]
+6. Menu downloads -> all files, tekan Opsi Layar, hapus centang pada kolom "penulis", kolom "tags" dan kolom "komentar"
+7. Menu downloads -> categories, ketik "Download", pada Category Page Template klik "Use Link Template" pilih "Default Template", pada Number of Columns jadikan 1 kolom semua
+8. Menu downloads -> settings, di bagian File Download, beri centang pada "Open in Browser", klik "Save Settings"
+
+==============
+SETEL TAMPILAN
+==============
+menu Tampilan, AKTIFKAN tema divi
+tampilan > sesuaikan > pengaturan umum > typografi > font header dan body: Roboto Condensed
+tampilan > sesuaikan > tombol > gaya tombol > jenis huruf pada tombol: Roboto Condensed
+tampilan > menu > ketik Menu Utama, centang Menu Utama, simpan menu, tambahkan taut terseuai "Home" dengan url /
+
+menu Divi > Opsi Tema,
+Format tanggal: j F Y
+Tombol Kembali Ke Atas: AKTIF
+Paste semua yang ada di:
+https://raw.githubusercontent.com/achyaryalyal/fastron/master/wp/divi/divi-bbg.css
+Lalu pada tab BUILDER nonaktifkan divi pada jenis posting Pos dan Downloads
+Lalu pada tab INTEGRATION pastekan kode ini di tag < head >:
+<script async src="https://file.bbg.ac.id/assets/js/plugins/apexcharts/apexcharts.js"></script>
+menu Divi > Theme Builder > klik icon portabilitas > import
+Pastikan logo di menu global sudah cocok dengan web
+Pastikan kontak di footer global sudah cocok dengan web
+Pastikan section yang tidak perlu ada di homepage
+Semua Page (All Pages) > Setting lambang gerigi > tab Kecualikan Dari (Exclude From) > Khusus Laman (Specific Pages): Login Customizer
+simpan
+
+===============
+SETEL MEGA MENU
+===============
+mega menu
+Menu Location > Menu Utama > General Setting
+	centang Enabled, klik Simpan Perubahan
+Menu Location > Menu Utama > Display Option
+	copy menu shortcode untuk dipaste di bagian header divi harus pada MODE TEKS jangan MODE VISUAL (buka mode dulu baru paste untuk menghindari tag paragraf): [maxmegamenu location=primary-menu]
+.... Simpan Perubahan ....
+Menu Themes > Mobile Menu
+	Responsive Breakpoint: 980px
+	Force Full Width: Enabled, Selector: Body
+Menu Themes > Custom Styling > paste css script berikut ini lalu klik Simpan Paste semua yang ada di:
+https://raw.githubusercontent.com/achyaryalyal/fastron/master/wp/mega-menu/bbg.css
+
+==================
+SETEL IVORY SEARCH
+==================
+menu Ivory Search > submenu Menu Search
+centang "Menu Utama" on Display search form on selected menu locations
+centang "Menu Utama" on Display search form on selected menus
+pilih style "Popup" on Select menu search form style
+set warna putih "#ffffff" on Select menu magnifier icon color
+
+====================
+SETEL SIMPLE SITEMAP
+====================
+menu Simple Sitemap > (skip bila tampil tombol skip)
+menu Simple Sitemap > submenu New Features (biar hilang count label)
+
+===============
+SETEL YOAST SEO
+===============
+menu Yoast SEO > Umum, hilangkan count label > tekan Start SEO Optimization
+menu Yoast SEO > Pengaturan > Scroll ke Alat (Tools) > disable admin bar menu > abaikan error yang tampil
+[KHUSUS WEB INSTITUSI] menu Yoast SEO > Pengaturan > Jenis Konten > Beranda > pastikan hanya ada variabel "Judul Situs" di dalam Judul SEO
+masih di menu Yoast SEO > Pengaturan > Lanjutan > Arsip Penulis > hapus centang "Aktifkan arsip penulis"
+masih di menu Yoast SEO > Pengaturan > Lanjutan > Pengoptimalan Peneluran (hanya sisakan feed global, kategori dan tag). Hapus shortlink, Hapus tautan REST API, Hapus Tautan RSD / WLW, Hapus tautan oEmbed, Hapus tag generator, Pingback HTTP header, Hapus 'powered by HTTP header', Hapus feed komentar global, Hapus feed penulis pos, Hapus feed tipe pos, Hapus feed taksonomi khusus, Hapus feed hasil pencarian, Hapus feed Atom / RDF
+
+=============
+SETEL SNIPPET
+=============
+copy dari:
+https://github.com/achyaryalyal/fastron/tree/master/wp/code-snippets
+codesnippet Disable Comments
+codesnippet Limit Post Title Length
+codesnippet Remove Some Columns from Post and Page
+codesnippet Remove Projects Post Type in Divi
+[pastikan id] codesnippet WPJSON Carousel Web Child
+[pastikan id] codesnippet WPJSON Sidebar Web Child
+[pastikan id] codesnippet WPJSON Announcement Web Child GET_SELF
+codesnippet WPJSON Announcement Web Child GET_OTHER
+
+==================
+SETEL SMART SLIDER
+==================
+menu Smart Slider
+hapus "Tutorial Slider" bila masih ada slider bawaan
+tambah/upload slide baru ke smart slider
+atau
+new project > Or Import Your Own Files > upload file ekstensi .ss3 > Save
+pastikan SIZE width=1400 height=350
+smart slider > setting > tab general > set OFF "Show In Admin Bar"
+
+Troubleshoot: How to give access to Smart Slider for Non-Admin users? https://smartslider.helpscoutdocs.com/article/1983-how-to-give-access-to-smart-slider-for-non-admin-users#multisite 
+
+======================
+SETEL LOGIN CUSTOMIZER
+======================
+Login Customizer, (bila tampil alert activation, klik dan skip) > klik link "Login Customizer"
+Template: pilih yang terakhir
+Background: #0D003E
+Logo: sama seperti logo yang ada di header
+width: 84px
+height: 84px
+padding bottom: 5px
+Logo URL: /
+Terbitkan
+
+================
+SETEL PENGATURAN
+================
+menu Pengaturan -> umum, zona waktu: UTC+7, tanggal j F Y, waktu H:i, simpan
+pastikan Login url: permisi
+pastikan Redirection url: nologin
+
+[TIDAK PERLU LAGI KARENA SUDAH DI-HANDLE OLEH SCRIPT DI CODE SNIPPET] menu Pengaturan -> diskusi, hapus 3 buah centang di Pengaturan artikel dasar, simpan
+
+menu Pengaturan -> permalink, klik "Nama tulisan", simpan
+
+menu Pengaturan -> Captcha Setting
+type: number only
+total: 4
+option: Y-N-N-Y-Y
+
+menu Pengaturan > WP Super Cache, pastikan sudah "Caching On (Recommended)" > Update Status > Test Cache
+
+menu Pengaturan > Settings > Async JavaScript > klik "Apply Defer" (choose between Apply Async and Apply Defer in the Quick Settings box. If the Async option causes problems on your site, we’d recommend trying Defer or excluding jQuery, which the plugin gives you an option for)
+
+================
+SETEL RESMUSH.IT
+================
+menu Media > reSmush.it
+Image quality: 92
+Optimize on upload: YES
+Enable statistics: YES
+Enable logs: NO
+New! Process optimize on CRON: YES
+New!Preserve EXIF: NO
+New!Do not preserve backups: NO
+
+===================
+SETEL WP SOCIALIZER
+===================
+menu WP Socializer > klik "start using" dan klik "Share Icons"
+STYLE: facebook - twitter - telegram - whatsapp
+SHARE COUNTER: No share count
+MISCELLANEOUS: Heading text kosongin aja
+pilih opsi template "Show in selected pages" > klik add new rule:
+1. Single post
+2. Page
+Save settings
+
+================
+SETEL STATISTICS [TIDAK PAKAI LAGI] => MENAMBAH BEBAN DATABASE => CUKUP PAKAI GOOGLE ANALYTICS
+================
+[TIDAK PAKAI LAGI] menu Statistics > Settings > Externals > enable-kan semua yang ada di kotak GeoIP Settings, lalu klik tombol "Update" di bagian bawah
+menu Statistics > Settings > General
+enable-kan Online User (120 second)
+enable-kan Visits
+enable-kan Visitors
+enable-kan Pages and Posts
+enable-kan Cache Compatibility (karena juga pakai plugin untuk cache)
+
+====================================
+=== KHUSUS SETELAN NETWORK ADMIN ===
+====================================
+=== Autoptimize ===
+- Settings (FROM NETWORK SETTING) → Autoptimize
+Optimasi Kode JavaScript? Y
+Gabungkan Berkas JS? NO!!! it caused malfunction some plugin
+Do not aggregate but defer? Y
+Optimasi Kode CSS? Y
+Gabungkan Berkas CSS? Y
+Juga gabungkan inline CSS? Y
+Inline semua CSS? Y
+Optimasi Kode HTML? Y
+Also minify inline JS/ CSS? Y
+Opsi Lain-lain? centang semua
+- Simpan
+- Open tab Extra, check the radio "Google Fonts: Gabungkan dan tautkan di head (font akan dimuat cepat tetapi memblokir perenderan), includes display:swap."
