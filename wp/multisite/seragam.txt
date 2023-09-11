@@ -28,7 +28,25 @@ Paste semua yang ada di:
 https://raw.githubusercontent.com/achyaryalyal/fastron/master/wp/divi/divi-bbg.css
 Lalu pada tab BUILDER nonaktifkan divi pada jenis posting Pos dan Downloads
 Lalu pada tab INTEGRATION pastekan kode ini di tag < head >:
-<script async src="https://file.bbg.ac.id/assets/js/plugins/apexcharts/apexcharts.js"></script>
+	<script>
+	window.addEventListener("load", function () {
+	    const loader = document.querySelector(".ubbg-loader");
+	    loader.className += " hidden"; // class "loader hidden"
+	});
+	function lolay() {
+		const el = document.querySelector(".ubbg-loader");
+		el.classList.remove("hidden");
+	}
+	</script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick-theme.css">
+	<script async src="https://cdnjs.cloudflare.com/ajax/libs/slick-carousel/1.8.1/slick.min.js"></script>
+	<script async src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.27.3/apexcharts.min.js"></script>
+
+Lalu pada tab INTEGRATION pastekan kode ini di tag < body >:
+	<div class="ubbg-loader"><img src="/wp-content/uploads/2023/09/ubbg.gif" alt="Loading..."></div>
+	<a href="https://api.whatsapp.com/send?phone=6282321211883&amp;text=Hai%20UBBG.%0ASaya%20ingin%20menanyakan%20" target="_blank" id="help-center" title="Help Center"><i class="fas fa-headset"></i></a>
+
 menu Divi > Theme Builder > klik icon portabilitas > import
 Pastikan logo di menu global sudah cocok dengan web
 Pastikan kontak di footer global sudah cocok dengan web
