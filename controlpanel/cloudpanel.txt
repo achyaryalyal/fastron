@@ -208,6 +208,11 @@ RCLONE
 # make sure rclone.conf file has been created at /root/.config/rclone/
 # run this command:
 ln -s /root/.config/rclone/rclone.conf /home/clp/.config/rclone/
+### MAKE YOUR OWN client_id ###
+https://rclone.org/drive/#making-your-own-client-id
+# It is strongly recommended to use your own client ID as the default rclone ID is heavily used.
+# Sometimes Google ask you to "submit your app for verification" and then wait a few weeks for their response
+# But in practice, you can go right ahead and use the client ID and client secret with rclone, the only issue will be a very scary confirmation screen shown when you connect via your browser for rclone to be able to get its token-id
 
 ===============
 EDIT SSH CONFIG
