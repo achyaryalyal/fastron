@@ -12,7 +12,7 @@ $ sudo pkcon refresh && sudo pkcon update -y
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools whois inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp qbittorrent peek pdfarranger pdfsam dolphin kaffeine ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager xserver-xorg-input-libinput xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
+$ sudo apt install neofetch net-tools whois inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp qbittorrent peek pdfarranger pdfsam dolphin audacious vlc ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager xserver-xorg-input-libinput xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
 
 =======================================
 Install WhatsApps from Snap
@@ -643,6 +643,12 @@ Improving Boot Time
 # don’t worry, once you log in, you’ll have wifi working normally
 $ sudo systemctl disable NetworkManager-wait-online.service
 # if you want to revert the change, you can use this command: sudo systemctl enable NetworkManager-wait-online.service
+
+=================================
+VLC Tweak
+=================================
+# Tools > Preferences > Click Subtitles/OSD tab > Untick "Show media title on video start"
+# Tools > Preferences > In the bottom-left, under Show settings, select All > Interface -> Main Interfaces -> Qt > Uncheck "Display background cone or art"
 
 =================================
 Fix Battery Charging/Discharging State Always Delay Updated
