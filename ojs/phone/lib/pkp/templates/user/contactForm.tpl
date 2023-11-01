@@ -1,110 +1,65 @@
-<?php
-
-/**
- * @file classes/user/form/ContactForm.inc.php
+{**
+ * templates/user/contactForm.tpl
  *
  * Copyright (c) 2014-2019 Simon Fraser University
  * Copyright (c) 2003-2019 John Willinsky
  * Distributed under the GNU GPL v2. For full terms see the file docs/COPYING.
  *
- * @class ContactForm
- * @ingroup user_form
- *
- * @brief Form to edit user's contact information.
- */
+ * User profile form.
+ *}
 
-import('lib.pkp.classes.user.form.BaseProfileForm');
+{* Help Link *}
+{help file="user-profile.md" class="pkp_help_tab"}
 
-class ContactForm extends BaseProfileForm {
+<script type="text/javascript">
+	$(function() {ldelim}
+		// Attach the form handler.
+		$('#contactForm').pkpHandler('$.pkp.controllers.form.AjaxFormHandler');
+	{rdelim});
+</script>
 
-	/**
-	 * Constructor.
-	 * @param $user User
-	 */
-	function __construct($user) {
-		parent::__construct('user/contactForm.tpl', $user);
+<form class="pkp_form" id="contactForm" method="post" action="{url op="saveContact"}">
+	{csrf}
 
-		// Validation checks for this form
-		$this->addCheck(new FormValidator($this, 'phone', 'required', 'user.profile.form.phoneRequired')); /* script yang ditambahkan */
-		$this->addCheck(new FormValidatorEmail($this, 'email', 'required', 'user.profile.form.emailRequired'));
-		$this->addCheck(new FormValidator($this, 'country', 'required', 'user.profile.form.countryRequired'));
-		$this->addCheck(new FormValidatorCustom($this, 'email', 'required', 'user.register.form.emailExists', array(DAORegistry::getDAO('UserDAO'), 'userExistsByEmail'), array($user->getId(), true), true));
-	}
+	{include file="controllers/notification/inPlaceNotification.tpl" notificationId="contactFormNotification"}
 
-	/**
-	 * @copydoc BaseProfileForm::fetch
-	 */
-	function fetch($request, $template = null, $display = false) {
-		$templateMgr = TemplateManager::getManager($request);
-		$site = $request->getSite();
-		$countryDao = DAORegistry::getDAO('CountryDAO');
-		$templateMgr->assign(array(
-			'countries' => $countryDao->getCountries(),
-			'availableLocales' => $site->getSupportedLocaleNames(),
-		));
+	{fbvFormSection}
+		{fbvElement type="text" label="user.email" id="email" value=$email size=$fbvStyles.size.MEDIUM required=true}
+		<br><br> <!-- script yang ditambahkan agar lebih rapi -->
+		{fbvElement type="textarea" label="user.signature" multilingual="true" name="signature" id="signature" value=$signature rich=true size=$fbvStyles.size.MEDIUM}
+		<br><br> <!-- script yang ditambahkan agar lebih rapi -->
+		{fbvElement type="text" label="user.phone" name="phone" id="phone" required=true value=$phone maxlength="24" size=$fbvStyles.size.SMALL} <!-- script required=true yang ditambahkan -->
+		<br><br> <!-- script yang ditambahkan agar lebih rapi -->
+		{fbvElement type="text" label="user.affiliation" multilingual="true" name="affiliation" id="affiliation" value=$affiliation size=$fbvStyles.size.MEDIUM}
+		<br><br> <!-- script yang ditambahkan agar lebih rapi -->
+	{/fbvFormSection}
+	{fbvFormSection}
+		{fbvElement type="textarea" label="common.mailingAddress" name="mailingAddress" id="mailingAddress" rich=true value=$mailingAddress size=$fbvStyles.size.MEDIUM}
+		<br><br> <!-- script yang ditambahkan agar lebih rapi -->
+		{fbvElement type="select" label="common.country" name="country" id="country" required=true defaultLabel="" defaultValue="" from=$countries selected=$country translate=false size=$fbvStyles.size.MEDIUM}
+		<br><br> <!-- script yang ditambahkan agar lebih rapi -->
+	{/fbvFormSection}
 
-		return parent::fetch($request, $template, $display);
-	}
+	{if count($availableLocales) > 1}
+		{fbvFormSection title="user.workingLanguages" list=true}
+			{foreach from=$availableLocales key=localeKey item=localeName}
+				{if $userLocales && in_array($localeKey, $userLocales)}
+					{assign var="checked" value=true}
+				{else}
+					{assign var="checked" value=false}
+				{/if}
+				{fbvElement type="checkbox" name="userLocales[]" id="userLocales-$localeKey" value=$localeKey checked=$checked label=$localeName translate=false}
+			{/foreach}
+		{/fbvFormSection}
+		<br><br> <!-- script yang ditambahkan agar lebih rapi -->
+	{/if}
 
-	/**
-	 * @copydoc BaseProfileForm::initData()
-	 */
-	function initData() {
-		$user = $this->getUser();
+	{fbvFormButtons hideCancel=true submitText="common.save"}
 
-		$this->_data = array(
-			'country' => $user->getCountry(),
-			'email' => $user->getEmail(),
-			'phone' => $user->getPhone(),
-			'signature' => $user->getSignature(null), // Localized
-			'mailingAddress' => $user->getMailingAddress(),
-			'affiliation' => $user->getAffiliation(null), // Localized
-			'userLocales' => $user->getLocales(),
-		);
-	}
+	<p>
+		{capture assign="privacyUrl"}{url router=$smarty.const.ROUTE_PAGE page="about" op="privacy"}{/capture}
+		{translate key="user.privacyLink" privacyUrl=$privacyUrl}
+	</p>
 
-	/**
-	 * Assign form data to user-submitted data.
-	 */
-	function readInputData() {
-		parent::readInputData();
-
-		$this->readUserVars(array(
-			'country', 'email', 'signature', 'phone', 'mailingAddress', 'affiliation', 'userLocales',
-		));
-
-		if ($this->getData('userLocales') == null || !is_array($this->getData('userLocales'))) {
-			$this->setData('userLocales', array());
-		}
-
-	}
-
-	/**
-	 * Save contact settings.
-	 */
-	function execute() {
-		$user = $this->getUser();
-
-		$user->setCountry($this->getData('country'));
-		$user->setEmail($this->getData('email'));
-		$user->setSignature($this->getData('signature'), null); // Localized
-		$user->setPhone($this->getData('phone'));
-		$user->setMailingAddress($this->getData('mailingAddress'));
-		$user->setAffiliation($this->getData('affiliation'), null); // Localized
-
-		$request = Application::getRequest();
-		$site = $request->getSite();
-		$availableLocales = $site->getSupportedLocales();
-		$locales = array();
-		foreach ($this->getData('userLocales') as $locale) {
-			if (AppLocale::isLocaleValid($locale) && in_array($locale, $availableLocales)) {
-				array_push($locales, $locale);
-			}
-		}
-		$user->setLocales($locales);
-
-		parent::execute();
-	}
-}
-
-
+	<p><span class="formRequired">{translate key="common.requiredField"}</span></p>
+</form>
