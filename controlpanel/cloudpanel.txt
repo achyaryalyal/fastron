@@ -523,7 +523,12 @@ pecl install yaz
   .container .flex-wrap a:hover {background:#ECD53C;}
   .bg-grey-darkest {background-color:#083D62;}
   </style>
-# to remove support-us section at footer, edit file "/template/default/parts/footer.php" line 70
+# to remove support-us section at footer, edit file "/template/default/parts/footer.php" line 70 and give comment out
+# add style to "/template/default/visitor_template.php"
+  <style>
+  .bg-white {background-color:#e5f4ffd9!important;}
+  .form-control {font-size:1.3rem!important;}
+  </style>
 
 ===================================================
 INSTALL IDE ATHEOS https://github.com/Atheos/Atheos
