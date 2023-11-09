@@ -509,7 +509,7 @@ pecl install yaz
   <!--<div class="text-right invisible">
     <small class="text-grey-dark"><?= __('Powered by ')?> <code>SLiMS</code></small>
   </div>-->
-# to change slider image, replace photo "slide1.jpg, slide2.jpg, slide3.jpg, slide4.jpg" in directory: "/template/default/assets/images"
+# to change slider image, upload or replace photo in directory: "/template/default/assets/images" and edit file "/template/default/assets/js/vegas.js.php"
 
 ===================================================
 INSTALL IDE ATHEOS https://github.com/Atheos/Atheos
