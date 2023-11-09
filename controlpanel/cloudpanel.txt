@@ -509,6 +509,7 @@ pecl install yaz
   <!--<div class="text-right invisible">
     <small class="text-grey-dark"><?= __('Powered by ')?> <code>SLiMS</code></small>
   </div>-->
+# to change slider image, replace photo "slide1.jpg, slide2.jpg, slide3.jpg, slide4.jpg" in directory: "/template/default/assets/images"
 
 ===================================================
 INSTALL IDE ATHEOS https://github.com/Atheos/Atheos
