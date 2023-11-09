@@ -512,8 +512,16 @@ pecl install yaz
 # to change slider image, upload or replace photo in directory: "/template/default/assets/images" and edit file "/template/default/assets/js/vegas.js.php"
 # to disable slider image dark masking dan add transparent background menu, edit file "/template/default/parts/navbar.php" add this script before <nav class
   <style>
-  .navbar.navbar-expand-lg.navbar-dark.bg-transparent {background-color:#343a4080!important;}
+  .navbar.navbar-expand-lg.navbar-dark.bg-transparent {background-color:#1d4b79c2!important;}
+  .navbar-dark .navbar-nav .nav-link {font-weight:bold;}
+  .navbar-collapse.collapsing, .navbar-collapse.collapse.show {background-color:#083D62;}
   .c-header .mask {background:none!important;}
+  .bg-grey-lightest {background-color:#E5F4FF!important;}
+  .topic li {background:#fff;}
+  .topic li:hover {background:#ECD53C;}
+  .container .flex-wrap a {background:#fff;}
+  .container .flex-wrap a:hover {background:#ECD53C;}
+  .bg-grey-darkest {background-color:#083D62;}
   </style>
 # to remove support-us section at footer, edit file "/template/default/parts/footer.php" line 70
 
