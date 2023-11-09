@@ -510,6 +510,12 @@ pecl install yaz
     <small class="text-grey-dark"><?= __('Powered by ')?> <code>SLiMS</code></small>
   </div>-->
 # to change slider image, upload or replace photo in directory: "/template/default/assets/images" and edit file "/template/default/assets/js/vegas.js.php"
+# to disable slider image dark masking dan add transparent background menu, edit file "/template/default/parts/navbar.php" add this script before <nav class
+  <style>
+  .navbar.navbar-expand-lg.navbar-dark.bg-transparent {background-color:#343a4080!important;}
+  .c-header .mask {background:none!important;}
+  </style>
+# to remove support-us section at footer, edit file "/template/default/parts/footer.php" line 70
 
 ===================================================
 INSTALL IDE ATHEOS https://github.com/Atheos/Atheos
