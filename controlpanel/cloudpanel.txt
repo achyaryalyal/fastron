@@ -510,7 +510,7 @@ pecl install yaz
     <small class="text-grey-dark"><?= __('Powered by ')?> <code>SLiMS</code></small>
   </div>-->
 # to change slider image, upload or replace photo in directory: "/template/default/assets/images" and edit file "/template/default/assets/js/vegas.js.php"
-# to disable slider image dark masking dan add transparent background menu, edit file "/template/default/parts/navbar.php" add this script before <nav class
+# to disable slider image dark masking dan add transparent background menu, edit file "/template/default/parts/_navbar.php" add this script before <nav class
   <style>
   .navbar.navbar-expand-lg.navbar-dark.bg-transparent {background-color:#1d4b79c2!important;}
   .navbar-dark .navbar-nav .nav-link {font-weight:bold;}
