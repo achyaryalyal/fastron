@@ -480,6 +480,32 @@ pecl install yaz
 # to activate all default plugin: Login > Sistem > Plugin
 # to add/edit content: Login > Sistem > Konten
 # to activate visitor link, just leave empty in: Login Admin > Sistem > Pengaturan Sistem > IP Yang Diizinkan
+# plugin to re-index table 'loan_history' at SLiMS 9 Bulian:
+  link download : https://github.com/drajathasan/slims-loan-history-helper
+  Cara :
+  1. Unduh Source Code, ekstrak di Folder Plugin, aktifkan plugin di menu Sistem –> Plugin
+  2. Klik tombol "Buat Ulang" index di menu Sistem –> Indeks Sejarah Peminjaman
+  3. Untuk hasilnya cek di menu Sirkulasi –> Sejarah Peminjaman
+# to fix empty sejarah peminjaman, edit file load_history.php at "/admin/modules/reporting/customs/"
+  change line:
+    if ((isset($_GET['membershipType'])) AND ($_GET['membershipType'] != 'All')) {
+        $membershipType = utility::filterData('membershipType', 'get', true, true, true);
+        $criteria .= ' AND member_type_name LIKE \''.$membershipType.'\'';
+    }else{
+        $criteria .= ' AND member_type_name LIKE \'%%\'';
+    }
+  replace to:
+    if ((isset($_GET['membershipType']))) {
+    	if($_GET['membershipType'] == 'All' || $_GET['membershipType'] == 'Semua') {
+          	$criteria .= ' AND member_type_name LIKE \'%%\'';	
+        }
+      	else {
+          	$membershipType = utility::filterData('membershipType', 'get', true, true, true);
+	        $criteria .= ' AND member_type_name LIKE \''.$membershipType.'\'';
+        }
+    }else{
+        $criteria .= ' AND member_type_name LIKE \'%%\'';
+    }
 # to show visitor link, edit file /template/default/parts/_navbar.php line 26, add this array:
   'visitor' => [
     'text' => __('Check-In Pengunjung'),
