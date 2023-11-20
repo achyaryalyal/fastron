@@ -127,7 +127,11 @@ This is how it works for me, i don’t know if this is the correct way.
  --yes-I-know-dns-manual-mode-enough-go-ahead-please --cert-file /etc/letsencrypt/live/bbg.ac.id/cert.pem --key-file /etc/letsencrypt/live/bbg.ac.id/privkey.pem --fullchain-file /etc/letsencrypt/live/bbg.ac.id/fullchain.pem
  
 # How to fix SSL issues in CyberPanel
-https://community.cyberpanel.net/docs?category=51&topic=90
+1. login CyberPanel
+2. Websites > List Websites
+3. Manage
+4. Domains > List Domains
+5. Issue
 
 # How To Set HSTS Header (Strict-Transport-Security) Using CyberPanel (OpenLiteSpeed)
 https://community.cyberpanel.net/docs?category=12&topic=102
