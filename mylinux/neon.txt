@@ -286,12 +286,12 @@ Setting New Look
 		● Cursors: WhiteSur Cursors
 		● Splash Screen: MacSonoma-Dark by vinceliuice
 # Startup and Shutdown
-	● Login Screen (SSDM): Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
+	● Login Screen (SSDM): MacSonoma-Dark by vinceliuice
 	● Autostart Applications: Latte
 	● Autostart Login Scripts: keep-battery-updated.sh
 # Workspace Behavior
-	● Screen Locking > Appearance: Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
-● Wallpaper: https://4kwallpapers.com/images/wallpapers/macos-monterey-stock-green-dark-mode-layers-5k-6016x6016-5890.jpg
+	● Screen Locking > Appearance: MacSonoma-Dark by vinceliuice
+● Wallpaper: https://4kwallpapers.com/images/wallpapers/macos-sonoma-6016x6016-11578.jpg
 ● Latte: Monterey latte layout by vinceliuice -> https://www.pling.com/p/1567605/
 
 =======================================
