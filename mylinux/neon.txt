@@ -264,19 +264,27 @@ Workspace > Window Management > KWin Scripts
 Setting New Look
 =======================================
 # Appearance
-	● Global Theme: Apple-Ventura-Dark by zayronXIO -> https://www.pling.com/p/1886187
+	● Global Theme: MacSonoma-Dark by vinceliuice
 		● Application Style: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
 			● GTK Theme: WhiteSur Gtk Theme (WhiteSur-dark.tar.xz) by vinceliuice -> https://www.pling.com/p/1403328
-		● Plasma Style: Monterey plasma dark theme by vinceliuice -> https://www.pling.com/p/1567587/
-		● Colors: Monterey color scheme by vinceliuice -> https://www.pling.com/p/1567570
-		● Windows Decorations: 
-			● Theme: Monterey aurorae theme by vinceliuice -> https://www.pling.com/p/1567564
+		● Plasma Style: MacSonoma-Dark by vinceliuice
+		● Colors: MacSonoma-Dark by vinceliuice
+		● Windows Decorations:
+			#####● Theme: Monterey aurorae theme by vinceliuice -> https://www.pling.com/p/1567564
+			● Theme: MacSonoma-Dark by vinceliuice
 			● Titlebar Buttons: (from left to right) Close, Minimize, Maximize
 		● Fonts: SF Pro Display by Apple Inc. -> https://www.cufonfonts.com/font/sf-pro-display
-		● Fonts: SF Mono by Apple Inc. -> https://www.cufonfonts.com/font/sf-mono			
+		● Fonts: SF Mono by Apple Inc. -> https://www.cufonfonts.com/font/sf-mono
+			General: SF Pro Display 10pt
+			Fixed width: SF Mono 10pt
+			Small: SF Pro Display 8pt
+			Toolbar: SF Pro Display 10pt
+			Menu: SF Pro Display 10pt
+			Windows title: SF Pro Display 10pt
+			Anti-Aliasing: Enabled
 		● Icons: WhiteSur-dark
 		● Cursors: WhiteSur Cursors
-		● Splash Screen: Monterey-dark
+		● Splash Screen: MacSonoma-Dark by vinceliuice
 # Startup and Shutdown
 	● Login Screen (SSDM): Monterey sddm theme by vinceliuice -> https://www.pling.com/p/1567573/
 	● Autostart Applications: Latte
