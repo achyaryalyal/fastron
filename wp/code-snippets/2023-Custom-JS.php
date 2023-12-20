@@ -17,7 +17,10 @@ function custom_js(){
 		$(".is-search-input").attr("placeholder", "Ketikkan kata kunci lalu ENTER").blur();
 		// wp-socializer replace icon twitter
 		$(".socializer a i.fab.fa-twitter").addClass("fa-x-twitter").removeClass("fa-twitter");
-		$(".socializer .sr-twitter a").css("color","#fff").css("border-color","#000").css("background-color","#000");
+		$(".socializer .sr-twitter a").css("color","#fff").css("border-color","#1E3050").css("background-color","#1E3050");
+		$(".socializer .sr-share-menu").css("display","none");
+		$(".wpsr-share-icons").css("font-weight","600").css("border-top","1px solid #e6e6e6").css("padding-top","13px");
+		$(".wpsr-si-inner").css("padding-top","10px");
 		// passive event listeners
 		jQuery.event.special.touchstart = {
 			setup: function( _, ns, handle ) {
