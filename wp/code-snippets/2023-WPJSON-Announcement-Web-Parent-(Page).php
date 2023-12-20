@@ -1,0 +1,130 @@
+////////////////////////////////////////
+// WPJSON Announcement Web Parent (Page)
+////////////////////////////////////////
+
+function wpjanpage() {
+	$limit = 20; // SET UP HERE
+	$domain_parent = 'bbg.ac.id'; // SET UP HERE
+	$subdomain_file_lembaga = 'file.'.$domain_parent; // SET UP HERE
+	$header_mode = 'image'; // SET UP HERE: text or image
+	$header_text = 'Pengumuman'; // SET UP HERE
+	$header_image = 'https://bbg.ac.id/wp-content/uploads/2023/08/BBG-ANNOUNCEMENTS-100.png'; // SET UP HERE
+	$header_image_width = 158; // SET UP HERE
+	$header_image_height = 20; // SET UP HERE
+	
+	$items = 4; // SET UP HERE
+	$id_category_announcement_parent = 70;
+	$id_category_announcement_child = 1;
+	$url_1 = 'https://'.$domain_parent.'/wp-json/wp/v2/posts?categories='.$id_category_announcement_parent.'&per_page='.$items;
+	
+	$subdomain_child = 'baa'; // SET UP HERE
+	$url_2 = 'https://'.$subdomain_child.'.'.$domain_parent.'/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
+	
+	$subdomain_child = 'buk'; // SET UP HERE
+	$url_3 = 'https://'.$subdomain_child.'.'.$domain_parent.'/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
+	
+	$subdomain_child = 'btik'; // SET UP HERE
+	$url_4 = 'https://'.$subdomain_child.'.'.$domain_parent.'/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
+	
+	$subdomain_child = 'birmas'; // SET UP HERE
+	$url_5 = 'https://'.$subdomain_child.'.'.$domain_parent.'/wp-json/wp/v2/posts?categories='.$id_category_announcement_child.'&per_page='.$items;
+	
+	// Multi handle asynchronously
+	$urls = [$url_1, $url_2, $url_3, $url_4, $url_5];
+	$mh = curl_multi_init();
+	$requests = [];
+	foreach($urls as $i => $url) {
+		$requests[$i] = curl_init($url);
+		curl_setopt($requests[$i], CURLOPT_RETURNTRANSFER, TRUE);
+		curl_setopt($requests[$i], CURLOPT_TIMEOUT, 10);
+		curl_setopt($requests[$i], CURLOPT_CONNECTTIMEOUT, 10);
+		curl_setopt($requests[$i], CURLOPT_SSL_VERIFYHOST, FALSE);
+		curl_setopt($requests[$i], CURLOPT_SSL_VERIFYPEER, FALSE);
+		curl_multi_add_handle($mh, $requests[$i]);
+	}
+	$active = NULL;
+	do {curl_multi_exec($mh, $active);}
+	while($active);
+	$response = [];
+	foreach($requests as $request) {
+		$response[] = curl_multi_getcontent($request);
+		curl_multi_remove_handle($mh, $request);
+		curl_close($request);
+	}
+	curl_multi_close($mh);
+	$total_items = 0;
+	$arr = array();
+	foreach($response as $k => $v) {
+		$json = json_decode($v, FALSE);
+		$total_items += count($json);
+		$arr = array_merge($arr, $json);
+	}
+	$arr_sort_date = array_column($arr, 'date');
+	array_multisort($arr_sort_date, SORT_DESC, $arr);
+	
+	//if($header_mode=='text') {
+		//$result = '<h2 style="color:#2f2a95;text-align:center;font-family:\'Roboto Condensed\',\'Open Sans Condensed\',sans-serif;font-weight:bold;padding-bottom:20px;margin:0px;">'.$header_text.'</h2>';
+	//}
+	//else {
+		//$result = '<h2 style="margin:0px;padding-bottom:20px;text-align:center;"><img decoding="async" loading="lazy" width="'.$header_image_width.'" height="'.$header_image_height.'" src="'.$header_image.'" alt="'.$header_text.'" title="'.$header_text.'" class="wp-image-12694"></h2>';
+	//}
+	$result .= '<ul class="wpjanpage">';
+	$date_today = date('Y-m-d');
+	for($i=0; $i<$total_items; $i++) {
+		$x = $i + 1;
+		if(isset($arr[$i]->title->rendered) && $x<=$limit) {
+			$j = $i + 1;
+			$title = strtoupper($arr[$i]->title->rendered);
+			$title = str_replace(array('&nbsp; ', ' &nbsp;'), ' ', $title);
+			$title = preg_replace('/\s+/', ' ', $title); // remove multiple whitespaces
+			$link = $arr[$i]->link;
+			$subdomain = parse_url($link); $subdomain = $subdomain['host'];
+			if($subdomain==$domain_parent) {
+				$print_user = 'Rektorat';
+			}
+			else {
+				$user = explode('.', $subdomain);
+				$print_user = strtoupper($user[0]);
+			}
+			$date = $arr[$i]->date;
+			$date_strtotime = strtotime($date);
+			if($date_strtotime >= $date_today) {
+				$print_title = $title.' <img src="https://'.$subdomain_file_lembaga.'/assets/img/icon/new.gif" alt="new">';
+			}
+			else {
+				$print_title = $title;
+			}
+			$date_converted = date("j F Y", $date_strtotime);
+			$date_converted = wpjanpage_konversi_tanggal("j F Y", $date_converted, $bahasa="id");
+			$result .= '<li class="wpjanpage-list"><h3 class="font-osc"><a href="'.$link.'" target="_blank">'.$print_title.'</a></h3><p><i class="fas fa-calendar-alt"></i> '.$date_converted.' <i class="fas fa-bullhorn p-l-6"></i> '.$print_user.' <i class="fas fa-globe p-l-6"></i> '.$subdomain.'</p></li>';
+		}
+	}
+	$result .= '</ul>
+	<style>
+	.wpjanpage {border-radius:4px;border:2px solid #eee;padding:0 !important;}
+	.wpjanpage-list {
+		background: #fafdfd;
+		background: linear-gradient(140deg, #fafdfd 0%, #98f4fe 51%, #79d5f8 75%);
+		background: -moz-linear-gradient(-50deg, #fafdfd 0%, #98f4fe 51%, #79d5f8 75%);
+		background: -webkit-gradient(linear, left top, right bottom, color-stop(0%,#fafdfd), color-stop(51%,#98f4fe), color-stop(75%,#79d5f8));
+		background: -webkit-linear-gradient(-50deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
+		background: -o-linear-gradient(-50deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
+		background: -ms-linear-gradient(-50deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
+		background: linear-gradient(135deg, #fafdfd 0%,#98f4fe 51%,#79d5f8 75%);
+		border-bottom:1px solid #eaeaea;line-height:16px;overflow:hidden;padding:3px 5px;text-align:left;
+	}
+	.wpjanpage-list h3 {color:#337ab7;font-size:14px;font-weight:600;line-height:18px;margin:0;padding:4px 0;}
+	.wpjanpage-list p {font-size:11px;margin:1px;padding:0;color:#444;}
+	.wpjanpage-list p i.p-l-6 {padding-left:6px;}
+	</style>';
+	return $result;
+} 
+add_shortcode('wpjson_announcement_page', 'wpjanpage');
+
+function wpjanpage_konversi_tanggal($format, $tanggal="now", $bahasa="id") {
+	$en = array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","January","February","March","April","May","June","July","August","September","October","November","December");
+	$en_singkat = array("Sun","Mon","Tue","Wed","Thu","Fri","Sat","Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec");
+	$id = array("Minggu","Senin","Selasa","Rabu","Kamis","Jumat","Sabtu","Januari","Februari","Maret","April","Mei","Juni","Juli","Agustus","September","Oktober","November","Desember");
+	$id_singkat = array("Min","Sen","Sel","Rab","Kam","Jum","Sab","Jan","Feb","Mar","Apr","Mei","Jun","Jul","Agu","Sep","Okt","Nov","Des");
+	return str_replace($en, $$bahasa, date($format,strtotime($tanggal)));
+}
