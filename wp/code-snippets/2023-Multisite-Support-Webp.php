@@ -1,3 +1,7 @@
+/////////////////////////////////
+// Multisite Support Webp
+/////////////////////////////////
+
 add_filter('site_option_upload_filetypes',
   function ( $filetypes ) {
     $filetypes = explode( ' ', $filetypes );
