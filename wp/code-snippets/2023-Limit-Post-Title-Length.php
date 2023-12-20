@@ -1,3 +1,7 @@
+/////////////////////////////////
+// Limit Post Title Length
+/////////////////////////////////
+
 function limit_post_title_length($title) {
 	global $post;
 	$max = 120; // max 120 good for SEO
