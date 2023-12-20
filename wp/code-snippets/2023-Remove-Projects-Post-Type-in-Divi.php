@@ -1,3 +1,7 @@
+/////////////////////////////////
+// Remove Projects Post Type in Divi
+/////////////////////////////////
+
 function remove_divi_projects() {
 	unregister_post_type('project');
 }
