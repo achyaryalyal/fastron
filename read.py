@@ -1,5 +1,5 @@
 # pip install selenium
-# python3 buka_web_scroll.py
+# python read.py or python3 read.py
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
