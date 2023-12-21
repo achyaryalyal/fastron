@@ -1,8 +1,9 @@
-# pip install selenium
+# pip install selenium or pip3 install selenium
 # python read.py or python3 read.py
 
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
 import time
 import json
 import requests
@@ -40,26 +41,50 @@ chrome_options.add_experimental_option("excludeSwitches", ["enable-automation"])
 driver = webdriver.Chrome(options=chrome_options)
 
 try:
-	# Maximize current window
+	# Maximize browser window
 	driver.maximize_window()
-
 	# Buka URL berita melalui Google Chrome dengan mode incognito
 	driver.get(news_url)
-
 	# Tunggu beberapa detik agar laman web selesai dimuat
 	time.sleep(3)
 
 	# Set jumlah scroll yang diinginkan
 	jumlah_scroll = 60  # Misalnya, 100 kali scroll
 	jumlah_scroll_bagi_dua = jumlah_scroll / 2
-
 	# Berapa menit total waktu scroll
-	menit_scroll = 2;
+	menit_scroll = 4;
 	waktu_total_scroll = menit_scroll * 60
-
 	# Waktu tunggu antar scroll
 	waktu_tunggu = waktu_total_scroll / jumlah_scroll
 
+	# Lakukan scroll secara otomatis
+	for i in range(jumlah_scroll):
+		if i < jumlah_scroll_bagi_dua:
+			# Scroll ke bawah
+			driver.execute_script("window.scrollBy(0, 40);")
+		else:
+			# Scroll ke atas
+			driver.execute_script("window.scrollBy(0, -40);")
+		# Tunggu sebentar setelah setiap scroll
+		time.sleep(waktu_tunggu)
+
+	# Second News
+	driver.find_element(By.ID, "recent-news-1").click()
+	time.sleep(3)
+	# Lakukan scroll secara otomatis
+	for i in range(jumlah_scroll):
+		if i < jumlah_scroll_bagi_dua:
+			# Scroll ke bawah
+			driver.execute_script("window.scrollBy(0, 40);")
+		else:
+			# Scroll ke atas
+			driver.execute_script("window.scrollBy(0, -40);")
+		# Tunggu sebentar setelah setiap scroll
+		time.sleep(waktu_tunggu)
+
+	# Third News
+	driver.find_element(By.ID, "recent-news-2").click()
+	time.sleep(3)
 	# Lakukan scroll secara otomatis
 	for i in range(jumlah_scroll):
 		if i < jumlah_scroll_bagi_dua:
