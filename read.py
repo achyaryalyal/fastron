@@ -94,11 +94,10 @@ try:
 	jumlah_scroll = 60  # Misalnya, 100 kali scroll
 	jumlah_scroll_bagi_dua = jumlah_scroll / 2
 	# Berapa menit total waktu scroll
-	menit_scroll = 4;
+	menit_scroll = random.randint(3, 6)
 	waktu_total_scroll = menit_scroll * 60
 	# Waktu tunggu antar scroll
 	waktu_tunggu = waktu_total_scroll / jumlah_scroll
-
 	# Lakukan scroll secara otomatis
 	for i in range(jumlah_scroll):
 		if i < jumlah_scroll_bagi_dua:
@@ -113,6 +112,14 @@ try:
 	# Second News
 	driver.find_element(By.ID, "recent-news-1").click()
 	time.sleep(3)
+	# Set jumlah scroll yang diinginkan
+	jumlah_scroll = 60  # Misalnya, 100 kali scroll
+	jumlah_scroll_bagi_dua = jumlah_scroll / 2
+	# Berapa menit total waktu scroll
+	menit_scroll = random.randint(3, 6)
+	waktu_total_scroll = menit_scroll * 60
+	# Waktu tunggu antar scroll
+	waktu_tunggu = waktu_total_scroll / jumlah_scroll
 	# Lakukan scroll secara otomatis
 	for i in range(jumlah_scroll):
 		if i < jumlah_scroll_bagi_dua:
@@ -127,6 +134,14 @@ try:
 	# Third News
 	driver.find_element(By.ID, "recent-news-2").click()
 	time.sleep(3)
+	# Set jumlah scroll yang diinginkan
+	jumlah_scroll = 60  # Misalnya, 100 kali scroll
+	jumlah_scroll_bagi_dua = jumlah_scroll / 2
+	# Berapa menit total waktu scroll
+	menit_scroll = random.randint(3, 6)
+	waktu_total_scroll = menit_scroll * 60
+	# Waktu tunggu antar scroll
+	waktu_tunggu = waktu_total_scroll / jumlah_scroll
 	# Lakukan scroll secara otomatis
 	for i in range(jumlah_scroll):
 		if i < jumlah_scroll_bagi_dua:
