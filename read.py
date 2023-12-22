@@ -124,10 +124,10 @@ try:
 	for i in range(jumlah_scroll):
 		if i < jumlah_scroll_bagi_dua:
 			# Scroll ke bawah
-			driver.execute_script("window.scrollBy(0, 40);")
+			driver.execute_script("window.scrollBy(0, 50);")
 		else:
 			# Scroll ke atas
-			driver.execute_script("window.scrollBy(0, -40);")
+			driver.execute_script("window.scrollBy(0, -50);")
 		# Tunggu sebentar setelah setiap scroll
 		time.sleep(waktu_tunggu)
 
@@ -146,10 +146,10 @@ try:
 	for i in range(jumlah_scroll):
 		if i < jumlah_scroll_bagi_dua:
 			# Scroll ke bawah
-			driver.execute_script("window.scrollBy(0, 40);")
+			driver.execute_script("window.scrollBy(0, 60);")
 		else:
 			# Scroll ke atas
-			driver.execute_script("window.scrollBy(0, -40);")
+			driver.execute_script("window.scrollBy(0, -60);")
 		# Tunggu sebentar setelah setiap scroll
 		time.sleep(waktu_tunggu)
 
