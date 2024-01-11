@@ -94,7 +94,7 @@ try:
 	jumlah_scroll = 60  # Misalnya, 100 kali scroll
 	jumlah_scroll_bagi_dua = jumlah_scroll / 2
 	# Berapa menit total waktu scroll
-	menit_scroll = random.randint(3, 6)
+	menit_scroll = random.randint(6, 9)
 	waktu_total_scroll = menit_scroll * 60
 	# Waktu tunggu antar scroll
 	waktu_tunggu = waktu_total_scroll / jumlah_scroll
@@ -108,15 +108,15 @@ try:
 			driver.execute_script("window.scrollBy(0, -40);")
 		# Tunggu sebentar setelah setiap scroll
 		time.sleep(waktu_tunggu)
-
-	# Second News
-	driver.find_element(By.ID, "recent-news-1").click()
+	# 2nd
+	driver.find_element(By.ID, "recent-news-3").click()
 	time.sleep(3)
+
 	# Set jumlah scroll yang diinginkan
 	jumlah_scroll = 60  # Misalnya, 100 kali scroll
 	jumlah_scroll_bagi_dua = jumlah_scroll / 2
 	# Berapa menit total waktu scroll
-	menit_scroll = random.randint(3, 6)
+	menit_scroll = random.randint(6, 9)
 	waktu_total_scroll = menit_scroll * 60
 	# Waktu tunggu antar scroll
 	waktu_tunggu = waktu_total_scroll / jumlah_scroll
@@ -130,15 +130,15 @@ try:
 			driver.execute_script("window.scrollBy(0, -50);")
 		# Tunggu sebentar setelah setiap scroll
 		time.sleep(waktu_tunggu)
-
-	# Third News
+	# 3rd
 	driver.find_element(By.ID, "recent-news-2").click()
 	time.sleep(3)
+
 	# Set jumlah scroll yang diinginkan
 	jumlah_scroll = 60  # Misalnya, 100 kali scroll
 	jumlah_scroll_bagi_dua = jumlah_scroll / 2
 	# Berapa menit total waktu scroll
-	menit_scroll = random.randint(3, 6)
+	menit_scroll = random.randint(6, 9)
 	waktu_total_scroll = menit_scroll * 60
 	# Waktu tunggu antar scroll
 	waktu_tunggu = waktu_total_scroll / jumlah_scroll
@@ -150,6 +150,50 @@ try:
 		else:
 			# Scroll ke atas
 			driver.execute_script("window.scrollBy(0, -60);")
+		# Tunggu sebentar setelah setiap scroll
+		time.sleep(waktu_tunggu)
+	# 4th
+	driver.find_element(By.ID, "link-bbg-news").click()
+	time.sleep(3)
+
+	# Set jumlah scroll yang diinginkan
+	jumlah_scroll = 60  # Misalnya, 100 kali scroll
+	jumlah_scroll_bagi_dua = jumlah_scroll / 2
+	# Berapa menit total waktu scroll
+	menit_scroll = random.randint(6, 9)
+	waktu_total_scroll = menit_scroll * 60
+	# Waktu tunggu antar scroll
+	waktu_tunggu = waktu_total_scroll / jumlah_scroll
+	# Lakukan scroll secara otomatis
+	for i in range(jumlah_scroll):
+		if i < jumlah_scroll_bagi_dua:
+			# Scroll ke bawah
+			driver.execute_script("window.scrollBy(0, 60);")
+		else:
+			# Scroll ke atas
+			driver.execute_script("window.scrollBy(0, -50);")
+		# Tunggu sebentar setelah setiap scroll
+		time.sleep(waktu_tunggu)
+	# 5th
+	driver.find_element(By.CSS_SELECTOR, "article.et_pb_blog_item_0_0 h2 a").click()
+	time.sleep(3)
+
+	# Set jumlah scroll yang diinginkan
+	jumlah_scroll = 60  # Misalnya, 100 kali scroll
+	jumlah_scroll_bagi_dua = jumlah_scroll / 2
+	# Berapa menit total waktu scroll
+	menit_scroll = random.randint(6, 9)
+	waktu_total_scroll = menit_scroll * 60
+	# Waktu tunggu antar scroll
+	waktu_tunggu = waktu_total_scroll / jumlah_scroll
+	# Lakukan scroll secara otomatis
+	for i in range(jumlah_scroll):
+		if i < jumlah_scroll_bagi_dua:
+			# Scroll ke bawah
+			driver.execute_script("window.scrollBy(0, 50);")
+		else:
+			# Scroll ke atas
+			driver.execute_script("window.scrollBy(0, -40);")
 		# Tunggu sebentar setelah setiap scroll
 		time.sleep(waktu_tunggu)
 
