@@ -50,15 +50,29 @@ GPG ERROR
 sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
 sudo apt update
 
-============================
-NGINX WARNING ON TEST CONFIG
-============================
+====================================================
+NGINX WARNING ON TEST CONFIG: "ssl_stapling" ignored
+====================================================
 nginx -t
 # nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate
 nano /etc/nginx/nginx.conf
 # set off OCSP Stapling
 	ssl_stapling off;
 	ssl_stapling_verify off;
+nginx -t
+nginx -s reload
+
+=======================================================================
+NGINX WARNING ON TEST CONFIG: could not build optimal server_names_hash
+=======================================================================
+nginx -t
+# nginx: [warn] could not build optimal server_names_hash, you should increase either server_names_hash_max_size: 512 or server_names_hash_bucket_size: 64; ignoring server_names_hash_bucket_size
+nano /etc/nginx/nginx.conf
+# add this line under Basic Setting
+	server_names_hash_bucket_size 256;
+	server_names_hash_max_size 1024;
+	variables_hash_max_size 2048;  
+	variables_hash_bucket_size 128;
 nginx -t
 nginx -s reload
 
