@@ -252,13 +252,13 @@ Workspace > Workspace Behavior > Desktop Effects > Woobly Windows > enable and c
 	disabled Wobble when resizing
 Workspace > Workspace Behavior > Desktop Effects > Magic Lamp > enable and configure
 	Animation duration: 400ms
-Workspace > Window Management > Window Behavior
+Workspace > Window Management > Window Behavior > Advanced
 	Window placement: Centered
 Workspace > Window Management > Task Switcher
-	change Breeze to Compact (more informative and don't spend much screen area)
-Workspace > Window Management > KWin Scripts
-	Get new script > Force Blue > install > enable
-	Get new script > Hide Titles > install > enable
+	change to Thumbnail Grid
+Workspace > Window Management > Window Rules
+	https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/kwinrule/Rule%20-%20Google%20Chrome.kwinrule
+	https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/kwinrule/Rule%20-%20Hide%20Title%20Bars.kwinrule
 
 =======================================
 Setting New Look
