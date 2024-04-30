@@ -366,6 +366,7 @@ Application Title Bar (Download)
 Panel Spacer
 	220
 Sticky Note
+	A transparent sticky with light text
 	Shortcut: Ctrl + Alt + Space
 System Tray
 	Panel icon size: Scale with panel height
