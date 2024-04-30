@@ -1,0 +1,6 @@
+[Rule - Hide Title Bars]
+Description=Rule - Hide Title Bars
+noborder=true
+noborderrule=2
+wmclass=.*
+wmclassmatch=3
