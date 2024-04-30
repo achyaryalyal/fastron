@@ -1,0 +1,11 @@
+[Rule - Google Chrome]
+Description=Rule - Google Chrome
+clientmachine=localhost
+noborder=true
+noborderrule=2
+title=How to Make KDE Plasma Look Like macOS Big Sur - YouTube - Google Chrome
+types=1
+windowrole=browser
+windowrolematch=1
+wmclass=google-chrome
+wmclassmatch=1
