@@ -314,72 +314,72 @@ $ sudo make install
 # Open Dolphin > right click on search icon > enable Toggle Search Bar
 
 =======================================
-Install widget Window Buttons Applet to show window buttons in your panels
-=======================================
-$ sudo -i
-$ sudo apt install g++ cmake extra-cmake-modules qtbase5-dev qtdeclarative5-dev libkf5declarative-dev libkf5plasma-dev libkdecorations2-dev gettext
-$ cd /opt && git clone https://github.com/psifidotos/applet-window-buttons.git && cd applet-window-buttons && ls
-$ ./install.sh
-
-=======================================
 Setup Widget
 =======================================
-Latte spacer (Download)
-	5px
-Kpple menu (Download)
-Application title (Download)
-	No active window label: Custom text
-	No active window custom text: Finder     File     Edit     View     Go     Windows     Help
-	Text type: Application name
-Spacer (Flexible Size)
-Window Buttons (Install and Compile)
-	Sort button color: red-yellow-green
-Latte spacer (Download)
-	7px
-Sticky Notes (Default)
+Application Launcher
+	Icon: search blue windowed icon
+	Sidebar position: left
+	Show favourites: In a grid
+	Show other applications: In a list
+	Show buttons for: Power (show action button captions)
+Application Title Bar (Download)
+	Button icons source: Aurorae
+	Aurorae theme: MacSonoma-Dark
+	Buttons margins: 6
+	Buttons width/height ratio: 100
+	Animation speed in ms: 100
+	Widget margins: 1
+	Spacing between elements: 4
+	Horizontal alignment: Left
+	Vertical alignment: Center
+	Show disabled elements: Deactivated
+	Elements: [icon] Title
+	Minimum width: 0
+	Maximum width: 640
+	Font size: 10
+	Font fit: Fixed size
+	Font bold: Yes
+	Hide empty title: Yes
+	Window title source: Application Name
+	Window title margins: 0 10 0 10
+Panel Spacer (Flexible Size)
+Application Title Bar (Download)
+	Button icons source: Aurorae
+	Aurorae theme: MacSonoma-Dark
+	Buttons margins: 6
+	Buttons width/height ratio: 100
+	Animation speed in ms: 100
+	Widget margins: 1
+	Spacing between elements: 4
+	Horizontal alignment: Left
+	Vertical alignment: Center
+	Show disabled elements: Deactivated
+	Elements: [close] [minimize] [maximize]
+	Minimum width: 0
+	Maximum width: 640
+	Font size: 10
+	Font fit: Fixed size
+	Font bold: Yes
+	Hide empty title: Yes
+	Window title source: Generic Application Name
+	Window title margins: 0 10 0 10
+Panel Spacer
+	220
+Sticky Note
 	Shortcut: Ctrl + Alt + Space
-Latte spacer (Download)
-	10px
-Big Sur - inline battery (Download)
-	Dimensions: 25px x 12px
-	Padding: 5px
-	Font Size: 14px
-Latte spacer (Download)
-	4px
-Network connection (Default)
-Latte spacer (Download)
-	2px
-Launchpad plasma (Download)
-	Icon: search
-	Shotcut: Meta + Z
-Latte spacer (Download)
-	2px
-System Tray (Default)
-	General:
-		Panel icon size: Scale with panel height
-	Entries:
-		Always hidden: Google Chrome, Battery and Brightness, Bluetooth, Networks
-Latte spacer (Download)
-	10px
-Better inline clock (Download)
-	enable Use fixed font size
-	Font Size: 14
-	Date format: Custom Date with 2 spaces in the end
-		ddd d MMM  
-Latte spacer (Download)
-	1px
-Minimize all windows
+System Tray
+	Panel icon size: Scale with panel height
+	Panel icon spacing: Normal
+Digital Clock
+	Information: Show date (Adaptive location)
+	Show seconds: Only in the tooltip
+	Show time zone: Only when different from local time zone
+	Display time zone as: Code
+	Time display: Use Region Defaults
+	Date format: Short Date (30/04/2024)
+	Text display: Automatic
+Peek at Desktop (Minimize all windows)
 	Shortcut: Ctrl + Space
-Latte spacer (Download)
-	10px
-
-=======================================
-Install Latte Dock
-=======================================
-$ sudo apt install latte-dock
-# add Latte Dock to autostart application
-# setting layout > import from KDE online store > WhiteSur latte by vinceliuice > install > apply > switch
-# add widget > Launchpad plasma > drag to Latte Dock > configure Launchpad plasma
 
 =====================================
 Install Sublime Text from Ubuntu PPA
@@ -446,15 +446,6 @@ $ cd "${HOME}/Downloads"
 $ wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
 $ chmod +x winetricks
 $ sh winetricks allfonts dotnet472 vcrun2008 vcrun2010 vcrun2013 vcrun2015 d3dx9 d3dx9_43 directx9 d3dx10
-
-=====================================
-Wine: Install Motion Trade Desktop Version from MNC Sekuritas
-=====================================
-https://www.mncsekuritas.id/download-area
-# read the Prerequisite Tools: NET Framework 4.7.2 & VC++ Redist 2015 x86
-# open motion trade > login > set font (T icon): Arial --- Bold --- 8 --- OK
-# setting General: last viewed menus, save pin (till application stop), use real time value update, theme 1 black (default)
-# setting Notification: use notification message (Both), all order result
 
 ======================================
 Install Vagrant
