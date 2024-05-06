@@ -676,6 +676,13 @@ $ sudo alsa force-reload
 # reboot and check if sound is back or not
 
 =================================
+Fix No Bluetooth
+=================================
+$ sudo rfkill block bluetooth
+$ sudo rfkill unblock bluetooth
+$ sudo bluetoothctl power on
+
+=================================
 Fix Desktop Effects Not Working or Display is Blank (BLACK SCREEN)
 =================================
 System Settings > Hardware > Display and Monitor > Compositor
