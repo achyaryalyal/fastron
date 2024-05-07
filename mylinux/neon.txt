@@ -628,6 +628,34 @@ $ i="linux-headers-virtual|linux-image-virtual|linux-headers-generic-hwe-|linux-
 $ dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i"
 # delete all unwated and older Linux kernels
 $ sudo apt --purge remove $(dpkg --list | egrep -i 'linux-image|linux-headers' | awk '/ii/{ print $2}' | egrep -v "$i")
+$ sudo apt autoremove
+
+=================================
+Clear the APT cache and delete everything from /var/cache/apt/archives/
+================================= 
+$ sudo apt clean
+$ sudo apt autoclean
+$ sudo du -ch /var/cache/apt/archives/
+
+=================================
+Clear journal logs from /var/log/journal/
+=================================
+$ journalctl --disk-usage
+$ nano /etc/systemd/journald.conf
+    SystemMaxUse=50M
+$ sudo systemctl kill --kill-who=main --signal=SIGUSR2 systemd-journald.service
+$ sudo systemctl restart systemd-journald.service
+
+=================================
+Clear thumbnail & trash from [USER]
+=================================
+$ rm -rf /home/[USER]/.cache/thumbnails/*
+$ rm -rf /home/[USER]/.local/share/Trash/*
+
+=================================
+Clear snap spotify cache from [USER]
+=================================
+$ rm -rf /home/[USER]/snap/spotify/common/.cache/spotify/Data/*
 
 =================================
 Checking Boot Time
