@@ -357,7 +357,7 @@ echo '<!doctype html>
               
               <input type="hidden" name="count" value="'.count($arr_akun).'">
               
-              <button class="w-100 btn btn-primary btn-lg" id="generate" name="generate" type="submit">Generate Laporan</button>
+              <button class="w-100 btn btn-warning btn-lg" id="generate" name="generate" type="submit">Generate Laporan</button>
               
             </form>
             
@@ -376,7 +376,7 @@ echo '<!doctype html>
                     echo '<div class="col-sm-6 mb-4">
                         <div class="card">
                           <div class="card-body">
-                            <a class="btn btn-primary mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
+                            <a class="btn btn-success mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
                     echo '<textarea id="text_'.$_POST['nomor_'.$num].'" class="form-control">_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
 _*Tanggal: '.$_POST['tgl'].'*_
 _*Klien: '.$_POST['nama_'.$num].'*_
@@ -421,7 +421,7 @@ clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
                     echo '<div class="col-sm-6 mb-4">
                         <div class="card">
                           <div class="card-body">
-                            <a class="btn btn-primary mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
+                            <a class="btn btn-success mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
                     echo '<textarea id="text_'.$_POST['nomor_'.$num].'" class="form-control">_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
 _*Tanggal: '.$_POST['tgl'].'*_
 _*Klien: '.$_POST['nama_'.$num].'*_
@@ -466,7 +466,7 @@ clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
                     echo '<div class="col-sm-6 mb-4">
                         <div class="card">
                           <div class="card-body">
-                            <a class="btn btn-primary mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
+                            <a class="btn btn-success mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
                     echo '<textarea id="text_'.$_POST['nomor_'.$num].'" class="form-control">_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
 _*Tanggal: '.$_POST['tgl'].'*_
 _*Klien: '.$_POST['nama_'.$num].'*_
@@ -548,7 +548,7 @@ clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
           <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
           <label for="floatingPassword">Password</label>
         </div>
-        <button class="btn btn-primary w-100 py-2" name="login" type="submit">Login</button>
+        <button class="btn btn-warning w-100 py-2" name="login" type="submit">Login</button>
       </form>
       </main>';
     }
