@@ -1,7 +1,5 @@
 <?php
-
 sleep(2);
-
 session_start();
 
 $nm_company = 'Petani Emas';
@@ -14,7 +12,7 @@ $arr_akun = array(
     array("Helmi", 45900748),
     array("Achyar", 45919719),
     array("Ferdi", 45933301),
-    array("Syarfuni", 11111111),
+    array("Syarfuni", 45937528)
 );
 //print_r($arr_akun);
 
