@@ -146,6 +146,7 @@ echo '<!doctype html>
     </style>
     
     <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
   </head>
   <body class="bg-body-tertiary">
@@ -403,6 +404,12 @@ clipboard_'.$_POST['nomor_'.$num].'.on("success", function(e) {
     console.info("Text:", e.text);
     console.info("Trigger:", e.trigger);
     e.clearSelection();
+    Swal.fire({
+        title: "Copied",
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false
+    });
 });
 clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
     console.error("Action:", e.action);
@@ -448,6 +455,12 @@ clipboard_'.$_POST['nomor_'.$num].'.on("success", function(e) {
     console.info("Text:", e.text);
     console.info("Trigger:", e.trigger);
     e.clearSelection();
+    Swal.fire({
+        title: "Copied",
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false
+    });
 });
 clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
     console.error("Action:", e.action);
@@ -493,6 +506,12 @@ clipboard_'.$_POST['nomor_'.$num].'.on("success", function(e) {
     console.info("Text:", e.text);
     console.info("Trigger:", e.trigger);
     e.clearSelection();
+    Swal.fire({
+        title: "Copied",
+        icon: "success",
+        timer: 2000,
+        showConfirmButton: false
+    });
 });
 clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
     console.error("Action:", e.action);
