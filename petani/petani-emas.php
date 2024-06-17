@@ -489,7 +489,10 @@ clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
     
     echo '<footer class="text-body-secondary text-center text-small">
         <p class="mb-3">&copy; '.date('Y').' '.$nm_website.'</p>
-        <p class="mb-3"><img src="petani-emas-norton.svg" width="80px"></p>
+        <p class="mb-3">
+            <img src="petani-emas-hfm.svg" style="height:30px;width:auto;padding-right:10px;">
+            <img src="petani-emas-norton.svg" style="height:30px;width:auto;">
+        </p>
       </footer>
     </div>
     <script src="https://getbootstrap.com/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
