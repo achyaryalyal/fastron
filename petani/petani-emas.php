@@ -6,6 +6,8 @@ session_start();
 
 $nm_company = 'Petani Emas';
 $nm_website = 'petaniemas.id';
+$slogan_1 = 'Make XAUUSD';
+$slogan_2 = '“Your Passive Income”';
 
 $arr_akun = array(
     array("Chaizir", 45885771),
@@ -41,7 +43,7 @@ echo '<!doctype html>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
-    <title>Laporan Mingguan '.$nm_company.'</title>
+    <title>'.$nm_company.' - '.$slogan_1.' '.$slogan_2.'</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@docsearch/css@3">
     <link href="https://getbootstrap.com/docs/5.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="icon" href="petani-emas.png">
@@ -464,7 +466,7 @@ clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
             <button class="btn btn-warning w-100 py-2" name="login" type="submit">Login</button>
             </form>
             
-            <div class="text-center fw-bold fst-italic mt-4 mb-4"><small>Make XAUUSD <span class="text-warning">“Your Passive Income”</span></small></div>
+            <div class="text-center fw-bold fst-italic mt-4 mb-4"><small>'.$slogan_1.' <span class="text-warning">'.$slogan_2.'</span></small></div>
             
             <!-- TradingView Widget BEGIN -->
             <div class="tradingview-widget-container">
