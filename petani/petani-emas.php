@@ -458,8 +458,8 @@ clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
                 echo '<div class="alert alert-warning">'.$error_message.'</div>';
             }
             echo '<div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password" required>
-                <label for="floatingPassword">Password</label>
+                <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password Admin" required>
+                <label for="floatingPassword">Password Admin</label>
             </div>
             <button class="btn btn-warning w-100 py-2" name="login" type="submit">Login</button>
             </form>
