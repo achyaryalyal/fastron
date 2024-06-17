@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $nm_company = 'Petani Emas';
 
 $arr_akun = array(
@@ -48,6 +50,23 @@ echo '<!doctype html>
     <meta name="theme-color" content="#712cf9">
 
     <style>
+    .gold {
+      font-size: 5vw;
+      text-transform: uppercase;
+      line-height:1;
+      text-align: center;
+      background: linear-gradient(90deg, rgba(186,148,62,1) 0%, rgba(236,172,32,1) 20%, rgba(186,148,62,1) 39%, rgba(249,244,180,1) 50%, rgba(186,148,62,1) 60%, rgba(236,172,32,1) 80%, rgba(186,148,62,1) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;	
+      animation: shine 3s infinite;
+      background-size: 200%;
+      background-position: left;
+    
+    }
+    @keyframes shine {
+      to{background-position: right}
+    }
+    
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -125,10 +144,9 @@ echo '<!doctype html>
         display: block !important;
       }
     </style>
-
     
-    <!-- Custom styles for this template -->
-    <link href="https://getbootstrap.com/docs/5.3/examples/checkout/checkout.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script>
+    
   </head>
   <body class="bg-body-tertiary">
     <svg xmlns="http://www.w3.org/2000/svg" class="d-none">
@@ -206,12 +224,17 @@ echo '<!doctype html>
             }
         }
         
-        echo '<main>
+        echo '<style>
+        .container {
+          max-width: 960px;
+        }
+        </style>
+        <main>
         <div class="py-5 text-center">
           <img class="d-block mx-auto mb-4" src="petani-emas.png" alt="" width="72" height="69">
-          <h2>Petani Emas</h2>
+          <h2 class="gold">'.$nm_company.'</h2>
           <p><a href="?logout" class="link-warning link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">Logout</a></p>
-          <p class="lead">Aplikasi Generator Laporan Portofolio Mingguan "Petani Emas" adalah alat yang memudahkan fund manager dalam membuat laporan mingguan yang komprehensif dan aman, menggunakan data real-time dan personalisasi untuk memberikan informasi investasi yang jelas dan up-to-date kepada klien.</p>
+          <p class="lead">Aplikasi Generator Laporan Portofolio Mingguan "'.$nm_company.'" adalah alat yang memudahkan fund manager dalam membuat laporan mingguan yang komprehensif dan aman, menggunakan data real-time dan personalisasi untuk memberikan informasi investasi yang jelas dan up-to-date kepada klien.</p>
         </div>
     
         <div class="row g-5">
@@ -221,14 +244,14 @@ echo '<!doctype html>
             <!-- TradingView Widget BEGIN -->
             <div class="tradingview-widget-container">
               <div class="tradingview-widget-container__widget"></div>
-              <div class="tradingview-widget-copyright"><a href="https://id.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Lacak seluruh pasar di TradingView</span></a></div>
-              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-symbol-info.js" async>
+              <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
               {
               "symbol": "OANDA:XAUUSD",
-              "width": "300",
-              "locale": "id",
+              "width": 300,
+              "isTransparent": false,
               "colorTheme": "dark",
-              "isTransparent": false
+              "locale": "en"
             }
               </script>
             </div>
@@ -259,7 +282,7 @@ echo '<!doctype html>
           
             <h4 class="mb-3">Informasi</h4>
             
-            <form method="post" class="needs-validation" novalidate>
+            <form method="post" action="petani-emas.php">
             
               <div class="row g-3">
                 
@@ -315,14 +338,14 @@ echo '<!doctype html>
                   <label class="form-label">Balance Saat Ini</label>
                   <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input type="number" class="form-control" name="balance_'.$num.'" value="'; if(isset($_POST['balance_'.$num])) {echo $_POST['balance_'.$num];} echo '" required>
+                    <input type="number" class="form-control" step="0.01" name="balance_'.$num.'" value="'; if(isset($_POST['balance_'.$num])) {echo $_POST['balance_'.$num];} echo '" required>
                   </div>
                 </div>
                 <div class="col-sm-6">
                   <label class="form-label">Profit Minggu Ini</label>
                   <div class="input-group">
                     <span class="input-group-text">$</span>
-                    <input type="number" class="form-control" name="profit_'.$num.'" value="'; if(isset($_POST['profit_'.$num])) {echo $_POST['profit_'.$num];} echo '" required>
+                    <input type="number" class="form-control" step="0.01" name="profit_'.$num.'" value="'; if(isset($_POST['profit_'.$num])) {echo $_POST['profit_'.$num];} echo '" required>
                   </div>
                 </div>
                 <input type="hidden" name="nama_'.$num.'" value="'.$arr_akun[$row][0].'">
@@ -334,7 +357,7 @@ echo '<!doctype html>
               
               <input type="hidden" name="count" value="'.count($arr_akun).'">
               
-              <button class="w-100 btn btn-primary btn-lg" name="submit" type="submit">Generate Laporan</button>
+              <button class="w-100 btn btn-primary btn-lg" id="generate" name="generate" type="submit">Generate Laporan</button>
               
             </form>
             
@@ -342,7 +365,7 @@ echo '<!doctype html>
         
         </div>';
         
-        if(isset($_POST['submit'])) {
+        if(isset($_POST['generate'])) {
             //echo '<pre>'; print_r($_POST); echo '</pre>'; die();
             //echo '<hr>';
             echo '<div class="row mt-5">';
@@ -352,27 +375,40 @@ echo '<!doctype html>
                     $balance_rupiah = $_POST['balance_'.$num] * $IDR_price;
                     echo '<div class="col-sm-6 mb-4">
                         <div class="card">
-                          <div class="card-body">';
-                    echo '_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
-                    <br>
-                    _*Tanggal: '.$_POST['tgl'].'*_<br>
-                    _*Client: '.$_POST['nama_'.$num].'*_<br>
-                    _*Nomor Akun: '.$_POST['nomor_'.$num].'*_<br>
-                    <br>
-                    *1. Ringkasan Kinerja:*<br>
-                    Profit minggu ini sebesar $'.$_POST['profit_'.$num].' '.$emoji_dolar_karung.'
-                    <br><br>
-                    *2. Nilai Portofolio:*<br>
-                    Nilai portofolio Anda saat ini adalah $'.number_format($_POST['balance_'.$num], 2).' atau Rp'.number_format($balance_rupiah, 0).' (kurs dolar Rp'.number_format($IDR_price, 0).') '.$emoji_dolar_kertas.'
-                    <br><br>
-                    *3. Analisis Pasar*<br>
-                    Dalam minggu ini, EA kami telah bekerja dengan sangat baik, didukung oleh kondisi pasar yang cukup kondusif untuk membuka dan mengelola sejumlah posisi dengan efektif.<br>
-                    <br>
-                    Terima kasih atas kepercayaannya. Jika ada pertanyaan, jangan ragu untuk menghubungi saya.<br>
-                    <br>
-                    Salam,<br>
-                    Achyar Munandar, S.Kom<br>
-                    _Strategy & Fund Manager_';
+                          <div class="card-body">
+                            <a class="btn btn-primary mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
+                    echo '<textarea id="text_'.$_POST['nomor_'.$num].'" class="form-control">_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
+_*Tanggal: '.$_POST['tgl'].'*_
+_*Klien: '.$_POST['nama_'.$num].'*_
+_*Nomor Akun: '.$_POST['nomor_'.$num].'*_
+
+*1. Ringkasan Kinerja:*
+Profit minggu ini sebesar $'.$_POST['profit_'.$num].' '.$emoji_dolar_karung.'
+
+*2. Nilai Portofolio:*
+Nilai portofolio Anda saat ini adalah $'.number_format($_POST['balance_'.$num], 2).' atau Rp'.number_format($balance_rupiah, 0).' (kurs dolar Rp'.number_format($IDR_price, 0).') '.$emoji_dolar_kertas.'
+
+*3. Analisis Pasar*
+Dalam minggu ini, EA kami telah bekerja dengan sangat baik, didukung oleh kondisi pasar yang cukup kondusif untuk membuka dan mengelola sejumlah posisi dengan efektif.
+
+Terima kasih atas kepercayaannya. Jika ada pertanyaan, jangan ragu untuk menghubungi saya.
+
+Salam,
+Achyar Munandar, S.Kom
+_Strategy & Fund Manager_</textarea>
+<script>
+var clipboard_'.$_POST['nomor_'.$num].' = new ClipboardJS("#btn_'.$_POST['nomor_'.$num].'");
+clipboard_'.$_POST['nomor_'.$num].'.on("success", function(e) {
+    console.info("Action:", e.action);
+    console.info("Text:", e.text);
+    console.info("Trigger:", e.trigger);
+    e.clearSelection();
+});
+clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
+    console.error("Action:", e.action);
+    console.error("Trigger:", e.trigger);
+});
+</script>';
                     echo '</div>
                         </div>
                     </div>';
@@ -384,27 +420,40 @@ echo '<!doctype html>
                     $balance_rupiah = $_POST['balance_'.$num] * $IDR_price;
                     echo '<div class="col-sm-6 mb-4">
                         <div class="card">
-                          <div class="card-body">';
-                    echo '_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
-                    <br>
-                    _*Tanggal: '.$_POST['tgl'].'*_<br>
-                    _*Client: '.$_POST['nama_'.$num].'*_<br>
-                    _*Nomor Akun: '.$_POST['nomor_'.$num].'*_<br>
-                    <br>
-                    *1. Ringkasan Kinerja:*<br>
-                    Profit minggu ini sebesar $'.$_POST['profit_'.$num].' '.$emoji_dolar_karung.'
-                    <br><br>
-                    *2. Nilai Portofolio:*<br>
-                    Nilai portofolio Anda saat ini adalah $'.number_format($_POST['balance_'.$num], 2).' atau Rp'.number_format($balance_rupiah, 0).' (kurs dolar Rp'.number_format($IDR_price, 0).') '.$emoji_dolar_kertas.'
-                    <br><br>
-                    *3. Analisis Pasar*<br>
-                    Berdasarkan analisis yang dijalankan EA kami, pergerakan pasar minggu ini kurang kondusif. Oleh karena itu, EA tidak membuka banyak posisi untuk menjaga modal Anda dengan hati-hati.<br>
-                    <br>
-                    Terima kasih atas kepercayaannya. Jika ada pertanyaan, jangan ragu untuk menghubungi saya.<br>
-                    <br>
-                    Salam,<br>
-                    Achyar Munandar, S.Kom<br>
-                    _Strategy & Fund Manager_';
+                          <div class="card-body">
+                            <a class="btn btn-primary mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
+                    echo '<textarea id="text_'.$_POST['nomor_'.$num].'" class="form-control">_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
+_*Tanggal: '.$_POST['tgl'].'*_
+_*Klien: '.$_POST['nama_'.$num].'*_
+_*Nomor Akun: '.$_POST['nomor_'.$num].'*_
+
+*1. Ringkasan Kinerja:*
+Profit minggu ini sebesar $'.$_POST['profit_'.$num].' '.$emoji_dolar_karung.'
+
+*2. Nilai Portofolio:*
+Nilai portofolio Anda saat ini adalah $'.number_format($_POST['balance_'.$num], 2).' atau Rp'.number_format($balance_rupiah, 0).' (kurs dolar Rp'.number_format($IDR_price, 0).') '.$emoji_dolar_kertas.'
+
+*3. Analisis Pasar*
+Berdasarkan analisis yang dijalankan EA kami, pergerakan pasar minggu ini kurang kondusif. Oleh karena itu, EA tidak membuka banyak posisi untuk menjaga modal Anda dengan hati-hati.
+
+Terima kasih atas kepercayaannya. Jika ada pertanyaan, jangan ragu untuk menghubungi saya.
+
+Salam,
+Achyar Munandar, S.Kom
+_Strategy & Fund Manager_</textarea>
+<script>
+var clipboard_'.$_POST['nomor_'.$num].' = new ClipboardJS("#btn_'.$_POST['nomor_'.$num].'");
+clipboard_'.$_POST['nomor_'.$num].'.on("success", function(e) {
+    console.info("Action:", e.action);
+    console.info("Text:", e.text);
+    console.info("Trigger:", e.trigger);
+    e.clearSelection();
+});
+clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
+    console.error("Action:", e.action);
+    console.error("Trigger:", e.trigger);
+});
+</script>';
                     echo '</div>
                         </div>
                     </div>';
@@ -416,33 +465,49 @@ echo '<!doctype html>
                     $balance_rupiah = $_POST['balance_'.$num] * $IDR_price;
                     echo '<div class="col-sm-6 mb-4">
                         <div class="card">
-                          <div class="card-body">';
-                    echo '_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
-                    <br>
-                    _*Tanggal: '.$_POST['tgl'].'*_<br>
-                    _*Client: '.$_POST['nama_'.$num].'*_<br>
-                    _*Nomor Akun: '.$_POST['nomor_'.$num].'*_<br>
-                    <br>
-                    *1. Ringkasan Kinerja:*<br>
-                    Loss minggu ini $'.$_POST['profit_'.$num].' '.$emoji_dolar_karung.'
-                    <br><br>
-                    *2. Nilai Portofolio:*<br>
-                    Nilai portofolio Anda saat ini adalah $'.number_format($_POST['balance_'.$num], 2).' atau Rp'.number_format($balance_rupiah, 0).' (kurs dolar Rp'.number_format($IDR_price, 0).') '.$emoji_dolar_kertas.'
-                    <br><br>
-                    *3. Analisis Pasar*<br>
-                    Meskipun EA kami bekerja dengan baik, kerugian masih bisa terjadi dalam minggu ini karena kondisi pasar yang kurang kondusif dan berlawanan arah. Namun, EA kami akan segera melakukan langkah pemulihan.<br>
-                    <br>
-                    Terima kasih atas kepercayaannya. Jika ada pertanyaan, jangan ragu untuk menghubungi saya.<br>
-                    <br>
-                    Salam,<br>
-                    Achyar Munandar, S.Kom<br>
-                    _Strategy & Fund Manager_';
+                          <div class="card-body">
+                            <a class="btn btn-primary mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
+                    echo '<textarea id="text_'.$_POST['nomor_'.$num].'" class="form-control">_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
+_*Tanggal: '.$_POST['tgl'].'*_
+_*Klien: '.$_POST['nama_'.$num].'*_
+_*Nomor Akun: '.$_POST['nomor_'.$num].'*_
+
+*1. Ringkasan Kinerja:*
+Loss minggu ini $'.$_POST['profit_'.$num].' '.$emoji_dolar_karung.'
+
+*2. Nilai Portofolio:*
+Nilai portofolio Anda saat ini adalah $'.number_format($_POST['balance_'.$num], 2).' atau Rp'.number_format($balance_rupiah, 0).' (kurs dolar Rp'.number_format($IDR_price, 0).') '.$emoji_dolar_kertas.'
+
+*3. Analisis Pasar*
+Meskipun EA kami bekerja dengan baik, kerugian masih bisa terjadi dalam minggu ini karena kondisi pasar yang kurang kondusif dan berlawanan arah. Namun, EA kami akan segera melakukan langkah pemulihan.
+
+Terima kasih atas kepercayaannya. Jika ada pertanyaan, jangan ragu untuk menghubungi saya.
+
+Salam,
+Achyar Munandar, S.Kom
+_Strategy & Fund Manager_</textarea>
+<script>
+var clipboard_'.$_POST['nomor_'.$num].' = new ClipboardJS("#btn_'.$_POST['nomor_'.$num].'");
+clipboard_'.$_POST['nomor_'.$num].'.on("success", function(e) {
+    console.info("Action:", e.action);
+    console.info("Text:", e.text);
+    console.info("Trigger:", e.trigger);
+    e.clearSelection();
+});
+clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
+    console.error("Action:", e.action);
+    console.error("Trigger:", e.trigger);
+});
+</script>';
                     echo '</div>
                         </div>
                     </div>';
                 }
             }
-            echo '</div>';
+            echo '</div>
+            <script>
+            document.getElementById("generate").scrollIntoView();
+            </script>';
         }
         echo '</main>';
     }
@@ -473,9 +538,9 @@ echo '<!doctype html>
         }
         </style>
         <main class="form-signin">
-        <form method="post">
+        <form method="post" action="petani-emas.php">
         <center><img class="mb-4" src="petani-emas.png" alt="" width="72" height="69"></center>
-        <h1 class="h3 text-center mb-3 fw-normal">Achyar</h1>';
+        <h1 class="h3 gold text-center mb-3 fw-normal">'.$nm_company.'</h1>';
         if(isset($error_message)) {
             echo '<div class="alert alert-warning">'.$error_message.'</div>';
         }
