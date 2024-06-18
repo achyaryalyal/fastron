@@ -16,6 +16,12 @@ $arr_akun = array(
 );
 //print_r($arr_akun);
 
+$link_register_referral = "https://register.hfmpro.com/int/id/new-live-account/?refid=30415771";
+$link_login_referral = "https://my.hfmpro.com/login?refid=30415771&lang=id";
+
+$link_overlay_image = "petani-emas-overlay-image.png";
+$link_overlay_video = "petani-emas-overlay-video.mp4";
+
 $emoji_statistik = "&#128202;";
 $emoji_dolar_karung = "&#128176;";
 $emoji_dolar_kertas = "&#128181;";
@@ -48,9 +54,15 @@ echo '<!doctype html>
     <meta name="theme-color" content="#712cf9">
     <style>
     body {
+        position: relative;
         background: linear-gradient(-45deg, #1D1D1F, #3B3130, #B16C04);
         background-size: 400% 400%;
-        animation: gradient 15s ease infinite;
+        animation: gradient 45s ease infinite;
+        /*background-color: black;*/
+        height: 75vh;
+        min-height: 25rem;
+        width: 100%;
+        overflow: auto;
     }
     @keyframes gradient {
         0% {
@@ -63,6 +75,45 @@ echo '<!doctype html>
             background-position: 0% 50%;
         }
     }
+    body video {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        min-width: 100%;
+        min-height: 100%;
+        width: auto;
+        height: auto;
+        z-index: 0;
+        -ms-transform: translateX(-50%) translateY(-50%);
+        -moz-transform: translateX(-50%) translateY(-50%);
+        -webkit-transform: translateX(-50%) translateY(-50%);
+        transform: translateX(-50%) translateY(-50%);
+    }
+    body .container {
+        position: relative;
+        z-index: 2;
+    }
+    body .overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        background-color: black;
+        opacity: 0.5;
+        z-index: 1;
+    }
+    /* Media Query for devices withi coarse pointers and no hover functionality */
+    /* This will use a fallback image instead of a video for devices that commonly do not support the HTML5 video element */
+    @media (pointer: coarse) and (hover: none) {
+        body {
+            background: url("'.$link_overlay_image.'") black no-repeat center center scroll;
+        }
+        body video {
+            display: none;
+        }
+    }
+    
     .gold {
         font-size: 40px;
         text-transform: uppercase;
@@ -84,10 +135,25 @@ echo '<!doctype html>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     
 </head>
-<body class="bg-body-tertiary">
-    
-    <div class="container">';
 
+<body class="bg-body-tertiary">';
+
+    if(isset($_SESSION['FINGERPRINT']) && $_SESSION['FINGERPRINT']==1) {
+        echo '<style>
+        body {height: auto !important;}
+        </style>';
+    }
+    else {
+        echo '<!-- This div is  intentionally blank. It creates the transparent black overlay over the video which you can modify in the CSS -->
+        <div class="overlay"></div>
+        <!-- The HTML5 video element that will create the background video on the header -->
+        <video playsinline="playsinline" autoplay="autoplay" muted="muted" loop="loop">
+        <source src="'.$link_overlay_video.'" type="video/mp4">
+        </video>';
+    }
+    
+    echo '<div class="container">';
+    
     if(isset($_SESSION['FINGERPRINT']) && $_SESSION['FINGERPRINT']==1) {
         // https://www.exchangerate-api.com/docs/php-currency-api
         // Fetching JSON
@@ -123,147 +189,98 @@ echo '<!doctype html>
           <p class="lead">Aplikasi Generator Laporan Portofolio Mingguan "'.$nm_company.'" adalah alat yang memudahkan fund manager dalam membuat laporan mingguan yang komprehensif dan aman, menggunakan data real-time dan personalisasi untuk memberikan informasi investasi yang jelas dan up-to-date kepada klien.</p>
         </div>
     
-        <div class="row g-5">
-        
-          <div class="col-md-5 col-lg-4 order-md-last">
-          
-            <!-- TradingView Widget BEGIN -->
-            <div class="tradingview-widget-container">
-              <div class="tradingview-widget-container__widget" style="background:#2B3035;"></div>
-              <div class="tradingview-widget-copyright" style="display:none;"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
-              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-              {
-              "symbol": "OANDA:XAUUSD",
-              "width": "100%",
-              "isTransparent": false,
-              "colorTheme": "dark",
-              "locale": "id"
-            }
-              </script>
-            </div>
-            <!-- TradingView Widget END -->
+        <div class="row">
             
-            <!-- TradingView Widget BEGIN -->
-            <div class="tradingview-widget-container">
-              <div class="tradingview-widget-container__widget" style="background:#2B3035;"></div>
-              <div class="tradingview-widget-copyright" style="display:none;"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
-              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
-              {
-              "feedMode": "symbol",
-              "symbol": "OANDA:XAUUSD",
-              "isTransparent": false,
-              "displayMode": "regular",
-              "width": "100%",
-              "height": "550",
-              "colorTheme": "dark",
-              "locale": "id"
-            }
-              </script>
-            </div>
-            <!-- TradingView Widget END -->
+            <div class="col-md-6 col-lg-6 mb-5">
+                <h4 class="mb-3">Informasi Umum</h4>
+                <form method="post" action="petani-emas.php">
+                    <div class="row g-3">
+                        <div class="col-sm-6">
+                          <label class="form-label">Tanggal Perdagangan</label>';
+                          $tgl_start = date('Y-m-d', strtotime('last Monday'));
+                          $tgl_stop = date('Y-m-d', strtotime($tgl_start.'+4 days'));
+                          $bln_thn_start = konversi_tanggal('F Y', $tgl_start, $bahasa="id");
+                          $bln_thn_stop = konversi_tanggal('F Y', $tgl_stop, $bahasa="id");
+                          if($bln_thn_start==$bln_thn_stop) {
+                              $print_tgl = konversi_tanggal('j', $tgl_start, $bahasa="id")
+                              .'-'.konversi_tanggal('j F Y', $tgl_stop, $bahasa="id");
+                          }
+                          else {
+                              $print_tgl = konversi_tanggal('j F Y', $tgl_start, $bahasa="id")
+                              .'-'.konversi_tanggal('j F Y', $tgl_stop, $bahasa="id");
+                          }
+                          echo '<input type="text" class="form-control" name="tgl" value="'; if(isset($_POST['tgl'])) {echo $_POST['tgl'];} else {echo $print_tgl;} echo '" required>
+                          <div class="invalid-feedback">
+                            Valid tanggal perdagangan is required.
+                          </div>
+                        </div>
+                        
+                        <div class="col-sm-6">
+                          <label class="form-label">Kurs Dolar Saat Ini (Live)</label>
+                          <div class="input-group">
+                            <span class="input-group-text">Rp</span>
+                            <input type="text" class="form-control" value="'.number_format($IDR_price, 0).'" disabled>
+                          </div>
+                        </div>
+                        
+                        <div class="col-md-12">
+                          <label class="form-label">Kondisi Pasar</label>
+                          <select class="form-select" name="kondisi" required>
+                            <option value="">--- Pilih ---</option>
+                            <option value="1"'; if(isset($_POST['kondisi']) && $_POST['kondisi']==1) {echo ' selected';} echo '>Cukup Kondusif (Profit Stabil)</option>
+                            <option value="2"'; if(isset($_POST['kondisi']) && $_POST['kondisi']==2) {echo ' selected';} echo '>Kurang Kondusif (Profit Sedikit)</option>
+                            <option value="3"'; if(isset($_POST['kondisi']) && $_POST['kondisi']==3) {echo ' selected';} echo '>Berlawanan Arah (Loss)</option>
+                          </select>
+                          <div class="invalid-feedback">
+                            Please select a valid kondisi.
+                          </div>
+                        </div>
+                      
+                        <hr class="my-4">';
+                        
+                    for($row = 0; $row < count($arr_akun); $row++) {
+                        $num = $row + 1;
+                        echo '<h4 class="mb-3">'.$arr_akun[$row][0].' <span class="badge bg-secondary">'.$arr_akun[$row][1].'</span></h4>';
+                        
+                        // bisa dikembangkan lagi menggunakan
+                        // Currency Format Input Field
+                        // https://codepen.io/559wade/pen/LRzEjj
+                        echo '<div class="col-sm-6">
+                          <label class="form-label">Balance Saat Ini</label>
+                          <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" step="0.01" name="balance_'.$num.'" value="'; if(isset($_POST['balance_'.$num])) {echo $_POST['balance_'.$num];} echo '" required>
+                          </div>
+                        </div>
+                        <div class="col-sm-6">
+                          <label class="form-label">Profit Minggu Ini</label>
+                          <div class="input-group">
+                            <span class="input-group-text">$</span>
+                            <input type="number" class="form-control" step="0.01" name="profit_'.$num.'" value="'; if(isset($_POST['profit_'.$num])) {echo $_POST['profit_'.$num];} echo '" required>
+                          </div>
+                        </div>
+                        <input type="hidden" name="nama_'.$num.'" value="'.$arr_akun[$row][0].'">
+                        <input type="hidden" name="nomor_'.$num.'" value="'.$arr_akun[$row][1].'">
+                        <hr class="my-4">';
+                    }
+                    echo '</div>
+                    <input type="hidden" name="count" value="'.count($arr_akun).'">
+                    <button class="w-100 btn btn-warning btn-lg" id="generate" name="generate" type="submit">Generate Laporan</button>
+                </form>
+            </div><!-- end .col-md-6 -->';
             
-          </div>
-          
-          <div class="col-md-7 col-lg-8 mb-5">
-          
-            <h4 class="mb-3">Informasi Umum</h4>
+            echo '<div id="laporan" class="col-md-6 col-lg-6 mb-5">';
             
-            <form method="post" action="petani-emas.php">
-            
-              <div class="row g-3">
-                
-                <div class="col-sm-6">
-                  <label class="form-label">Tanggal Perdagangan</label>';
-                  $bln_thn_start = date('F Y', strtotime('last Monday'));
-                  $bln_thn_stop = date('F Y', strtotime('last Friday'));
-                  if($bln_thn_start==$bln_thn_stop) {
-                      $print_tgl = konversi_tanggal('j', date('Y-m-d', strtotime('last Monday')), $bahasa="id")
-                      .'-'.konversi_tanggal('j F Y', date('Y-m-d', strtotime('last Friday')), $bahasa="id");
-                  }
-                  else {
-                      $print_tgl = konversi_tanggal('j F Y', date('Y-m-d', strtotime('last Monday')), $bahasa="id")
-                      .'-'.konversi_tanggal('j F Y', date('Y-m-d', strtotime('last Friday')), $bahasa="id");
-                  }
-                  echo '<input type="text" class="form-control" name="tgl" value="'; if(isset($_POST['tgl'])) {echo $_POST['tgl'];} else {echo $print_tgl;} echo '" required>
-                  <div class="invalid-feedback">
-                    Valid tanggal perdagangan is required.
-                  </div>
-                </div>
-                
-                <div class="col-sm-6">
-                  <label class="form-label">Kurs Dolar Saat Ini (Live)</label>
-                  <div class="input-group">
-                    <span class="input-group-text">Rp</span>
-                    <input type="text" class="form-control" value="'.number_format($IDR_price, 0).'" disabled>
-                  </div>
-                </div>
-                
-                <div class="col-md-12">
-                  <label class="form-label">Kondisi Pasar</label>
-                  <select class="form-select" name="kondisi" required>
-                    <option value="">--- Pilih ---</option>
-                    <option value="1"'; if(isset($_POST['kondisi']) && $_POST['kondisi']==1) {echo ' selected';} echo '>Cukup Kondusif (Profit Stabil)</option>
-                    <option value="2"'; if(isset($_POST['kondisi']) && $_POST['kondisi']==2) {echo ' selected';} echo '>Kurang Kondusif (Profit Sedikit)</option>
-                    <option value="3"'; if(isset($_POST['kondisi']) && $_POST['kondisi']==3) {echo ' selected';} echo '>Berlawanan Arah (Loss)</option>
-                  </select>
-                  <div class="invalid-feedback">
-                    Please select a valid kondisi.
-                  </div>
-                </div>
-              
-              <hr class="my-4">';
-              
-              for($row = 0; $row < count($arr_akun); $row++) {
-                $num = $row + 1;
-                echo '<h4 class="mb-3">'.$arr_akun[$row][0].' <span class="badge bg-secondary">'.$arr_akun[$row][1].'</span></h4>';
-                
-                // bisa dikembangkan lagi menggunakan
-                // Currency Format Input Field
-                // https://codepen.io/559wade/pen/LRzEjj
-                echo '<div class="col-sm-6">
-                  <label class="form-label">Balance Saat Ini</label>
-                  <div class="input-group">
-                    <span class="input-group-text">$</span>
-                    <input type="number" class="form-control" step="0.01" name="balance_'.$num.'" value="'; if(isset($_POST['balance_'.$num])) {echo $_POST['balance_'.$num];} echo '" required>
-                  </div>
-                </div>
-                <div class="col-sm-6">
-                  <label class="form-label">Profit Minggu Ini</label>
-                  <div class="input-group">
-                    <span class="input-group-text">$</span>
-                    <input type="number" class="form-control" step="0.01" name="profit_'.$num.'" value="'; if(isset($_POST['profit_'.$num])) {echo $_POST['profit_'.$num];} echo '" required>
-                  </div>
-                </div>
-                <input type="hidden" name="nama_'.$num.'" value="'.$arr_akun[$row][0].'">
-                <input type="hidden" name="nomor_'.$num.'" value="'.$arr_akun[$row][1].'">
-                <hr class="my-4">';
-              }
-              
-              echo '</div>
-              
-              <input type="hidden" name="count" value="'.count($arr_akun).'">
-              
-              <button class="w-100 btn btn-warning btn-lg" id="generate" name="generate" type="submit">Generate Laporan</button>
-              
-            </form>
-            
-          </div>
-        
-        </div>';
-        
-        if(isset($_POST['generate'])) {
-            //echo '<pre>'; print_r($_POST); echo '</pre>'; die();
-            //echo '<hr>';
-            echo '<div id="laporan" class="row mt-5">';
-            if($_POST['kondisi']==1) {
-                for($i = 0; $i < $_POST['count']; $i++) {
-                    $num = $i + 1;
-                    $balance_rupiah = $_POST['balance_'.$num] * $IDR_price;
-                    echo '<div class="col-sm-6 mb-4">
-                        <div class="card">
-                          <div class="card-body">
-                            <a class="btn btn-success mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
-                    echo '<textarea id="text_'.$_POST['nomor_'.$num].'" class="form-control">_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
+            if(isset($_POST['generate'])) {
+                //echo '<pre>'; print_r($_POST); echo '</pre>'; die();
+                if($_POST['kondisi']==1) {
+                    for($i = 0; $i < $_POST['count']; $i++) {
+                        $num = $i + 1;
+                        $balance_rupiah = $_POST['balance_'.$num] * $IDR_price;
+                        echo '<div class="card mb-4">
+                              <div class="card-body">
+                                <a class="btn btn-success mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-nama="'.$_POST['nama_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
+                        echo '<textarea id="text_'.$_POST['nomor_'.$num].'" class="form-control">_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
 _*Tanggal: '.$_POST['tgl'].'*_
 _*Klien: '.$_POST['nama_'.$num].'*_
 _*Nomor Akun: '.$_POST['nomor_'.$num].'*_
@@ -283,6 +300,7 @@ Salam,
 Achyar Munandar, S.Kom
 _Strategy & Fund Manager_</textarea>
 <script>
+var nama_'.$_POST['nomor_'.$num].' = document.getElementById("btn_'.$_POST['nomor_'.$num].'").getAttribute("data-nama");
 var clipboard_'.$_POST['nomor_'.$num].' = new ClipboardJS("#btn_'.$_POST['nomor_'.$num].'");
 clipboard_'.$_POST['nomor_'.$num].'.on("success", function(e) {
     document.getElementById("btn_'.$_POST['nomor_'.$num].'").classList.remove("btn-success");
@@ -293,7 +311,7 @@ clipboard_'.$_POST['nomor_'.$num].'.on("success", function(e) {
     console.info("Trigger:", e.trigger);
     e.clearSelection();
     Swal.fire({
-        title: "Copied",
+        title: "Copied " + nama_'.$_POST['nomor_'.$num].',
         icon: "success",
         timer: 2000,
         showConfirmButton: false
@@ -304,20 +322,18 @@ clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
     console.error("Trigger:", e.trigger);
 });
 </script>';
-                    echo '</div>
-                        </div>
-                    </div>';
+                        echo '</div>
+                        </div>';
+                    }
                 }
-            }
-            elseif($_POST['kondisi']==2) {
-                for($i = 0; $i < $_POST['count']; $i++) {
-                    $num = $i + 1;
-                    $balance_rupiah = $_POST['balance_'.$num] * $IDR_price;
-                    echo '<div class="col-sm-6 mb-4">
-                        <div class="card">
-                          <div class="card-body">
-                            <a class="btn btn-success mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
-                    echo '<textarea id="text_'.$_POST['nomor_'.$num].'" class="form-control">_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
+                elseif($_POST['kondisi']==2) {
+                    for($i = 0; $i < $_POST['count']; $i++) {
+                        $num = $i + 1;
+                        $balance_rupiah = $_POST['balance_'.$num] * $IDR_price;
+                        echo '<div class="card mb-4">
+                              <div class="card-body">
+                                <a class="btn btn-success mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-nama="'.$_POST['nama_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
+                        echo '<textarea id="text_'.$_POST['nomor_'.$num].'" class="form-control">_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
 _*Tanggal: '.$_POST['tgl'].'*_
 _*Klien: '.$_POST['nama_'.$num].'*_
 _*Nomor Akun: '.$_POST['nomor_'.$num].'*_
@@ -337,6 +353,7 @@ Salam,
 Achyar Munandar, S.Kom
 _Strategy & Fund Manager_</textarea>
 <script>
+var nama_'.$_POST['nomor_'.$num].' = document.getElementById("btn_'.$_POST['nomor_'.$num].'").getAttribute("data-nama");
 var clipboard_'.$_POST['nomor_'.$num].' = new ClipboardJS("#btn_'.$_POST['nomor_'.$num].'");
 clipboard_'.$_POST['nomor_'.$num].'.on("success", function(e) {
     document.getElementById("btn_'.$_POST['nomor_'.$num].'").classList.remove("btn-success");
@@ -347,7 +364,7 @@ clipboard_'.$_POST['nomor_'.$num].'.on("success", function(e) {
     console.info("Trigger:", e.trigger);
     e.clearSelection();
     Swal.fire({
-        title: "Copied",
+        title: "Copied " + nama_'.$_POST['nomor_'.$num].',
         icon: "success",
         timer: 2000,
         showConfirmButton: false
@@ -358,20 +375,18 @@ clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
     console.error("Trigger:", e.trigger);
 });
 </script>';
-                    echo '</div>
-                        </div>
-                    </div>';
+                        echo '</div>
+                        </div>';
+                    }
                 }
-            }
-            elseif($_POST['kondisi']==3) {
-                for($i = 0; $i < $_POST['count']; $i++) {
-                    $num = $i + 1;
-                    $balance_rupiah = $_POST['balance_'.$num] * $IDR_price;
-                    echo '<div class="col-sm-6 mb-4">
-                        <div class="card">
-                          <div class="card-body">
-                            <a class="btn btn-success mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
-                    echo '<textarea id="text_'.$_POST['nomor_'.$num].'" class="form-control">_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
+                elseif($_POST['kondisi']==3) {
+                    for($i = 0; $i < $_POST['count']; $i++) {
+                        $num = $i + 1;
+                        $balance_rupiah = $_POST['balance_'.$num] * $IDR_price;
+                        echo '<div class="card mb-4">
+                              <div class="card-body">
+                                <a class="btn btn-success mb-3" id="btn_'.$_POST['nomor_'.$num].'" data-nama="'.$_POST['nama_'.$num].'" data-clipboard-target="#text_'.$_POST['nomor_'.$num].'">Copy ke WA '.$_POST['nama_'.$num].'</a>';
+                        echo '<textarea id="text_'.$_POST['nomor_'.$num].'" class="form-control">_*Laporan Mingguan Portofolio*_ '.$emoji_statistik.'
 _*Tanggal: '.$_POST['tgl'].'*_
 _*Klien: '.$_POST['nama_'.$num].'*_
 _*Nomor Akun: '.$_POST['nomor_'.$num].'*_
@@ -391,6 +406,7 @@ Salam,
 Achyar Munandar, S.Kom
 _Strategy & Fund Manager_</textarea>
 <script>
+var nama_'.$_POST['nomor_'.$num].' = document.getElementById("btn_'.$_POST['nomor_'.$num].'").getAttribute("data-nama");
 var clipboard_'.$_POST['nomor_'.$num].' = new ClipboardJS("#btn_'.$_POST['nomor_'.$num].'");
 clipboard_'.$_POST['nomor_'.$num].'.on("success", function(e) {
     document.getElementById("btn_'.$_POST['nomor_'.$num].'").classList.remove("btn-success");
@@ -401,7 +417,7 @@ clipboard_'.$_POST['nomor_'.$num].'.on("success", function(e) {
     console.info("Trigger:", e.trigger);
     e.clearSelection();
     Swal.fire({
-        title: "Copied",
+        title: "Copied " + nama_'.$_POST['nomor_'.$num].',
         icon: "success",
         timer: 2000,
         showConfirmButton: false
@@ -412,16 +428,52 @@ clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
     console.error("Trigger:", e.trigger);
 });
 </script>';
-                    echo '</div>
-                        </div>
-                    </div>';
+                        echo '</div>
+                        </div>';
+                    }
                 }
+                echo '<script>
+                document.getElementById("laporan").scrollIntoView({ behavior: "smooth", block: "start" });
+                </script>';
             }
-            echo '</div>
-            <script>
-            document.getElementById("laporan").scrollIntoView({ behavior: "smooth", block: "start" });
-            </script>';
-        }
+            
+            /* echo '<!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget" style="background:#2B3035;"></div>
+                <div class="tradingview-widget-copyright" style="display:none;"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                {
+                    "symbol": "OANDA:XAUUSD",
+                    "width": "100%",
+                    "isTransparent": false,
+                    "colorTheme": "dark",
+                    "locale": "id"
+                }
+                </script>
+            </div>
+            <!-- TradingView Widget END -->'; */
+            
+            echo '<!-- TradingView Widget BEGIN -->
+            <div class="tradingview-widget-container">
+                <div class="tradingview-widget-container__widget" style="background:#2B3035;"></div>
+                <div class="tradingview-widget-copyright" style="display:none;"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-timeline.js" async>
+                {
+                    "feedMode": "symbol",
+                    "symbol": "OANDA:XAUUSD",
+                    "isTransparent": false,
+                    "displayMode": "regular",
+                    "width": "100%",
+                    "height": "380",
+                    "colorTheme": "dark",
+                    "locale": "id"
+                }
+                </script>
+            </div>
+            <!-- TradingView Widget END -->';
+            
+            echo '</div><!-- end .col-md-6 -->';
+        echo '</div><!-- end .row -->';
         echo '</main>';
     }
     else {
@@ -439,60 +491,78 @@ clipboard_'.$_POST['nomor_'.$num].'.on("error", function(e) {
         }
         .form-signin {
           width: 100%;
-          max-width: 330px;
+          max-width: 400px;
           padding: 15px 15px 0px 15px;
           margin: auto;
         }
         .form-signin .form-floating:focus-within {
           z-index: 2;
         }
-        .form-signin input[type="password"] {
-          margin-bottom: 10px;
-        }
         </style>
         <main class="form-signin">
+        
             <form method="post" class="mt-2" action="petani-emas.php">
-            <center><img class="mb-4" src="petani-emas.png" alt="" style=" width: 130px; height: auto; filter: blur(0); -webkit-filter: blur(0); "></center>
-            <h1 class="h3 gold text-center mb-3 fw-normal">'.$nm_company.'</h1>';
+            
+            <center><img class="mb-4" src="petani-emas.png" alt="" style="width:130px;height:auto;filter:blur(0);-webkit-filter:blur(0);"></center>
+            
+            <h1 class="h3 gold text-center mb-3 fw-bold">'.$nm_company.'</h1>';
+            
             if(isset($error_message)) {
                 echo '<div class="alert alert-warning">'.$error_message.'</div>';
             }
-            echo '<div class="form-floating">
-                <input type="password" class="form-control" id="floatingPassword" name="password" placeholder="Password Admin" required>
-                <label for="floatingPassword">Password Admin</label>
+            echo '
+            
+            <div class="input-group mb-3">
+                <input type="password" class="form-control" name="password" placeholder="Password" aria-label="Password" aria-describedby="btn-admin" required>
+                <button class="btn btn-secondary" name="login" type="submit" id="btn-admin">Login Admin</button>
             </div>
-            <button class="btn btn-warning w-100 py-2" name="login" type="submit">Login</button>
-            </form>
             
-            <div class="text-center fw-bold fst-italic mt-4 mb-4"><small>'.$slogan_1.' <span class="text-warning">'.$slogan_2.'</span></small></div>
+            <div class="btn-group mt-4 mb-4" style="width:100%;">
+                <a class="btn btn-warning" href="'.$link_register_referral.'" target="_blank">Daftar Akun HFM</a>
+                <a class="btn btn-light" href="'.$link_login_referral.'" target="_blank">Login Akun HFM</a>
+            </div>
             
-            <!-- TradingView Widget BEGIN -->
+            </form>';
+            
+            echo '<hr style="border:2px solid #d59a00;opacity:1;margin-bottom:-2px;position:relative;">';
+            
+            echo '<!-- TradingView Widget BEGIN -->
             <div class="tradingview-widget-container">
-              <div class="tradingview-widget-container__widget" style="background:#2B3035;"></div>
-              <div class="tradingview-widget-copyright" style="display:none;"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
-              <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
-              {
-              "symbol": "OANDA:XAUUSD",
-              "width": "100%",
-              "isTransparent": false,
-              "colorTheme": "dark",
-              "locale": "id"
-              }
-              </script>
+                <div class="tradingview-widget-container__widget" style="background:#2B3035;"></div>
+                <div class="tradingview-widget-copyright" style="display:none;"><a href="https://www.tradingview.com/" rel="noopener nofollow" target="_blank"><span class="blue-text">Track all markets on TradingView</span></a></div>
+                <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-single-quote.js" async>
+                {
+                    "symbol": "OANDA:XAUUSD",
+                    "width": "100%",
+                    "isTransparent": false,
+                    "colorTheme": "dark",
+                    "locale": "id"
+                }
+                </script>
             </div>
-            <!-- TradingView Widget END -->
+            <!-- TradingView Widget END -->';
             
-        </main>';
+            //echo '<!--<div class="text-center fw-bold fst-italic mt-4 mb-4"><small>'.$slogan_1.' <span class="text-warning">'.$slogan_2.'</span></small></div>-->';
+            
+            echo '<a href="'.$link_register_referral.'" target="_blank"><img src="petani-emas-banner-6.png" style="width:100%;margin-top:-35px;margin-bottom:10px;filter:blur(0);-webkit-filter:blur(0);"></a>';
+            
+            // echo '<!--<a href="'.$link_register_referral.'" target="_blank"><img src="petani-emas-banner-2.png" style="width:100%;margin-bottom:10px;filter:blur(0);-webkit-filter:blur(0);"></a>-->';
+            
+            // echo '<!--<a href="'.$link_register_referral.'" target="_blank"><img src="petani-emas-banner-3.gif" style="width:100%;margin-bottom:10px;filter:blur(0);-webkit-filter:blur(0);"></a>-->';
+            
+            // echo '<!--<a href="'.$link_register_referral.'" target="_blank"><img src="petani-emas-banner-4.jpg" style="width:100%;margin-bottom:10px;filter:blur(0);-webkit-filter:blur(0);"></a>-->';
+            
+        echo '</main>';
     }
     
     echo '<footer class="text-body-secondary text-center text-small">
-        <p class="mb-3">&copy; '.date('Y').' '.$nm_website.'</p>
-        <p class="mb-3">
-            <img src="petani-emas-hfm.svg" style="height:30px;width:auto;padding-right:10px;">
+        <p class="mt-3 mb-3">&copy; '.date('Y').' '.$nm_website.'</p>
+        <!--<p class="mb-3">
+            <a href="https://register.hfmpro.com/sv/id/new-live-account/?refid=30415771" target="_blank"><img src="petani-emas-hfm.svg" style="height:30px;width:auto;padding-right:10px;"></a>
             <img src="petani-emas-norton.svg" style="height:30px;width:auto;">
-        </p>
+        </p>-->
       </footer>
-    </div>
+    </div><!-- end .container -->
     <script src="https://getbootstrap.com/docs/5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>';
