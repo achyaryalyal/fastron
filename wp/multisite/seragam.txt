@@ -221,7 +221,7 @@ includes/builder/feature/dynamic-assets/assets/css/section.css
 FIX REDIRECTED TO /wp-admin/upgrade.php?_wp_http_referer=%2Fwp-admin%2F AFTER LOGIN
 ===================
 cek database pada tabel "wp_options" atau jalankan query:
-	SELECT * FROM `wp_options` WHERE `option_name` LIKE '%db_version%'
+	SELECT * FROM wp_options WHERE option_name='db_version';
 copy value pada "db_version"
 lalu paste value tersebut ke wp-include/version.php
 akses kembali laman wp-admin
