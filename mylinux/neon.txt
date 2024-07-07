@@ -393,6 +393,7 @@ $ sudo apt update && sudo apt install sublime-text
 # Preferences > Select Theme: Default Dark Sublime Theme
 # Preferences > Settings:
 {
+	"update_check": false,
 	"theme": "Default Dark.sublime-theme",
 	"ignored_packages":
 	[
