@@ -492,6 +492,15 @@ pecl install yaz
 	try_files $uri $uri/ =404;
 # In "Databases", create a database
 # In "SSL/TLS", create and install Let's Encrypt Certificate
+# add this script after "use SLiMS\{Opac,Plugins};" line in root "index.php":
+// anti fake phishing report
+if(isset($_GET)) {
+  foreach($_GET as $get_value) {
+    if($get_value=='') {
+      header("Location: //".$_SERVER['SERVER_NAME']);
+    }
+  }
+}
 # to customize theme: Login Admin > Tema > Default > Customize
 # to activate all default plugin: Login > Sistem > Plugin
 # to add/edit content: Login > Sistem > Konten
