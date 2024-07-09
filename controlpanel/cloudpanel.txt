@@ -6,8 +6,8 @@ INSTALL CLOUDPANEL
 apt update && apt -y upgrade && apt -y install curl wget sudo && apt -y autoremove && reboot
 # Run the installer with your preferred Database Engine
 curl -sS https://installer.cloudpanel.io/ce/v2/install.sh -o install.sh; \
-echo "d67e37c0fb0f3dd7f642f2c21e621e1532cadefb428bb0e3af56467d9690b713  install.sh" | \
-sha256sum -c && sudo DB_ENGINE=MARIADB_10.9 bash install.sh
+echo "2aefee646f988877a31198e0d84ed30e2ef7a454857b606608a1f0b8eb6ec6b6 install.sh" | \
+sha256sum -c && sudo DB_ENGINE=MARIADB_10.11 bash install.sh
 # To hide CloudPanel <footer> tag, try edit script below:
 nano /home/clp/htdocs/app/files/public/assets/css/style.css
 	search for .footer and add => display: none;
