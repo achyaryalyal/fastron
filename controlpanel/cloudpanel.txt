@@ -1,7 +1,7 @@
 ==================
 INSTALL CLOUDPANEL
 ==================
-# You need an empty server with Ubuntu 22.04 or Debian 11 with root access
+# For the installation, you need an empty server with Ubuntu 24.04 or 22.04 or Debian 12 or 11 with root access
 # Before running the installer, we need to update the system and install the required packages
 apt update && apt -y upgrade && apt -y install curl wget sudo && apt -y autoremove && reboot
 # Run the installer with your preferred Database Engine
