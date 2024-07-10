@@ -1194,6 +1194,10 @@ df -h
 ############################################################
 ######### check disk usage (sorted human readable) #########
 ############################################################
+cd [PATH] && du -hx --max-depth=1 | sort -u
+OR
+du -hx --max-depth=1 [PATH] | sort -u
+OR
 du -x --max-depth=1 [PATH] | sort -n | awk '{ print $2 }' | xargs du -hx --max-depth=0
 
 ##############################################################
