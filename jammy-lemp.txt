@@ -1095,6 +1095,28 @@ service clamav-daemon restart
 ##################################
 ##################################
 
+#####################################################################################
+######## Change Ubuntu 22.04 LTS Repository to a Local Indonesian Repository ########
+#####################################################################################
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
+sudo nano /etc/apt/sources.list 
+deb http://kartolo.sby.datautama.net.id/ubuntu/ jammy main restricted universe multiverse
+deb http://kartolo.sby.datautama.net.id/ubuntu/ jammy-updates main restricted universe multiverse
+deb http://kartolo.sby.datautama.net.id/ubuntu/ jammy-security main restricted universe multiverse
+deb http://kartolo.sby.datautama.net.id/ubuntu/ jammy-backports main restricted universe multiverse
+deb http://kartolo.sby.datautama.net.id/ubuntu/ jammy-proposed main restricted universe multiverse
+
+#####################################################################################
+######## Change Ubuntu 24.04 LTS Repository to a Local Indonesian Repository ########
+#####################################################################################
+sudo cp /etc/apt/sources.list /etc/apt/sources.list.backup
+sudo nano /etc/apt/sources.list 
+deb http://kartolo.sby.datautama.net.id/ubuntu/ noble main restricted universe multiverse
+deb http://kartolo.sby.datautama.net.id/ubuntu/ noble-updates main restricted universe multiverse
+deb http://kartolo.sby.datautama.net.id/ubuntu/ noble-security main restricted universe multiverse
+deb http://kartolo.sby.datautama.net.id/ubuntu/ noble-backports main restricted universe multiverse
+deb http://kartolo.sby.datautama.net.id/ubuntu/ noble-proposed main restricted universe multiverse
+
 ###################################
 ######## Switch APT Mirror ########
 ###################################
