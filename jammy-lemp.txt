@@ -1341,6 +1341,11 @@ scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destinati
 sshpass -p "password" scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination
 sshpass -f "/path/to/passwordfile" scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination
 
+##############################################
+######### Auto List Every 10 Seconds #########
+##############################################
+while true; do clear; date; ls -lah; sleep 1; printf "■■■■"; sleep 1; printf "■■■■■"; sleep 1; printf "■■■■"; sleep 1; printf "■■■■■"; sleep 1; printf "■■■■"; sleep 1; printf "■■■■"; sleep 1; printf "■■■■"; sleep 1; printf "■■■■■"; sleep 1; printf "■■■■"; sleep 1; printf "■■■■"; done;
+
 #######################################
 ######### Flooding with SIEGE #########
 #######################################
