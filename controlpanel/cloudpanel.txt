@@ -737,8 +737,14 @@ Intinya CloudPanel cocok untuk control panel turunan (bukan control panel induk)
 ######### Download a directory from another server with SCP #########
 #####################################################################
 scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/destination
+# pass password to scp with sshpass: sudo apt install sshpass
+sshpass -p "password" scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/destination
+sshpass -f "/path/to/passwordfile" scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/destination
 
 #################################################################
 ######### Upload a directory to another server with SCP #########
 #################################################################
-scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination 
+scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination
+# pass password to scp with sshpass: sudo apt install sshpass
+sshpass -p "password" scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination
+sshpass -f "/path/to/passwordfile" scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination
