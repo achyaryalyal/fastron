@@ -1,10 +1,7 @@
 =======================================
-Install KDE Neon with Erase Disk
+# Install KDE Neon with "Erase Disk"
 # this will DELETE all data currently present on the selected storage device
-=======================================
-
-=======================================
-Typical way of updating the system in KDE Neon
+# after installed, this is typical way of updating system in KDE Neon
 =======================================
 $ sudo pkcon refresh && sudo pkcon update -y
 
