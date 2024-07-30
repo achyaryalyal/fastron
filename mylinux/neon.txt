@@ -20,36 +20,41 @@ Fix 'preinstalled' Repo Warning on apt update
 $ sudo rm /etc/apt/sources.list.d/preinstalled-pool.list
 
 =====================================
-Install ZSH & OhMyZsh
+Configure Konsole, Install ZSH & OhMyZsh
 =====================================
+# Konsole > Setting > Configure Konsole > Profiles > Select any or create New, then Edit > Appearance:
+	Get New: Visiblue
+	Edit > Enable Blur Background
+	Edit > Set tranparency 50%
 $ sudo apt install -y zsh && zsh --version && echo $SHELL
 # make your default shell
 $ chsh -s $(which zsh)
 $ reboot
+
 # open Konsole and choose option 2 for the recommended default configuration
 # install OhMyZsh
 $ sudo apt install wget git
+# exit from root and run:
 $ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-# install icon font: https://github.com/romkatv/powerlevel10k#manual-font-installation
-# Konsole > Setting > Configure Konsole > Profiles > Select any profile & Edit > Appearance:
-	Select color scheme: White on Black
-	Select font: SF Mono
-	Edit > Color 5:
-		change #1818b2 to #0055ff
-		change #5454ff to #55aaff
-	Edit > Enable Blur Background
-	Edit > Set tranparency 50%
-#############################
+# read how to install icon font at https://github.com/romkatv/powerlevel10k#manual-font-installation
+	MesloLGS NF Regular.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+	MesloLGS NF Bold.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+	MesloLGS NF Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+	MesloLGS NF Bold Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+# Konsole: Open Settings → Edit Current Profile → Appearance, click Select Font and select MesloLGS NF Regular.
 # install Powerlevel10k theme
-$ git clone https://github.com/romkatv/powerlevel10k.git $ZSH_CUSTOM/themes/powerlevel10k
+$ git clone https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 # download plugins for autosuggestion and syntax highlighting
-$ git clone https://github.com/zsh-users/zsh-autosuggestions.git $ZSH_CUSTOM/plugins/zsh-autosuggestions
-$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git $ZSH_CUSTOM/plugins/zsh-syntax-highlighting
+$ git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 # change theme
-$ nano ~/.zshrc
+$ nano $HOME/.zshrc
 # change value of: ZSH_THEME="powerlevel10k/powerlevel10k"
 # add this line on plugins line: plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-# close Konsole and open again. if some question about p10k configure not appear, run command: p10k configure
+# save
+# CLOSE Konsole !!
+# OPEN AGAIN !!
+# if some question about p10k configure not appear, run command: p10k configure, or run command: zsh
 # Does this look like a diamond? (y) Yes
 # Does this look like a lock? (y) Yes
 # Does this look like a Debian logo (swirl/spiral)? (y) Yes
@@ -58,7 +63,7 @@ $ nano ~/.zshrc
 # Character Set: (1) Unicode
 # Show current time?: (2) 24-hour format
 # Prompt Separators: (1) Angled
-# Prompt Heads: (1) Sharp
+# Prompt Heads: (3) Sharp
 # Prompt Tails: (1) Flat
 # Prompt Height: (1) One line
 	# if you choose two lines
@@ -75,7 +80,7 @@ $ nano ~/.zshrc
 # install Oh My Zsh for root user, run this command as non root user
 $ sudo ln -s $HOME/.oh-my-zsh /root/.oh-my-zsh
 $ sudo ln -s $HOME/.zshrc /root/.zshrc
-$ sudo nano ~/.zshrc
+$ sudo nano /root/.zshrc
 # add this line on the top of file
 	ZSH_DISABLE_COMPFIX=true
 
