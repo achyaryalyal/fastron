@@ -1,12 +1,18 @@
-ASCII Text Art Generator: https://fsymbols.com/generators/carty/
-
+=======================================
+Install KDE Neon with Manual Partition (MBR Partition Table)
+=======================================
+- 500 MB fat32, with mount point /boot/efi, with label EFI, with flag boot
+- 4300 MB linuxswap, with label SWAP, with flag swap
+- Any GB ext4, with mount point /, with label ROOT, with flag root
+- Any GB ntfs, with label NTFS
 
 █ █▄░█ █ ▀█▀ █ ▄▀█ █░░   █▀ █▀▀ ▀█▀ ▀█▀ █ █▄░█ █▀▀
 █ █░▀█ █ ░█░ █ █▀█ █▄▄   ▄█ ██▄ ░█░ ░█░ █ █░▀█ █▄█
+ASCII Text Art Generator: https://fsymbols.com/generators/carty/
 
-=====================================
+=======================================
 Typical way of updating the system in KDE Neon
-=====================================
+=======================================
 $ sudo pkcon refresh && sudo pkcon update -y
 
 =======================================
@@ -223,12 +229,13 @@ System Settings > Workspace > Shortcuts > Power Management
 		Select "Increase Screen Brightness" and "Add custom shortcut" : "Ctrl + >"
 
 =====================================
-Install Google Chrome from Ubuntu PPA (and remove Firefox completely)
+Install Google Chrome from Official Repository (and remove Firefox completely)
 =====================================
-$ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-$ sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google-chrome.list'
+$ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmour -o /usr/share/keyrings/chrome-keyring.gpg
+$ sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/chrome-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
 $ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge firefox && sudo apt autoremove
 # minimize google chrome > right click on titlebar > more actions > add property > No titlebar and frame > Force > Yes > apply
+$ reboot
 
 =====================================
 Install Tor Browser
