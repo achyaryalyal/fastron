@@ -15,13 +15,35 @@ Typical way of updating the system in KDE Neon
 =======================================
 $ sudo pkcon refresh && sudo pkcon update -y
 
+=====================================
+Install Google Chrome from Official Repository (and remove Firefox completely)
+=====================================
+$ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmour -o /usr/share/keyrings/chrome-keyring.gpg
+$ sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/chrome-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
+$ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge firefox && sudo apt autoremove
+# minimize google chrome > right click on titlebar > more actions > add property > No titlebar and frame > Force > Yes > apply
+$ reboot
+
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools whois inxi xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics android-file-transfer fonts-noto-color-emoji kcalc gimp qbittorrent peek pdfarranger pdfsam dolphin audacious vlc ffmpegthumbnailer kdenetwork-filesharing filelight partitionmanager xserver-xorg-input-libinput xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
+$ sudo apt install fish neofetch net-tools whois inxi kcalc gimp peek qbittorrent pdfsam audacious vlc filelight partitionmanager
+
+xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
+android-file-transfer fonts-noto-color-emoji
+ffmpegthumbnailer kdenetwork-filesharing
+
+=====================================
+Install Fish Shell from Ubuntu PPA for more up-to-date version 
+=====================================
+$ sudo apt-add-repository ppa:fish-shell/release-3
+$ sudo apt update && sudo apt install fish
+# make Fish as default shell
+$ chsh -s $(which fish)
+$ reboot
 
 =======================================
-Install WhatsApps from Snap
+Install WhatsApps from Snap [no longer need]
 =======================================
 # open Discover, search "WhatSie" and install
 # open Menu Editor, in category Internet > New Item "WhatSie"
@@ -32,7 +54,7 @@ Install WhatsApps from Snap
 	Icon: whatsapp
 
 =======================================
-Install Spotify + Calaboka (ads silencer) from Snap
+Install Spotify + Calaboka (ads silencer) from Snap [no longer need]
 =======================================
 # open Discover, search "Spotify" and install
 # open Discover, search "Calaboka" and install
@@ -45,9 +67,10 @@ $ sudo snap connect calaboka:mpris spotify:spotify-mpris
 	Icon: spotify
 
 =====================================
-Install Postman from Snap
+Install Postman from Snap [no longer need]
 =====================================
-# open Discover, search "Postman" and install
+$ snap install postman
+# or, open Discover, search "Postman" and install
 # open Menu Editor, in category Development > New Item "Postman"
 	Name: Postman
 	Desc: 
@@ -56,7 +79,7 @@ Install Postman from Snap
 	Icon: postman
 
 =====================================
-Install Telegram from Ubuntu PPA
+Install Telegram from Ubuntu PPA for more up-to-date version 
 =====================================
 $ sudo add-apt-repository ppa:atareao/telegram
 $ sudo apt update && sudo apt install telegram
@@ -101,13 +124,12 @@ $ reboot
 # after shutdown, turn on & boot into Linux & mounting NTFS would be no issue like can't copy/rename/delete file
 
 =====================================
-Install ZSH & OhMyZsh
+Install ZSH & OhMyZsh [no longer need]
 =====================================
 $ sudo apt install -y zsh && zsh --version && echo $SHELL
 # make your default shell
 $ chsh -s $(which zsh)
 $ reboot
-
 # open Konsole and choose option 2 for the recommended default configuration
 # install OhMyZsh
 $ sudo apt install wget git -y
@@ -227,15 +249,6 @@ System Settings > Workspace > Shortcuts > Power Management
 		Select "Decrease Screen Brightness" and "Add custom shortcut" : "Ctrl + <"
 	Ctrl + > = Incr. Brightness
 		Select "Increase Screen Brightness" and "Add custom shortcut" : "Ctrl + >"
-
-=====================================
-Install Google Chrome from Official Repository (and remove Firefox completely)
-=====================================
-$ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmour -o /usr/share/keyrings/chrome-keyring.gpg
-$ sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/chrome-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
-$ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge firefox && sudo apt autoremove
-# minimize google chrome > right click on titlebar > more actions > add property > No titlebar and frame > Force > Yes > apply
-$ reboot
 
 =====================================
 Install Tor Browser
