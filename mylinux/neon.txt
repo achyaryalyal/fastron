@@ -1,28 +1,25 @@
 =======================================
-Install KDE Neon with Manual Partition (MBR Partition Table)
+Install KDE Neon with Erase Disk
+# this will DELETE all data currently present on the selected storage device
 =======================================
-- 500 MB fat32, with mount point /boot/efi, with label EFI, with flag boot
-- 4300 MB linuxswap, with label SWAP, with flag swap
-- Any GB ext4, with mount point /, with label ROOT, with flag root
-- Any GB ntfs, with label NTFS
-
-█ █▄░█ █ ▀█▀ █ ▄▀█ █░░   █▀ █▀▀ ▀█▀ ▀█▀ █ █▄░█ █▀▀
-█ █░▀█ █ ░█░ █ █▀█ █▄▄   ▄█ ██▄ ░█░ ░█░ █ █░▀█ █▄█
-ASCII Text Art Generator: https://fsymbols.com/generators/carty/
 
 =======================================
 Typical way of updating the system in KDE Neon
 =======================================
 $ sudo pkcon refresh && sudo pkcon update -y
 
-=====================================
+=======================================
 Install Google Chrome from Official Repository (and remove Firefox completely)
-=====================================
+=======================================
 $ wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo gpg --dearmour -o /usr/share/keyrings/chrome-keyring.gpg
-$ sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/chrome-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google.list'
-$ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge firefox && sudo apt autoremove
-# minimize google chrome > right click on titlebar > more actions > add property > No titlebar and frame > Force > Yes > apply
-$ reboot
+$ sudo sh -c 'echo "deb [arch=amd64 signed-by=/usr/share/keyrings/chrome-keyring.gpg] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
+$ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge -y firefox && sudo apt autoremove -y
+# [if needed] minimize google chrome > right click on titlebar > more actions > add property > No titlebar and frame > Force > Yes > apply
+
+=================================
+Fix 'preinstalled' Repo Warning on apt update
+=================================
+$ sudo rm /etc/apt/sources.list.d/preinstalled-pool.list
 
 =====================================
 Install ZSH & OhMyZsh
@@ -763,11 +760,6 @@ Zoom Setting > Audio Setting > Increase Output Volume on Speaker
 Fix Dolphin Explorer Error
 =================================
 $ dbus-launch dolphin
-
-=================================
-Fix 'preinstalled' repo Warning on apt update
-=================================
-$ sudo rm /etc/apt/sources.list.d/preinstalled-pool.list
 
 =================================
 Fix Cursor Jumping Around / Shaking Random Direction
