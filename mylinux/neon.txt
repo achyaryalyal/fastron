@@ -680,6 +680,15 @@ VLC Tweak
 # Tools > Preferences > In the bottom-left, under Show settings, select All > Interface -> Main Interfaces -> Qt > Uncheck "Display background cone or art"
 
 =================================
+Fix External Drive no Longer Mounting
+An error occurred while accessing 'Seagate Expansion Drive', the system responded: The requested operation has failed
+=================================
+$ sudo fdisk --list
+# on below, copy DEVICE_NUMBER like /dev/sda1 or /dev/sda2
+# run ntfsfix using -d flag
+$ sudo ntfsfix -d [DEVICE_NUMBER]
+
+=================================
 Fix Battery Charging/Discharging State Always Delay Updated
 =================================
 $ sudo -i
