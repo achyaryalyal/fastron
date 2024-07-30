@@ -198,7 +198,7 @@ Setting New Look
 			Anti-Aliasing: Enabled
 		● Icons: WhiteSur-dark
 		● Cursors: WhiteSur Cursors
-		● Splash Screen: MacSonoma-Dark by vinceliuice
+		● Splash Screen: Linux Distros glowing slider by tobilinuxer => KDE neon
 # Startup and Shutdown
 	● Login Screen (SSDM): MacSonoma-Dark by vinceliuice
 	● Autostart Applications: Latte
