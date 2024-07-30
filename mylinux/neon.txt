@@ -20,19 +20,20 @@ Fix 'preinstalled' Repo Warning on apt update
 $ sudo rm /etc/apt/sources.list.d/preinstalled-pool.list
 
 =====================================
-Configure Konsole, Install ZSH & OhMyZsh
+Install ZSH & OhMyZsh
 =====================================
-# Konsole > Setting > Configure Konsole > Profiles > Select any or create New, then Edit > Appearance:
-	Get New: Visiblue
-	Edit > Enable Blur Background
-	Edit > Set tranparency 50%
+# install ZSH
 $ sudo apt install -y zsh && zsh --version && echo $SHELL
 # make your default shell
 $ chsh -s $(which zsh)
 $ reboot
-
-# open Konsole and choose option 2 for the recommended default configuration
-# install OhMyZsh
+# Konsole > Setting > Configure Konsole > Profiles > Select any or create New, then Edit command
+	command: /usr/bin/zsh
+# Konsole > Setting > Configure Konsole > Profiles > Select any or create New, then Edit > Appearance:
+	Get New: Visiblue
+	Edit > Enable Blur Background
+	Edit > Set tranparency 50%
+# open Konsole, install OhMyZsh
 $ sudo apt install wget git
 # exit from root and run:
 $ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
