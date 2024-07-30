@@ -24,6 +24,8 @@ $ sudo apt update && sudo apt install fish
 $ chsh -s $(which fish)
 $ reboot
 # here are 11 reasons why fish is better than the bash shell: https://itsfoss.com/fish-shell-features/
+# to change the prompt color or other configurations, you can use the web-based configuration:
+$ fish_config
 
 =====================================
 Install Google Chrome from Official Repository (and remove Firefox completely)
