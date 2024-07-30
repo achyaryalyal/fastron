@@ -94,47 +94,26 @@ xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xs
 android-file-transfer fonts-noto-color-emoji
 ffmpegthumbnailer kdenetwork-filesharing
 
-=======================================
-Install WhatsApps from Snap [no longer need]
-=======================================
-# open Discover, search "WhatSie" and install
-# open Menu Editor, in category Internet > New Item "WhatSie"
-	Name: WhatSie
-	Desc: 
-	Comment: WhatsApp for Linux
-	Program: /snap/bin/whatsie
-	Icon: whatsapp
-
-=======================================
-Install Spotify + Calaboka (ads silencer) from Snap [no longer need]
-=======================================
-# open Discover, search "Spotify" and install
-# open Discover, search "Calaboka" and install
-$ sudo snap connect calaboka:mpris spotify:spotify-mpris
-# open Menu Editor, in category Multimedia > New Item "Spotify"
-	Name: Spotify
-	Desc: 
-	Comment: Music for everyone
-	program: /snap/bin/spotify
-	Icon: spotify
-
-=====================================
-Install Postman from Snap [no longer need]
-=====================================
-$ snap install postman
-# or, open Discover, search "Postman" and install
-# open Menu Editor, in category Development > New Item "Postman"
-	Name: Postman
-	Desc: 
-	Comment: API Development Environment
-	Program: /snap/bin/postman
-	Icon: postman
+=================================
+Set Keyboard Shortcut for Control Backlight (Screen Brightness)
+=================================
+System Settings > Workspace > Shortcuts > Power Management
+	Ctrl + < = Decr. Brightness
+		Select "Decrease Screen Brightness" and "Add custom shortcut" : "Ctrl + <"
+	Ctrl + > = Incr. Brightness
+		Select "Increase Screen Brightness" and "Add custom shortcut" : "Ctrl + >"
 
 =====================================
 Install Telegram from Ubuntu PPA for more up-to-date version 
 =====================================
-$ sudo add-apt-repository ppa:atareao/telegram
-$ sudo apt update && sudo apt install telegram
+$ sudo add-apt-repository ppa:atareao/telegram && sudo apt install telegram
+
+======================================
+Completely remove Flatpak Apps from your system
+======================================
+flatpak uninstall --all --delete-data    OR    flatpak uninstall --all
+flatpak repair
+sudo apt remove --autoremove flatpak
 
 =======================================
 Add swap space equals to RAM size
@@ -174,83 +153,6 @@ $ reboot
 # Win 10: Power & Sleep Setting > Additional Power Setting > Choose what the power buttons does > Change settings that are currently unavailable > uncheck Turn on fast startup > Save changes
 # run cmd.exe as administrator, type command to shutdown properly : shutdown /s /f /t 0
 # after shutdown, turn on & boot into Linux & mounting NTFS would be no issue like can't copy/rename/delete file
-
-=================================
-Disable Intel SGX Kernel Support
-=================================
-$ sudo -i
-$ nano /etc/default/grub
-# add parameter nosgx to GRUB_CMDLINE_LINUX_DEFAULT
-	GRUB_CMDLINE_LINUX_DEFAULT="nosgx"
-# close & save
-$ update-grub
-$ reboot
-# if anything goes wrong, just boot through recovery to repair grub again
-
-=================================
-Recognize USB 3.0 Device
-=================================
-$ sudo nano /etc/default/grub
-# add parameter: usbcore.autosuspend=-1 to GRUB_CMDLINE_LINUX_DEFAULT
-	GRUB_CMDLINE_LINUX_DEFAULT="usbcore.autosuspend=-1"
-# close & save
-$ update-grub
-$ reboot
-# if anything goes wrong, just boot through recovery to repair grub again
-
-=================================
-Fix Lenovo S145 Touchpad Issue via Grub
-=================================
-$ sudo -i
-$ nano /etc/default/grub
-# add parameter i8042.nopnp=1 pci=nocrs to GRUB_CMDLINE_LINUX_DEFAULT
-	GRUB_CMDLINE_LINUX_DEFAULT="i8042.nopnp=1 pci=nocrs quiet splash"
-# close & save
-$ update-grub
-$ reboot
-# if anything goes wrong, just boot through recovery to repair grub again
-
-=================================
-Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
-=================================
-# right click on icon application menu (Launchpad plasma), right click on Lost & Found, click new item
-# set name: Reset Pointer
-# set desc: 
-# set command: ids=$(xinput list | grep 'pointer' | cut -d '=' -f 2 | cut -f 1 | tr ' ' '\n' | tail -1) && xinput --disable $ids && xinput --enable $ids
-# set icon: ktouch
-# save & close application menu
-
-=================================
-Adjust Touchpad Configuration
-=================================
-System Settings > Hardware > Input Devices > Touchpad
-Tab Scrolling:
-	edge scrolling: [vertical] [horizontal]
-	two-finger scrolling: [vertical] [horizontal]
-Tab Pointer Motion:
-	Speed Minimum: 0.5 bar
-	Speed Maximum: 1.5 bar
-	Acceleration: 2.0 bar
-Apply
-
-=================================
-Set Keyboard Shortcut for Control Backlight (Screen Brightness)
-=================================
-System Settings > Workspace > Shortcuts > Power Management
-	Ctrl + < = Decr. Brightness
-		Select "Decrease Screen Brightness" and "Add custom shortcut" : "Ctrl + <"
-	Ctrl + > = Incr. Brightness
-		Select "Increase Screen Brightness" and "Add custom shortcut" : "Ctrl + >"
-
-=====================================
-Install Tor Browser
-=====================================
-sudo apt install torbrowser-launcher
-# updating TOR screwed up my client : "Download Error: 404"
-sudo -i
-# https://askubuntu.com/questions/1445050/updating-tor-screwed-up-my-client-download-error-404 
-# exit from root
-# launch tor browser
 
 =====================================
 Setting Workspace
@@ -395,6 +297,16 @@ Peek at Desktop (Minimize all windows)
 	Shortcut: Ctrl + Space
 
 =====================================
+Install Tor Browser
+=====================================
+sudo apt install torbrowser-launcher
+# updating TOR screwed up my client : "Download Error: 404"
+sudo -i
+# https://askubuntu.com/questions/1445050/updating-tor-screwed-up-my-client-download-error-404 
+# exit from root
+# launch tor browser
+
+=====================================
 Install Sublime Text from Ubuntu PPA
 =====================================
 $ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
@@ -444,42 +356,10 @@ OEAWH-TRREW-OHGER-IJVNZ-LNFEO
 SGJEOI-HRHTE-ROGNS-FNGVS-PDFJPE
 ------ END LICENSE ------
 
-=====================================
-Install latest stable version of Wine
-=====================================
-$ sudo dpkg --add-architecture i386
-$ sudo apt update
-$ wget -qO- https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
-$ sudo apt-add-repository "deb http://dl.winehq.org/wine-builds/ubuntu/ $(lsb_release -cs) main"
-$ sudo apt install --install-recommends winehq-stable
-$ wine --version
-$ winecfg
-# fix font shows blank squares instead of characters
-# now use terminal as user non root
-$ cd "${HOME}/Downloads"
-$ wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
-$ chmod +x winetricks
-$ sh winetricks allfonts dotnet472 vcrun2008 vcrun2010 vcrun2013 vcrun2015 d3dx9 d3dx9_43 directx9 d3dx10
-
-======================================
-Install Vagrant
-======================================
-$ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
-$ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
-$ sudo apt-get update && sudo apt-get install vagrant
-
-======================================
-Completely remove Flatpak Apps from your system
-======================================
-flatpak uninstall --all --delete-data
-flatpak repair
-sudo apt remove --autoremove flatpak
-
 =======================================
 Install latest stable version of Inkscape
 =======================================
-$ sudo add-apt-repository ppa:inkscape.dev/stable
-$ sudo apt update && sudo apt install -y inkscape
+$ sudo add-apt-repository ppa:inkscape.dev/stable && sudo apt install -y inkscape
 # open inkscape
 # Edit > preferences > interface > theme > check: Use dark theme, Use symbolic icons
 # Edit > preferences > interface > windows > Dialogs on top: none
@@ -523,6 +403,124 @@ $ docker exec -it mariadb mariadb -u root -p
 $ docker-compose ps
 # open phpMyAdmin on the browser: http://localhost:8000
 
+=======================================
+Install WhatsApps from Snap [no longer need]
+=======================================
+# open Discover, search "WhatSie" and install
+# open Menu Editor, in category Internet > New Item "WhatSie"
+	Name: WhatSie
+	Desc: 
+	Comment: WhatsApp for Linux
+	Program: /snap/bin/whatsie
+	Icon: whatsapp
+
+=======================================
+Install Spotify + Calaboka (ads silencer) from Snap [no longer need]
+=======================================
+# open Discover, search "Spotify" and install
+# open Discover, search "Calaboka" and install
+$ sudo snap connect calaboka:mpris spotify:spotify-mpris
+# open Menu Editor, in category Multimedia > New Item "Spotify"
+	Name: Spotify
+	Desc: 
+	Comment: Music for everyone
+	program: /snap/bin/spotify
+	Icon: spotify
+
+=====================================
+Install Postman from Snap [no longer need]
+=====================================
+$ snap install postman
+# or, open Discover, search "Postman" and install
+# open Menu Editor, in category Development > New Item "Postman"
+	Name: Postman
+	Desc: 
+	Comment: API Development Environment
+	Program: /snap/bin/postman
+	Icon: postman
+
+=================================
+Disable Intel SGX Kernel Support
+=================================
+$ sudo -i
+$ nano /etc/default/grub
+# add parameter nosgx to GRUB_CMDLINE_LINUX_DEFAULT
+	GRUB_CMDLINE_LINUX_DEFAULT="nosgx"
+# close & save
+$ update-grub
+$ reboot
+# if anything goes wrong, just boot through recovery to repair grub again
+
+=================================
+Recognize USB 3.0 Device
+=================================
+$ sudo nano /etc/default/grub
+# add parameter: usbcore.autosuspend=-1 to GRUB_CMDLINE_LINUX_DEFAULT
+	GRUB_CMDLINE_LINUX_DEFAULT="usbcore.autosuspend=-1"
+# close & save
+$ update-grub
+$ reboot
+# if anything goes wrong, just boot through recovery to repair grub again
+
+=================================
+Fix Lenovo S145 Touchpad Issue via Grub
+=================================
+$ sudo -i
+$ nano /etc/default/grub
+# add parameter i8042.nopnp=1 pci=nocrs to GRUB_CMDLINE_LINUX_DEFAULT
+	GRUB_CMDLINE_LINUX_DEFAULT="i8042.nopnp=1 pci=nocrs quiet splash"
+# close & save
+$ update-grub
+$ reboot
+# if anything goes wrong, just boot through recovery to repair grub again
+
+=================================
+Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
+=================================
+# right click on icon application menu (Launchpad plasma), right click on Lost & Found, click new item
+# set name: Reset Pointer
+# set desc: 
+# set command: ids=$(xinput list | grep 'pointer' | cut -d '=' -f 2 | cut -f 1 | tr ' ' '\n' | tail -1) && xinput --disable $ids && xinput --enable $ids
+# set icon: ktouch
+# save & close application menu
+
+=================================
+Adjust Touchpad Configuration
+=================================
+System Settings > Hardware > Input Devices > Touchpad
+Tab Scrolling:
+	edge scrolling: [vertical] [horizontal]
+	two-finger scrolling: [vertical] [horizontal]
+Tab Pointer Motion:
+	Speed Minimum: 0.5 bar
+	Speed Maximum: 1.5 bar
+	Acceleration: 2.0 bar
+Apply
+
+=====================================
+Install latest stable version of Wine
+=====================================
+$ sudo dpkg --add-architecture i386
+$ sudo apt update
+$ wget -qO- https://dl.winehq.org/wine-builds/winehq.key | sudo apt-key add -
+$ sudo apt-add-repository "deb http://dl.winehq.org/wine-builds/ubuntu/ $(lsb_release -cs) main"
+$ sudo apt install --install-recommends winehq-stable
+$ wine --version
+$ winecfg
+# fix font shows blank squares instead of characters
+# now use terminal as user non root
+$ cd "${HOME}/Downloads"
+$ wget  https://raw.githubusercontent.com/Winetricks/winetricks/master/src/winetricks
+$ chmod +x winetricks
+$ sh winetricks allfonts dotnet472 vcrun2008 vcrun2010 vcrun2013 vcrun2015 d3dx9 d3dx9_43 directx9 d3dx10
+
+======================================
+Install Vagrant
+======================================
+$ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+$ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+$ sudo apt-get update && sudo apt-get install vagrant
+
 =====================================
 [ARCHIEVED] Install Anbox
 =====================================
@@ -531,8 +529,7 @@ https://www.how2shout.com/linux/how-to-install-anbox-on-ubuntu-20-04-lts-focal-f
 =====================================
 [ARCHIEVED] Install UNetbootin from Ubuntu PPA
 =====================================
-$ sudo add-apt-repository ppa:gezakovacs/ppa
-$ sudo apt update && sudo apt install unetbootin
+$ sudo add-apt-repository ppa:gezakovacs/ppa && sudo apt install unetbootin
 
 ======================================
 [ARCHIEVED] Install Apps From APPIMAGE
