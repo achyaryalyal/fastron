@@ -143,6 +143,18 @@ Install Telegram from Ubuntu PPA for More Up-to-Date Version
 $ sudo add-apt-repository ppa:atareao/telegram && sudo apt install telegram
 
 =======================================
+Install Apps Manually From .DEB Package
+=======================================
+Download WPS Office For Linux
+	https://www.wps.com/office/linux/
+Download Zoom Meeting
+	https://zoom.us/download
+Download Sejda PDF Desktop (PDF Editor)
+	https://www.sejda.com/desktop
+Download CrossFTP Version 1.99.6 (for managing S3 bucket) from:
+	https://www.crossftp.com/crossftp_1.99.9.deb
+
+=======================================
 Add swap space equals to RAM size
 =======================================
 # check has swap enabled, if output is empty, it means that your system does not have swap space enabled
@@ -381,20 +393,6 @@ ERTPE-HYEOU-GHBJK-LAPOJ-LHNF
 OEAWH-TRREW-OHGER-IJVNZ-LNFEO
 SGJEOI-HRHTE-ROGNS-FNGVS-PDFJPE
 ------ END LICENSE ------
-
-=======================================
-Install Apps Manually From .DEB Package
-=======================================
-Download WPS Office For Linux
-	https://www.wps.com/office/linux/
-Download Zoom Meeting
-	https://zoom.us/download
-Download Sejda PDF Desktop (PDF Editor)
-	https://www.sejda.com/desktop
-Download CrossFTP Version 1.99.6 (for managing S3 bucket) from:
-	http://www.crossftp.com/crossftp_1.99.6.deb
-	or
-	https://drive.google.com/file/d/1HqbO30QDKjYX3s898u-Cr3emQoGS5d46/view?usp=sharing
 
 =======================================
 Install pip for Python 3
