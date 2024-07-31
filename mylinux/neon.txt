@@ -252,31 +252,32 @@ Setting New Look
 Setup Widget
 =======================================
 Application Launcher
-	Icon: search blue windowed icon
+	Icon: knights
+	Text label: LINUX
 	Sidebar position: left
 	Show favourites: In a grid
 	Show other applications: In a list
 	Show buttons for: Power (show action button captions)
 Application Title Bar (Download)
-	Button icons source: Aurorae
-	Aurorae theme: MacSonoma-Dark
-	Buttons margins: 6
-	Buttons width/height ratio: 100
-	Animation speed in ms: 100
 	Widget margins: 1
 	Spacing between elements: 4
 	Horizontal alignment: Left
 	Vertical alignment: Center
 	Show disabled elements: Deactivated
-	Elements: [icon] Title
+	Elements: Title
+	Button icons source: Plasma (Global icon theme)
+	Buttons margins: 6
+	Buttons width/height ratio: 100
+	Animation speed in ms: 100
 	Minimum width: 0
 	Maximum width: 640
 	Font size: 10
 	Font fit: Fixed size
 	Font bold: Yes
 	Hide empty title: Yes
+	Window title undefined: 
 	Window title source: Application Name
-	Window title margins: 0 10 0 10
+	Window title margins: 0 0 0 0
 Panel Spacer (Flexible Size)
 Application Title Bar (Download)
 	Button icons source: Aurorae
