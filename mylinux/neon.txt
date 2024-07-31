@@ -270,13 +270,12 @@ Application Launcher
 	Show buttons for: Power (show action button captions)
 Icon-only Task Manager
 	Konsole
-	Dolphine
+	Dolphin
 	Google Chrome
 	WPS Office
 	Sublime Text
-	Telegram
-	GIMP
 	Thunderbird
+	Telegram
 Sticky Note
 	Text font size: 10pt
 	Theme: A transparent sticky with light text
