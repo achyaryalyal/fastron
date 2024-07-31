@@ -1,1 +1,0 @@
-sudo add-apt-repository ppa:atareao/telegram && sudo apt install telegram
