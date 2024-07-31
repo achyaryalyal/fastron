@@ -104,13 +104,13 @@ $ sudo nano /root/.zshrc
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools whois inxi kcalc audacious vlc peek kdenlive remmina qbittorrent filelight partitionmanager
-!!
-!! pdfsam
+$ sudo apt install neofetch net-tools whois inxi kcalc audacious vlc peek kdenlive remmina qbittorrent android-file-transfer filelight partitionmanager
+!! pdfsam ffmpegthumbnailer kdenetwork-filesharing fonts-noto-color-emoji
 !! xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
-!! android-file-transfer fonts-noto-color-emoji
-!! ffmpegthumbnailer kdenetwork-filesharing
-!!
+# open remmina > preferences
+	options: disable fetch news from remmina.org
+	appearance: prefer dark theme
+	applet: start in tray upon user login
 
 =======================================
 Install latest stable version of GIMP from Ubuntu PPA for More Up-to-Date Version
