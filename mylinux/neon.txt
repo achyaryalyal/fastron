@@ -276,7 +276,7 @@ Icon-only Task Manager
 	WPS Office
 	Sublime Text => icon https://github.com/achyaryalyal/fastron/blob/master/mylinux/sublime-text/sublimetext.png
 	Thunderbird
-	Telegram => icon https://github.com/achyaryalyal/fastron/blob/master/mylinux/telegram/telegram.png
+	Telegram
 Sticky Note
 	Text font size: 10pt
 	Theme: A transparent sticky with light text
