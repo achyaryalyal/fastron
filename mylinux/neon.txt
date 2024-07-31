@@ -103,8 +103,9 @@ $ sudo nano /root/.zshrc
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools whois inxi kcalc pdfsam audacious vlc qbittorrent filelight partitionmanager peek kdenlive
+$ sudo apt install neofetch net-tools whois inxi kcalc audacious vlc qbittorrent filelight partitionmanager peek kdenlive
 !!
+!! pdfsam
 !! xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
 !! android-file-transfer fonts-noto-color-emoji
 !! ffmpegthumbnailer kdenetwork-filesharing
