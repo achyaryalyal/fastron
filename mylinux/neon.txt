@@ -6,6 +6,13 @@
 =======================================
 $ sudo pkcon refresh && sudo pkcon update -y
 
+======================================
+Completely Remove Flatpak Apps from System
+======================================
+flatpak uninstall --all --delete-data    OR    flatpak uninstall --all
+flatpak repair
+sudo apt remove --autoremove flatpak
+
 =======================================
 Install Google Chrome from Official Repository (and remove Firefox completely)
 =======================================
@@ -31,8 +38,8 @@ $ reboot
 	command: /usr/bin/zsh
 # Konsole > Setting > Configure Konsole > Profiles > Select any or create New, then Edit > Appearance:
 	Get New: Visiblue
-	Edit > Enable Blur Background
-	Edit > Set tranparency 50%
+	Edit > Disable blur background
+	Edit > Set tranparency 5%
 # open Konsole, install OhMyZsh
 $ sudo apt install wget git
 # exit from root and run:
@@ -84,15 +91,42 @@ $ sudo ln -s $HOME/.zshrc /root/.zshrc
 $ sudo nano /root/.zshrc
 # add this line on the top of file
 	ZSH_DISABLE_COMPFIX=true
+#############################
+# setup bookmark
+# Konsole: Bookmarks > Edit Bookmarks > New Bookmark:
+	KDE's update and upgrade		sudo pkcon refresh && sudo pkcon update
+	list upgradable packages		sudo apt list --upgradable
+	autoremove				sudo apt autoremove
+	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
+	kilat on [domain]			ssh://[username]@[domain]:[port]
 
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install fish neofetch net-tools whois inxi kcalc gimp peek qbittorrent pdfsam audacious vlc filelight partitionmanager
+$ sudo apt install neofetch net-tools whois inxi kcalc peek qbittorrent pdfsam audacious vlc filelight partitionmanager
+!!
+!! xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
+!! android-file-transfer fonts-noto-color-emoji
+!! ffmpegthumbnailer kdenetwork-filesharing
+!!
 
-xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
-android-file-transfer fonts-noto-color-emoji
-ffmpegthumbnailer kdenetwork-filesharing
+=======================================
+Install latest stable version of GIMP from Ubuntu PPA for More Up-to-Date Version
+=======================================
+$ sudo add-apt-repository ppa:ubuntuhandbook1/gimp && sudo apt install -y gimp gegl libgexiv2-2
+# open gimp
+# Edit > preferences > interface > theme: Breeze-Dark
+# Edit > preferences > interface > icon theme: multicolor; custom icon size: small
+# Edit > preferences > interface > toolbox: disable "use tool groups"
+# INFO: use TAB shortkey to hide & show sidebar
+
+=======================================
+Install latest stable version of Inkscape from Ubuntu PPA for More Up-to-Date Version
+=======================================
+$ sudo add-apt-repository ppa:inkscape.dev/stable && sudo apt install -y inkscape
+# open inkscape
+# Edit > preferences > interface > theme: dark; icon: color
+# [if needed] Edit > preferences > interface > windows > dialogs on top: None
 
 =================================
 Set Keyboard Shortcut for Control Backlight (Screen Brightness)
@@ -104,16 +138,9 @@ System Settings > Workspace > Shortcuts > Power Management
 		Select "Increase Screen Brightness" and "Add custom shortcut" : "Ctrl + >"
 
 =====================================
-Install Telegram from Ubuntu PPA for more up-to-date version 
+Install Telegram from Ubuntu PPA for More Up-to-Date Version 
 =====================================
 $ sudo add-apt-repository ppa:atareao/telegram && sudo apt install telegram
-
-======================================
-Completely remove Flatpak Apps from your system
-======================================
-flatpak uninstall --all --delete-data    OR    flatpak uninstall --all
-flatpak repair
-sudo apt remove --autoremove flatpak
 
 =======================================
 Add swap space equals to RAM size
@@ -355,14 +382,6 @@ ERTPE-HYEOU-GHBJK-LAPOJ-LHNF
 OEAWH-TRREW-OHGER-IJVNZ-LNFEO
 SGJEOI-HRHTE-ROGNS-FNGVS-PDFJPE
 ------ END LICENSE ------
-
-=======================================
-Install latest stable version of Inkscape
-=======================================
-$ sudo add-apt-repository ppa:inkscape.dev/stable && sudo apt install -y inkscape
-# open inkscape
-# Edit > preferences > interface > theme > check: Use dark theme, Use symbolic icons
-# Edit > preferences > interface > windows > Dialogs on top: none
 
 =======================================
 Install Apps Manually From .DEB Package
@@ -818,16 +837,6 @@ Check System, Machine and Audio Information
 $ inxi -SMA
 # or full info:
 $ inxi -F
-
-=================================
-Konsole Bookmark
-=================================
-Open Konsole > Bookmarks > Edit Bookmarks > New Bookmark:
-	KDE's update and upgrade		sudo pkcon refresh && sudo pkcon update
-	list upgradable packages		sudo apt list --upgradable
-	autoremove				sudo apt autoremove
-	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
-	kilat on [domain]			ssh://[username]@[domain]:[port]
 
 =================================
 [ARCHIEVED] Touchpad Gestures like MacOS/Windows
