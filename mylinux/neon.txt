@@ -221,36 +221,42 @@ App & Windows: Window Management > Task Switcher
 Setting Appearance & Style
 =======================================
 # Appearance & Style: Wallpaper
-		Positioning: Scaled & Cropped
-		Images: Darkest Hour
+	Positioning: Scaled & Cropped
+	Images: Darkest Hour
 # Appearance & Style: Colors & Themes (Global Theme)
-		● Colors: Breeze Dark
-		● Application Style: Breeze
-			● Configure GNOME/GTK Application Style > Get New GNOME/GTK Application Style > WhiteSur GTK Theme by vinceliuice: WhiteSur-Dark
-			● GTK theme: WhiteSur-Dark
-		● Plasma Style: Breeze Dark
-		● Windows Decorations: Breeze
-		● Windows Decorations:
-			● Get New Theme: Summaculate Aurorae Plasma 6 by doncsugar => Summaculate Night Blur
-			● Configure Titlebar Buttons: (from left to right) Close, Minimize, Maximize ___ Titlebar ___ [empty]
-		● Icons: Breeze Dark
-		● Cursors: Breeze
-		● System Sounds: Ocean
-		● Splash Screen:
-			● Get New Splash: Overload login splash by bermer
-		● Login Screen (SSDM): Breeze; Change Background: /usr/share/wallpapers/DarkestHour/contents/images/1920x1080.jpg
-		● Boot Splash Screen:
-			● Get New Splash: Linux Distros glowing slider by tobilinuxer => KDE neon
+	Colors: Breeze Dark
+	Application Style: Breeze
+		Configure GNOME/GTK Application Style > Get New GNOME/GTK Application Style > WhiteSur GTK Theme by vinceliuice: WhiteSur-Dark
+		GTK theme: WhiteSur-Dark
+	Plasma Style: Breeze Dark
+	Windows Decorations: Breeze
+	Windows Decorations:
+		Get New Theme: Summaculate Aurorae Plasma 6 by doncsugar => Summaculate Night Blur
+		Configure Titlebar Buttons: (from left to right) Close, Minimize, Maximize ___ Titlebar ___ [empty]
+	Icons: Breeze Dark
+	Cursors: Breeze
+	System Sounds: Ocean
+	Splash Screen:
+		Get New Splash: Overload login splash by bermer
+	Login Screen (SSDM): Breeze; Change Background: /usr/share/wallpapers/DarkestHour/contents/images/1920x1080.jpg
+	Boot Splash Screen:
+		Get New Splash: Linux Distros glowing slider by tobilinuxer => KDE neon
 # Appearance & Style: Text & Fonts
-		● Fonts:
-			General: Ubuntu Condensed 10pt
-			Fixed width: Ubuntu Mono 10pt
-			Small: Ubuntu Condensed 8pt
-			Toolbar: Ubuntu Condense 10pt
-			Menu: Ubuntu Condense 10pt
-			Windows title: Ubuntu Condense 10pt
-			Anti-Aliasing: Enabled
+	Fonts:
+		General: Ubuntu Condensed 10pt
+		Fixed width: Ubuntu Mono 10pt
+		Small: Ubuntu Condensed 8pt
+		Toolbar: Ubuntu Condense 10pt
+		Menu: Ubuntu Condense 10pt
+		Windows title: Ubuntu Condense 10pt
+		Anti-Aliasing: Enabled
 # Security: Screen Locking > Configure Appearance: Darkest Hour
+
+=======================================
+Setting Workspace
+=======================================
+# Workspace: General Behavior
+	Clicking files or folders: Opens them
 
 =======================================
 Setup Widget
@@ -263,6 +269,14 @@ Application Launcher
 	Show other applications: In a list
 	Show buttons for: Power (show action button captions)
 Icon-only Task Manager
+	Konsole
+	Dolphine
+	Google Chrome
+	WPS Office
+	Sublime Text
+	Telegram
+	GIMP
+	Thunderbird
 Sticky Note
 	Text font size: 10pt
 	Theme: A transparent sticky with light text
