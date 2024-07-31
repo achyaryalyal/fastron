@@ -126,7 +126,7 @@ Install latest stable version of Inkscape from Ubuntu PPA for More Up-to-Date Ve
 $ sudo add-apt-repository ppa:inkscape.dev/stable && sudo apt install -y inkscape
 # open inkscape
 # Edit > preferences > interface > theme: dark; icon: color
-# [if needed] Edit > preferences > interface > windows > dialogs on top: None
+# [if needed] Edit > preferences > interface > windows > dialogs on top: none
 
 =================================
 Set Keyboard Shortcut for Control Backlight (Screen Brightness)
@@ -214,17 +214,16 @@ Setting New Look
 			#####● Theme: Monterey aurorae theme by vinceliuice -> https://www.pling.com/p/1567564
 			● Theme: MacSonoma-Dark by vinceliuice
 			● Titlebar Buttons: (from left to right) Close, Minimize, Maximize
-		● Fonts: SF Pro Display by Apple Inc. -> https://www.cufonfonts.com/font/sf-pro-display
-		● Fonts: SF Mono by Apple Inc. -> https://www.cufonfonts.com/font/sf-mono
-			General: SF Pro Display 10pt
-			Fixed width: SF Mono 10pt
-			Small: SF Pro Display 8pt
-			Toolbar: SF Pro Display 10pt
-			Menu: SF Pro Display 10pt
-			Windows title: SF Pro Display 10pt
+		● Fonts:
+			General: Ubuntu Condensed 10pt
+			Fixed width: Ubuntu Mono 10pt
+			Small: Ubuntu Condensed 8pt
+			Toolbar: Ubuntu Condense 10pt
+			Menu: Ubuntu Condense 10pt
+			Windows title: Ubuntu Condense 10pt
 			Anti-Aliasing: Enabled
 		● Icons: WhiteSur-dark
-		● Cursors: WhiteSur Cursors
+				● Cursors: WhiteSur Cursors
 		● Splash Screen: Linux Distros glowing slider by tobilinuxer => KDE neon
 # Startup and Shutdown
 	● Login Screen (SSDM): MacSonoma-Dark by vinceliuice
