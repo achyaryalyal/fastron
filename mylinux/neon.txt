@@ -252,7 +252,7 @@ Setting New Look
 Setup Widget
 =======================================
 Application Launcher
-	Icon: knights
+	Icon: bluegriffon
 	Text label: LINUX
 	Sidebar position: left
 	Show favourites: In a grid
