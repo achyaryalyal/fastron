@@ -223,12 +223,13 @@ Setting New Look
 # Appearance & Style: Global Theme
 		● Colors: Breeze Dark
 		● Application Style: Breeze
-			● GTK Theme: Breeze
+			● Configure GNOME/GTK Application Style > Get New GNOME/GTK Application Style > WhiteSur GTK Theme by vinceliuice: WhiteSur-Dark
+			● GTK theme: WhiteSur-Dark
 		● Plasma Style: Breeze Dark
 		● Windows Decorations: Breeze
 		● Windows Decorations:
-			● Get New Theme: Utterly Round Dark for Plasma 6 by Himprakash
-			● Configure Titlebar Buttons: (from left to right) Close, Minimize, Maximize ___ Titlebar ___ Application Menu
+			● Get New Theme: Summaculate Aurorae Plasma 6 by doncsugar => Summaculate Night Blur
+			● Configure Titlebar Buttons: (from left to right) Close, Minimize, Maximize ___ Titlebar ___ [empty]
 		● Icons: Breeze Dark
 		● Cursors: Breeze
 		● System Sounds: Ocean
