@@ -259,25 +259,15 @@ Application Launcher
 	Show other applications: In a list
 	Show buttons for: Power (show action button captions)
 Application Title Bar (Download)
-	Widget margins: 1
-	Spacing between elements: 4
-	Horizontal alignment: Left
-	Vertical alignment: Center
-	Show disabled elements: Deactivated
 	Elements: Title
 	Button icons source: Plasma (Global icon theme)
-	Buttons margins: 6
-	Buttons width/height ratio: 100
-	Animation speed in ms: 100
-	Minimum width: 0
-	Maximum width: 640
-	Font size: 10
+	Font size: 8
 	Font fit: Fixed size
 	Font bold: Yes
 	Hide empty title: Yes
 	Window title undefined: 
 	Window title source: Application Name
-	Window title margins: 0 0 0 0
+	Window title margins: 0 5 0 5
 Panel Spacer (Flexible Size)
 Application Title Bar (Download)
 	Button icons source: Aurorae
