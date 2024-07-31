@@ -196,7 +196,12 @@ $ reboot
 # after shutdown, turn on & boot into Linux & mounting NTFS would be no issue like can't copy/rename/delete file
 
 =====================================
-Setting Workspace
+Setting Input & Output
+=====================================
+Input & Output: Mouse & Touchpad > Screen Edges > click on top left corner > No Action
+
+=====================================
+Setting App & Windows
 =====================================
 App & Windows: Window Management > Dekstop Effects > Blur > configure
 	Set Blur Strength 50%
@@ -211,17 +216,14 @@ App & Windows: Window Management > Window Behavior > tab Advanced
 	Window placement: Centered
 App & Windows: Window Management > Task Switcher
 	change to Thumbnail Grid
-!! App & Windows: Window Management > Window Rules
-!! 	https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/kwinrule/Rule%20-%20Google%20Chrome.kwinrule
-!! 	https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/kwinrule/Rule%20-%20Hide%20Title%20Bars.kwinrule
 
 =======================================
-Setting New Look
+Setting Appearance & Style
 =======================================
 # Appearance & Style: Wallpaper
 		Positioning: Scaled & Cropped
 		Images: Darkest Hour
-# Appearance & Style: Global Theme
+# Appearance & Style: Colors & Themes (Global Theme)
 		● Colors: Breeze Dark
 		● Application Style: Breeze
 			● Configure GNOME/GTK Application Style > Get New GNOME/GTK Application Style > WhiteSur GTK Theme by vinceliuice: WhiteSur-Dark
@@ -260,45 +262,13 @@ Application Launcher
 	Show favourites: In a grid
 	Show other applications: In a list
 	Show buttons for: Power (show action button captions)
-Application Title Bar (Download)
-	Elements: Title
-	Button icons source: Plasma (Global icon theme)
-	Font size: 8
-	Font fit: Fixed size
-	Font bold: Yes
-	Hide empty title: Yes
-	Window title undefined: 
-	Window title source: Application Name
-	Window title margins: 0 5 0 5
-Panel Spacer (Flexible Size)
-Application Title Bar (Download)
-	Button icons source: Aurorae
-	Aurorae theme: MacSonoma-Dark
-	Buttons margins: 6
-	Buttons width/height ratio: 100
-	Animation speed in ms: 100
-	Widget margins: 1
-	Spacing between elements: 4
-	Horizontal alignment: Left
-	Vertical alignment: Center
-	Show disabled elements: Deactivated
-	Elements: [close] [minimize] [maximize]
-	Minimum width: 0
-	Maximum width: 640
-	Font size: 10
-	Font fit: Fixed size
-	Font bold: Yes
-	Hide empty title: Yes
-	Window title source: Generic Application Name
-	Window title margins: 0 10 0 10
-Panel Spacer
-	220
+Icon-only Task Manager
 Sticky Note
 	Text font size: 10pt
 	Theme: A transparent sticky with light text
 	Shortcut: Ctrl + Alt + Space
 System Tray
-	Panel icon size: Scale with panel height
+	Panel icon size: Small
 	Panel icon spacing: Normal
 Digital Clock
 	Information: Show date (Always beside time)
@@ -322,33 +292,35 @@ sudo -i
 # launch tor browser
 
 =====================================
-Install Sublime Text from Ubuntu PPA
+Install Sublime Text from APT Repo
 =====================================
-$ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
-$ sudo apt install apt-transport-https && echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-$ sudo apt update && sudo apt install sublime-text
+$ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
+$ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+$ sudo apt update && sudo apt install -y sublime-text
 # Register Sublime Text Version 3.2.2 Build 3211: https://gist.github.com/angrycoffeemonster/4f05896d233baf6bd9b0894e30b5fa63#gistcomment-3186129
-# Ctrl + Shift + P: install package manager
+# Ctrl + Shift + P: install package control
+# Ctrl + Shift + P: install package
 # Preferences > Select Theme: Default Dark Sublime Theme
 # Preferences > Settings:
-{
-	"update_check": false,
-	"theme": "Default Dark.sublime-theme",
-	"ignored_packages":
-	[
-		"Vintage",
-	],
-	"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
-	"always_show_minimap_viewport" : true,
-	"bold_folder_labels"           : true,
-	"font_face"                    : "SF Mono",
-	"font_size"                    : 10,
-	"font_options"                 : ["gray_antialias", "subpixel_antialias"], // On retina Mac & Windows
-	"indent_guide_options"         : ["draw_normal", "draw_active"], // Highlight active indent
-	"line_padding_bottom"          : 1,
-	"line_padding_top"             : 1,
-	"overlay_scroll_bars"          : "enabled",
-}
+	{
+		"update_check": false,
+		"theme": "Default Dark.sublime-theme",
+		"ignored_packages":
+		[
+			"Vintage",
+		],
+		"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
+		"always_show_minimap_viewport" : true,
+		"bold_folder_labels"           : true,
+		"font_face"                    : "Ubuntu Mono",
+		"font_size"                    : 11,
+		"font_options"                 : ["gray_antialias", "subpixel_antialias"], // On retina Mac & Windows
+		"indent_guide_options"         : ["draw_normal", "draw_active"], // Highlight active indent
+		"line_padding_bottom"          : 1,
+		"line_padding_top"             : 1,
+		"overlay_scroll_bars"          : "enabled",
+	}
+# INFO: menu View > Layout to set single or split layout
 # enter license SL4.4113
 ----- BEGIN LICENSE ----- 
 SODiUM
@@ -395,17 +367,6 @@ $ docker-compose up -d
 $ docker exec -it mariadb mariadb -u root -p
 $ docker-compose ps
 # open phpMyAdmin on the browser: http://localhost:8000
-
-=======================================
-Install WhatsApps from Snap [no longer need]
-=======================================
-# open Discover, search "WhatSie" and install
-# open Menu Editor, in category Internet > New Item "WhatSie"
-	Name: WhatSie
-	Desc: 
-	Comment: WhatsApp for Linux
-	Program: /snap/bin/whatsie
-	Icon: whatsapp
 
 =======================================
 Install Spotify + Calaboka (ads silencer) from Snap [no longer need]
@@ -491,7 +452,7 @@ Tab Pointer Motion:
 Apply
 
 =====================================
-Install latest stable version of Wine
+[ARCHIEVED] Install latest stable version of Wine
 =====================================
 $ sudo dpkg --add-architecture i386
 $ sudo apt update
@@ -508,11 +469,22 @@ $ chmod +x winetricks
 $ sh winetricks allfonts dotnet472 vcrun2008 vcrun2010 vcrun2013 vcrun2015 d3dx9 d3dx9_43 directx9 d3dx10
 
 ======================================
-Install Vagrant
+[ARCHIEVED] Install Vagrant
 ======================================
 $ curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
 $ sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
 $ sudo apt-get update && sudo apt-get install vagrant
+
+=======================================
+[ARCHIEVED] Install WhatsApps from Snap
+=======================================
+# open Discover, search "WhatSie" and install
+# open Menu Editor, in category Internet > New Item "WhatSie"
+	Name: WhatSie
+	Desc: 
+	Comment: WhatsApp for Linux
+	Program: /snap/bin/whatsie
+	Icon: whatsapp
 
 =====================================
 [ARCHIEVED] Install Anbox
