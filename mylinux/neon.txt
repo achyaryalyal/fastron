@@ -247,9 +247,6 @@ Setting New Look
 			Windows title: Ubuntu Condense 10pt
 			Anti-Aliasing: Enabled
 # Security: Screen Locking > Configure Appearance: Darkest Hour
-!! # System: Autostart
-!! 	● Autostart Applications: Latte
-!! 	● Autostart Login Scripts: keep-battery-updated.sh
 
 =======================================
 Setup Widget
@@ -304,20 +301,21 @@ Application Title Bar (Download)
 Panel Spacer
 	220
 Sticky Note
-	A transparent sticky with light text
+	Text font size: 10pt
+	Theme: A transparent sticky with light text
 	Shortcut: Ctrl + Alt + Space
 System Tray
 	Panel icon size: Scale with panel height
 	Panel icon spacing: Normal
 Digital Clock
-	Information: Show date (Adaptive location)
+	Information: Show date (Always beside time)
 	Show seconds: Only in the tooltip
 	Show time zone: Only when different from local time zone
 	Display time zone as: Code
-	Time display: Use Region Defaults
-	Date format: Short Date (30/04/2024)
-	Text display: Automatic
-Peek at Desktop (Minimize all windows)
+	Time display: 24-Hour
+	Date format: Long Date (Rabu, 31 Juli 2024)
+	Text display: Manual (8pt Ubuntu Condensed)
+Peek at Desktop (Show the desktop & minimize all windows)
 	Shortcut: Ctrl + Space
 
 =====================================
