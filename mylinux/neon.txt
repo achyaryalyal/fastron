@@ -217,16 +217,27 @@ App & Windows: Window Management > Task Switcher
 =======================================
 Setting New Look
 =======================================
-# Appearance
-	● Global Theme: MacSonoma-Dark by vinceliuice
-		● Application Style: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
-			● GTK Theme: WhiteSur Gtk Theme (WhiteSur-dark.tar.xz) by vinceliuice -> https://www.pling.com/p/1403328
-		● Plasma Style: MacSonoma-Dark by vinceliuice
-		● Colors: MacSonoma-Dark by vinceliuice
+# Appearance & Style: Wallpaper
+		Positioning: Scaled & Cropped
+		Images: Darkest Hour
+# Appearance & Style: Global Theme
+		● Colors: Breeze Dark
+		● Application Style: Breeze
+			● GTK Theme: Breeze
+		● Plasma Style: Breeze Dark
+		● Windows Decorations: Breeze
 		● Windows Decorations:
-			#####● Theme: Monterey aurorae theme by vinceliuice -> https://www.pling.com/p/1567564
-			● Theme: MacSonoma-Dark by vinceliuice
-			● Titlebar Buttons: (from left to right) Close, Minimize, Maximize
+			● Get New Theme: Utterly Round Dark for Plasma 6 by Himprakash
+			● Configure Titlebar Buttons: (from left to right) Close, Minimize, Maximize ___ Titlebar ___ Application Menu
+		● Icons: Breeze Dark
+		● Cursors: Breeze
+		● System Sounds: Ocean
+		● Splash Screen:
+			● Get New Splash: Overload login splash by bermer
+		● Login Screen (SSDM): Breeze; Change Background: /usr/share/wallpapers/DarkestHour/contents/images/1920x1080.jpg
+		● Boot Splash Screen:
+			● Get New Splash: Linux Distros glowing slider by tobilinuxer => KDE neon
+# Appearance & Style: Text & Fonts
 		● Fonts:
 			General: Ubuntu Condensed 10pt
 			Fixed width: Ubuntu Mono 10pt
@@ -235,36 +246,10 @@ Setting New Look
 			Menu: Ubuntu Condense 10pt
 			Windows title: Ubuntu Condense 10pt
 			Anti-Aliasing: Enabled
-		● Icons: WhiteSur-dark
-				● Cursors: WhiteSur Cursors
-		● Splash Screen: Linux Distros glowing slider by tobilinuxer => KDE neon
-# Startup and Shutdown
-	● Login Screen (SSDM): MacSonoma-Dark by vinceliuice
-	● Autostart Applications: Latte
-	● Autostart Login Scripts: keep-battery-updated.sh
-# Workspace Behavior
-	● Screen Locking > Appearance: MacSonoma-Dark by vinceliuice
-● Wallpaper: https://4kwallpapers.com/images/wallpapers/macos-sonoma-6016x6016-11578.jpg
-● Latte: Monterey latte layout by vinceliuice -> https://www.pling.com/p/1567605/
-
-=======================================
-Install Kvantum Engine For KDE On Ubuntu/KDE Neon
-=======================================
-$ sudo apt install -y g++ libx11-dev libxext-dev qtbase5-dev libqt5svg5-dev libqt5x11extras5-dev libkf5windowsystem-dev qttools5-dev-tools cmake checkinstall
-$ cd /opt && gi clone https://github.com/tsujan/Kvantum.git && cd Kvantum/Kvantum && ls
-$ mkdir build && cd build
-$ cmake ..
-$ make
-$ sudo make install
-# download and extract theme: kvantum-dark with Monterey kvantum theme by vinceliuice -> https://www.pling.com/p/1567581
-# open Kvantum > select theme folder > install this theme
-# change/delete theme > select MontereyDark > use this theme
-# configure active theme > compositing & general look
-	change window opacity to 50%
-	change menu opacity to 50%
-	save
-# Appearance > Global Theme > Application Style: kvantum-dark
-# Open Dolphin > right click on search icon > enable Toggle Search Bar
+# Security: Screen Locking > Configure Appearance: Darkest Hour
+!! # System: Autostart
+!! 	● Autostart Applications: Latte
+!! 	● Autostart Login Scripts: keep-battery-updated.sh
 
 =======================================
 Setup Widget
