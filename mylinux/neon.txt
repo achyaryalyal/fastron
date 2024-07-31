@@ -396,7 +396,7 @@ $ sudo snap connect calaboka:mpris spotify:spotify-mpris
 	Icon: spotify
 
 =====================================
-Install Postman from Snap [no longer need]
+[ARCHIEVED] Install Postman from Snap
 =====================================
 $ snap install postman
 # or, open Discover, search "Postman" and install
@@ -420,7 +420,7 @@ $ reboot
 # if anything goes wrong, just boot through recovery to repair grub again
 
 =================================
-Recognize USB 3.0 Device
+[ARCHIEVED] Recognize USB 3.0 Device
 =================================
 $ sudo nano /etc/default/grub
 # add parameter: usbcore.autosuspend=-1 to GRUB_CMDLINE_LINUX_DEFAULT
@@ -431,7 +431,14 @@ $ reboot
 # if anything goes wrong, just boot through recovery to repair grub again
 
 =================================
-Fix Lenovo S145 Touchpad Issue via Grub
+Fix Remote Control Request Prompt
+=================================
+# System Settings > disable "Enable RDP Server"
+# or run the following terminal command:
+$ systemctl --user disable --now plasma-krdp_server.service
+
+=================================
+[ARCHIEVED] Fix Lenovo S145 Touchpad Issue via Grub
 =================================
 $ sudo -i
 $ nano /etc/default/grub
@@ -443,7 +450,7 @@ $ reboot
 # if anything goes wrong, just boot through recovery to repair grub again
 
 =================================
-Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
+[ARCHIEVED] Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
 =================================
 # right click on icon application menu (Launchpad plasma), right click on Lost & Found, click new item
 # set name: Reset Pointer
@@ -453,7 +460,7 @@ Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
 # save & close application menu
 
 =================================
-Adjust Touchpad Configuration
+[ARCHIEVED] Adjust Touchpad Configuration
 =================================
 System Settings > Hardware > Input Devices > Touchpad
 Tab Scrolling:
