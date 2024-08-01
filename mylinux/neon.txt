@@ -101,6 +101,18 @@ $ sudo nano /root/.zshrc
 	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
 	kilat on [domain]			ssh://[username]@[domain]:[port]
 
+=================================
+Disable Intel SGX Kernel Support
+=================================
+$ sudo -i
+$ nano /etc/default/grub
+# add parameter nosgx to GRUB_CMDLINE_LINUX_DEFAULT
+	GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nosgx"
+# close & save
+$ update-grub
+$ reboot
+# if anything goes wrong, just boot through recovery to repair grub again
+
 =======================================
 Install Apps From APT via Konsole
 =======================================
@@ -200,6 +212,12 @@ $ reboot
 Setting Input & Output
 =====================================
 Input & Output: Mouse & Touchpad > Screen Edges > click on top left corner > No Action
+Input & Output: Mouse & Touchpad > Touchpad
+	Pointer speed: 0,30
+	Pointer acceleration: Standard
+	Tapping: Tap-to-click, Tag-and-drag
+	Two-finger tap: Right click
+	Scrolling: Two fingers
 
 =====================================
 Setting App & Windows
@@ -408,18 +426,6 @@ $ snap install postman
 	Icon: postman
 
 =================================
-Disable Intel SGX Kernel Support
-=================================
-$ sudo -i
-$ nano /etc/default/grub
-# add parameter nosgx to GRUB_CMDLINE_LINUX_DEFAULT
-	GRUB_CMDLINE_LINUX_DEFAULT="nosgx"
-# close & save
-$ update-grub
-$ reboot
-# if anything goes wrong, just boot through recovery to repair grub again
-
-=================================
 [ARCHIEVED] Recognize USB 3.0 Device
 =================================
 $ sudo nano /etc/default/grub
@@ -458,19 +464,6 @@ $ reboot
 # set command: ids=$(xinput list | grep 'pointer' | cut -d '=' -f 2 | cut -f 1 | tr ' ' '\n' | tail -1) && xinput --disable $ids && xinput --enable $ids
 # set icon: ktouch
 # save & close application menu
-
-=================================
-[ARCHIEVED] Adjust Touchpad Configuration
-=================================
-System Settings > Hardware > Input Devices > Touchpad
-Tab Scrolling:
-	edge scrolling: [vertical] [horizontal]
-	two-finger scrolling: [vertical] [horizontal]
-Tab Pointer Motion:
-	Speed Minimum: 0.5 bar
-	Speed Maximum: 1.5 bar
-	Acceleration: 2.0 bar
-Apply
 
 =====================================
 [ARCHIEVED] Install latest stable version of Wine
