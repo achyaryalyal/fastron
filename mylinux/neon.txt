@@ -100,6 +100,9 @@ $ sudo nano /root/.zshrc
 	autoremove				sudo apt autoremove
 	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
 	kilat on [domain]			ssh://[username]@[domain]:[port]
+#############################
+# how to display the application menu by pressing Ctrl + Shift + M
+# if in Dolphin, press Ctrl + M, usually if in Dolphin it appears once then in other applications such as GIMP/Inkscape the application menu will also appear
 
 =================================
 Disable Intel SGX Kernel Support
