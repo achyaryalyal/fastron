@@ -120,8 +120,8 @@ $ reboot
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools whois inxi kcalc audacious vlc peek kdenlive obs-studio remmina qbittorrent android-file-transfer filelight partitionmanager
-!! pdfsam ffmpegthumbnailer kdenetwork-filesharing fonts-noto-color-emoji
+$ sudo apt install neofetch net-tools whois inxi kcalc audacious ffmpeg ffmpegthumbnailer vlc peek kdenlive remmina qbittorrent android-file-transfer filelight partitionmanager
+!! pdfsam kdenetwork-filesharing fonts-noto-color-emoji
 !! xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse xserver-xorg-input-synaptics xserver-xorg-input-synaptics-dev
 $ sudo apt remove kate kwalletmanager okular && sudo apt autoremove
 # open remmina > preferences
@@ -147,10 +147,15 @@ $ sudo add-apt-repository ppa:inkscape.dev/stable && sudo apt install -y inkscap
 # Edit > preferences > interface > theme: dark; icon: color
 # [if needed] Edit > preferences > interface > windows > dialogs on top: none
 
+=======================================
+Install OBS Studio from Ubuntu PPA for More Up-to-Date Version
+=======================================
+$ sudo add-apt-repository ppa:obsproject/obs-studio && sudo apt install -y obs-studio
+
 =====================================
 Install Telegram from Ubuntu PPA for More Up-to-Date Version 
 =====================================
-$ sudo add-apt-repository ppa:atareao/telegram && sudo apt install telegram
+$ sudo add-apt-repository ppa:atareao/telegram && sudo apt install -y telegram
 
 =====================================
 Install FreeeOffice from SoftMaker repository for More Up-to-Date Version 
