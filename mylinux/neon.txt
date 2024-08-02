@@ -212,36 +212,15 @@ $ reboot
 # after shutdown, turn on & boot into Linux & mounting NTFS would be no issue like can't copy/rename/delete file
 
 =====================================
-Setting Input & Output
+System Setting
 =====================================
-Input & Output: Mouse & Touchpad > Screen Edges > click on top left corner > No Action
-Input & Output: Mouse & Touchpad > Touchpad
+# Input & Output: Mouse & Touchpad > Screen Edges > click on top left corner > No Action
+# Input & Output: Mouse & Touchpad > Touchpad
 	Pointer speed: 0,30
 	Pointer acceleration: Standard
 	Tapping: Tap-to-click, Tag-and-drag
 	Two-finger tap: Right click
 	Scrolling: Two fingers
-
-=====================================
-Setting App & Windows
-=====================================
-App & Windows: Window Management > Dekstop Effects > Blur > configure
-	Set Blur Strength 50%
-	Set Noise Strength 0%
-App & Windows: Window Management > Desktop Effects > Woobly Windows > enable and configure
-	Wobbliness: 100%
-	enable Wobble when moving
-	disabled Wobble when resizing
-App & Windows: Window Management > Desktop Effects > Magic Lamp > enable and configure
-	Animation duration: 400ms
-App & Windows: Window Management > Window Behavior > tab Advanced
-	Window placement: Centered
-App & Windows: Window Management > Task Switcher
-	change to Thumbnail Grid
-
-=======================================
-Setting Appearance & Style
-=======================================
 # Appearance & Style: Wallpaper
 	Positioning: Scaled & Cropped
 	Images: Darkest Hour
@@ -272,13 +251,24 @@ Setting Appearance & Style
 		Menu: Ubuntu Condense 10pt
 		Windows title: Ubuntu Condense 10pt
 		Anti-Aliasing: Enabled
-# Security: Screen Locking > Configure Appearance: Darkest Hour
-
-=======================================
-Setting Workspace
-=======================================
+# Apps & Windows: Window Management > Dekstop Effects > Blur > configure
+	Set Blur Strength 50%
+	Set Noise Strength 0%
+# Apps & Windows: Window Management > Desktop Effects > Woobly Windows > enable and configure
+	Wobbliness: 100%
+	enable Wobble when moving
+	disabled Wobble when resizing
+# Apps & Windows: Window Management > Desktop Effects > Magic Lamp > enable and configure
+	Animation duration: 400ms
+# Apps & Windows: Window Management > Window Behavior > tab Advanced
+	Window placement: Centered
+# Apps & Windows: Window Management > Task Switcher
+	change to Thumbnail Grid
 # Workspace: General Behavior
 	Clicking files or folders: Opens them
+# Security & Privacy: Screen Locking > Configure Appearance: Darkest Hour
+# System: Power Management
+	Battery protection: Limit the maximum battery charge
 
 =======================================
 Setup Widget
@@ -356,27 +346,21 @@ $ sudo apt update && sudo apt install -y sublime-text
 		"overlay_scroll_bars"          : "enabled",
 	}
 # INFO: menu View > Layout to set single or split layout
-# enter license SL4.4113
------ BEGIN LICENSE ----- 
-SODiUM
-Unlimited User License
-EA7E-616233
-3D304404 DF30FB1E 13970658 C1A50250
-5516CCFF E9CECBB4 A977180F CF3D27B0
-CE548F7F 6BACBFBB 13C3C20E 98374D2E
-A4A2FBD8 F43266F1 B5D341B7 FB93B378
-130776C7 E8448996 7079AE92 0FC9F957
-50A44D9B 3C9F2B95 ED317531 DE31C716
-35DB9EC1 2AC2035E 88A16581 60A47FF4
-3FF047F5 1E1713B0 25282A13 D70F1E04
------- END LICENSE ------
-# or
------ BEGIN LICENSE ----- 
-AODGH-JREOG-HRFIK-NBKJL-XNVSO
-ERTPE-HYEOU-GHBJK-LAPOJ-LHNF
-OEAWH-TRREW-OHGER-IJVNZ-LNFEO
-SGJEOI-HRHTE-ROGNS-FNGVS-PDFJPE
------- END LICENSE ------
+# For unlimited user license in linux:
+	# file bash "sublime_text" is in /opt/sublime_text/sublime_text
+	# first go to site https://hexed.it/
+	# click on Open file and put file "sublime_text"
+	# go to section Search in left of page
+	# put 80 78 05 00 0F 94 C1 in label Search for
+	# then click on Find next
+	# after find it then change if one by one to: C6 40 05 01 48 85 C9
+	# after that click on Export/Save as
+	# then write this command in terminal
+	$ sudo mv /opt/sublime_text/sublime_text ./sublime_text.old
+	$ cd $HOME/Downloads/
+	$ chmod 755 sublime_text
+	$ sudo chown root:root sublime_text
+	$ sudo mv sublime_text /opt/sublime_text/
 
 =======================================
 Install pip for Python 3
