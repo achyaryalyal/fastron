@@ -28,6 +28,12 @@ Fix 'preinstalled' Repo Warning on apt update
 =================================
 $ sudo rm /etc/apt/sources.list.d/preinstalled-pool.list
 
+=================================
+Fix screen recorder become black screen (only cursor)
+=================================
+# Log out
+# In the login screen, select "KDE Plasma X11"
+
 =====================================
 Install ZSH & OhMyZsh
 =====================================
