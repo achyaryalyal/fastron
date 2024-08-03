@@ -136,6 +136,11 @@ $ sudo apt remove kate kwalletmanager okular && sudo apt autoremove
 	applet: start in tray upon user login
 
 =======================================
+Show full system information with inxi
+=======================================
+$ inxi -F
+
+=======================================
 Install GIMP from Ubuntu PPA for More Up-to-Date Version
 =======================================
 $ sudo add-apt-repository ppa:ubuntuhandbook1/gimp && sudo apt install -y gimp gegl libgexiv2-2
