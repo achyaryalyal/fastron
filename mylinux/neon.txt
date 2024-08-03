@@ -29,22 +29,28 @@ Fix 'preinstalled' Repo Warning on apt update
 $ sudo rm /etc/apt/sources.list.d/preinstalled-pool.list
 
 =================================
-Fix screen recorder become black screen (only cursor recording)
+Switch from Wayland to X11 (also fix screen recorder become black screen)
 =================================
 # Log out
 # In the login screen, select "KDE Plasma X11"
+#############################
+# after login, it is possible that your touchpad will experience problems because it cannot tap to click, here's how to fix it.
+$ sudo -i
+$ nano /etc/default/grub
+# add parameter i8042.nopnp=1 pci=nocrs to GRUB_CMDLINE_LINUX_DEFAULT
+# also add parameter nosgx to disable Intel SGX Kernel Support
+	GRUB_CMDLINE_LINUX_DEFAULT="i8042.nopnp=1 pci=nocrs nosgx quiet splash"
+# close & save
+$ update-grub
+$ reboot
+# if anything goes wrong, just boot through recovery to repair grub again
 
-=================================
-Enable PipeWire
-=================================
-$ sudo apt install pipewire-media-session- wireplumber
-$ sudo apt install pipewire-audio-client-libraries
-$ sudo cp /usr/share/doc/pipewire/examples/alsa.conf.d/99-pipewire-default.conf /etc/alsa/conf.d/
-$ sudo apt install libspa-0.2-jack
-$ sudo cp /usr/share/doc/pipewire/examples/ld.so.conf.d/pipewire-jack-*.conf /etc/ld.so.conf.d/
-$ sudo ldconfig
-$ sudo apt install libldacbt-{abr,enc}2 libspa-0.2-bluetooth pulseaudio-module-bluetooth-
-$ systemctl --user --now enable wireplumber.service
+# System Setting > Input & Output: Mouse & Touchpad > Touchpad
+	Pointer speed: 0,30
+	Pointer acceleration: Standard
+	Tapping: Tap-to-click, Tag-and-drag
+	Two-finger tap: Right click
+	Scrolling: Two fingers
 
 =====================================
 Install ZSH & OhMyZsh
@@ -122,18 +128,6 @@ $ sudo nano /root/.zshrc
 #############################
 # how to display the application menu by pressing Ctrl + Shift + M
 # if in Dolphin, press Ctrl + M, usually if in Dolphin it appears once then in other applications such as GIMP/Inkscape the application menu will also appear
-
-=================================
-Disable Intel SGX Kernel Support
-=================================
-$ sudo -i
-$ nano /etc/default/grub
-# add parameter nosgx to GRUB_CMDLINE_LINUX_DEFAULT
-	GRUB_CMDLINE_LINUX_DEFAULT="quiet splash nosgx"
-# close & save
-$ update-grub
-$ reboot
-# if anything goes wrong, just boot through recovery to repair grub again
 
 =======================================
 Install Apps From APT via Konsole
@@ -261,12 +255,6 @@ System Setting
 	Increase Screen Brightness: Ctrl + .
 	Increase Screen Brightness by 1%: Ctrl + Shift + .
 # Input & Output: Mouse & Touchpad > Screen Edges > click on top left corner > No Action
-# Input & Output: Mouse & Touchpad > Touchpad
-	Pointer speed: 0,30
-	Pointer acceleration: Standard
-	Tapping: Tap-to-click, Tag-and-drag
-	Two-finger tap: Right click
-	Scrolling: Two fingers
 # Appearance & Style: Wallpaper
 	Positioning: Scaled & Cropped
 	Images: Darkest Hour
@@ -476,18 +464,6 @@ Fix Remote Control Request Prompt
 # System Settings > disable "Enable RDP Server"
 # or run the following terminal command:
 $ systemctl --user disable --now plasma-krdp_server.service
-
-=================================
-[ARCHIEVED] Fix Lenovo S145 Touchpad Issue via Grub
-=================================
-$ sudo -i
-$ nano /etc/default/grub
-# add parameter i8042.nopnp=1 pci=nocrs to GRUB_CMDLINE_LINUX_DEFAULT
-	GRUB_CMDLINE_LINUX_DEFAULT="i8042.nopnp=1 pci=nocrs quiet splash"
-# close & save
-$ update-grub
-$ reboot
-# if anything goes wrong, just boot through recovery to repair grub again
 
 =================================
 [ARCHIEVED] Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
