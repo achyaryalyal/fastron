@@ -40,6 +40,7 @@ Enable PipeWire
 $ sudo apt install pipewire-media-session- wireplumber
 $ sudo apt install pipewire-audio-client-libraries
 $ sudo cp /usr/share/doc/pipewire/examples/alsa.conf.d/99-pipewire-default.conf /etc/alsa/conf.d/
+$ sudo apt install libspa-0.2-jack
 $ sudo cp /usr/share/doc/pipewire/examples/ld.so.conf.d/pipewire-jack-*.conf /etc/ld.so.conf.d/
 $ sudo ldconfig
 $ sudo apt install libldacbt-{abr,enc}2 libspa-0.2-bluetooth pulseaudio-module-bluetooth-
