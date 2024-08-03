@@ -44,7 +44,7 @@ $ nano /etc/default/grub
 $ update-grub
 $ reboot
 # if anything goes wrong, just boot through recovery to repair grub again
-
+# don't forget to setup the touchpad setting
 # System Setting > Input & Output: Mouse & Touchpad > Touchpad
 	Pointer speed: 0,30
 	Pointer acceleration: Standard
