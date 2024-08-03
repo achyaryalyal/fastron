@@ -254,6 +254,7 @@ $ reboot
 =====================================
 System Setting
 =====================================
+# Input & Output: Keyboard > Shortcuts > Add new > Google Chrome > Add custom shortcut Ctrl + Alt + G
 # Input & Output: Keyboard > Shortcuts > search "power" > click on "KDE Power ManagementSystem"
 	Decrease Screen Brightness: Ctrl + ,
 	Decrease Screen Brightness by 1%: Ctrl + Shift + ,
