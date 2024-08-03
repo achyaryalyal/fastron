@@ -29,10 +29,21 @@ Fix 'preinstalled' Repo Warning on apt update
 $ sudo rm /etc/apt/sources.list.d/preinstalled-pool.list
 
 =================================
-Fix screen recorder become black screen (only cursor)
+Fix screen recorder become black screen (only cursor recording)
 =================================
 # Log out
 # In the login screen, select "KDE Plasma X11"
+
+=================================
+Enable PipeWire
+=================================
+$ sudo apt install pipewire-media-session- wireplumber
+$ sudo apt install pipewire-audio-client-libraries
+$ sudo cp /usr/share/doc/pipewire/examples/alsa.conf.d/99-pipewire-default.conf /etc/alsa/conf.d/
+$ sudo cp /usr/share/doc/pipewire/examples/ld.so.conf.d/pipewire-jack-*.conf /etc/ld.so.conf.d/
+$ sudo ldconfig
+$ sudo apt install libldacbt-{abr,enc}2 libspa-0.2-bluetooth pulseaudio-module-bluetooth-
+$ systemctl --user --now enable wireplumber.service
 
 =====================================
 Install ZSH & OhMyZsh
