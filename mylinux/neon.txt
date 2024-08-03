@@ -31,8 +31,8 @@ $ sudo rm /etc/apt/sources.list.d/preinstalled-pool.list
 =================================
 Switch from Wayland to X11 (also fix screen recorder become black screen)
 =================================
-# Log out
-# In the login screen, select "KDE Plasma X11"
+# Log Out
+# in the login screen, select "Session: Plasma (X11)"
 #############################
 # after login, it is possible that your touchpad will experience problems because it cannot tap to click, here's how to fix it.
 $ sudo -i
@@ -44,6 +44,7 @@ $ nano /etc/default/grub
 $ update-grub
 $ reboot
 # if anything goes wrong, just boot through recovery to repair grub again
+#############################
 # don't forget to setup the touchpad setting
 # System Setting > Input & Output: Mouse & Touchpad > Touchpad
 	Pointer speed: 0,30
