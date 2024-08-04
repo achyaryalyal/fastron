@@ -232,31 +232,22 @@ Install Telegram from Ubuntu PPA for More Up-to-Date Version
 =====================================
 $ sudo add-apt-repository ppa:atareao/telegram && sudo apt install -y telegram
 
-=====================================
-Install FreeeOffice from SoftMaker repository for More Up-to-Date Version 
-=====================================
-$ sudo -i
-$ wget -qO- https://shop.softmaker.com/repo/linux-repo-public.key | gpg --dearmor > /usr/share/keyrings/softmaker.gpg
-$ echo "deb [signed-by=/usr/share/keyrings/softmaker.gpg] https://shop.softmaker.com/repo/apt stable non-free" > /etc/apt/sources.list.d/softmaker.list
-$ sudo apt update && sudo apt install -y softmaker-freeoffice-2024
-#############################
-# File > Options > tab Appearance > User Interface > Ribbon (01)
-# File > Options > tab Appearance > User interface size: 0 (Set to minimum)
-# File > Options > tab Files > Backup: No backup (Do not create backup files)
-
 =======================================
 Install Apps Manually From .DEB Package
 =======================================
-Download FreeOffice For Linux
-	https://www.freeoffice.com/en/download
-Download Zoom Meeting
+Download WPS Office For Linux
+	https://www.wps.com/office/linux/
+	# fix slide can't play media:
+		Menu > Options > View > Show
+		Check "Enable graphics card acceleration" > Save
+		Menu > Options > View > Show
+		Uncheck "Enable graphics card acceleration" > Save
+Download Zoom Workplace for Linux
 	https://zoom.us/download
 Download Sejda PDF Desktop (PDF Editor)
 	https://www.sejda.com/desktop
 Download CrossFTP Version 1.99.6 (can manage S3 bucket)
 	https://www.crossftp.com/crossftp_1.99.9.deb
-Download WPS Office For Linux [Not Recommended: often crashes and can't play videos in presentation slides]
-	https://www.wps.com/office/linux/
 
 =======================================
 Add swap space equals to RAM size
