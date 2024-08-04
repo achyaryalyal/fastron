@@ -139,6 +139,13 @@ $ sudo apt remove kate kwalletmanager okular && sudo apt autoremove
 # TIPS: if you want to remove a package and install a different package IN ONE STEP, try: sudo apt remove htop nano+ ===> will remove htop and install nano
 # another way to do the same thing: sudo apt install htop- nano  ===> also will remove htop and install nano
 
+=================================
+VLC Tweak
+=================================
+# Tools > Preferences > Click Subtitles/OSD tab > Untick "Show media title on video start"
+# Tools > Preferences > In the bottom-left, under Show settings, select All > Interface -> Main Interfaces -> Qt > Uncheck "Display background cone or art"
+# Tools > Preferences > In the bottom-left, under Show settings, select All > Playlist > check "Repeat all"
+
 =======================================
 Enable Kinetic Scrolling: switch from libinput to synaptics
 =======================================
@@ -712,12 +719,6 @@ Improving Boot Time
 # don’t worry, once you log in, you’ll have wifi working normally
 $ sudo systemctl disable NetworkManager-wait-online.service
 # if you want to revert the change, you can use this command: sudo systemctl enable NetworkManager-wait-online.service
-
-=================================
-VLC Tweak
-=================================
-# Tools > Preferences > Click Subtitles/OSD tab > Untick "Show media title on video start"
-# Tools > Preferences > In the bottom-left, under Show settings, select All > Interface -> Main Interfaces -> Qt > Uncheck "Display background cone or art"
 
 =================================
 Fix External Drive no Longer Mounting
