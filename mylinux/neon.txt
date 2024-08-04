@@ -361,10 +361,10 @@ Icon-only Task Manager
 	Konsole => icon smartgit
 	Dolphin
 	Google Chrome
-	WPS Office
 	Sublime Text => icon https://github.com/achyaryalyal/fastron/blob/master/mylinux/sublime-text/sublimetext.png
 	Thunderbird
 	Telegram
+	WPS Office
 Sticky Note
 	Text font size: 10pt
 	Theme: A transparent sticky with light text
