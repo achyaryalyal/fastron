@@ -179,8 +179,6 @@ Section "InputClass"
 		Option "AccelFactor" "0.15"
 		Option "TrackstickSpeed" "0"
 		Option "CircularScrolling" "off"
-		Option "EmulateTwoFingerMinZ" "40"
-		Option "EmulateTwoFingerMinW" "8"
 		Option "CornerCoasting" "0" # kinetic two-finger scrolling
 		Option "CoastingSpeed" "20" # kinetic two-finger scrolling
 		Option "CoastingFriction" "50" # kinetic two-finger scrolling
