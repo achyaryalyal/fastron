@@ -143,8 +143,11 @@ $ sudo apt remove kate kwalletmanager okular && sudo apt autoremove
 VLC Tweak
 =================================
 # Tools > Preferences > Click Subtitles/OSD tab > Untick "Show media title on video start"
-# Tools > Preferences > In the bottom-left, under Show settings, select All > Interface -> Main Interfaces -> Qt > Uncheck "Display background cone or art"
-# Tools > Preferences > In the bottom-left, under Show settings, select All > Playlist > check "Repeat all"
+# Tools > Preferences > In the bottom-left, under Show settings, select All > Interface -> Main Interfaces -> Qt
+	Uncheck "Systray icon"
+	Uncheck "Display background cone or art"
+# Tools > Preferences > In the bottom-left, under Show settings, select All > Playlist
+	Check "Repeat all"
 
 =======================================
 Enable Kinetic Scrolling: switch from libinput to synaptics
