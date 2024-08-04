@@ -134,8 +134,7 @@ $ sudo nano /root/.zshrc
 Install Apps From APT via Konsole
 =======================================
 $ sudo apt install neofetch net-tools whois inxi kcalc audacious ffmpeg ffmpegthumbnailer vlc peek kdenlive remmina qbittorrent android-file-transfer filelight partitionmanager
-!! pdfsam kdenetwork-filesharing fonts-noto-color-emoji
-!! xserver-xorg-input-libinput xserver-xorg-input-evdev xserver-xorg-input-mouse
+!! pdfsam xserver-xorg-input-evdev xserver-xorg-input-mouse
 $ sudo apt remove kate kwalletmanager okular && sudo apt autoremove
 # TIPS: if you want to remove a package and install a different package IN ONE STEP, try: sudo apt remove htop nano+ ===> will remove htop and install nano
 # another way to do the same thing: sudo apt install htop- nano  ===> also will remove htop and install nano
@@ -151,7 +150,7 @@ xinput list-props [id] | grep Scroll | awk -F' ' '{print $1}'
 # if you are still using libinput, then change it to synaptics
 # just install synaptics, but don't uninstall libinput because libinput is still happily handling keyboard, etc.
 $ sudo -i
-$ sudo apt install xserver-xorg-input-all xserver-xorg-input-synaptics
+$ sudo apt install xserver-xorg-input-synaptics
 $ sudo nano /usr/share/X11/xorg.conf.d/*-synaptics.conf
 # add Option after line [Driver "synaptics"] and [MatchIsTouchpad "on"]
 Section "InputClass"
@@ -166,18 +165,15 @@ Section "InputClass"
 		Option "HorizEdgeScroll" "on"
 		Option "HorizTwoFingerScroll" "on"
 		Option "MinSpeed" "1.2"
-		Option "MaxSpeed" "1.75"
-		Option "AccelFactor" "0.05"
-		Option "TrackstickSpeed" "40"
-		# Option "CircularScrolling" "on"
-		# Option "CircScrollTrigger" "2"
-		Option "VertHysteresis" "50"
-		Option "HorizHysteresis" "50"
+		Option "MaxSpeed" "2.5"
+		Option "AccelFactor" "0.15"
+		Option "TrackstickSpeed" "0"
+		Option "CircularScrolling" "off"
 		Option "EmulateTwoFingerMinZ" "40"
 		Option "EmulateTwoFingerMinW" "8"
 		Option "CornerCoasting" "0" # kinetic two-finger scrolling
-        	Option "CoastingSpeed" "20" # kinetic two-finger scrolling
-        	Option "CoastingFriction" "50" # kinetic two-finger scrolling
+		Option "CoastingSpeed" "20" # kinetic two-finger scrolling
+		Option "CoastingFriction" "50" # kinetic two-finger scrolling
 		Option "FingerLow" "30"
 		Option "FingerHigh" "50"
 		Option "MaxTapTime" "125"
