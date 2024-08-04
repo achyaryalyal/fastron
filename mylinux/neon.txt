@@ -175,9 +175,9 @@ Section "InputClass"
 		Option "HorizHysteresis" "50"
 		Option "EmulateTwoFingerMinZ" "40"
 		Option "EmulateTwoFingerMinW" "8"
-		Option "CornerCoasting" "0"
-        	Option "CoastingSpeed" "20"
-        	Option "CoastingFriction" "50"
+		Option "CornerCoasting" "0" # kinetic two-finger scrolling
+        	Option "CoastingSpeed" "20" # kinetic two-finger scrolling
+        	Option "CoastingFriction" "50" # kinetic two-finger scrolling
 		Option "FingerLow" "30"
 		Option "FingerHigh" "50"
 		Option "MaxTapTime" "125"
