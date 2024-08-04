@@ -141,7 +141,7 @@ $ sudo apt remove kate kwalletmanager okular && sudo apt autoremove
 # another way to do the same thing: sudo apt install htop- nano  ===> also will remove htop and install nano
 
 =======================================
-Kinetic Scrolling: switch from libinput to synaptics
+Enable Kinetic Scrolling: switch from libinput to synaptics
 =======================================
 # list input devices
 xinput list
