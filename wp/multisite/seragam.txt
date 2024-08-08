@@ -176,6 +176,9 @@ pilih opsi template "Show in selected pages" > klik add new rule:
 1. Single post
 2. Page
 Save settings
+# If you want to remove font awesome from this plugin, you can go to WP Socializer –> Settings –> CSS/JS to not to load in any page
+# enter this: fa_icons
+# to prevent fontawesome icons being loaded
 
 ================
 SETEL STATISTICS [TIDAK PAKAI LAGI] => MENAMBAH BEBAN DATABASE => CUKUP PAKAI GOOGLE ANALYTICS
