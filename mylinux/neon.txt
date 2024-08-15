@@ -29,12 +29,27 @@ Fix 'preinstalled' Repo Warning on apt update
 $ sudo rm /etc/apt/sources.list.d/preinstalled-pool.list
 
 =================================
+Install Driver Radeon™ Software for Linux® version 24.10.3 for Ubuntu 22.04.4 HWE
+=================================
+https://www.amd.com/en/support/download/linux-drivers.html
+
+=================================
 Switch from Wayland to X11 (also fix screen recorder become black screen)
 =================================
 # Log Out
 # in the login screen, select "Session: Plasma (X11)"
 #############################
-!!! # after login, it is possible that your touchpad will experience problems because it cannot tap to click, here's how to fix it.
+# while login, it is possible that your KEYBOARD will experience problems because it seems not working, here's how to fix it.
+$ sudo -i
+$ nano /etc/default/grub
+# add this parameter to GRUB_CMDLINE_LINUX_DEFAULT
+	GRUB_CMDLINE_LINUX_DEFAULT="atkbd.reset=1 i8042.nomux=1 i8042.reset=1 i8042.nopnp=1 i8042.dumbkbd=1 quiet splash"
+# close & save
+$ update-grub
+$ reboot
+# IF ANYTHING GOES WRONG (WIFI ADAPTER ALWAYS DISABLED), JUST BOOT VIA NORMAL MODE OR RECOVERY MODE TO REPAIR GRUB AGAIN
+#############################
+!!! # after login, it is possible that your TOUCHPAD will experience problems because it cannot tap to click, here's how to fix it.
 !!! $ sudo -i
 !!! $ nano /etc/default/grub
 !!! # add parameter i8042.nopnp=1 pci=nocrs to GRUB_CMDLINE_LINUX_DEFAULT
