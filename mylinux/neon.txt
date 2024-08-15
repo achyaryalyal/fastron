@@ -34,24 +34,54 @@ Switch from Wayland to X11 (also fix screen recorder become black screen)
 # Log Out
 # in the login screen, select "Session: Plasma (X11)"
 #############################
-# after login, it is possible that your touchpad will experience problems because it cannot tap to click, here's how to fix it.
-$ sudo -i
-$ nano /etc/default/grub
-# add parameter i8042.nopnp=1 pci=nocrs to GRUB_CMDLINE_LINUX_DEFAULT
-# also add parameter nosgx to disable Intel SGX Kernel Support
-	GRUB_CMDLINE_LINUX_DEFAULT="i8042.nopnp=1 pci=nocrs nosgx quiet splash"
-# close & save
-$ update-grub
-$ reboot
-# if anything goes wrong, just boot through recovery to repair grub again
+!!! # after login, it is possible that your touchpad will experience problems because it cannot tap to click, here's how to fix it.
+!!! $ sudo -i
+!!! $ nano /etc/default/grub
+!!! # add parameter i8042.nopnp=1 pci=nocrs to GRUB_CMDLINE_LINUX_DEFAULT
+!!! # also add parameter nosgx to disable Intel SGX Kernel Support
+!!! 	GRUB_CMDLINE_LINUX_DEFAULT="i8042.nopnp=1 pci=nocrs nosgx quiet splash"
+!!! # close & save
+!!! $ update-grub
+!!! $ reboot
+!!! # IF ANYTHING GOES WRONG (WIFI ADAPTER ALWAYS DISABLED), JUST BOOT VIA NORMAL MODE OR RECOVERY MODE TO REPAIR GRUB AGAIN
 #############################
-# don't forget to setup the touchpad setting
-# System Setting > Input & Output: Mouse & Touchpad > Touchpad
-	Pointer speed: 0,30
-	Pointer acceleration: Standard
-	Tapping: Tap-to-click, Tag-and-drag
-	Two-finger tap: Right click
-	Scrolling: Two fingers
+# enable kinetic scrolling: switch from libinput to synaptics
+# first, show list input devices
+xinput list
+# check touchpad using libinput or synaptics driver
+xinput list-props [id] | grep Scroll | awk -F' ' '{print $1}'
+# touchpads that use libinput driver can't use kinetic scrolling feature
+# if you are still using libinput, then change it to synaptics
+# just install synaptics, but don't uninstall libinput because libinput is still happily handling keyboard, etc.
+$ sudo -i
+$ sudo apt install xserver-xorg-input-synaptics
+$ sudo nano /usr/share/X11/xorg.conf.d/*-synaptics.conf
+# add Option after line [Driver "synaptics"] and [MatchIsTouchpad "on"]
+Section "InputClass"
+	Identifier "touchpad catchall"
+	Driver "synaptics"
+	MatchIsTouchpad "on"
+		Option "TapButton1" "1"
+		Option "TapButton2" "3"
+		Option "TapButton3" "2"
+		Option "VertEdgeScroll" "on"
+		Option "VertTwoFingerScroll" "on"
+		Option "HorizEdgeScroll" "on"
+		Option "HorizTwoFingerScroll" "on"
+		Option "MinSpeed" "1.2"
+		Option "MaxSpeed" "2.5"
+		Option "AccelFactor" "0.15"
+		Option "TrackstickSpeed" "0"
+		Option "CircularScrolling" "off"
+		Option "CornerCoasting" "0" # kinetic two-finger scrolling
+		Option "CoastingSpeed" "20" # kinetic two-finger scrolling
+		Option "CoastingFriction" "50" # kinetic two-finger scrolling
+		Option "FingerLow" "30"
+		Option "FingerHigh" "50"
+		Option "MaxTapTime" "125"
+	MatchDevicePath "/dev/input/event*"
+EndSection
+$ reboot
 
 =====================================
 Install ZSH & OhMyZsh
@@ -134,7 +164,7 @@ $ sudo nano /root/.zshrc
 Install Apps From APT via Konsole
 =======================================
 $ sudo apt install neofetch net-tools whois inxi kcalc audacious ffmpeg ffmpegthumbnailer vlc peek kdenlive remmina qbittorrent android-file-transfer filelight partitionmanager
-!! pdfsam xserver-xorg-input-evdev xserver-xorg-input-mouse
+!!! pdfsam xserver-xorg-input-evdev xserver-xorg-input-mouse
 $ sudo apt remove kate kwalletmanager okular && sudo apt autoremove
 # TIPS: if you want to remove a package and install a different package IN ONE STEP, try: sudo apt remove htop nano+ ===> will remove htop and install nano
 # another way to do the same thing: sudo apt install htop- nano  ===> also will remove htop and install nano
@@ -148,46 +178,6 @@ VLC Tweak
 	Uncheck "Display background cone or art"
 # Tools > Preferences > In the bottom-left, under Show settings, select All > Playlist
 	Check "Repeat all"
-
-=======================================
-Enable Kinetic Scrolling: switch from libinput to synaptics
-=======================================
-# list input devices
-xinput list
-# check touchpad using libinput or synaptics driver
-xinput list-props [id] | grep Scroll | awk -F' ' '{print $1}'
-# touchpads that use libinput driver can't use kinetic scrolling feature
-# if you are still using libinput, then change it to synaptics
-# just install synaptics, but don't uninstall libinput because libinput is still happily handling keyboard, etc.
-$ sudo -i
-$ sudo apt install xserver-xorg-input-synaptics
-$ sudo nano /usr/share/X11/xorg.conf.d/*-synaptics.conf
-# add Option after line [Driver "synaptics"] and [MatchIsTouchpad "on"]
-Section "InputClass"
-	Identifier "touchpad catchall"
-	Driver "synaptics"
-	MatchIsTouchpad "on"
-		Option "TapButton1" "1"
-		Option "TapButton2" "3"
-		Option "TapButton3" "2"
-		Option "VertEdgeScroll" "on"
-		Option "VertTwoFingerScroll" "on"
-		Option "HorizEdgeScroll" "on"
-		Option "HorizTwoFingerScroll" "on"
-		Option "MinSpeed" "1.2"
-		Option "MaxSpeed" "2.5"
-		Option "AccelFactor" "0.15"
-		Option "TrackstickSpeed" "0"
-		Option "CircularScrolling" "off"
-		Option "CornerCoasting" "0" # kinetic two-finger scrolling
-		Option "CoastingSpeed" "20" # kinetic two-finger scrolling
-		Option "CoastingFriction" "50" # kinetic two-finger scrolling
-		Option "FingerLow" "30"
-		Option "FingerHigh" "50"
-		Option "MaxTapTime" "125"
-	MatchDevicePath "/dev/input/event*"
-EndSection
-$ reboot
 
 =======================================
 Setup Remmina
