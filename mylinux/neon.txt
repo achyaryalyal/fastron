@@ -197,8 +197,8 @@ Install GIMP from Ubuntu PPA for More Up-to-Date Version
 =======================================
 $ sudo add-apt-repository ppa:ubuntuhandbook1/gimp && sudo apt install -y gimp gegl libgexiv2-2
 # open gimp
-# Edit > preferences > interface > theme: Breeze-Dark
-# Edit > preferences > interface > icon theme: multicolor; custom icon size: small
+# Edit > preferences > interface > theme: dark
+# Edit > preferences > interface > icon theme: color; custom icon size: small
 # Edit > preferences > interface > toolbox: disable "use tool groups"
 # INFO: use TAB shortkey to hide & show sidebar
 
