@@ -207,7 +207,7 @@ Install Inkscape from Ubuntu PPA for More Up-to-Date Version
 =======================================
 $ sudo add-apt-repository ppa:inkscape.dev/stable && sudo apt install -y inkscape
 # open inkscape
-# Edit > preferences > interface > theme: dark; icon: color
+# Edit > preferences > interface > theming > gtk: adwaita; theme: use dark theme; icon: multicolor
 # [if needed] Edit > preferences > interface > windows > dialogs on top: none
 
 =======================================
