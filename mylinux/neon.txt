@@ -239,6 +239,52 @@ Install Telegram from Ubuntu PPA for More Up-to-Date Version
 =====================================
 $ sudo add-apt-repository ppa:atareao/telegram && sudo apt install -y telegram
 
+=====================================
+Install Sublime Text from APT Repo
+=====================================
+$ sudo -i
+$ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
+$ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
+$ sudo apt update && sudo apt install -y sublime-text
+# Register Sublime Text Version 3.2.2 Build 3211: https://gist.github.com/angrycoffeemonster/4f05896d233baf6bd9b0894e30b5fa63#gistcomment-3186129
+# Ctrl + Shift + P: install package control
+# Ctrl + Shift + P: install package
+# Preferences > Select Theme: Default Dark Sublime Theme
+# Preferences > Settings:
+	{
+		"update_check": false,
+		"theme": "Default Dark.sublime-theme",
+		"ignored_packages":
+		[
+			"Vintage",
+		],
+		"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
+		"always_show_minimap_viewport" : true,
+		"bold_folder_labels"           : true,
+		"font_face"                    : "Ubuntu Mono",
+		"font_size"                    : 12,
+		"font_options"                 : ["gray_antialias", "subpixel_antialias"], // On retina Mac & Windows
+		"indent_guide_options"         : ["draw_normal", "draw_active"], // Highlight active indent
+		"line_padding_bottom"          : 1,
+		"line_padding_top"             : 1,
+		"overlay_scroll_bars"          : "enabled",
+	}
+# INFO: menu View > Layout to set single or split layout
+# For unlimited user license in linux:
+	# first go to site https://hexed.it/
+	# click on Open file and put file "sublime_text" is in /opt/sublime_text/sublime_text
+	# go to section Search in left of page
+	# put 80 78 05 00 0F 94 C1 in label Search for
+	# then click on Find next
+	# after find it then change if one by one to: C6 40 05 01 48 85 C9
+	# after that click on Export/Save as
+	# then write this command in terminal
+	$ sudo mv /opt/sublime_text/sublime_text ./sublime_text.old
+	$ cd $HOME/Downloads/
+	$ chmod 755 sublime_text
+	$ sudo chown root:root sublime_text
+	$ sudo mv sublime_text /opt/sublime_text/
+
 =======================================
 Install Apps Manually From .DEB Package
 =======================================
@@ -398,53 +444,6 @@ sudo -i
 # https://askubuntu.com/questions/1445050/updating-tor-screwed-up-my-client-download-error-404 
 # exit from root
 # launch tor browser
-
-=====================================
-Install Sublime Text from APT Repo
-=====================================
-$ sudo -i
-$ wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | gpg --dearmor | sudo tee /etc/apt/trusted.gpg.d/sublimehq-archive.gpg > /dev/null
-$ echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
-$ sudo apt update && sudo apt install -y sublime-text
-# Register Sublime Text Version 3.2.2 Build 3211: https://gist.github.com/angrycoffeemonster/4f05896d233baf6bd9b0894e30b5fa63#gistcomment-3186129
-# Ctrl + Shift + P: install package control
-# Ctrl + Shift + P: install package
-# Preferences > Select Theme: Default Dark Sublime Theme
-# Preferences > Settings:
-	{
-		"update_check": false,
-		"theme": "Default Dark.sublime-theme",
-		"ignored_packages":
-		[
-			"Vintage",
-		],
-		"color_scheme": "Packages/Color Scheme - Default/Monokai.sublime-color-scheme",
-		"always_show_minimap_viewport" : true,
-		"bold_folder_labels"           : true,
-		"font_face"                    : "Ubuntu Mono",
-		"font_size"                    : 11,
-		"font_options"                 : ["gray_antialias", "subpixel_antialias"], // On retina Mac & Windows
-		"indent_guide_options"         : ["draw_normal", "draw_active"], // Highlight active indent
-		"line_padding_bottom"          : 1,
-		"line_padding_top"             : 1,
-		"overlay_scroll_bars"          : "enabled",
-	}
-# INFO: menu View > Layout to set single or split layout
-# For unlimited user license in linux:
-	# file bash "sublime_text" is in /opt/sublime_text/sublime_text
-	# first go to site https://hexed.it/
-	# click on Open file and put file "sublime_text"
-	# go to section Search in left of page
-	# put 80 78 05 00 0F 94 C1 in label Search for
-	# then click on Find next
-	# after find it then change if one by one to: C6 40 05 01 48 85 C9
-	# after that click on Export/Save as
-	# then write this command in terminal
-	$ sudo mv /opt/sublime_text/sublime_text ./sublime_text.old
-	$ cd $HOME/Downloads/
-	$ chmod 755 sublime_text
-	$ sudo chown root:root sublime_text
-	$ sudo mv sublime_text /opt/sublime_text/
 
 =======================================
 Install pip for Python 3
