@@ -174,6 +174,7 @@ $ sudo nano /root/.zshrc
 	list upgradable packages		sudo apt list --upgradable
 	autoremove				sudo apt autoremove
 	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
+	fix external drive no longer mounting	MY_EXTERNAL_DRIVE="$(fdisk -l | grep NTFS | awk -F' ' '{print $1}')" && sudo ntfsfix -d ${MY_EXTERNAL_DRIVE}
 	kilat on [domain]			ssh://[username]@[domain]:[port]
 #############################
 # how to display the application menu by pressing Ctrl + Shift + M
@@ -628,6 +629,20 @@ Close
 █▀▀ █░█ █▄░█ █▀▀ ▀█▀ █ █▀█ █▄░█ ▄▀█ █░░ █ ▀█▀ █▄█
 █▀░ █▄█ █░▀█ █▄▄ ░█░ █ █▄█ █░▀█ █▀█ █▄▄ █ ░█░ ░█░
 
+=================================
+Fix External Drive no Longer Mounting
+An error occurred while accessing 'Seagate Expansion Drive', the system responded: The requested operation has failed
+=================================
+# just run one line command
+$ MY_EXTERNAL_DRIVE="$(fdisk -l | grep NTFS | awk -F' ' '{print $1}')" && sudo ntfsfix -d ${MY_EXTERNAL_DRIVE}
+#
+# OR
+#
+sudo fdisk --list
+# on below, copy DEVICE_NUMBER like /dev/sda1 or /dev/sda2
+# run ntfsfix using -d flag
+$ sudo ntfsfix -d [DEVICE_NUMBER]
+
 =======================================
 Install Latest Kernel with Hardware Enablement Stack (HWE)
 =======================================
@@ -718,15 +733,6 @@ Improving Boot Time
 # don’t worry, once you log in, you’ll have wifi working normally
 $ sudo systemctl disable NetworkManager-wait-online.service
 # if you want to revert the change, you can use this command: sudo systemctl enable NetworkManager-wait-online.service
-
-=================================
-Fix External Drive no Longer Mounting
-An error occurred while accessing 'Seagate Expansion Drive', the system responded: The requested operation has failed
-=================================
-$ sudo fdisk --list
-# on below, copy DEVICE_NUMBER like /dev/sda1 or /dev/sda2
-# run ntfsfix using -d flag
-$ sudo ntfsfix -d [DEVICE_NUMBER]
 
 =================================
 Fix Battery Charging/Discharging State Always Delay Updated
