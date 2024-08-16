@@ -1,7 +1,11 @@
 =======================================
-# Install KDE Neon with "Erase Disk"
-# this will DELETE all data currently present on the selected storage device
-# make sure user's name not same with computer name
+# You can install KDE Neon with "Erase Disk" (this will DELETE all data currently present on the selected storage device)
+# or "Manual Partition" like this:
+	Size: 500 MiB; Type: fat32; Mount Point: /boot/efi; Label: EFI; Flags: boot
+	Size: 8190 MiB; Type: linuxswap; Label: SWAP; Flags: swap
+	Size: 123456 MiB; Type: ext4; Mount Point: /; Label: ROOT; Flags: root
+	Size: Any MiB; Type: ntfs; Label: NTFS
+# make sure your username not same with computer name
 # after installed, this is typical way of updating system in KDE Neon
 =======================================
 $ sudo pkcon refresh && sudo pkcon update -y
