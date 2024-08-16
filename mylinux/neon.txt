@@ -315,7 +315,7 @@ System Setting
 		GTK theme: WhiteSur-Dark
 	Plasma Style: Breeze Dark
 	Windows Decorations:
-		Get New Theme: Summaculate Aurorae Plasma 6 by doncsugar => Summaculate Night Blur
+		Get New Theme: Summaculate Aurorae Plasma 6 by doncsugar => Summaculate Night Blur > Edit > Button Size: Normal (Use Very Large for 1920 resolution)
 		Configure Titlebar Buttons: (from left to right) Close, Minimize, Maximize ___ Titlebar ___ [empty]
 	Icons: Breeze Dark
 	Cursors: Breeze
