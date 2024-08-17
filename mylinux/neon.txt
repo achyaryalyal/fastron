@@ -431,8 +431,7 @@ System Setting
 	Splash Screen:
 		Get New Splash: Overload login splash by bermer
 	Login Screen (SSDM): Breeze; Change Background: /usr/share/wallpapers/DarkestHour/contents/images/1920x1080.jpg
-	Boot Splash Screen:
-		Get New Splash: Linux Distros glowing slider by tobilinuxer => KDE neon
+	Boot Splash Screen: Breeze
 # Appearance & Style: Text & Fonts
 	Fonts:
 		General: Ubuntu Condensed 10pt (use 12pt for 1920 resolution)
