@@ -190,7 +190,7 @@ $ sudo apt remove kate kwalletmanager okular && sudo apt autoremove
 # another way to do the same thing: sudo apt install htop- nano  ===> also will remove htop and install nano
 
 =================================
-VLC Tweak
+Setup VLC
 =================================
 # Tools > Preferences > Click Subtitles/OSD tab > Untick "Show media title on video start"
 # Tools > Preferences > In the bottom-left, under Show settings, select All > Interface -> Main Interfaces -> Qt
@@ -198,6 +198,12 @@ VLC Tweak
 	Uncheck "Display background cone or art"
 # Tools > Preferences > In the bottom-left, under Show settings, select All > Playlist
 	Check "Repeat all"
+
+=======================================
+Setup Spectacle
+=======================================
+# open spectacle > configure > general
+	after taking screenshot: enable "Save file to default folder" and select "Copy image to clipboard"
 
 =======================================
 Setup Remmina
@@ -362,7 +368,7 @@ System Setting
 		GTK theme: WhiteSur-Dark
 	Plasma Style: Breeze Dark
 	Windows Decorations:
-		Get New Theme: Summaculate Aurorae Plasma 6 by doncsugar => Summaculate Night Blur > Edit > Button Size: Normal (Use Very Large for 1920 resolution)
+		Get New Theme: Summaculate Aurorae Plasma 6 by doncsugar => Summaculate Night Blur > Edit > Button Size: Normal (use Large for 1920 resolution)
 		Configure Titlebar Buttons: (from left to right) Close, Minimize, Maximize ___ Titlebar ___ [empty]
 	Icons: Breeze Dark
 	Cursors: Breeze
