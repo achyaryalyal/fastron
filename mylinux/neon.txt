@@ -1,3 +1,37 @@
+======================================
+Common Keyboard Shortcuts => https://docs.kde.org/stable5/en/khelpcenter/fundamentals/kbd.html
+======================================
+Meta		Open the Application Launcher
+Ctrl+Q		Quit
+Ctrl+Space (M)	Peek at Desktop (show the desktop by moving windows away)
+Alt+Tab		Walk through windows
+Meta+=		Zoom In
+Meta+-		Zoom Out
+Meta+0		Zoom Normal
+Meta+Up		Pan Up
+Meta+Down	Pan Down
+Meta+Left	Pan left, move window to monitor to the left[a]
+Meta+Right	Pan right, move window to monitor to the right[a]
+Meta+PgUp	Maximize/Restore window
+Meta+PgDn	Minimize window
+F5		Refresh
+Ctrl+A		Select All
+Ctrl+Z		Undo
+Ctrl+Shift+Z	Redo
+Ctrl+X		Cut
+Ctrl+C		Copy
+Ctrl+V		Paste
+Ctrl+N		New
+Ctrl+P		Print
+Ctrl+S		Save
+Ctrl+F		Find
+Ctrl+W		Close Document/Tab
+Delete		Move to Trash
+Shift+Delete	Delete Permanently
+Ctrl+Alt+L	Lock Screen
+
+======================================
+Download KDE Neon ISO Live Images => https://neon.kde.org/download
 =======================================
 # You can install KDE Neon with "Erase Disk" (this will DELETE all data currently present on the selected storage device)
 # or "Manual Partition" like this:
