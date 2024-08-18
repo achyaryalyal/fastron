@@ -428,7 +428,7 @@ System Setting
 # Input & Output: Mouse & Touchpad > Screen Edges > click on top left corner > No Action
 # Appearance & Style: Wallpaper
 	Positioning: Scaled & Cropped
-	Images: Darkest Hour
+	Images: Elarun
 # Appearance & Style: Colors & Themes (Global Theme)
 	Colors: Breeze Dark
 	Application Style: Breeze
@@ -443,7 +443,7 @@ System Setting
 	System Sounds: Ocean
 	Splash Screen:
 		Get New Splash: Overload login splash by bermer
-	Login Screen (SSDM): Breeze; Change Background: /usr/share/wallpapers/DarkestHour/contents/images/1920x1080.jpg
+	Login Screen (SSDM): Breeze; Change Background: /usr/share/wallpapers/Elarun/contents/images/2560x1600.png
 	Boot Splash Screen: Breeze
 # Appearance & Style: Text & Fonts
 	Fonts:
@@ -466,7 +466,7 @@ System Setting
 	Animation duration: 400ms
 # Workspace: General Behavior
 	Clicking files or folders: Opens them
-# Security & Privacy: Screen Locking > Configure Appearance: Darkest Hour
+# Security & Privacy: Screen Locking > Configure Appearance: Elarun
 # System: Power Management > Advanced Power Settings
 	Battery protection: Limit the maximum battery charge
 
