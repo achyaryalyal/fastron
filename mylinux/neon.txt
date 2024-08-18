@@ -3,7 +3,8 @@ Common Keyboard Shortcuts => https://docs.kde.org/stable5/en/khelpcenter/fundame
 ======================================
 Meta		⭐ Open the Application Launcher
 Ctrl+Q		⭐ Quit
-Ctrl+Space (M)	⭐ Peek at Desktop (show the desktop by moving windows away)
+Ctrl+Space	⭐ [Manual Setup] Peek at Desktop (show the desktop by moving windows away)
+Ctrl+Alt+Space	⭐ [Manual Setup] Show Sticky Note
 Alt+Tab		⭐ Walk through windows
 Meta+=		Zoom In
 Meta+-		Zoom Out
