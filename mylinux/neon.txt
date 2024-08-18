@@ -302,6 +302,8 @@ $ sudo add-apt-repository ppa:obsproject/obs-studio && sudo apt install -y obs-s
 Install Telegram from Ubuntu PPA for More Up-to-Date Version 
 =====================================
 $ sudo add-apt-repository ppa:atareao/telegram && sudo apt install -y telegram
+# setup Night Mode: On
+# Settings > Default interface scale: 125%
 
 =====================================
 Install Sublime Text from APT Repo
