@@ -364,7 +364,7 @@ Download WPS Office For Linux
 	# install mscorefont => https://drive.google.com/drive/folders/1rKN1CVRT-ZfISHT8AB3iBIFWFQaOSHnN?usp=sharing
 	# settings > skin and interface settings
 		UI Theme: Comfort
-		UI Font: Ubuntu Condensed 125%
+		UI Font: Ubuntu 125%
 	# fix slide can't play media:
 		Menu > Options > View > Show
 		Check "Enable graphics card acceleration" > Save
@@ -447,12 +447,12 @@ System Setting
 	Boot Splash Screen: Breeze
 # Appearance & Style: Text & Fonts
 	Fonts:
-		General: Ubuntu Condensed 10pt (use 12pt for 1920 resolution)
+		General: Ubuntu 10pt (use 12pt for 1920 resolution)
 		Fixed width: Ubuntu Mono 10pt (use 12pt for 1920 resolution)
-		Small: Ubuntu Condensed 8pt (use 10pt for 1920 resolution)
-		Toolbar: Ubuntu Condense 10pt (use 12pt for 1920 resolution)
-		Menu: Ubuntu Condense 10pt (use 12pt for 1920 resolution)
-		Windows title: Ubuntu Condense 10pt (use 12pt for 1920 resolution)
+		Small: Ubuntu 8pt (use 10pt for 1920 resolution)
+		Toolbar: Ubuntu 10pt (use 12pt for 1920 resolution)
+		Menu: Ubuntu 10pt (use 12pt for 1920 resolution)
+		Windows title: Ubuntu 10pt (use 12pt for 1920 resolution)
 		Anti-Aliasing: Enabled
 # Apps & Windows: Window Management > Window Behavior > tab Advanced
 	Window placement: Centered
@@ -502,7 +502,7 @@ Digital Clock
 	Display time zone as: Code
 	Time display: 24-Hour
 	Date format: Long Date (Rabu, 31 Juli 2024)
-	Text display: Manual (8pt Ubuntu Condensed)
+	Text display: Manual (8pt Ubuntu)
 Peek at Desktop (Show the desktop & minimize all windows)
 	Shortcut: Ctrl + Space
 
