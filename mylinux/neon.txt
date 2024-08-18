@@ -448,10 +448,7 @@ System Setting
 # Apps & Windows: Window Management > Dekstop Effects > Blur > configure
 	Set Blur Strength 50%
 	Set Noise Strength 0%
-# Apps & Windows: Window Management > Desktop Effects > Woobly Windows > enable and configure
-	Wobbliness: 100%
-	enable Wobble when moving
-	disabled Wobble when resizing
+# Apps & Windows: Window Management > Desktop Effects > Woobly Windows > disable
 # Apps & Windows: Window Management > Desktop Effects > Magic Lamp > enable and configure
 	Animation duration: 400ms
 # Workspace: General Behavior
