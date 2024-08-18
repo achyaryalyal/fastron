@@ -352,6 +352,7 @@ Install Apps Manually From .DEB Package
 =======================================
 Download WPS Office For Linux
 	https://www.wps.com/office/linux/
+	# install mscorefont => https://drive.google.com/drive/folders/1rKN1CVRT-ZfISHT8AB3iBIFWFQaOSHnN?usp=sharing
 	# fix slide can't play media:
 		Menu > Options > View > Show
 		Check "Enable graphics card acceleration" > Save
@@ -402,6 +403,11 @@ $ reboot
 # Win 10: Power & Sleep Setting > Additional Power Setting > Choose what the power buttons does > Change settings that are currently unavailable > uncheck Turn on fast startup > Save changes
 # run cmd.exe as administrator, type command to shutdown properly : shutdown /s /f /t 0
 # after shutdown, turn on & boot into Linux & mounting NTFS would be no issue like can't copy/rename/delete file
+
+=====================================
+Install Font
+=====================================
+# https://drive.google.com/drive/folders/1Qn_WMNtmRUpaGFcMKwoGaCpk5WkrGAwC?usp=sharing
 
 =====================================
 System Setting
