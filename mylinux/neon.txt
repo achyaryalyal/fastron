@@ -27,6 +27,7 @@ Ctrl+P		Print
 Ctrl+S		Save
 Ctrl+F		Find
 Ctrl+W		⭐ Close Document/Tab
+Alt+Up		⭐ Go up folder
 Delete		⭐ Move to Trash
 Shift+Delete	⭐ Delete Permanently
 Ctrl+Alt+L	⭐ Lock Screen
