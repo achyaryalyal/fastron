@@ -483,13 +483,8 @@ Application Launcher
 	Show other applications: In a list
 	Show buttons for: Power (show action button captions)
 Icon-only Task Manager
-	Konsole => icon smartgit
-	Dolphin
-	Google Chrome
-	Sublime Text => icon https://github.com/achyaryalyal/fastron/blob/master/mylinux/sublime-text/sublimetext.png
-	Thunderbird
-	Telegram
-	WPS Office
+	Appearance > Use multi-row view: Never
+	Behavior > Group: Do not group
 Sticky Note
 	Text font size: 10pt
 	Theme: A transparent sticky with light text
