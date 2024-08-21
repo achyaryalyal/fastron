@@ -105,6 +105,8 @@ Installing Linux AMDGPU Controller Tool (LACT)
 # launch it
 # run this command to unlock the GPU overclocking capabilities
 $ sudo systemctl enable --now lactd
+# increase notebook performance by enabling overclock
+# LACT > tab "OC" > Enable Overclocking > Yes > Reboot
 
 =================================
 Switch from Wayland to X11 (also fix screen recorder become black screen)
