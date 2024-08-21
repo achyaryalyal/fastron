@@ -88,7 +88,7 @@ $ sudo apt install rocm-hip-sdk
 $ /opt/rocm/bin/rocminfo
 	# or
 	$ /opt/rocm/opencl/bin/clinfo
-# Update PATH for User Profile, run this command on root and on non-root user
+# update PATH for user profile, run this command on root and on non-root user
 export PATH=/opt/amdgpu-pro/bin:/opt/amdgpu/bin:$PATH && echo $PATH
 # done
 # if you encounter errors related to permissions while running ROCm applications like rocminfo, follow these steps to address the issue
@@ -96,6 +96,15 @@ export PATH=/opt/amdgpu-pro/bin:/opt/amdgpu/bin:$PATH && echo $PATH
 	$ sudo usermod -aG render <your_username>
 	# retry running rocminfo
 	$ /opt/rocm/bin/rocminfo
+
+=================================
+Installing Linux AMDGPU Controller Tool (LACT)
+=================================
+# download a .deb from releases: https://github.com/ilya-zlobintsev/LACT/releases/
+# install it
+# launch it
+# run this command to unlock the GPU overclocking capabilities
+$ sudo systemctl enable --now lactd
 
 =================================
 Switch from Wayland to X11 (also fix screen recorder become black screen)
