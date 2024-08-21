@@ -241,7 +241,7 @@ $ sudo nano /root/.zshrc
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch net-tools whois inxi kcalc audacious ffmpeg ffmpegthumbnailer vlc peek kdenlive remmina qbittorrent android-file-transfer filelight partitionmanager
+$ sudo apt install neofetch net-tools whois inxi kcalc audacious ffmpeg ffmpegthumbnailer vlc peek kdenlive remmina qbittorrent thunderbird android-file-transfer filelight partitionmanager
 !!! pdfsam xserver-xorg-input-evdev xserver-xorg-input-mouse
 $ sudo apt remove kate kwalletmanager okular && sudo apt autoremove
 # TIPS: if you want to remove a package and install a different package IN ONE STEP, try: sudo apt remove htop nano+ ===> will remove htop and install nano
