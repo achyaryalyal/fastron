@@ -427,7 +427,9 @@ System Setting
 	Decrease Screen Brightness by 1%: Ctrl + Shift + ,	OR Shift + Monitor Brightness Down
 	Increase Screen Brightness: Ctrl + .			OR Monitor Brightness Up
 	Increase Screen Brightness by 1%: Ctrl + Shift + .	OR Shift + Monitor Brightness Up
-# Input & Output: Mouse & Touchpad > Screen Edges > click on top left corner > No Action
+# Input & Output: Mouse & Touchpad > Mouse > Pointer speed: 1,00
+# Input & Output: Mouse & Touchpad > Mouse > Pointer acceleration: Standard
+# Input & Output: Mouse & Touchpad > Touchpad > Screen Edges > click on top left corner > No Action
 # Appearance & Style: Wallpaper
 	Positioning: Scaled & Cropped
 	Images: Elarun
