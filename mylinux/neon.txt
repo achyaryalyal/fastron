@@ -88,6 +88,8 @@ $ sudo apt install rocm-hip-sdk
 $ /opt/rocm/bin/rocminfo
 	# or
 	$ /opt/rocm/opencl/bin/clinfo
+# Update PATH for User Profile, run this command on root and on non-root user
+export PATH=/opt/amdgpu-pro/bin:/opt/amdgpu/bin:$PATH && echo $PATH
 # done
 # if you encounter errors related to permissions while running ROCm applications like rocminfo, follow these steps to address the issue
 	# add user to the "render" group:
