@@ -348,7 +348,7 @@ $ sudo apt update && sudo apt install -y sublime-text
 		"always_show_minimap_viewport" : true,
 		"bold_folder_labels"           : true,
 		"font_face"                    : "Ubuntu Mono",
-		"font_size"                    : 13,
+		"font_size"                    : 14,
 		"font_options"                 : ["gray_antialias", "subpixel_antialias"], // On retina Mac & Windows
 		"indent_guide_options"         : ["draw_normal", "draw_active"], // Highlight active indent
 		"line_padding_bottom"          : 1,
