@@ -1,3 +1,5 @@
+# How to Create Sitemap (Manual)
+
 1. Activate plugin
 
 2. Create a new page: BBG News
