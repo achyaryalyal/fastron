@@ -241,6 +241,7 @@ $ sudo nano /root/.zshrc
 #############################
 # setup bookmark
 # Konsole: Bookmarks > Edit Bookmarks > New Bookmark:
+	ping cloudflare				ping 1.1.1.1
 	KDE's update and upgrade		sudo pkcon refresh && sudo pkcon update
 	list upgradable packages		sudo apt list --upgradable
 	autoremove				sudo apt autoremove
