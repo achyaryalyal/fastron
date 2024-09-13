@@ -16,6 +16,7 @@ Meta+Right	⭐ Pan right, move window to monitor to the right[a]
 Meta+[Fn]PgUp	⭐ Maximize/Restore window
 Meta+[Fn]PgDn	⭐ Minimize window
 F5		Refresh
+F12		[Manual Setup] Yakuake (dropdown terminal)
 Ctrl+A		Select All
 Ctrl+Z		Undo
 Ctrl+Shift+Z	Redo
