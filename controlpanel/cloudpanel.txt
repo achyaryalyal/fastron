@@ -100,9 +100,9 @@ nano /etc/ImageMagick-6/policy.xml
 # then restart web nginx and php
 
 ==============
-LIBPNG + LIBGD + REDIS
+REDIS + SOME IMAGE LIBRARY
 ==============
-sudo apt install libpng-dev libgd-dev redis-server
+sudo apt install redis-server libpng-dev libgd-dev jpegoptim optipng pngquant gifsicle webp libavif-bin
 
 =======
 MARIADB
