@@ -1,0 +1,88 @@
+   ______
+  / ____/___  ____ ___  ____  ____  ________  _____
+ / /   / __ \/ __ `__ \/ __ \/ __ \/ ___/ _ \/ ___/
+/ /___/ /_/ / / / / / / /_/ / /_/ (__  )  __/ /
+\____/\____/_/ /_/ /_/ .___/\____/____/\___/_/
+                    /_/
+
+dalam sebuah project PHP, penggunaan library bisa memudahkan proses penulisan kode.
+namun, library yang digunakan bisa saja memiliki ketergantungan (dependency) dengan library lain, itulah kenapa kita perlu PHP Composer.
+dengan PHP Composer, ketergantungan antar library dapat dikelola dengan baik sehingga script library bisa dijalankan tanpa error.
+
+cek apakah composer sudah terinstall
+$ composer --version
+
+kalau belum terinstall atau sudah ada tapi masih versi lama, maka install composer versi terbaru dengan menjalankan perintah berikut:
+$ php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+$ php -r "if (hash_file('sha384', 'composer-setup.php') === 'dac665fdc30fdd8ec78b38b9800061b4150413ff2e3b6f88543c636f7cd84f6db9189d43a81e5503cda447da73c7e5b6') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+$ php composer-setup.php
+$ php -r "unlink('composer-setup.php');"
+$ sudo mv composer.phar /usr/local/bin/composer
+$ composer --version
+
+cara menggunakannya di dalam project adalah dengan cara masuk ke dalam folder project lalu jalankan perintah berikut:
+$ composer init
+
+Package name (<vendor>/<name>) [root/project.bbg.ac.id]: comp/project  
+Description []: hanya untuk belajar composer saja
+Author [n to skip]: n
+Minimum Stability []: 
+Package Type (e.g. library, project, metapackage, composer-plugin) []: project
+License []: GPL
+Define your dependencies.
+Would you like to define your dependencies (require) interactively [yes]? no 
+Would you like to define your dev dependencies (require-dev) interactively [yes]? no
+Add PSR-4 autoload mapping? Maps namespace "Comp\Project" to the entered relative path. [src/, n to skip]: n
+
+Perintah ini akan menghasilkan file composer.json yang isinya kurang lebih seperti ini:
+  {
+	  "name": "comp/project",
+	  "description": "hanya untuk latihan composer saja",
+	  "type": "project",
+	  "license": "GPL",
+	  "require": {}
+	}
+
+Jika Anda perhatikan, bagian require masih kosong kan? Artinya, belum ada package yang terinstall pada project Anda. Composer memiliki repository sendiri yaitu packagist.org. Packagist merupakan kumpulan public PHP package yang tersimpan di Github dan bisa digunakan secara bebas untuk project PHP Anda. Untuk menginstall package dari packagist, carilah nama package yang akan Anda gunakan di kolom pencarian. Pada tutorial kali ini, kami akan coba menginstal package library carbon yang menyediakan fungsi pemrosesan waktu dan tanggal. Jika sudah menemukan package yang sesuai, klik nama package tersebut. Pada halaman selanjutnya, Anda akan menemukan perintah Composer untuk menginstall package carbon seperti:
+$ composer require nesbot/carbon
+Proses instalasi package library akan berlangsung beberapa saat, tergantung dengan kecepatan koneksi internet Anda. Jika proses instalasi sudah selesai, akan ada folder baru bernama vendor yang terbuat pada direktori project Anda. Nantinya, folder ini akan berisi file dari semua library yang di download oleh Composer. Instalasi package library juga akan mengubah script pada composer.json. Bagian require yang semula kosong, kini akan berisi nama dan versi package yang sudah diinstall.
+	{
+	  "name": "comp/project",
+	  "description": "hanya untuk latihan composer saja",
+	  "type": "project",
+	  "license": "GPL",
+	  "require": {
+	    "nesbot/carbon": "^3.8"
+	  }
+  }
+
+Untuk menggunakan library carbon yang baru saja diinstall, mari buat sebuah file sederhana dengan nama datetime.php pada direktori project Anda. Kemudian, salinlah kode berikut ini pada file tersebut:
+	<?php
+	 
+	require 'vendor/autoload.php';
+	 
+	use Carbon\Carbon;
+	 
+	$Jakarta_now = Carbon::now('Asia/Jakarta');
+	$Vancouver_now = Carbon::now('America/Vancouver');
+	$London_now = Carbon::now('Europe/London');
+	 
+	echo "Sekarang di Jakarta: $Jakarta_now  <br>";
+	echo "Sekarang di Toronto: $Vancouver_now <br>";
+	echo "Sekarang di London: $London_now <br><br>";
+
+	echo "Apakah hari ini hari libur?<br>";
+	if (Carbon::now()->isWeekday()) {
+	    echo 'Bukan, kerja yuk! <br><br>';
+	} else {
+	    echo 'Party <br><br>';
+	}
+
+	echo "Lama Bekerja: " . Carbon::createFromDate(2020, 1, 1)->age . " tahun <br>"; 
+	?>
+
+Jika Anda ingin menghapus library yang tidak digunakan lagi, jalankanlah perintah berikut:
+$ composer remove <vendor>/<library>
+Perintah tersebut akan menghapus semua file library yang terletak pada folder vendor. Jangan lupa untuk menjalankan perintah composer update, jika melakukan perubahan pada Composer, ya.
+$ composer update
+
