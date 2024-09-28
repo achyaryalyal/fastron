@@ -582,7 +582,85 @@ if(isset($_GET)) {
   </style>
 
 ===================================================
-INSTALL IDE ATHEOS https://github.com/Atheos/Atheos
+INSTALL IDE ATHEOS 5.5.6 https://github.com/Atheos/Atheos
+===================================================
+# open ide directory: cd [APP_PATH]/ide
+# or create ide directory: cd [APP_PATH] && mkdir ide && cd ide
+# BACKUP OLD: date=$(date +%Y-%m-%d_%H-%M) && mv atheos atheos_old_${date}
+# check last version at https://github.com/Atheos/Atheos/tags and COPY the latest tar.gz link
+wget [LINK_TAR_GZ]
+ls
+tar -xvzf [FILE_TAR_GZ]
+ls
+mv [FOLDER_EXTRACTED] atheos
+ls
+rm [FILE_TAR_GZ]
+ls
+	nano +12 atheos/index.php
+	# add this to index.php line 12:
+		if(!isset($_GET['key']) && !isset($_GET['token'])) {
+			http_response_code(403);
+			die('Forbidden');
+		}
+
+nano +111 index.php
+# replace this line: <span id="current_file"></span>
+	<span id="current_file" style="user-select:all;"></span>
+# change value to 0
+nano +133 components/install/process.php
+	define("LIFETIME", 0); // 0 means "until the browser is closed"
+# comment out session_unset and session_destroy to prevent an unexpected logout
+	//session_unset();
+	//session_destroy();
+	//Common::send("error", "Security violation.");
+nano +118 atheos/components/user/init.js
+# comment out this line to prevent an unexpected logout
+	//log('connection lost');
+	//atheos.user.logout();
+nano +300 atheos/components/editor/init.js
+# replace this line: path = (path.length < 30) ? path : '...' + path.substr(path.length - 30);
+	path = (path.length < 60) ? path : '...' + path.substr(path.length - 60);
+
+	# replace 9990 to 9999999 at this file:
+		atheos/components/editor/ace-editor/ext-keybinding_menu.js
+		atheos/components/editor/ace-editor/ext-options.js
+		atheos/components/editor/ace-editor/ext-prompt.js
+		atheos/components/editor/ace-editor/ext-settings_menu.js
+	# set permissions on dirs & files, owner according to project, for /var/www the owner must clp:clp
+	chown -R clp:clp atheos && chmod -R 775 atheos
+	# Visit [IP_OR_DOMAIN]/app/ide/atheos/index.php with key & token params
+	# Setup it
+	# fill `Project` with PROJECT
+	# fill `Absolute Path` with folder path you want to manage, make sure that folder owner same with atheos folder owner, if you want to manage /var/www so run: "chown -R clp:clp /var/www" or change to www-data:www-data for non cloudpanel
+	# leave blank in `Custom Domain`
+	# `Development Mode` enabled
+	# `Anonymous Analytics` enabled
+	# `Timezone` GMT+07:00
+	# click "Install"
+	# Login to [IP_OR_DOMAIN]/app/ide/atheos/index.php with key & token params
+	# SETTING: Editor Settings
+	    ## Theme: Monokai
+	    ## Font Size: 14px
+	    ## Enable Code Ligatures: Enabled
+	    ## Highlight Active Line: Enabled
+	    ## Print Margin: Disabled
+	    ## Print Margin Column: 80
+	    ## Indent Guides: Enabled
+	    ## Show Fold Widgets: Enabled
+	    ## Line Wrap: Enabled
+	    ## Soft Tabs: Enabled
+	    ## Tab Size: 4
+	# SETTING: System Settings
+	    ## Active File Loop Behavior: Loop only active tabs
+	    ## Sidebar Hover Duration: 300ms (default)
+	    ## Show Hidden Files: True
+	    ## Filemanager Trigger: Single Click
+	    ## Left Sidebar Trigger: Hover
+	    ## Right Sidebar Trigger: Hover
+	    ## ProjectDock Trigger: Single Click
+
+===================================================
+INSTALL IDE ATHEOS 5.5.5 https://github.com/Atheos/Atheos
 ===================================================
 # open ide directory: cd [APP_PATH]/ide
 # or create ide directory: cd [APP_PATH] && mkdir ide && cd ide
