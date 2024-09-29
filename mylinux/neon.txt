@@ -503,6 +503,13 @@ System Setting
 
 =======================================
 Setup Widget
+	Position: Top
+	Alignment: Center
+	Width: Fill width
+	Visibility: Always visible
+	Opacity: Opaque
+	Style: No floating
+	Panel Height: 38
 =======================================
 Application Launcher
 	Icon: bluegriffon
