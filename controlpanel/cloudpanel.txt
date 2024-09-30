@@ -598,7 +598,7 @@ rm [FILE_TAR_GZ]
 ls
 #
 nano +12 atheos/index.php
-# add this to index.php line 12:
+# [TIDAK PERLU] add this to index.php line 12:
 	if(!isset($_GET['key']) && !isset($_GET['token'])) {
 		http_response_code(403);
 		die('Forbidden');
@@ -626,10 +626,13 @@ nano +300 atheos/components/editor/init.js
 # replace this line: path = (path.length < 30) ? path : '...' + path.substr(path.length - 30);
 	path = (path.length < 60) ? path : '...' + path.substr(path.length - 60);
 #
-nano nano +103 atheos/public/components.min.js
+nano +103 atheos/public/components.min.js
 # search "useWrapMode:" and change value !1 to 1
 	useWrapMode:1
 #
+nano atheos/theme/main.min.css
+# replace this line: *{scrollbar-width:thin;
+	*{scrollbar-width:initial;
 # set permissions on dirs & files, owner according to project, for /var/www the owner must clp:clp
 chown -R clp:clp atheos && chmod -R 775 atheos
 # Visit [IP_OR_DOMAIN]/app/ide/atheos/index.php with key & token params
