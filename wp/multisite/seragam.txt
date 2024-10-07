@@ -156,6 +156,7 @@ menu Pengaturan > Clear Autoptimize Cache Automatically
 	Cache size: 250 MB
 	Clear after a specific interval: Yes
 	Clear cache every: 7 Day
+klik juga "Hide VillaTheme Toolbar" di bagian toolbar atas
 
 ================
 SETEL RESMUSH.IT
