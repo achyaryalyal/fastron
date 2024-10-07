@@ -149,9 +149,13 @@ type: number only
 total: 4
 option: Y-N-N-Y-Y
 
-menu Pengaturan > WP Super Cache, pastikan sudah "Caching On (Recommended)" > Update Status > Test Cache
-
 menu Pengaturan > Settings > Async JavaScript > klik "Apply Defer" (choose between Apply Async and Apply Defer in the Quick Settings box. If the Async option causes problems on your site, we’d recommend trying Defer or excluding jQuery, which the plugin gives you an option for)
+
+menu Pengaturan > Clear Autoptimize Cache Automatically
+	Clear by cache size: Yes
+	Cache size: 250 MB
+	Clear after a specific interval: Yes
+	Clear cache every: 7 Day
 
 ================
 SETEL RESMUSH.IT
