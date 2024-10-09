@@ -686,6 +686,22 @@ chmod +x /etc/ramstat.sh && chmod 0755 /etc/ramstat.sh
 cp /etc/ramstat.sh /usr/bin/.
 ramstat.sh
 
+=======================================
+DOWNLOAD FILE OR DIRECTORY FROM ANOTHER SERVER WITH SCP
+=======================================
+scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/destination
+# pass password to scp with sshpass: sudo apt install sshpass
+sshpass -p "password" scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/destination
+sshpass -f "/path/to/passwordfile" scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/destination
+
+=======================================
+UPLOAD FILE OR DIRECTORY TO ANOTHER SERVER WITH SCP
+=======================================
+scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination
+# pass password to scp with sshpass: sudo apt install sshpass
+sshpass -p "password" scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination
+sshpass -f "/path/to/passwordfile" scp -P [PORT_SSH] -r /path/local/source user@IP_SERVER:/path/to/remote/destination
+
 ===================================================
 WILDCARD TLS/SSL USING ACME.SH & CLOUDFLARE DNS API
 ===================================================
