@@ -50,3 +50,14 @@ Install Fonts
 =====================================
 https://drive.google.com/drive/folders/1Qn_WMNtmRUpaGFcMKwoGaCpk5WkrGAwC?usp=sharing
 
+=================================
+Keyboard not responding after suspend (sleep)
+=================================
+$ sudo -i
+$ nano /etc/default/grub
+# add this parameter to GRUB_CMDLINE_LINUX_DEFAULT
+	GRUB_CMDLINE_LINUX_DEFAULT="atkbd.reset=1 i8042.nomux=1 i8042.reset=1 i8042.nopnp=1 i8042.dumbkbd=1 quiet splash"
+# close & save
+$ update-grub
+$ reboot
+# IF ANYTHING GOES WRONG (WIFI ADAPTER ALWAYS DISABLED), JUST BOOT VIA NORMAL MODE OR RECOVERY MODE TO REPAIR GRUB AGAIN
