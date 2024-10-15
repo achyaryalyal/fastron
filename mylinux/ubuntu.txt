@@ -1,5 +1,5 @@
 ======================================
-Common Keyboard Shortcuts
+Useful keyboard shortcuts
 ======================================
 Meta		Search application
 Meta + ←	Move the current window one monitor to the left
