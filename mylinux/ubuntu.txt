@@ -2,6 +2,7 @@
 Useful keyboard shortcuts
 ======================================
 Meta		Search application
+Meta + Tab	Quickly switch between windows, hold down "Shift" for reverse order
 Meta + ←	Move the current window one monitor to the left
 Meta + →	Move the current window one monitor to the right
 F1		Mute audio
