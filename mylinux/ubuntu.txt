@@ -69,7 +69,10 @@ apt install neofetch
 =====================================
 Install Fonts
 =====================================
-https://drive.google.com/drive/folders/1Qn_WMNtmRUpaGFcMKwoGaCpk5WkrGAwC?usp=sharing
+# download "mscorefonts" from https://drive.google.com/drive/folders/1rKN1CVRT-ZfISHT8AB3iBIFWFQaOSHnN?usp=drive_link
+# download "penting" from https://drive.google.com/drive/folders/1Qn_WMNtmRUpaGFcMKwoGaCpk5WkrGAwC?usp=sharing
+# extract and copy folder with sudo privileges
+$ sudo cp -a ~/Downloads/mscorefonts/ ~/Downloads/penting/ /usr/share/fonts/
 
 =================================
 Keyboard not responding after suspend (sleep)
