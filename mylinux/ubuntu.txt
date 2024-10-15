@@ -1,10 +1,10 @@
 ======================================
 Useful keyboard shortcuts
 ======================================
-Meta		Search application
-Meta + Tab	Quickly switch between windows, hold down "Shift" for reverse order
-Meta + ←	Move the current window one monitor to the left
-Meta + →	Move the current window one monitor to the right
+Super		Search application
+Super + Tab	Quickly switch between windows, hold down "Shift" for reverse order
+Super + ←	Move the current window one monitor to the left
+Super + →	Move the current window one monitor to the right
 F1		Mute audio
 F2		Decrease audio
 F3		Increase audio
