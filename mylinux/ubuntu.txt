@@ -36,7 +36,7 @@ OBS Studio (snap)
 Spotify (snap)
 Kdenlive (snap)
 qBittorrent (snap)
-Extension Manager (debian): Dash to Panel, Clipboard Indicator
+Extension Manager (debian): Dash to Panel, Clipboard Indicator, Apps Menu, System Monitor, Ubuntu AppIndicators
 
 ======================================
 Install software from terminal
