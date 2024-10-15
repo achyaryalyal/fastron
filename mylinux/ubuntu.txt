@@ -1,0 +1,44 @@
+======================================
+Download Ubuntu Desktop ISO Live Images => https://ubuntu.com/download/desktop
+=======================================
+# You can install KDE Neon with "Install Inside Other OS" or "Erase Disk" (this will DELETE all data currently present on the selected storage device)
+# or "Manual Partition" like this:
+  Size: 130000 MB; Type: ext4; Mount Point: /;
+	Size: 8000 MB; Type: swap
+  # basically there should be at least 3 showing up in the preview partition like this:
+    partition xxx used for /boot/efi
+    partition yyy formatted as swap
+    partition zzz formatted as ext4 used for /
+# if there is no default /boot/efi then add
+  Size: 512 MB; Type: vfat; Mount Point: /boot/efi
+# if you want to create a drive that can also be read by Windows, then add
+  Size: Any MB; Type: ntfs
+=======================================
+
+======================================
+Install third party software .deb from drowser
+======================================
+Google Chrome
+WPS Office
+Zoom Workspace
+
+======================================
+Install software from app center
+======================================
+Telegram (snap)
+Remmina (snap)
+Thunderbird (snap)
+VLC (snap)
+GIMP (snap)
+Inkscape (snap)
+Sublime Text (snap)
+OBS Studio (snap)
+Spotify (snap)
+Kdenlive (snap)
+qBittorrent (snap)
+Extension Manager (debian): Dash to Panel, Clipboard Indicator
+
+======================================
+Install software from terminal
+======================================
+apt install neofetch
