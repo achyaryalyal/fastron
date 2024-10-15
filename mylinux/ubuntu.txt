@@ -81,3 +81,21 @@ $ nano /etc/default/grub
 $ update-grub
 $ reboot
 # IF ANYTHING GOES WRONG (WIFI ADAPTER ALWAYS DISABLED), JUST BOOT VIA NORMAL MODE OR RECOVERY MODE TO REPAIR GRUB AGAIN
+
+=================================
+Auto Mount NTFS Partition
+=================================
+$ sudo -i
+$ mkdir /drive_ntfs
+$ fdisk -l
+# what dev is NTFS partition, example: dev2
+$ nano /etc/fstab
+# add this line:
+/dev/nvme0n1p8 /drive_ntfs ntfs defaults,noatime 0 0
+$ reboot
+# boot into Windows
+# make sure "fast startup" in Windows is disabled
+# Win 7: Power Options > Choose what the power buttons do > Change settings that are currently unavailable > uncheck Turn on fast startup > Save changes
+# Win 10: Power & Sleep Setting > Additional Power Setting > Choose what the power buttons does > Change settings that are currently unavailable > uncheck Turn on fast startup > Save changes
+# run cmd.exe as administrator, type command to shutdown properly : shutdown /s /f /t 0
+# after shutdown, turn on & boot into Linux & mounting NTFS would be no issue like can't copy/rename/delete file
