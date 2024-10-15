@@ -1,4 +1,21 @@
 ======================================
+Common Keyboard Shortcuts
+======================================
+F1		Mute audio
+F2		Decrease audio
+F3		Increase audio
+F4		Switch microphone on/off
+F5		Decrease brightness
+F6		Increase brightness
+F7		?
+F8		Switch airplane mode on/off
+F9		?
+F10		Lock screen
+F11		?
+F12		Calculator
+Fn + PrtSc	Take screenshot
+
+======================================
 Download Ubuntu Desktop ISO Live Images => https://ubuntu.com/download/desktop
 =======================================
 # You can install KDE Neon with "Install Inside Other OS" or "Erase Disk" (this will DELETE all data currently present on the selected storage device)
