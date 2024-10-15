@@ -12,11 +12,11 @@ F5		Decrease brightness
 F6		Increase brightness
 F7		?
 F8		Switch airplane mode on/off
-F9		?
+Fn+F9 (manual)	Setting
 F10 or Meta+L	Lock screen
 F11		?
 F12		Calculator
-Fn + PrtSc	Take screenshot
+PrtSc (manual)	Take screenshot interactively
 
 ======================================
 Download Ubuntu Desktop ISO Live Images => https://ubuntu.com/download/desktop
