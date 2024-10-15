@@ -42,3 +42,9 @@ Extension Manager (debian): Dash to Panel, Clipboard Indicator
 Install software from terminal
 ======================================
 apt install neofetch
+
+=====================================
+Install Fonts
+=====================================
+# https://drive.google.com/drive/folders/1Qn_WMNtmRUpaGFcMKwoGaCpk5WkrGAwC?usp=sharing
+
