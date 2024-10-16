@@ -177,6 +177,8 @@ $ reboot
 =====================================
 Install ZSH & OhMyPosh
 =====================================
+# download Meslo LGS font with icon and install it
+$ wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf && wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf && wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf && wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 # install ZSH
 $ sudo apt install -y zsh wget git && zsh --version && echo $SHELL
 # EXIT FROM ROOT:
@@ -198,16 +200,12 @@ $ chmod u+rw $HOME/.poshthemes/*.json
 # download and extract "plasma6macos-konsole-profile.zip" from https://www.pling.com/p/2200488/
 $ unzip -o $HOME/Downloads/plasma6macos-konsole-profile.zip -d $HOME/.local/share/
 # choose Konsole profile "Everforest Dark Hard" and set default, OK
-# edit profile
+# Konsole: Open Settings → Edit Current Profile → Appearance
+# click Select Font and select "MesloLGS NF Regular"
 # change background color from #272e33 to #14181a
 # enable blur background with tranparency 50%
-# BONUS: Font with icon
-	MesloLGS NF Regular.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-	MesloLGS NF Bold.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-	MesloLGS NF Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-	MesloLGS NF Bold Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-	# Konsole: Open Settings → Edit Current Profile → Appearance, click Select Font and select "MesloLGS NF Regular"
-# BONUS: Install Oh My Zsh for root user
+#############################
+# install Oh My Zsh for root user
 	# run this command as ROOT
 	$ sudo -i
 	# make your default shell
@@ -225,72 +223,6 @@ $ unzip -o $HOME/Downloads/plasma6macos-konsole-profile.zip -d $HOME/.local/shar
 	$ sudo unzip -o /home/ideapad/Downloads/zsh-ohmyposh-config.zip -d /root/
 	$ chmod u+rw /root/.poshthemes/*.json
 	$ sudo unzip -o /home/ideapad/Downloads/plasma6macos-konsole-profile.zip -d /root/.local/share/
-
-=====================================
-Install ZSH & OhMyZsh
-=====================================
-# install ZSH
-$ sudo apt install -y zsh && zsh --version && echo $SHELL
-# make your default shell
-$ chsh -s $(which zsh)
-$ reboot
-# Konsole > Setting > Configure Konsole > Profiles > Select any or create New, then Edit command
-	command: /usr/bin/zsh
-# Konsole > Setting > Configure Konsole > Profiles > Select any or create New, then Edit > Appearance:
-	Get New: Visiblue
-	Edit > Disable blur background
-	Edit > Set tranparency 5%
-# open Konsole, install OhMyZsh
-$ sudo apt install wget git
-# exit from root and run:
-$ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-# read how to install icon font at https://github.com/romkatv/powerlevel10k#manual-font-installation
-	MesloLGS NF Regular.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
-	MesloLGS NF Bold.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
-	MesloLGS NF Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
-	MesloLGS NF Bold Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-# Konsole: Open Settings → Edit Current Profile → Appearance, click Select Font and select MesloLGS NF Regular.
-# install Powerlevel10k theme
-$ git clone https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-# download plugins for autosuggestion and syntax highlighting
-$ git clone https://github.com/zsh-users/zsh-autosuggestions.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-# change theme
-$ nano $HOME/.zshrc
-# change value of: ZSH_THEME="powerlevel10k/powerlevel10k"
-# add this line on plugins line: plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
-# save
-# CLOSE Konsole !!
-# OPEN AGAIN !!
-# if some question about p10k configure not appear, run command: p10k configure, or run command: zsh
-# Does this look like a diamond? (y) Yes
-# Does this look like a lock? (y) Yes
-# Does this look like a Debian logo (swirl/spiral)? (y) Yes
-# Do all these icons fit between the crosses? (y) Yes
-# Prompt Style: (3) Rainbow
-# Character Set: (1) Unicode
-# Show current time?: (2) 24-hour format
-# Prompt Separators: (1) Angled
-# Prompt Heads: (3) Sharp
-# Prompt Tails: (1) Flat
-# Prompt Height: (1) One line
-	# if you choose two lines
-	# Prompt Connection: (2) Dotted
-	# Prompt Frame: (1) No frame
-	# Connection Color: (2) Light
-# Prompt Spacing: (2) Sparse
-# Icons: (2) Many icons
-# Prompt Flow: (1) Concise
-# Enable Transient Prompt?: (n) No
-# Instant Prompt Mode: (1) Verbose
-# Apply changes to ~/.zshrc?: (y) Yes
-#############################
-# install Oh My Zsh for root user, run this command as non root user
-$ sudo ln -s $HOME/.oh-my-zsh /root/.oh-my-zsh
-$ sudo ln -s $HOME/.zshrc /root/.zshrc
-$ sudo nano /root/.zshrc
-# add this line on the top of file
-	ZSH_DISABLE_COMPFIX=true
 #############################
 # setup bookmark
 # Konsole: Bookmarks > Edit Bookmarks > New Bookmark:
