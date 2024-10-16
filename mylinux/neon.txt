@@ -197,13 +197,34 @@ $ unzip -o $HOME/Downloads/zsh-ohmyposh-config.zip -d $HOME
 $ chmod u+rw $HOME/.poshthemes/*.json
 # download and extract "plasma6macos-konsole-profile.zip" from https://www.pling.com/p/2200488/
 $ unzip -o $HOME/Downloads/plasma6macos-konsole-profile.zip -d $HOME/.local/share/
-# choose Konsole profile and set default, OK, close all, open again Konsole
+# choose Konsole profile "Everforest Dark Hard" and set default, OK
+# edit profile
+# change background color from #272e33 to #14181a
+# enable blur background with tranparency 50%
 # BONUS: Font with icon
 	MesloLGS NF Regular.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
 	MesloLGS NF Bold.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
 	MesloLGS NF Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
 	MesloLGS NF Bold Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
 	# Konsole: Open Settings → Edit Current Profile → Appearance, click Select Font and select "MesloLGS NF Regular"
+# BONUS: Install Oh My Zsh for root user
+	# run this command as ROOT
+	$ sudo -i
+	# make your default shell
+	$ sudo chsh -s $(which zsh)
+	# install oh-my-zsh and some plugins
+	$ sudo sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+	# change default? Y
+	$ sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+	$ sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+	$ sudo git clone https://github.com/zsh-users/zsh-history-substring-search /root/.oh-my-zsh/custom/plugins/zsh-history-substring-search
+	# install oh-my-posh
+	$ sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
+	$ sudo chmod +x /usr/local/bin/oh-my-posh
+	# download and extract "zsh-ohmyposh-config.zip" from https://www.pling.com/p/2200488/
+	$ sudo unzip -o /home/ideapad/Downloads/zsh-ohmyposh-config.zip -d /root/
+	$ chmod u+rw /root/.poshthemes/*.json
+	$ sudo unzip -o /home/ideapad/Downloads/plasma6macos-konsole-profile.zip -d /root/.local/share/
 
 =====================================
 Install ZSH & OhMyZsh
