@@ -198,6 +198,12 @@ $ chmod u+rw $HOME/.poshthemes/*.json
 # download and extract "plasma6macos-konsole-profile.zip" from https://www.pling.com/p/2200488/
 $ unzip -o $HOME/Downloads/plasma6macos-konsole-profile.zip -d $HOME/.local/share/
 # choose Konsole profile and set default, OK, close all, open again Konsole
+# BONUS: Font with icon
+	MesloLGS NF Regular.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf
+	MesloLGS NF Bold.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf
+	MesloLGS NF Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf
+	MesloLGS NF Bold Italic.ttf https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+	# Konsole: Open Settings → Edit Current Profile → Appearance, click Select Font and select "MesloLGS NF Regular"
 
 =====================================
 Install ZSH & OhMyZsh
