@@ -1,6 +1,6 @@
-======================================
-Common Keyboard Shortcuts => https://docs.kde.org/stable5/en/khelpcenter/fundamentals/kbd.html
-======================================
+=========================
+Useful Keyboard Shortcuts
+=========================
 Meta		⭐ Open the Application Launcher
 Ctrl+Q		⭐ Quit
 Ctrl+Space	⭐ [Manual Setup] Peek at Desktop (show the desktop by moving windows away)
@@ -34,9 +34,9 @@ Shift+Delete	⭐ Delete Permanently
 Ctrl+Alt+L	⭐ Lock Screen
 
 ======================================
-Download KDE Neon ISO Live Images => https://neon.kde.org/download
+Download Kubuntu ISO Live Images => https://kubuntu.org/getkubuntu/
 =======================================
-# You can install KDE Neon with "Erase Disk" (this will DELETE all data currently present on the selected storage device)
+# You can install Kubuntu with "Erase Disk" (this will DELETE all data currently present on the selected storage device)
 # or "Manual Partition" like this:
 	Size: 500 MiB; Type: fat32; Mount Point: /boot/efi; Label: EFI; Flags: boot
 	Size: 8190 MiB; Type: linuxswap; Label: SWAP; Flags: swap
@@ -45,7 +45,10 @@ Download KDE Neon ISO Live Images => https://neon.kde.org/download
 # make sure your username not same with computer name
 # after installed, this is typical way of updating system in KDE Neon
 =======================================
-$ sudo pkcon refresh && sudo pkcon update -y
+$ sudo apt update
+$ sudo apt upgrade
+$ sudo apt autoremove --purge
+$ sudo apt autoclean -y
 
 ======================================
 Completely Remove Flatpak Apps from System
@@ -227,7 +230,6 @@ $ unzip -o $HOME/Downloads/plasma6macos-konsole-profile.zip -d $HOME/.local/shar
 # setup bookmark
 # Konsole: Bookmarks > Edit Bookmarks > New Bookmark:
 	ping cloudflare				ping 1.1.1.1
-	###KDE's update and upgrade		sudo pkcon refresh && sudo pkcon update
 	sudo apt update				sudo apt update
 	sudo apt list --upgradable		sudo apt list --upgradable
 	sudo apt autoremove			sudo apt autoremove
@@ -434,7 +436,7 @@ $ reboot
 System Setting
 =====================================
 # Input & Output: Keyboard > Shortcuts > Add new > Google Chrome > Add custom shortcut Ctrl + Alt + G
-# Input & Output: Keyboard > Shortcuts > search "power" > click on "KDE Power ManagementSystem"
+# Input & Output: Keyboard > Shortcuts > search "power" > click on "KDE Power Management System"
 	Decrease Screen Brightness: Ctrl + ,			OR Monitor Brightness Down
 	Decrease Screen Brightness by 1%: Ctrl + Shift + ,	OR Shift + Monitor Brightness Down
 	Increase Screen Brightness: Ctrl + .			OR Monitor Brightness Up
