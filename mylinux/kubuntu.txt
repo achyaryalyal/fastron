@@ -360,7 +360,7 @@ $ sudo apt update && sudo apt install -y sublime-text
 		"always_show_minimap_viewport" : true,
 		"bold_folder_labels"           : true,
 		"font_face"                    : "Ubuntu Mono",
-		"font_size"                    : 14,
+		"font_size"                    : 12,
 		"font_options"                 : ["gray_antialias", "subpixel_antialias"], // On retina Mac & Windows
 		"indent_guide_options"         : ["draw_normal", "draw_active"], // Highlight active indent
 		"line_padding_bottom"          : 1,
@@ -382,11 +382,6 @@ $ sudo apt update && sudo apt install -y sublime-text
 	$ chmod 755 sublime_text
 	$ sudo chown root:root sublime_text
 	$ sudo mv sublime_text /opt/sublime_text/
-
-=====================================
-Install Fonts
-=====================================
-# https://drive.google.com/drive/folders/1Qn_WMNtmRUpaGFcMKwoGaCpk5WkrGAwC?usp=sharing
 
 =======================================
 Install Apps Manually From .DEB Package
@@ -523,22 +518,23 @@ Application Launcher
 	Show buttons for: Power (show action button captions)
 Icon-only Task Manager
 	Appearance > Use multi-row view: Never
+	Spacing between icon: Large
 	Behavior > Group: Do not group
 Sticky Note
-	Text font size: 10pt
+	Text font size: 11pt
 	Theme: A transparent sticky with light text
 	Shortcut: Ctrl + Alt + Space
 System Tray
 	Panel icon size: Small
 	Panel icon spacing: Normal
 Digital Clock
-	Information: Show date (Always beside time)
+	Information: Show date (Adaptive location)
 	Show seconds: Only in the tooltip
 	Show time zone: Only when different from local time zone
 	Display time zone as: Code
 	Time display: 24-Hour
 	Date format: Long Date (Rabu, 31 Juli 2024)
-	Text display: Manual (8pt Ubuntu)
+	Text display: Automatic
 Peek at Desktop (Show the desktop & minimize all windows)
 	Shortcut: Ctrl + Space
 
