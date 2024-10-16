@@ -59,6 +59,11 @@ Kdenlive (snap)
 qBittorrent (snap)
 Font Manager (debian)
 Extension Manager (debian): Dash to Panel, Clipboard Indicator, Apps Menu, System Monitor, Ubuntu AppIndicators
+# # #
+# Delete software from app center
+# # #
+Text Editor (debian)
+
 
 ======================================
 Install software from terminal
