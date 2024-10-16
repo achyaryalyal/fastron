@@ -227,9 +227,10 @@ $ unzip -o $HOME/Downloads/plasma6macos-konsole-profile.zip -d $HOME/.local/shar
 # setup bookmark
 # Konsole: Bookmarks > Edit Bookmarks > New Bookmark:
 	ping cloudflare				ping 1.1.1.1
-	KDE's update and upgrade		sudo pkcon refresh && sudo pkcon update
-	list upgradable packages		sudo apt list --upgradable
-	autoremove				sudo apt autoremove
+	###KDE's update and upgrade		sudo pkcon refresh && sudo pkcon update
+	sudo apt update				sudo apt update
+	sudo apt list --upgradable		sudo apt list --upgradable
+	sudo apt autoremove			sudo apt autoremove
 	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
 	fix external drive no longer mounting	MY_EXTERNAL_DRIVE="$(fdisk -l | grep NTFS | awk -F' ' '{print $1}')" && sudo ntfsfix -d ${MY_EXTERNAL_DRIVE}
 	kilat on [domain]			ssh://[username]@[domain]:[port]
