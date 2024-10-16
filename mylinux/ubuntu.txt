@@ -3,6 +3,7 @@ Useful keyboard shortcuts
 ======================================
 Super		Search application
 Super + Tab	Quickly switch between windows, hold down "Shift" for reverse order
+Alt + Tab	Quickly switch between windows with preview, hold down "Shift" for reverse order
 Super + ←	Move the current window one monitor to the left
 Super + →	Move the current window one monitor to the right
 F1		Mute audio
