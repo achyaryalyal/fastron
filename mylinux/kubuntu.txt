@@ -50,6 +50,17 @@ $ sudo apt upgrade
 $ sudo apt autoremove --purge
 $ sudo apt autoclean -y
 
+=====================================
+Install Fonts
+=====================================
+$ cd ~/Downloads
+# download "mscorefonts" from https://drive.google.com/drive/folders/1rKN1CVRT-ZfISHT8AB3iBIFWFQaOSHnN?usp=drive_link
+$ unzip mscorefonts*.zip
+# download "penting" from https://drive.google.com/drive/folders/1Qn_WMNtmRUpaGFcMKwoGaCpk5WkrGAwC?usp=sharing
+$ unzip penting*.zip
+# extract and copy folder with sudo privileges
+$ sudo cp -a ~/Downloads/mscorefonts/ ~/Downloads/penting/ /usr/share/fonts/
+
 ======================================
 Completely Remove Flatpak Apps from System
 ======================================
