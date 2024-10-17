@@ -140,6 +140,7 @@ $ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
 # add the public key to the server where you want to make a passwordless SSH connection
 $ ssh-copy-id -p port_number username@hostname
 # now you can try connecting to the server without a password
+# all ssh connection stored in ~/.config/konsolesshconfig
 
 ======================================
 Completely Remove Flatpak Apps from System
