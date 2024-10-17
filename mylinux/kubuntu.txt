@@ -80,9 +80,21 @@ $ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge 
 # open Google Chrome: Settings > Appearance > Disable "Use system title and borders"
 
 =================================
-Fix 'preinstalled' Repo Warning on apt update
+Fix "preinstalled" Repo Warning on apt update
 =================================
 $ sudo rm /etc/apt/sources.list.d/preinstalled-pool.list
+
+=================================
+Fix "sub-process /usr/bin/dpkg returned an error code (1)"
+=================================
+$ sudo dpkg --configure -a
+$ sudo apt install -f
+
+=================================
+Fix "Could not get lock /var/lib/dpkg/lock-frontend - open (11: Resource temporarily unavailable)"
+=================================
+$ sudo rm /var/lib/apt/lists/lock && sudo rm /var/cache/apt/archives/lock && sudo rm /var/lib/dpkg/lock*
+$ sudo dpkg --configure -a && sudo apt update
 
 =================================
 Install Driver Radeon™ Software for Linux® version 24.10.3 for Ubuntu 22.04.4 HWE
