@@ -485,9 +485,9 @@ System Setting
 	Cursors: Breeze
 	System Sounds: Ocean
 	Splash Screen:
-		Get New Splash: Linux Distro Logos Colored -> kubuntu-mac-style						####Overload login splash by bermer
+		Get New Splash: Get New -> QuarksSplashDark
 	Login Screen (SSDM): Sugar Candy for SDDM
-	Boot Splash Screen: Breeze
+	Boot Splash Screen: Get New -> Linux Distro Logos Colored -> kubuntu-mac-style
 # Appearance & Style: Text & Fonts
 	Fonts:
 		General: Ubuntu 10pt (use 12pt for 1920 resolution)
