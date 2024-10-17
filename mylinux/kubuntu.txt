@@ -127,6 +127,21 @@ $ unzip -o $HOME/Downloads/plasma6macos-konsole-profile.zip -d $HOME/.local/shar
 # if in Dolphin, press Ctrl + M, usually if in Dolphin it appears once then in other applications such as GIMP/Inkscape the application menu will also appear
 
 ======================================
+SSH Key
+======================================
+# you can download ssh key from your google drive (never share it)
+# or create a new one
+$ ssh-keygen -t rsa -b 4096 -C "your_email@example.com"
+# press Enter to use the default location (~/.ssh/id_rsa)
+# just leave blank the passphrase
+# once done, an SSH key pair will be created and stored in the ~/.ssh/ directory:
+	id_rsa: This is the private key (never share or show it).
+	id_rsa.pub: This is the public key (this is what you can share with the server).
+# add the public key to the server where you want to make a passwordless SSH connection
+$ ssh-copy-id -p port_number username@hostname
+# now you can try connecting to the server without a password
+
+======================================
 Completely Remove Flatpak Apps from System
 ======================================
 flatpak uninstall --all --delete-data    OR    flatpak uninstall --all
