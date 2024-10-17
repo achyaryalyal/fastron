@@ -541,6 +541,7 @@ Sticky Note
 Spacer
 	Flexible size: no
 	Width: 10
+Resources Monitor - fork by orblazer
 Network Bandwidth Monitor by leevd
 Network Monitor by clearmartin
 System Tray
