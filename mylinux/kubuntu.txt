@@ -178,6 +178,29 @@ flatpak repair
 sudo apt remove --autoremove flatpak
 
 =======================================
+Completely Disable Snap from System + Install Firefox & Thunderbird from Ubuntu PPA for More Up-to-Date Version
+=======================================
+$ sudo systemctl disable snapd.service && sudo systemctl disable snapd.socket && sudo systemctl disable snapd.seeded.service
+$ sudo snap list
+	$ sudo snap remove firefox
+	$ sudo snap remove snap-store
+	(…)
+	Repeat this with all the snap packages in the snap list list
+$ sudo apt autoremove --purge snapd
+$ sudo rm -rf /var/cache/snapd/ && rm -rf ~/snap
+# with snap removed, you will need to install Firefox/Thunderbird from a PPA. Because apt will still try to install the Snap version of Firefox, you will run into an error. There's a trick to overcome that issue: pinning Firefox with Apt.
+$ sudo nano /etc/apt/preferences.d/firefox-no-snap
+	Package: firefox*
+	Pin: release o=Ubuntu*
+	Pin-Priority: -1
+$ sudo nano /etc/apt/preferences.d/thunderbird-no-snap
+	Package: thunderbird*
+	Pin: release o=Ubuntu*
+	Pin-Priority: -1
+$ sudo add-apt-repository ppa:mozillateam/ppa && sudo apt install -y firefox thunderbird
+# so, you should now have a snap-free Ubuntu with Firefox/Thunderbird installed.
+
+=======================================
 Install Google Chrome from Official Repository (and remove Firefox completely)
 =======================================
 $ sudo -i
@@ -248,11 +271,6 @@ Setup Remmina
 Show full system information with inxi
 =======================================
 $ inxi -F
-
-=======================================
-Install Firefox & Thunderbird from Ubuntu PPA for More Up-to-Date Version
-=======================================
-$ sudo add-apt-repository ppa:mozillateam/ppa && sudo apt install -y firefox thunderbird
 
 =======================================
 Install GIMP from Ubuntu PPA for More Up-to-Date Version
