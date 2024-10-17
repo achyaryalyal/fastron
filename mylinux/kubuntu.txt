@@ -485,8 +485,8 @@ System Setting
 	Cursors: Breeze
 	System Sounds: Ocean
 	Splash Screen:
-		Get New Splash: Overload login splash by bermer
-	Login Screen (SSDM): Breeze; Change Background: /usr/share/wallpapers/Elarun/contents/images/2560x1600.png
+		Get New Splash: Linux Distro Logos Colored -> kubuntu-mac-style						####Overload login splash by bermer
+	Login Screen (SSDM): Sugar Candy for SDDM
 	Boot Splash Screen: Breeze
 # Appearance & Style: Text & Fonts
 	Fonts:
@@ -509,7 +509,7 @@ System Setting
 	Animation duration: 400ms
 # Workspace: General Behavior
 	Clicking files or folders: Opens them
-# Security & Privacy: Screen Locking > Configure Appearance: Elarun
+# Security & Privacy: Screen Locking > Configure Appearance: Kubuntu Dark
 # System: Power Management > Advanced Power Settings
 	Battery protection: Limit the maximum battery charge
 
