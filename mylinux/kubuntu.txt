@@ -199,6 +199,12 @@ $ sudo nano /etc/apt/preferences.d/thunderbird-no-snap
 	Pin-Priority: -1
 $ sudo add-apt-repository ppa:mozillateam/ppa && sudo apt install -y firefox thunderbird
 # so, you should now have a snap-free Ubuntu with Firefox/Thunderbird installed.
+#############################
+# Keep Snapd Dead (forbids snapd from ever being installed by APT)
+$ sudo nano /etc/apt/preferences.d/no-snap
+	Package: snapd
+	Pin: release a=*
+	Pin-Priority: -10
 
 =======================================
 Install Google Chrome from Official Repository (and remove Firefox completely)
