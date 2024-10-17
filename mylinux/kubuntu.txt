@@ -538,6 +538,11 @@ Sticky Note
 	Text font size: 11pt
 	Theme: A transparent sticky with light text
 	Shortcut: Ctrl + Alt + Space
+Spacer
+	Flexible size: no
+	Width: 10
+Network Bandwidth Monitor by leevd
+Network Monitor by clearmartin
 System Tray
 	Panel icon size: Small
 	Panel icon spacing: Normal
