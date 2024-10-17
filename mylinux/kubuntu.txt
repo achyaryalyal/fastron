@@ -61,6 +61,71 @@ $ unzip penting*.zip
 # extract and copy folder with sudo privileges
 $ sudo cp -a ~/Downloads/mscorefonts/ ~/Downloads/penting/ /usr/share/fonts/
 
+=====================================
+Install ZSH & OhMyPosh
+=====================================
+# download Meslo LGS font with icon and install it
+$ wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf && wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf && wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf && wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
+# install ZSH
+$ sudo apt install -y zsh wget git && zsh --version && echo $SHELL
+# EXIT FROM ROOT:
+Ctrl+D
+# make your default shell
+$ chsh -s $(which zsh)
+# install oh-my-zsh and some plugins
+$ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+# change default? Y
+$ git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+$ git clone https://github.com/zsh-users/zsh-history-substring-search ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search
+# install oh-my-posh
+$ sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
+$ sudo chmod +x /usr/local/bin/oh-my-posh
+# download and extract "zsh-ohmyposh-config.zip" from https://www.pling.com/p/2200488/
+$ unzip -o $HOME/Downloads/zsh-ohmyposh-config.zip -d $HOME
+$ chmod u+rw $HOME/.poshthemes/*.json
+# download and extract "plasma6macos-konsole-profile.zip" from https://www.pling.com/p/2200488/
+$ unzip -o $HOME/Downloads/plasma6macos-konsole-profile.zip -d $HOME/.local/share/
+# choose Konsole profile "Everforest Dark Hard" and set default, OK
+# Konsole: Open Settings → Edit Current Profile
+# General: general setting > change "command" to:
+	/usr/bin/zsh
+# Appearance: click Select Font and select "MesloLGS NF Regular"
+# Appearance: change background color from #272e33 to #14181a
+# Appearance: enable blur background with tranparency 10%
+#############################
+# install Oh My Zsh for root user
+	# run this command as ROOT
+	$ sudo -i
+	# make your default shell
+	$ sudo chsh -s $(which zsh)
+	# install oh-my-zsh and some plugins
+	$ sudo sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
+	# change default? Y
+	$ sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+	$ sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+	$ sudo git clone https://github.com/zsh-users/zsh-history-substring-search /root/.oh-my-zsh/custom/plugins/zsh-history-substring-search
+	# install oh-my-posh
+	$ sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
+	$ sudo chmod +x /usr/local/bin/oh-my-posh
+	# download and extract "zsh-ohmyposh-config.zip" from https://www.pling.com/p/2200488/
+	$ sudo unzip -o /home/ideapad/Downloads/zsh-ohmyposh-config.zip -d /root/
+	$ chmod u+rw /root/.poshthemes/*.json
+	$ sudo unzip -o /home/ideapad/Downloads/plasma6macos-konsole-profile.zip -d /root/.local/share/
+#############################
+# setup bookmark
+# Konsole: Bookmarks > Edit Bookmarks > New Bookmark:
+	ping cloudflare				ping 1.1.1.1
+	sudo apt update				sudo apt update
+	sudo apt list --upgradable		sudo apt list --upgradable
+	sudo apt autoremove			sudo apt autoremove
+	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
+	fix external drive no longer mounting	MY_EXTERNAL_DRIVE="$(fdisk -l | grep NTFS | awk -F' ' '{print $1}')" && sudo ntfsfix -d ${MY_EXTERNAL_DRIVE}
+	kilat on [domain]			ssh://[username]@[domain]:[port]
+#############################
+# how to display the application menu by pressing Ctrl + Shift + M
+# if in Dolphin, press Ctrl + M, usually if in Dolphin it appears once then in other applications such as GIMP/Inkscape the application menu will also appear
+
 ======================================
 Completely Remove Flatpak Apps from System
 ======================================
@@ -199,69 +264,6 @@ Section "InputClass"
 	MatchDevicePath "/dev/input/event*"
 EndSection
 $ reboot
-
-=====================================
-Install ZSH & OhMyPosh
-=====================================
-# download Meslo LGS font with icon and install it
-$ wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Regular.ttf && wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold.ttf && wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Italic.ttf && wget https://github.com/romkatv/powerlevel10k-media/raw/master/MesloLGS%20NF%20Bold%20Italic.ttf
-# install ZSH
-$ sudo apt install -y zsh wget git && zsh --version && echo $SHELL
-# EXIT FROM ROOT:
-Ctrl+D
-# make your default shell
-$ chsh -s $(which zsh)
-# install oh-my-zsh and some plugins
-$ sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-# change default? Y
-$ git clone https://github.com/zsh-users/zsh-autosuggestions.git ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-$ git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-$ git clone https://github.com/zsh-users/zsh-history-substring-search ~/.oh-my-zsh/custom/plugins/zsh-history-substring-search
-# install oh-my-posh
-$ sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
-$ sudo chmod +x /usr/local/bin/oh-my-posh
-# download and extract "zsh-ohmyposh-config.zip" from https://www.pling.com/p/2200488/
-$ unzip -o $HOME/Downloads/zsh-ohmyposh-config.zip -d $HOME
-$ chmod u+rw $HOME/.poshthemes/*.json
-# download and extract "plasma6macos-konsole-profile.zip" from https://www.pling.com/p/2200488/
-$ unzip -o $HOME/Downloads/plasma6macos-konsole-profile.zip -d $HOME/.local/share/
-# choose Konsole profile "Everforest Dark Hard" and set default, OK
-# Konsole: Open Settings → Edit Current Profile → Appearance
-# click Select Font and select "MesloLGS NF Regular"
-# change background color from #272e33 to #14181a
-# enable blur background with tranparency 50%
-#############################
-# install Oh My Zsh for root user
-	# run this command as ROOT
-	$ sudo -i
-	# make your default shell
-	$ sudo chsh -s $(which zsh)
-	# install oh-my-zsh and some plugins
-	$ sudo sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
-	# change default? Y
-	$ sudo git clone https://github.com/zsh-users/zsh-autosuggestions.git /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions
-	$ sudo git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-	$ sudo git clone https://github.com/zsh-users/zsh-history-substring-search /root/.oh-my-zsh/custom/plugins/zsh-history-substring-search
-	# install oh-my-posh
-	$ sudo wget https://github.com/JanDeDobbeleer/oh-my-posh/releases/latest/download/posh-linux-amd64 -O /usr/local/bin/oh-my-posh
-	$ sudo chmod +x /usr/local/bin/oh-my-posh
-	# download and extract "zsh-ohmyposh-config.zip" from https://www.pling.com/p/2200488/
-	$ sudo unzip -o /home/ideapad/Downloads/zsh-ohmyposh-config.zip -d /root/
-	$ chmod u+rw /root/.poshthemes/*.json
-	$ sudo unzip -o /home/ideapad/Downloads/plasma6macos-konsole-profile.zip -d /root/.local/share/
-#############################
-# setup bookmark
-# Konsole: Bookmarks > Edit Bookmarks > New Bookmark:
-	ping cloudflare				ping 1.1.1.1
-	sudo apt update				sudo apt update
-	sudo apt list --upgradable		sudo apt list --upgradable
-	sudo apt autoremove			sudo apt autoremove
-	enable pointer				ids=$(xinput list %7C grep 'pointer' %7C cut -d '=' -f 2 %7C cut -f 1 %7C tr ' ' '%5Cn' %7C tail -1) && xinput --disable $ids && xinput --enable $ids
-	fix external drive no longer mounting	MY_EXTERNAL_DRIVE="$(fdisk -l | grep NTFS | awk -F' ' '{print $1}')" && sudo ntfsfix -d ${MY_EXTERNAL_DRIVE}
-	kilat on [domain]			ssh://[username]@[domain]:[port]
-#############################
-# how to display the application menu by pressing Ctrl + Shift + M
-# if in Dolphin, press Ctrl + M, usually if in Dolphin it appears once then in other applications such as GIMP/Inkscape the application menu will also appear
 
 =======================================
 Install Apps From APT via Konsole
