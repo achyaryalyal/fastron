@@ -176,110 +176,6 @@ Fix "Could not get lock /var/lib/dpkg/lock-frontend - open (11: Resource tempora
 $ sudo rm /var/lib/apt/lists/lock && sudo rm /var/cache/apt/archives/lock && sudo rm /var/lib/dpkg/lock*
 $ sudo dpkg --configure -a && sudo apt update
 
-=================================
-Install Driver Radeon™ Software for Linux® version 24.10.3 for Ubuntu 22.04.4 HWE
-=================================
-Download driver from https://www.amd.com/en/support/download/linux-drivers.html
-# install kernel mode driver
-$ sudo apt install amdgpu-dkms
-	# or
-	$ amdgpu-install -y --usecase=graphics
-# if secure boot is enabled during driver installation, a MOK will be automatically generated during install, reboot the system
-$ sudo reboot
-# select "Enroll MOK" and "View key 0" to confirm that the key is correct, select "Continue", "Yes", and enter the temporary password to finish enrolling the key certificate, select "Reboot" to exit the MOK manager
-# verifying kernel mode driver installation
-$ dkms status
-# installing packages within ROCm
-$ sudo apt install rocm-hip-sdk
-# verifying ROCm installation
-$ /opt/rocm/bin/rocminfo
-	# or
-	$ /opt/rocm/opencl/bin/clinfo
-# update PATH for user profile, run this command on root and on non-root user
-export PATH=/opt/amdgpu-pro/bin:/opt/amdgpu/bin:$PATH && echo $PATH
-# done
-# if you encounter errors related to permissions while running ROCm applications like rocminfo, follow these steps to address the issue
-	# add user to the "render" group:
-	$ sudo usermod -aG render <your_username>
-	# retry running rocminfo
-	$ /opt/rocm/bin/rocminfo
-
-=================================
-Installing Linux AMDGPU Controller Tool (LACT)
-=================================
-# download a .deb from releases: https://github.com/ilya-zlobintsev/LACT/releases/
-# install it
-# launch it
-# run this command to unlock the GPU overclocking capabilities
-$ sudo systemctl enable --now lactd
-# increase notebook performance by enabling overclock
-# LACT > tab "OC" > Enable Overclocking > Yes > Reboot
-
-=================================
-Switch from Wayland to X11 (also fix screen recorder become black screen)
-=================================
-# Log Out
-# in the login screen, select "Session: Plasma (X11)"
-#############################
-# while login, it is possible that your KEYBOARD will experience problems because it seems not working, here's how to fix it.
-$ sudo -i
-$ nano /etc/default/grub
-# add this parameter to GRUB_CMDLINE_LINUX_DEFAULT
-	GRUB_CMDLINE_LINUX_DEFAULT="atkbd.reset=1 i8042.nomux=1 i8042.reset=1 i8042.nopnp=1 i8042.dumbkbd=1 quiet splash"
-# close & save
-$ update-grub
-$ reboot
-# IF ANYTHING GOES WRONG (WIFI ADAPTER ALWAYS DISABLED), JUST BOOT VIA NORMAL MODE OR RECOVERY MODE TO REPAIR GRUB AGAIN
-#############################
-!!! # after login, it is possible that your TOUCHPAD will experience problems because it cannot tap to click, here's how to fix it.
-!!! $ sudo -i
-!!! $ nano /etc/default/grub
-!!! # add parameter i8042.nopnp=1 pci=nocrs to GRUB_CMDLINE_LINUX_DEFAULT
-!!! # also add parameter nosgx to disable Intel SGX Kernel Support
-!!! 	GRUB_CMDLINE_LINUX_DEFAULT="i8042.nopnp=1 pci=nocrs nosgx quiet splash"
-!!! # close & save
-!!! $ update-grub
-!!! $ reboot
-!!! # IF ANYTHING GOES WRONG (WIFI ADAPTER ALWAYS DISABLED), JUST BOOT VIA NORMAL MODE OR RECOVERY MODE TO REPAIR GRUB AGAIN
-#############################
-# enable kinetic scrolling: switch from libinput to synaptics
-# first, show list input devices
-xinput list
-# check touchpad using libinput or synaptics driver
-xinput list-props [id] | grep Scroll | awk -F' ' '{print $1}'
-# touchpads that use libinput driver can't use kinetic scrolling feature
-# if you are still using libinput, then change it to synaptics
-# just install synaptics, but don't uninstall libinput because libinput is still happily handling keyboard, etc.
-$ sudo -i
-$ sudo apt install xserver-xorg-input-synaptics
-$ sudo nano /usr/share/X11/xorg.conf.d/*-synaptics.conf
-# add Option after line [Driver "synaptics"] and [MatchIsTouchpad "on"]
-Section "InputClass"
-	Identifier "touchpad catchall"
-	Driver "synaptics"
-	MatchIsTouchpad "on"
-		Option "TapButton1" "1"
-		Option "TapButton2" "3"
-		Option "TapButton3" "2"
-		Option "VertEdgeScroll" "on"
-		Option "VertTwoFingerScroll" "on"
-		Option "HorizEdgeScroll" "on"
-		Option "HorizTwoFingerScroll" "on"
-		Option "MinSpeed" "1.2"
-		Option "MaxSpeed" "2.5"
-		Option "AccelFactor" "0.15"
-		Option "TrackstickSpeed" "0"
-		Option "CircularScrolling" "off"
-		Option "CornerCoasting" "0" # kinetic two-finger scrolling
-		Option "CoastingSpeed" "20" # kinetic two-finger scrolling
-		Option "CoastingFriction" "50" # kinetic two-finger scrolling
-		Option "FingerLow" "30"
-		Option "FingerHigh" "50"
-		Option "MaxTapTime" "125"
-	MatchDevicePath "/dev/input/event*"
-EndSection
-$ reboot
-
 =======================================
 Install Apps From APT via Konsole
 =======================================
@@ -969,3 +865,107 @@ ToucheggKDE: https://github.com/NayamAmarshe/ToucheggKDE
 Empty Trash from Terminal
 =================================
 $ rm -rf ~/.local/share/Trash/*
+
+=================================
+Install Driver Radeon™ Software for Linux® version 24.10.3 for Ubuntu 22.04.4 HWE
+=================================
+Download driver from https://www.amd.com/en/support/download/linux-drivers.html
+# install kernel mode driver
+$ sudo apt install amdgpu-dkms
+	# or
+	$ amdgpu-install -y --usecase=graphics
+# if secure boot is enabled during driver installation, a MOK will be automatically generated during install, reboot the system
+$ sudo reboot
+# select "Enroll MOK" and "View key 0" to confirm that the key is correct, select "Continue", "Yes", and enter the temporary password to finish enrolling the key certificate, select "Reboot" to exit the MOK manager
+# verifying kernel mode driver installation
+$ dkms status
+# installing packages within ROCm
+$ sudo apt install rocm-hip-sdk
+# verifying ROCm installation
+$ /opt/rocm/bin/rocminfo
+	# or
+	$ /opt/rocm/opencl/bin/clinfo
+# update PATH for user profile, run this command on root and on non-root user
+export PATH=/opt/amdgpu-pro/bin:/opt/amdgpu/bin:$PATH && echo $PATH
+# done
+# if you encounter errors related to permissions while running ROCm applications like rocminfo, follow these steps to address the issue
+	# add user to the "render" group:
+	$ sudo usermod -aG render <your_username>
+	# retry running rocminfo
+	$ /opt/rocm/bin/rocminfo
+
+=================================
+Installing Linux AMDGPU Controller Tool (LACT)
+=================================
+# download a .deb from releases: https://github.com/ilya-zlobintsev/LACT/releases/
+# install it
+# launch it
+# run this command to unlock the GPU overclocking capabilities
+$ sudo systemctl enable --now lactd
+# increase notebook performance by enabling overclock
+# LACT > tab "OC" > Enable Overclocking > Yes > Reboot
+
+=================================
+Switch from Wayland to X11 (also fix screen recorder become black screen)
+=================================
+# Log Out
+# in the login screen, select "Session: Plasma (X11)"
+#############################
+# while login, it is possible that your KEYBOARD will experience problems because it seems not working, here's how to fix it.
+$ sudo -i
+$ nano /etc/default/grub
+# add this parameter to GRUB_CMDLINE_LINUX_DEFAULT
+	GRUB_CMDLINE_LINUX_DEFAULT="atkbd.reset=1 i8042.nomux=1 i8042.reset=1 i8042.nopnp=1 i8042.dumbkbd=1 quiet splash"
+# close & save
+$ update-grub
+$ reboot
+# IF ANYTHING GOES WRONG (WIFI ADAPTER ALWAYS DISABLED), JUST BOOT VIA NORMAL MODE OR RECOVERY MODE TO REPAIR GRUB AGAIN
+#############################
+!!! # after login, it is possible that your TOUCHPAD will experience problems because it cannot tap to click, here's how to fix it.
+!!! $ sudo -i
+!!! $ nano /etc/default/grub
+!!! # add parameter i8042.nopnp=1 pci=nocrs to GRUB_CMDLINE_LINUX_DEFAULT
+!!! # also add parameter nosgx to disable Intel SGX Kernel Support
+!!! 	GRUB_CMDLINE_LINUX_DEFAULT="i8042.nopnp=1 pci=nocrs nosgx quiet splash"
+!!! # close & save
+!!! $ update-grub
+!!! $ reboot
+!!! # IF ANYTHING GOES WRONG (WIFI ADAPTER ALWAYS DISABLED), JUST BOOT VIA NORMAL MODE OR RECOVERY MODE TO REPAIR GRUB AGAIN
+#############################
+# enable kinetic scrolling: switch from libinput to synaptics
+# first, show list input devices
+xinput list
+# check touchpad using libinput or synaptics driver
+xinput list-props [id] | grep Scroll | awk -F' ' '{print $1}'
+# touchpads that use libinput driver can't use kinetic scrolling feature
+# if you are still using libinput, then change it to synaptics
+# just install synaptics, but don't uninstall libinput because libinput is still happily handling keyboard, etc.
+$ sudo -i
+$ sudo apt install xserver-xorg-input-synaptics
+$ sudo nano /usr/share/X11/xorg.conf.d/*-synaptics.conf
+# add Option after line [Driver "synaptics"] and [MatchIsTouchpad "on"]
+Section "InputClass"
+	Identifier "touchpad catchall"
+	Driver "synaptics"
+	MatchIsTouchpad "on"
+		Option "TapButton1" "1"
+		Option "TapButton2" "3"
+		Option "TapButton3" "2"
+		Option "VertEdgeScroll" "on"
+		Option "VertTwoFingerScroll" "on"
+		Option "HorizEdgeScroll" "on"
+		Option "HorizTwoFingerScroll" "on"
+		Option "MinSpeed" "1.2"
+		Option "MaxSpeed" "2.5"
+		Option "AccelFactor" "0.15"
+		Option "TrackstickSpeed" "0"
+		Option "CircularScrolling" "off"
+		Option "CornerCoasting" "0" # kinetic two-finger scrolling
+		Option "CoastingSpeed" "20" # kinetic two-finger scrolling
+		Option "CoastingFriction" "50" # kinetic two-finger scrolling
+		Option "FingerLow" "30"
+		Option "FingerHigh" "50"
+		Option "MaxTapTime" "125"
+	MatchDevicePath "/dev/input/event*"
+EndSection
+$ reboot
