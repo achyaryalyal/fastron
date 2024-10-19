@@ -216,6 +216,7 @@ $ sudo apt update && sudo apt install -y google-chrome-stable && sudo apt purge 
 # open Google Chrome: Settings > Performance > Memory Saver: Maximum
 # open Google Chrome: Settings > Appearance > Theme: Use GTK
 # open Google Chrome: Settings > Appearance > Disable "Use system title and borders"
+# open Google Chrome: Settings > Appearance > Page Zoom: 125%
 
 =================================
 Fix "preinstalled" Repo Warning on apt update
