@@ -413,7 +413,13 @@ $ fdisk -l
 # what dev is NTFS partition, example: dev2
 $ nano /etc/fstab
 # add this line:
-/dev/nvme0n1p2 /drive_ntfs ntfs defaults,noatime 0 0
+/dev/nvme0n1p8 /drive_ntfs ntfs defaults,noatime 0 0
+	$ mkdir /drive_windows_ssd
+	$ fdisk -l
+	# what dev is NTFS partition, example: dev2
+	$ nano /etc/fstab
+	# add this line:
+	/dev/nvme0n1p3 /drive_windows_ssd ntfs defaults,noatime 0 0
 $ reboot
 # boot into Windows
 # make sure "fast startup" in Windows is disabled
