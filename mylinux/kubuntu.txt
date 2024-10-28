@@ -44,6 +44,14 @@ Download Kubuntu ISO Live Images => https://kubuntu.org/getkubuntu/
 	Size: Any MiB; Type: ntfs; Label: NTFS
 # make sure your username not same with computer name
 # after installed, this is typical way of updating system in KDE Neon
+======================================
+Installation If Dual Boot
+======================================
+just make sure Windows is "Disable Fast Boot" so that partition permissions on NTFS don't clash
+1. type "control panel" into the search box on the taskbar and then click Control Panel in the search results
+2. in the search box in the top right of the control panel, type power and then click Change what the power buttons do under Power Options
+3. click "Change settings that are currently unavailable" and the give consent to continue or enter an administrator username and password as prompted
+4. under Shutdown settings, uncheck "Turn on fast startup (recommended)" and click Save changes
 =======================================
 $ sudo apt update
 $ sudo apt upgrade
