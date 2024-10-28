@@ -92,6 +92,7 @@ $ unzip -o $HOME/Downloads/plasma6macos-konsole-profile.zip -d $HOME/.local/shar
 	/usr/bin/zsh
 # Appearance: click Select Font and select "MesloLGS NF" 12 pt
 # Appearance: change background color from #272e33 to #14181a
+# Appearance: change color 3 from #a7c080 to #005500
 # Appearance: disable blur background with 0% tranparency
 #############################
 # install Oh My Zsh for root user
