@@ -487,7 +487,10 @@ System Setting
 # Apps & Windows: Window Management > Desktop Effects > Woobly Windows > disable
 # Apps & Windows: Window Management > Desktop Effects > Magic Lamp > enable and configure
 	Animation duration: 400ms
-# Apps & Windows: Window Management > Desktop Effects > Scale > apply
+# Apps & Windows: Window Management > Desktop Effects > Scale > enable and configure
+	Duration: Default
+	Window open scale: 2,00
+	Window close scale: 2,00
 # Workspace: General Behavior
 	Clicking files or folders: Opens them
 # Security & Privacy: Screen Locking > Configure Appearance: Kubuntu Dark
