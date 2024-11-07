@@ -451,7 +451,7 @@ System Setting
 # Input & Output: Mouse & Touchpad > Touchpad > Screen Edges > click on top left corner > No Action
 # Appearance & Style: Wallpaper
 	Positioning: Scaled & Cropped
-	Images: Elarun
+	Images: Wallpaper - Blue 100 -Brand
 # Appearance & Style: Colors & Themes (Global Theme)
 	Colors: Breeze Dark
 	Application Style: Breeze
