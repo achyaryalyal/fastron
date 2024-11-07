@@ -493,7 +493,7 @@ System Setting
 	Window close scale: 2,00
 # Workspace: General Behavior
 	Clicking files or folders: Opens them
-# Security & Privacy: Screen Locking > Configure Appearance: Kubuntu Dark
+# Security & Privacy: Screen Locking > Configure Appearance: Wallpaper - Blue 100 -Brand
 # System: Power Management > Advanced Power Settings
 	Battery protection: Limit the maximum battery charge
 
