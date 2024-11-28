@@ -488,6 +488,14 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban
 chmod 664 /etc/fail2ban/filter.d/*.conf
 service fail2ban restart && fail2ban-client status
 
+# gunakan systemd untuk memastikan fail2ban berjalan otomatis
+# aktifkan layanan fail2ban:
+$ sudo systemctl enable fail2ban
+# periksa status:
+$ sudo systemctl is-enabled fail2ban
+# hasilnya akan menampilkan: enabled
+# dengan langkah ini, fail2ban akan berjalan otomatis setiap kali sistem di-boot tanpa perlu menambahkan skrip ke cronjob.
+
 # show status of all fail2ban jails at once
 curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/fail2ban-allstatus.sh > /etc/fail2ban/fail2ban-allstatus.sh
 chmod +x /etc/fail2ban/fail2ban-allstatus.sh && chmod 0755 /etc/fail2ban/fail2ban-allstatus.sh
