@@ -263,6 +263,8 @@ nano /etc/fail2ban/jail.local
 	maxretry = 3
 # After you make changes, restart Fail2ban:
 systemctl restart fail2ban
+# Use systemd to make sure fail2ban run automatically after reboot without cronjob
+sudo systemctl enable fail2ban && sudo systemctl is-enabled fail2ban
 # Now your server is analyzing logs and banning IP addresses. Check the status of the jail by running:
 fail2ban-client status sshd
 # If you are using Cloudflare proxy, you can set up a couple of rules at /etc/fail2ban/action.d/cloudflare.conf
