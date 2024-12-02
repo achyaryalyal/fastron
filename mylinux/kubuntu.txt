@@ -567,12 +567,11 @@ $ pip3 --version
 Install Docker with MariaDB & phpMyAdmin
 =====================================
 $ sudo apt install -y docker.io docker-compose && sudo systemctl start docker && sudo systemctl enable docker && docker --version
-$ cd /opt && mkdir phpMyAdmin && cd phpMyAdmin
-$ wget https://raw.githubusercontent.com/achyaryalyal/fastron/master/mylinux/docker/phpmyadmin/docker-compose.yml
-$ docker-compose up -d
-$ docker exec -it mariadb mariadb -u root -p
-$ docker-compose ps
-# open phpMyAdmin on the browser: http://localhost:8000
+$ sudo docker pull mysql:latest
+$ sudo docker run --name mysql -e MYSQL_ROOT_PASSWORD=password -d mysql:latest
+$ sudo docker pull phpmyadmin/phpmyadmin:latest
+$ sudo docker run --name phpmyadmin -d --link mysql:db -p 8081:80 phpmyadmin/phpmyadmin
+# open phpMyAdmin on the browser: http://localhost:8081
 
 =======================================
 Install Spotify + Calaboka (ads silencer) from Snap [no longer need]
