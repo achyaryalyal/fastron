@@ -578,10 +578,10 @@ services:
     container_name: mariadb
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: root_password  # Ganti dengan password root
-      MYSQL_DATABASE: my_database         # Nama database awal
-      MYSQL_USER: user                    # Ganti dengan user Anda
-      MYSQL_PASSWORD: user_password       # Password untuk user
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: my_database
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
     volumes:
       - mariadb_data:/var/lib/mysql
     ports:
@@ -602,12 +602,6 @@ services:
 volumes:
   mariadb_data:
 $ docker-compose up -d
-# sesuaikan batas ukuran file impor
-$ docker exec -it phpmyadmin bash
-$ echo "php_value upload_max_filesize 2G" >> /etc/php/7.4/apache2/conf.d/phpmyadmin.ini
-$ echo "php_value post_max_size 2G" >> /etc/php/7.4/apache2/conf.d/phpmyadmin.ini
-$ service apache2 restart
-$ exit
 # open phpMyAdmin on the browser: http://localhost:8080
 
 =======================================
