@@ -689,6 +689,16 @@ cp /etc/ramstat.sh /usr/bin/.
 ramstat.sh
 
 =======================================
+DOWNLOAD FILE FROM GOOGLE DRIVE
+=======================================
+$ sudo apt update
+$ sudo apt install python3-pip
+$ pip3 --version
+# sudo pip3 install gdown
+# gdown [URL]
+# gdown https://drive.google.com/uc?id=0B9P1L--7Wd2vU3VUVlFnbTgtS2c
+
+=======================================
 DOWNLOAD FILE OR DIRECTORY FROM ANOTHER SERVER WITH SCP
 =======================================
 scp -P [PORT_SSH] -r user@IP_SERVER:/path/from/remote/source /path/to/local/destination
