@@ -566,12 +566,49 @@ $ pip3 --version
 =====================================
 Install Docker with MariaDB & phpMyAdmin
 =====================================
-$ sudo apt install -y docker.io docker-compose && sudo systemctl start docker && sudo systemctl enable docker && docker --version
-$ sudo docker pull mysql:latest
-$ sudo docker run --name mysql -e MYSQL_ROOT_PASSWORD=password -d mysql:latest
-$ sudo docker pull phpmyadmin/phpmyadmin:latest
-$ sudo docker run --name phpmyadmin -d --link mysql:db -p 8081:80 phpmyadmin/phpmyadmin
-# open phpMyAdmin on the browser: http://localhost:8081
+$ sudo apt install -y python3-distutils-extra docker.io docker-compose && sudo systemctl start docker && sudo systemctl enable docker && docker --version
+$ mkdir /opt/docker-mariadb-phpmyadmin && cd /opt/docker-mariadb-phpmyadmin
+$ nano docker-compose.yml
+# copy dan paste line berikut:
+version: '3.8'
+
+services:
+  mariadb:
+    image: mariadb:latest
+    container_name: mariadb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password  # Ganti dengan password root
+      MYSQL_DATABASE: my_database         # Nama database awal
+      MYSQL_USER: user                    # Ganti dengan user Anda
+      MYSQL_PASSWORD: user_password       # Password untuk user
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin
+    restart: always
+    environment:
+      PMA_HOST: mariadb
+      PMA_USER: root
+      PMA_PASSWORD: root_password
+      UPLOAD_LIMIT: 2G
+    ports:
+      - "8080:80"
+
+volumes:
+  mariadb_data:
+$ docker-compose up -d
+# sesuaikan batas ukuran file impor
+$ docker exec -it phpmyadmin bash
+$ echo "php_value upload_max_filesize 2G" >> /etc/php/7.4/apache2/conf.d/phpmyadmin.ini
+$ echo "php_value post_max_size 2G" >> /etc/php/7.4/apache2/conf.d/phpmyadmin.ini
+$ service apache2 restart
+$ exit
+# open phpMyAdmin on the browser: http://localhost:8080
 
 =======================================
 Install Spotify + Calaboka (ads silencer) from Snap [no longer need]
