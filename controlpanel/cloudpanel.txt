@@ -5,7 +5,7 @@ CREATE VM & LOGIN
 # generate ssh key, download .pem file and move to ~/.ssh
 # setup permission: chmod 400 /path/to/your-key.pem
 # create username and password for sudo
-# after you get public ip, login ssh: ssh -i /path/to/your-key.pem -p 22 username@ip
+# after you get public ip, login ssh using a private key: ssh -i /path/to/your-key.pem -p 22 username@ip
 
 ==================
 INSTALL CLOUDPANEL
