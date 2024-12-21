@@ -8,6 +8,16 @@ CREATE VM & LOGIN
 # after you get public ip, login ssh using a private key: ssh -i /path/to/your-key.pem -p 22 username@ip
 
 ==================
+CREATE NEW SSH KEY
+==================
+ssh-keygen -t rsa -b 4096 -f ~/.ssh/[KEY_NAME]
+ssh-keygen -p -m PEM -f ~/.ssh/[KEY_NAME]
+mv ~/.ssh/[KEY_NAME] ~/.ssh/[KEY_NAME].pem
+cat ~/.ssh/[KEY_NAME].pub
+# copy and paste to: menu "ssh key"
+# sync key pair to: section "ssh access"
+
+==================
 UPDATE & UPGRADE SYSTEM
 ==================
 # For the installation, you need an empty server with Ubuntu 24.04 or 22.04 or Debian 12 or 11 with root access
