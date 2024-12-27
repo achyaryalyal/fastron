@@ -287,6 +287,12 @@ systemctl restart fail2ban
 sudo systemctl enable fail2ban && sudo systemctl is-enabled fail2ban
 # Now your server is analyzing logs and banning IP addresses. Check the status of the jail by running:
 fail2ban-client status sshd
+# show status of all fail2ban jails at once
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban/fail2ban-allstatus.sh > /etc/fail2ban/fail2ban-allstatus.sh
+chmod +x /etc/fail2ban/fail2ban-allstatus.sh && chmod 0755 /etc/fail2ban/fail2ban-allstatus.sh
+cp /etc/fail2ban/fail2ban-allstatus.sh /usr/bin/.
+fail2ban-allstatus.sh
+
 # If you are using Cloudflare proxy, you can set up a couple of rules at /etc/fail2ban/action.d/cloudflare.conf
 
 ===========================
