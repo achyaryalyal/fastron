@@ -70,6 +70,11 @@ $ unzip penting*.zip
 $ sudo cp -a ~/Downloads/mscorefonts/ ~/Downloads/penting/ /usr/share/fonts/
 
 =====================================
+Install libwebkit2gtk-4.1-0 (Web content engine library for GTK)
+=====================================
+$ sudo apt update && sudo apt install -y libwebkit2gtk-4.1-0 && sudo apt autoremove
+
+=====================================
 Install ZSH & OhMyPosh
 =====================================
 # download Meslo LGS font with icon and install it
