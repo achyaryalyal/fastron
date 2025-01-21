@@ -71,7 +71,7 @@ sudo apt-key adv --refresh-keys --keyserver keyserver.ubuntu.com
 sudo apt update
 
 ====================================================
-NGINX WARNING ON TEST CONFIG: "ssl_stapling" ignored
+[BETTER NOT CHANGE] NGINX WARNING ON TEST CONFIG: "ssl_stapling" ignored
 ====================================================
 nginx -t
 # nginx: [warn] "ssl_stapling" ignored, issuer certificate not found for certificate
