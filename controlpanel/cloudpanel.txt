@@ -220,6 +220,9 @@ nano /etc/logrotate.d/nginx
 # Execute it
 logrotate /etc/logrotate.d/nginx
 
+# Maximize worker_connections
+nano /etc/nginx/nginx.conf
+	worker_connections 20000;
 # Disable logging for requests with HTTP status codes 2xx (Success) and 3xx (Redirection)
 nano /etc/nginx/nginx.conf
     ##
