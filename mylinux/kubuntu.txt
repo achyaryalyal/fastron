@@ -252,9 +252,9 @@ $ sudo dpkg --configure -a && sudo apt update
 =======================================
 Install Apps From APT via Konsole
 =======================================
-$ sudo apt install neofetch yakuake lsb-release net-tools whois inxi kcalc audacious ffmpeg ffmpegthumbnailer vlc peek kdenlive remmina qbittorrent android-file-transfer filelight partitionmanager
+$ sudo apt install neofetch yakuake lsb-release net-tools whois inxi kcalc okular audacious ffmpeg ffmpegthumbnailer vlc peek kdenlive remmina qbittorrent android-file-transfer filelight partitionmanager
 !!! pdfsam xserver-xorg-input-evdev xserver-xorg-input-mouse
-$ sudo apt remove kate kwalletmanager okular && sudo apt autoremove
+$ sudo apt remove kate kwalletmanager && sudo apt autoremove
 # TIPS: if you want to remove a package and install a different package IN ONE STEP, try: sudo apt remove htop nano+ ===> will remove htop and install nano
 # another way to do the same thing: sudo apt install htop- nano  ===> also will remove htop and install nano
 
@@ -379,17 +379,6 @@ $ sudo apt update && sudo apt install -y sublime-text
 =======================================
 Install Apps Manually From .DEB Package
 =======================================
-Download WPS Office For Linux
-	https://www.wps.com/office/linux/
-	# install mscorefont => https://drive.google.com/drive/folders/1rKN1CVRT-ZfISHT8AB3iBIFWFQaOSHnN?usp=sharing
-	# settings > skin and interface settings
-		UI Theme: Comfort
-		UI Font: Ubuntu 125%
-	# fix slide can't play media:
-		Menu > Options > View > Show
-		Check "Enable graphics card acceleration" > Save
-		Menu > Options > View > Show
-		Uncheck "Enable graphics card acceleration" > Save
 Download Zoom Workplace for Linux
 	https://zoom.us/download
 Download Sejda PDF Desktop (PDF Editor)
@@ -622,6 +611,22 @@ $ sudo snap connect calaboka:mpris spotify:spotify-mpris
 	program: /snap/bin/spotify
 	Icon: spotify
 
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+>>>>>>>>>>>>
+
 =====================================
 [ARCHIEVED] Install Postman from Snap
 =====================================
@@ -644,13 +649,6 @@ $ sudo nano /etc/default/grub
 $ update-grub
 $ reboot
 # if anything goes wrong, just boot through recovery to repair grub again
-
-=================================
-Fix Remote Control Request Prompt
-=================================
-# System Settings > disable "Enable RDP Server"
-# or run the following terminal command:
-$ systemctl --user disable --now plasma-krdp_server.service
 
 =================================
 [ARCHIEVED] Fix Lenovo S145 Touchpad Freeze After Resume (wake up)
@@ -919,6 +917,13 @@ System Settings > Hardware > Display and Monitor > Compositor
 Fix Plain Text File Assocation
 =================================
 System Settings > Applications > File Assocations > text > plain > remove *.doc > Apply
+
+=================================
+Fix Remote Control Request Prompt
+=================================
+# System Settings > disable "Enable RDP Server"
+# or run the following terminal command:
+$ systemctl --user disable --now plasma-krdp_server.service
 
 =================================
 Fix TeamViewer Not Ready
