@@ -379,6 +379,10 @@ $ sudo apt update && sudo apt install -y sublime-text
 =======================================
 Install Apps Manually From .DEB Package
 =======================================
+Download Only Office for Linux
+	https://www.onlyoffice.com/download-desktop.aspx
+	# settings > interface scaling: 125%
+	# settings > interface theme: dark
 Download Zoom Workplace for Linux
 	https://zoom.us/download
 Download Sejda PDF Desktop (PDF Editor)
