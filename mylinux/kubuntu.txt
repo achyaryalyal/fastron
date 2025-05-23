@@ -449,7 +449,7 @@ System Setting
 # Input & Output: Mouse & Touchpad > Touchpad > Screen Edges > click on top left corner > No Action
 # Appearance & Style: Wallpaper
 	Positioning: Scaled & Cropped
-	Images: Wallpaper - Blue 100 -Brand
+	Images: Kubuntu Dark
 # Appearance & Style: Colors & Themes (Global Theme)
 	Colors: Breeze Dark
 	Application Style: Breeze
@@ -488,7 +488,7 @@ System Setting
 # Apps & Windows: Window Management > Desktop Effects > Fade
 # Workspace: General Behavior
 	Clicking files or folders: Opens them
-# Security & Privacy: Screen Locking > Configure Appearance: Wallpaper - Blue 100 -Brand
+# Security & Privacy: Screen Locking > Configure Appearance: Kubuntu Dark
 # System: Power Management > Advanced Power Settings
 	Battery protection: Limit the maximum battery charge
 
