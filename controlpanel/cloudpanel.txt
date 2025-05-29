@@ -51,6 +51,25 @@ REBOOT CLOUDPANEL
 # Reboot server from CloudPanel
 # Go to Admin Area > Instance > Reboot (at top right)
 
+=================
+CHANGE TO DNS CLOUDFLARE & GOOGLE
+=================
+# This ensures your server is not using your ISP's slow DNS or the OpenVZ/VirtIO default.
+# Usually, /etc/resolv.conf is where you can configure the resolver IPs that your system is using. BUT, if you use systemd-resolved utility and the resolver IPs configuration is in /etc/systemd/resolved.conf, consider the steps below:
+sudo nano /etc/systemd/resolved.conf
+# use this setting:
+[Resolve]
+DNS=1.1.1.1#cloudflare-dns.com 1.0.0.1#cloudflare-dns.com 2606:4700:4700::1111#cloudflare-dns.com 2606:4700:4700::1001#cloudflare-dns.com
+FallbackDNS=8.8.8.8#dns.google 8.8.4.4#dns.google 2001:4860:4860::8888#dns.google 2001:4860:4860::8844#dns.google
+DNSOverTLS=yes
+DNSStubListener=yes
+Cache=yes
+# restart & check
+sudo resolvectl status && sudo resolvectl statistics
+sudo systemctl restart systemd-resolved
+sudo resolvectl flush-caches
+sudo resolvectl status && sudo resolvectl statistics
+
 =============================
 CLOUDPANEL WITH CUSTOM DOMAIN
 =============================
@@ -79,6 +98,15 @@ nano /etc/nginx/nginx.conf
 # set off OCSP Stapling
 	ssl_stapling off;
 	ssl_stapling_verify off;
+nginx -t
+nginx -s reload
+
+====================================================
+NGINX ADD RESOLVER CLOUDFLARE & GOOGLE
+====================================================
+nano /etc/nginx/nginx.conf
+# add this line after http {
+	resolver 1.1.1.1 8.8.8.8 valid=300s;
 nginx -t
 nginx -s reload
 
@@ -492,7 +520,7 @@ sudo apt update && sudo apt install unoconv
 nano /home/bbg-spada/mount-spada-google-drive.sh
 # paste it
 	#!/bin/bash
-	/usr/bin/rclone mount spada-storage-mounting: /home/bbg-spada/htdocs/spadadata/filedir --allow-non-empty --allow-other --dir-cache-time 72h --buffer-size 32M --drive-chunk-size 32M --vfs-cache-mode writes --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
+	/usr/bin/rclone mount spada-storage-mounting: /home/bbg-spada/htdocs/spadadata/filedir --allow-non-empty --allow-other --dir-cache-time 72h --buffer-size 64M --drive-chunk-size 64M --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-cache-max-age 6h --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
 # make it executable
 chmod +x /home/bbg-spada/mount-spada-google-drive.sh
 # add to cronjob
