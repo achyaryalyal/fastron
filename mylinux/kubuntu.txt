@@ -393,10 +393,19 @@ Download CrossFTP Version 1.99.6 (can manage S3 bucket)
 =======================================
 Install Apps Manually From .SH File
 =======================================
-Download Burp Suite Community Edition (Free)
+Download Burp Suite Community Edition (Free): popular web security testing tool used by ethical hackers and penetration testers
 	https://portswigger.net/burp/releases
-	=> chmod +x burpsuite_community_linux_v*.sh
-	=> ./burpsuite_community_linux_v*.sh
+		=> chmod +x burpsuite_community_linux_v*.sh
+		=> ./burpsuite_community_linux_v*.sh
+	To integrate it with a browser:
+		=> Launch Burp Suite. Go to Proxy > Options and ensure a proxy listener is running on 127.0.0.1:8080.
+		=> For Chrome, launch from terminal with: google-chrome --proxy-server="http://127.0.0.1:8080"
+		=> Visit http://burp in the browser (while proxy is on). Download the CA Certificate. If Chrome requires PEM on Linux, convert the certificate:
+			openssl x509 -inform DER -in cacert.der -out burp_cert.pem
+			sudo cp burp_cert.pem /usr/local/share/ca-certificates/burp_cert.crt
+			sudo update-ca-certificates
+			google-chrome --proxy-server="http://127.0.0.1:8080" --enable-features=TrustTokens --ignore-certificate-errors
+		=> Browse any website. Burp Suite will capture and let you inspect or modify HTTP/HTTPS traffic in Proxy > Intercept or HTTP history.
 
 =======================================
 Add swap space equals to RAM size
