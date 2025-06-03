@@ -391,6 +391,14 @@ Download CrossFTP Version 1.99.6 (can manage S3 bucket)
 	https://www.crossftp.com/crossftp_1.99.9.deb
 
 =======================================
+Install Apps Manually From .SH File
+=======================================
+Download Burp Suite Community Edition (Free)
+	https://portswigger.net/burp/releases
+	=> chmod +x burpsuite_community_linux_v*.sh
+	=> ./burpsuite_community_linux_v*.sh
+
+=======================================
 Add swap space equals to RAM size
 =======================================
 # check has swap enabled, if output is empty, it means that your system does not have swap space enabled
