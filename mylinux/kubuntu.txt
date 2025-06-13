@@ -52,6 +52,20 @@ just make sure Windows is "Disable Fast Boot" so that partition permissions on N
 2. in the search box in the top right of the control panel, type power and then click Change what the power buttons do under Power Options
 3. click "Change settings that are currently unavailable" and the give consent to continue or enter an administrator username and password as prompted
 4. under Shutdown settings, uncheck "Turn on fast startup (recommended)" and click Save changes
+
+=======================================
+Setting Up 1.1.1.1 DNS
+=======================================
+System Settings > Connections > IPv4
+	Method: Automatic (Only addressess)
+	DNS Server: 1.1.1.1
+System Settings > Connections > IPv6
+	Method: Automatic (Only addressess)
+	DNS Server: 1.1.1.1
+Apply
+
+=======================================
+Update & Upgrade System
 =======================================
 $ sudo apt update
 $ sudo apt upgrade
