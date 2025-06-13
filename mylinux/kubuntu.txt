@@ -107,6 +107,9 @@ $ unzip -o $HOME/Downloads/plasma6macos-konsole-profile.zip -d $HOME/.local/shar
 # Appearance: change background color from #272e33 to #14181a
 # Appearance: change color 3 from #a7c080 to #005500
 # Appearance: disable blur background with 0% tranparency
+$ nano $HOME/.zshrc
+# add this line before export to enable automatic update without confirmation prompt:
+	zstyle ':omz:update' mode auto
 #############################
 # install Oh My Zsh for root user
 	# run this command as ROOT
