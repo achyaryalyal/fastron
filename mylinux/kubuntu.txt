@@ -491,7 +491,8 @@ System Setting
 # Appearance & Style: Colors & Themes (Global Theme)
 	Colors: Breeze Dark
 	Application Style: Breeze
-		Configure GNOME/GTK Application Style > Get New GNOME/GTK Application Style > WhiteSur GTK Theme by vinceliuice: WhiteSur-Dark
+		Configure GNOME/GTK Application Style:
+			Get New GNOME/GTK Application Style > WhiteSur GTK Theme by vinceliuice: WhiteSur-Dark
 		GTK theme: WhiteSur-Dark
 	Plasma Style: Breeze Dark
 	Windows Decorations:
@@ -502,8 +503,10 @@ System Setting
 	System Sounds: Ocean
 	Splash Screen:
 		Get New Splash: Get New -> QuarksSplashDark
-	Login Screen (SSDM): Sugar Candy for SDDM
-	Boot Splash Screen: Get New -> Linux Distro Logos Colored -> kubuntu-mac-style
+	Login Screen (SSDM):
+		Get New -> Apple Sonoma v2 SDDM by Adolfo
+	Boot Splash Screen:
+		Get New -> Linux Distro Logos Colored -> kubuntu-mac-style
 # Appearance & Style: Text & Fonts
 	Fonts:
 		General: Ubuntu 10pt (use 12pt for 1920 resolution)
