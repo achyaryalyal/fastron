@@ -467,9 +467,13 @@ System Setting
 # Input & Output: Mouse & Touchpad > Mouse > Pointer speed: 0,80
 # Input & Output: Mouse & Touchpad > Mouse > Pointer acceleration: Standard
 # Input & Output: Mouse & Touchpad > Touchpad > Screen Edges > click on top left corner > No Action
-# Appearance & Style: Wallpaper
+# Right click on desktop wallper > Configure Desktop and Wallpaper
+	Layout: Folder View
+	Wallpaper type: Picture of the Day
+	Provider: Bing
+		enable: Update when using metered network connection
 	Positioning: Scaled & Cropped
-	Images: Kubuntu Dark
+	Background color: #000000
 # Appearance & Style: Colors & Themes (Global Theme)
 	Colors: Breeze Dark
 	Application Style: Breeze
@@ -508,7 +512,15 @@ System Setting
 # Apps & Windows: Window Management > Desktop Effects > Fade
 # Workspace: General Behavior
 	Clicking files or folders: Opens them
-# Security & Privacy: Screen Locking > Configure Appearance: Kubuntu Dark
+# Security & Privacy: Screen Locking > Configure Appearance:
+		enable: Keep visible when unlocking prompt disappears
+		enable: Show under unlocking prompt
+	Layout: Folder View
+	Wallpaper type: Picture of the Day
+	Provider: Bing
+		enable: Update when using metered network connection
+	Positioning: Scaled & Cropped
+	Background color: #000000
 # System: Power Management > Advanced Power Settings
 	Battery protection: Limit the maximum battery charge
 
