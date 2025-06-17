@@ -841,3 +841,44 @@ Intinya CloudPanel cocok untuk control panel turunan (bukan control panel induk)
 - install moodle -> BISA
 - install slims -> BISA
 - install ojs -> tidak bisa karena ojs lebih ke apache/litespeed
+
+=====================================
+Install LFM (Last File Manager)
+=====================================
+$ sudo apt install lfm
+#################### Key -> Action ####################
+!          ->   ⭐ tab_close
+#          ->   ⭐ show_dirs_size		-> loading scan directory size
+,          ->   ⭐ panes_swap
+.          ->   ⭐ panes_cycle_view
+/          ->   ⭐ find_grep
+:          ->   ⭐ tab_new
+<          ->   ⭐ tab_left
+=          ->   ⭐ pane_other_tab_equal
+>          ->   ⭐ tab_right
+@          ->   ⭐ exec_on_file			->   type: nano
+backspace  ->   ⭐ cursor_pageup
+down       ->   ⭐ cursor_down
+end        ->   ⭐ cursor_end
+enter      ->   ⭐ dir_enter
+f12        ->   ⭐ file_menu
+f2         ->   ⭐ rename_file
+f5         ->   ⭐ copy_file
+f6         ->   ⭐ move_file
+f7         ->   ⭐ make_dir
+f8         ->   ⭐ delete_file
+f9         ->   ⭐ main_menu
+g          ->   ⭐ goto
+h          ->   ⭐ help_menu
+i          ->   ⭐ show_file_info
+l          ->   ⭐ link_create
+left       ->   ⭐ dir_up
+pagedown   ->   ⭐ cursor_pagedown
+pageup     ->   ⭐ cursor_pageup
+q          ->   ⭐ quit_chdir
+right      ->   ⭐ dir_enter
+s          ->   ⭐ sort_files			->   by date: D or d		by size: S or s		by name: N or n		by extension: E or e
+spc        ->   ⭐ cursor_pagedown
+t          ->   ⭐ touch_file
+tab        ->   ⭐ pane_change_focus
+up         ->   ⭐ cursor_up
