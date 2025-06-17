@@ -183,6 +183,17 @@ nano /etc/mysql/mariadb.conf.d/100-cloudpanel.cnf
 # set table_open_cache from 2048 to 500000
 systemctl restart mariadb
 # make sure no strict mode in query result "SELECT @@SQL_MODE, @@GLOBAL.SQL_MODE;" to make your coding no more warning/error
+###
+# OPTIONAL: enable slow query log to find out SQL queries that are slowing down your dynamic web app
+# remove comment on line:
+	slow_query_log = 1
+	slow_query_log_file = /var/log/mysql/slow.log
+	long_query_time = 2
+# add this line:
+	log_queries_not_using_indexes = 1
+systemctl restart mariadb
+# view your slow query log:
+	sudo tail -f /var/log/mysql/slow.log
 
 ================
 BACKUP & RESTORE
