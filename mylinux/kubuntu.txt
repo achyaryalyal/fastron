@@ -165,7 +165,7 @@ Install LFM (Last File Manager)
 $ sudo apt install lfm
 #################### Key -> Action ####################
 !          ->   ⭐ tab_close
-#          ->   ⭐ show_dirs_size
+#          ->   ⭐ show_dirs_size		-> loading scan directory size
 ,          ->   ⭐ panes_swap
 .          ->   ⭐ panes_cycle_view
 /          ->   ⭐ find_grep
@@ -194,7 +194,7 @@ pagedown   ->   ⭐ cursor_pagedown
 pageup     ->   ⭐ cursor_pageup
 q          ->   ⭐ quit_chdir
 right      ->   ⭐ dir_enter
-s          ->   ⭐ sort_files
+s          ->   ⭐ sort_files			->   by date: D or d		by size: S or s		by name: N or n		by extension: E or e
 spc        ->   ⭐ cursor_pagedown
 t          ->   ⭐ touch_file
 tab        ->   ⭐ pane_change_focus
