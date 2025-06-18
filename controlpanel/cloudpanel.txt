@@ -327,7 +327,7 @@ systemctl status fail2ban
 # `port` line must match with ssh config
 nano /etc/fail2ban/jail.local
 	[DEFAULT]
-	bantime = 10m
+	bantime = 1m
 	findtime = 10m
 	maxretry = 5
 	backend = systemd
