@@ -8,7 +8,7 @@ CREATE VM & LOGIN
 # after you get public ip, login ssh using a private key: ssh -i /path/to/your-key.pem -p 22 username@ip
 
 ==================
-CREATE NEW SSH KEY
+CREATE NEW SSH KEY FOR CLOUDPANEL ADMIN
 ==================
 ssh-keygen -t rsa -b 4096 -f ~/.ssh/[KEY_NAME]
 ssh-keygen -p -m PEM -f ~/.ssh/[KEY_NAME]
@@ -841,6 +841,31 @@ Intinya CloudPanel cocok untuk control panel turunan (bukan control panel induk)
 - install moodle -> BISA
 - install slims -> BISA
 - install ojs -> tidak bisa karena ojs lebih ke apache/litespeed
+
+=====================================
+Buat Akses SSH untuk Programmer di VS Code
+=====================================
+# Pastikan sudah membuat dan menyimpan password ssh di Cloudpanel > Sites > Pilih situs > tab Settings > kolom Site User Settings > Ketik password > Save
+# Install Extension Remote-SSH
+	- Buka Aplikasi VS Code.
+	- Masuk menu Menu Extensions.
+	- Cari "Remote – SSH" pada pencarian.
+	- Klik Install.
+# Akses Remote SSH melalui Visual Studio Code
+	- Masuk Menu "Remote Explorer" (di sidebar paling kiri, yang ada lambang monitor dengan koneksi ssh)
+	- Pada SSH TARGETS klik tombol configure (yang ada lambang gerigi)
+	- Kemudian pada SSH configuration file pilih ~.ssh\config
+	- Masukan konfigurasi SSH untuk server, contoh format sebagai berikut :
+		Host [MY_SUBDOMAIN]
+		    HostName [IP_ADDRESS_SSH]
+		    User [USER_SSH]
+		    Port [PORT_SSH]
+	- Kemudian simpan, nantinya konfigurasi server akan muncul di list SSH.
+	- Selanjutnya untuk melakukan koneksi ssh ke server, klik tanda "➜" (Connect in Current Window).
+	- Akan muncul pilihan Linux/Windows, pilih Linux.
+	- Akan muncul form untuk mengisikan password ssh, isikan passwordnya.
+	- Jika password valid dan koneksi ssh pada VS Code sudah berhasil akan muncul tab Welcome yang ada New File, Open File, Open Folder.
+	- Klik "Open Folder" untuk membuka folder project, sekarang Anda dapat mengedit file, maupun mengelola file secara langsung melalui aplikasi VS Code.
 
 =====================================
 Install LFM (Last File Manager)
