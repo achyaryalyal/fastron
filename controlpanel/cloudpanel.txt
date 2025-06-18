@@ -864,7 +864,7 @@ Buat Akses SSH untuk Programmer di VS Code
 	- Selanjutnya untuk melakukan koneksi ssh ke server, klik tanda "➜" (Connect in Current Window).
 	- Akan muncul pilihan Linux/Windows, pilih Linux.
 	- Akan muncul form untuk mengisikan password ssh, isikan passwordnya.
-	- Jika password valid dan koneksi ssh pada VS Code sudah berhasil akan muncul tab Welcome yang ada New File, Open File, Open Folder.
+	- Jika password valid dan koneksi ssh pada VS Code sudah berhasil maka Host tersebut akan berwarna hijau dan akan muncul tab Welcome yang ada New File, Open File, Open Folder.
 	- Klik "Open Folder" untuk membuka folder project, sekarang Anda dapat mengedit file, maupun mengelola file secara langsung melalui aplikasi VS Code.
 
 =====================================
