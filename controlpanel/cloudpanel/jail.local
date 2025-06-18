@@ -1,0 +1,11 @@
+[DEFAULT]
+bantime = 1m
+findtime = 10m
+maxretry = 5
+backend = systemd
+[sshd]
+enabled = true
+logpath = %(sshd_log)s
+port = 10022
+banaction = iptables
+maxretry = 3
