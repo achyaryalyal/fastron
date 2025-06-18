@@ -18,12 +18,14 @@ thread_cache_size = 128
 table_open_cache = 500000
 sort_buffer_size = 8M
 innodb = force
+;innodb_buffer_pool_size ideally 50-70% of total RAM.
 innodb_buffer_pool_size = 4G
 innodb_log_file_size = 256M
 innodb_stats_on_metadata = OFF
 innodb_buffer_pool_instances = 8
 innodb_log_buffer_size = 512M
 innodb_flush_log_at_trx_commit = 2
+;innodb_thread_concurrency usually number of cores * 2. Try using 16 if you have 8 cores, or using 8 if you have 4 cores.
 innodb_thread_concurrency = 16
 join_buffer_size = 8M
 tmp_table_size = 128M
@@ -37,6 +39,7 @@ max_connections = 512
 myisam_sort_buffer_size = 512M
 explicit_defaults_for_timestamp = 1
 open_files_limit = 500000
+;table_definition_cache depends on traffic, 8192 is safe if there are many tables and heavy traffic.
 table_definition_cache = 8192
 table_open_cache = 500000
 log_bin_trust_function_creators = 1
