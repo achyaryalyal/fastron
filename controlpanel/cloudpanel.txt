@@ -551,7 +551,7 @@ sudo apt update && sudo apt install unoconv
 nano /home/bbg-spada/mount-spada-google-drive.sh
 # paste it
 	#!/bin/bash
-	/usr/bin/rclone mount spada-storage-mounting: /home/bbg-spada/htdocs/spadadata/filedir --allow-non-empty --allow-other --dir-cache-time 72h --buffer-size 64M --drive-chunk-size 64M --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-cache-max-age 6h --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
+	/usr/bin/rclone mount spada-storage-mounting: /home/bbg-spada/htdocs/spadadata/filedir --allow-non-empty --allow-other --dir-cache-time 72h --buffer-size 512M --drive-chunk-size 256M --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
 # make it executable
 chmod +x /home/bbg-spada/mount-spada-google-drive.sh
 # add to cronjob
