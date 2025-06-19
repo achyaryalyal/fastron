@@ -196,6 +196,12 @@ systemctl restart mariadb
 	sudo tail -f /var/log/mysql/slow.log
 
 ================
+MYSQLTUNNER (a script written in Perl that will assist you with your MySQL configuration and make recommendations for increased performance and stability)
+================
+$ cd /opt && wget https://raw.githubusercontent.com/major/MySQLTuner-perl/master/mysqltuner.pl && chmod +x /opt/mysqltuner.pl
+$ sudo perl /opt/mysqltuner.pl --host 127.0.0.1 --user root --pass [MYSQL_PSWD]
+
+================
 BACKUP & RESTORE
 ================
 # CloudPanel creates a dump of each backup database every midnight. To disable autobackup task, just comment out the line
