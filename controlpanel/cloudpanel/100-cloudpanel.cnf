@@ -16,11 +16,10 @@ performance_schema = ON
 ;log_queries_not_using_indexes = 1
 
 thread_cache_size = 128
-table_open_cache = 8192
 sort_buffer_size = 8M
 innodb = force
 ;innodb_buffer_pool_size ideally 50-70% of total RAM.
-innodb_buffer_pool_size = 10.3G
+innodb_buffer_pool_size = 11G
 innodb_log_file_size = 1G
 innodb_stats_on_metadata = OFF
 innodb_buffer_pool_instances = 8
@@ -40,9 +39,9 @@ bulk_insert_buffer_size = 64M
 max_connections = 512
 myisam_sort_buffer_size = 8M
 explicit_defaults_for_timestamp = 1
-open_files_limit = 500000
+open_files_limit = 32768
 ;table_definition_cache depends on traffic, 8192 is safe if there are many tables and heavy traffic.
 table_definition_cache = 8192
-table_open_cache = 8000
+table_open_cache = 8192
 log_bin_trust_function_creators = 1
 disable_log_bin
