@@ -773,7 +773,7 @@ https://rclone.org/drive/#making-your-own-client-id
 # move source to destination: rclone move hello.txt AMC:Data
 # print total size & number of objects: rclone size AMC:Data
 # mount example 1: rclone mount AMC:Data /path/to/local/mount --allow-non-empty --allow-other --vfs-cache-mode writes &
-# mount example 2: rclone mount spada-storage-mounting: /home/bbg-spada/htdocs/spadadata/filedir-google-drive --allow-non-empty --allow-other --dir-cache-time 72h --buffer-size 512M --drive-chunk-size 256M --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
+# mount example 2: rclone mount spada-storage-mounting: /home/bbg-spada/htdocs/spadadata/filedir-google-drive --allow-non-empty --allow-other --dir-cache-time 72h --buffer-size 512M --drive-chunk-size 256M --vfs-cache-mode full --vfs-cache-max-age 168h --vfs-cache-max-size 10G --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
 	# NOTE: adjust --vfs-cache-max-size to 15-20% of your total local disk capacity
 # unmount: fusermount -u /path/to/local/mount
 # this is the path you mounted the storage to, if you don't know the path, run: mount | grep rclone
@@ -789,8 +789,8 @@ chown -R www-data:www-data /var/www/[TARGET_DIR_NAME] && chmod -R 775 /var/www/[
 nano /mount-google-drive.sh
 # paste it
 	#!/bin/bash
-	/usr/bin/rclone mount bbg-cabinet-mounting:cabinet-master /var/www/master/cabinet --allow-non-empty --allow-other --dir-cache-time 168h --buffer-size 64M --fast-list --drive-pacer-burst 200 --drive-pacer-min-sleep 10ms --drive-chunk-size 256M --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-read-chunk-size 256M --vfs-read-chunk-size-limit 1G &
-	/usr/bin/rclone mount bbg-cabinet-mounting:cabinet-development /var/www/development/cabinet --allow-non-empty --allow-other --dir-cache-time 168h --buffer-size 64M --fast-list --drive-pacer-burst 200 --drive-pacer-min-sleep 10ms --drive-chunk-size 256M --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-read-chunk-size 256M --vfs-read-chunk-size-limit 1G &
+	/usr/bin/rclone mount bbg-cabinet-mounting:cabinet-master /var/www/master/cabinet --allow-non-empty --allow-other --dir-cache-time 168h --buffer-size 64M --fast-list --drive-pacer-burst 200 --drive-pacer-min-sleep 10ms --drive-chunk-size 256M --vfs-cache-mode full --vfs-cache-max-age 168h --vfs-cache-max-size 10G --vfs-read-chunk-size 256M --vfs-read-chunk-size-limit 1G &
+	/usr/bin/rclone mount bbg-cabinet-mounting:cabinet-development /var/www/development/cabinet --allow-non-empty --allow-other --dir-cache-time 168h --buffer-size 64M --fast-list --drive-pacer-burst 200 --drive-pacer-min-sleep 10ms --drive-chunk-size 256M --vfs-cache-mode full --vfs-cache-max-age 168h --vfs-cache-max-size 10G --vfs-read-chunk-size 256M --vfs-read-chunk-size-limit 1G &
 	# NOTE: adjust --vfs-cache-max-size to 15-20% of your total local disk capacity
 # make it executable
 chmod +x /mount-google-drive.sh
