@@ -595,7 +595,8 @@ disable_functions=pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexite
 nano /home/bbg-spada/mount-spada-google-drive.sh
 # paste it
 	#!/bin/bash
-	/usr/bin/rclone mount spada-storage-mounting: /home/bbg-spada/htdocs/spadadata/filedir --allow-non-empty --allow-other --dir-cache-time 72h --buffer-size 512M --drive-chunk-size 256M --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-read-chunk-size 128M --vfs-read-chunk-size-limit 1G &
+	/usr/bin/rclone mount spada-storage-mounting: /home/bbg-spada/htdocs/spadadata/filedir --allow-non-empty --allow-other --dir-cache-time 168h --buffer-size 64M --fast-list --drive-pacer-burst 200 --drive-pacer-min-sleep 10ms --drive-chunk-size 256M --vfs-cache-mode full --vfs-cache-max-size 10G --vfs-read-chunk-size 256M --vfs-read-chunk-size-limit 1G &
+	# NOTE: adjust --vfs-cache-max-size to 15-20% of your total local disk capacity
 # make it executable
 chmod +x /home/bbg-spada/mount-spada-google-drive.sh
 # add to cronjob
