@@ -20,20 +20,20 @@ table_open_cache = 500000
 sort_buffer_size = 8M
 innodb = force
 ;innodb_buffer_pool_size ideally 50-70% of total RAM.
-innodb_buffer_pool_size = 4G
-innodb_log_file_size = 256M
+innodb_buffer_pool_size = 10.3G
+innodb_log_file_size = 1G
 innodb_stats_on_metadata = OFF
 innodb_buffer_pool_instances = 8
-innodb_log_buffer_size = 512M
+innodb_log_buffer_size = 600M
 innodb_flush_log_at_trx_commit = 2
 ;innodb_thread_concurrency usually number of cores * 2. Try using 16 if you have 8 cores, or using 8 if you have 4 cores.
 innodb_thread_concurrency = 16
 innodb_print_all_deadlocks = 1
-join_buffer_size = 16M
-tmp_table_size = 128M
-key_buffer_size = 128M
+join_buffer_size = 20M
+tmp_table_size = 256M
+key_buffer_size = 256M
 max_allowed_packet = 64M
-max_heap_table_size = 128M
+max_heap_table_size = 256M
 read_rnd_buffer_size = 16M
 read_buffer_size = 2M
 bulk_insert_buffer_size = 64M
