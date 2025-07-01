@@ -184,6 +184,24 @@ nano /etc/mysql/mariadb.conf.d/100-cloudpanel.cnf
 systemctl restart mariadb
 # make sure no strict mode in query result "SELECT @@SQL_MODE, @@GLOBAL.SQL_MODE;" to make your coding no more warning/error
 ###
+# MAKE SURE NO [ERROR] & [WARNING] in systemctl status mariadb
+# to prevent "[Warning] Could not increase number of max_open_files to more than XXX (request: YYY)"
+# you must set open_files limits
+	$ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/security.limits.conf > /etc/security/limits.conf
+	$ sysctl -w fs.file-max=500000
+	$ sysctl -p
+	$ nano /etc/sysctl.conf
+	# add this line: fs.file-max=500000
+	# apply the setting:
+	$ sysctl -p
+# and adjust mariadb LimitNOFILE in:
+	$ egrep -r LimitNOFILE /lib/systemd/system/m* 
+	or
+	$ egrep -r LimitNOFILE /etc/systemd/system/m*
+	# adjust the value: LimitNOFILE=YYY ====> YYY is what you get in "request: YYY" on "systemctl status mariadb"
+	$ systemctl daemon-reload
+	$ systemctl restart mariadb
+###
 # OPTIONAL: enable slow query log to find out SQL queries that are slowing down your dynamic web app
 # remove comment on line:
 	slow_query_log = 1
