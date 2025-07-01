@@ -506,14 +506,21 @@ INSTALL MOODLE AT CLOUDPANEL
 ============================
 # Click on + Add Site and then click on Create a PHP Site
 # Select the Application Moodle 4, enter Domain Name, Site User, Site User Password, and click on Create
-# Creating a Moodle Project (v4.1.0 support PHP 8)
-cd /opt && curl -sL https://github.com/moodle/moodle/archive/refs/tags/v4.1.0.tar.gz | tar xfz -
-cp -R /opt/moodle-4.1.0/* /home/[USER_NAME]/htdocs/[SITE_DOMAIN]/
+# Creating a Moodle Project (v4.5 support PHP 8.3)
+cd /opt && curl -sL https://github.com/moodle/moodle/archive/refs/tags/v4.5.4.tar.gz | tar xfz -
+cp -R /opt/moodle-4.5.4/* /home/[USER_NAME]/htdocs/[SITE_DOMAIN]/
 rm -rf /opt/moodle-*
-# install unoconv for moodle document converter, you can enable the plugin and fill the path: /usr/bin/unoconv
-sudo apt update && sudo apt install unoconv
+sudo apt update
+# sudo apt install unoconv => for moodle document converter, you can enable and fill the path: /usr/bin/unoconv
+# php installed, you can allow cron scripts can be executed from admin web interface, you can enable and fill the path: /usr/bin/php
+# du installed, pages that display directory contents will run much faster for directories with a lot of files, you can enable and fill the path: /usr/bin/du
+# sudo apt install aspell => for moodle spell-checking within the editor, you can enable and fill the path: /usr/bin/aspell
+# sudo apt install graphviz => to be able to generate graphics from DOT files, you can enable and fill the path: /usr/bin/dot
+# gs installed, you can fill the path: /usr/bin/gs
+# sudo apt install poppler-utils => PDF rendering library which includes the tool pdftoppm for converting PDF files to PNG, you can enable and fill the path: /usr/bin/pdftoppm
+# python installed => path to your executable Python binary, you can enable and fill the path: /usr/bin/python3
 # In "PHP Settings"
-	make sure version=PHP 8.1; // because 8.2 still deprecated: Creation of dynamic property cache_config::$configlockmappings
+	make sure version=PHP 8.3;
 	make sure max_execution_time=3m; // prevent fatal error during upgrade: Maximum execution time of 30 seconds exceeded
 	make sure max_input_vars=100000;
 	date.timezone=Asia/Jakarta;
@@ -524,11 +531,48 @@ sudo apt update && sudo apt install unoconv
   # START HARDENING
   add_header Strict-Transport-Security "max-age=31536000; includeSubdomains; preload";
   # END HARDENING
+# In "Vhost", make sure use php fastcgi like in moodle documentation, and adjust memory limit:
+  location ~ \.php$ { # https://docs.moodle.org/405/en/Nginx#FastCGI_Configuration
+    # Split the path info based on URI.
+    fastcgi_split_path_info ^(.+\.php)(/.*)$;
+    # Note: Store the original path_info. It will be wiped out in a moment by try_files.
+    set $path_info $fastcgi_path_info;
+    # Look for the php file. If not round then jump to @routed.
+    try_files $fastcgi_script_name $fastcgi_script_name/;
+    # File was found - pass to fastcgi.
+    fastcgi_pass   127.0.0.1:18521;
+    include        fastcgi_params;
+    # Re-apply the path_info after including fastcgi_params.
+    fastcgi_param PATH_INFO $path_info;
+    fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+    fastcgi_param DOCUMENT_ROOT $realpath_root;
+
+    #include fastcgi_params;
+    fastcgi_intercept_errors on;
+    fastcgi_index index.php;
+    #fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+    #try_files $uri =404;
+    fastcgi_read_timeout 3600;
+    fastcgi_send_timeout 3600;
+    fastcgi_param HTTPS $fastcgi_https;
+    #fastcgi_pass 127.0.0.1:18521;
+    fastcgi_param PHP_VALUE "
+error_log=/home/bbg-spada/logs/php/error.log;
+memory_limit=2G;
+max_execution_time=180;
+max_input_time=60;
+max_input_vars=100000;
+post_max_size=32M;
+upload_max_filesize=32M;
+date.timezone=Asia/Jakarta;
+display_errors=off;
+disable_functions=pcntl_alarm,pcntl_fork,pcntl_waitpid,pcntl_wait,pcntl_wifexited,pcntl_wifstopped,pcntl_wifsignaled,pcntl_wifcontinued,pcntl_wexitstatus,pcntl_wtermsig,pcntl_wstopsig,pcntl_signal,pcntl_signal_get_handler,pcntl_signal_dispatch,pcntl_get_last_error,pcntl_strerror,pcntl_sigprocmask,pcntl_sigwaitinfo,pcntl_sigtimedwait,pcntl_exec,pcntl_getpriority,pcntl_setpriority,pcntl_async_signals,pcntl_unshare,gzinflate,phpinfo;";
+  }
 # In "Databases", create a database
 # In "SSL/TLS", create and install Let's Encrypt Certificate
-# In "Cron Jobs", add cron job every minute: /usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/cli/cron.php
-# In "Cron Jobs", add cron job every hourly: /usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/cli/scheduled_task.php --execute="\core\task\file_trash_cleanup_task"
-# In "Cron Jobs", add cron job every day: /usr/bin/php8.1 /[YOUR_MOODLE_PATH]/admin/cli/kill_all_sessions.php
+# In "Cron Jobs", add cron job every minute: /usr/bin/php8.3 /[YOUR_MOODLE_PATH]/admin/cli/cron.php
+# In "Cron Jobs", add cron job every hourly: /usr/bin/php8.3 /[YOUR_MOODLE_PATH]/admin/cli/scheduled_task.php --execute="\core\task\file_trash_cleanup_task"
+# In "Cron Jobs", add cron job every day: /usr/bin/php8.3 /[YOUR_MOODLE_PATH]/admin/cli/kill_all_sessions.php
 	curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/moodle/script-moodle-list-old-files.php > /[YOUR_MOODLE_PATH]/admin/script-moodle-list-old-files.php
 	curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/moodle/script-moodle-delete-old-files.sh > /[YOUR_MOODLE_PATH]/admin/script-moodle-delete-old-files.sh
 	chmod +x /[YOUR_MOODLE_PATH]/admin/script-moodle-delete-old-files.sh
@@ -558,7 +602,7 @@ chmod +x /home/bbg-spada/mount-spada-google-drive.sh
 crontab -e
 	# mount drive on boot
 	@reboot sh /home/bbg-spada/mount-spada-google-drive.sh
-# TROUBLESHOOT: Fix – broken page issue after Moodle 3.x installation on Nginx web server => https://dartinnovations.com/fix-broken-page-issue-after-moodle-3-x-installation-on-nginx-web-server/ 
+# TROUBLESHOOT: Fix – broken page issue after Moodle 3.x installation on Nginx web server => https://dartinnovations.com/fix-broken-page-issue-after-moodle-3-x-installation-on-nginx-web-server/
 
 ===========================
 INSTALL SLIMS AT CLOUDPANEL
