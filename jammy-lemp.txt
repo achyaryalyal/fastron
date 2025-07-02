@@ -807,6 +807,11 @@ crontab -e
 # so the solution is you must CREATE NEW REMOTE STORAGE
 # and test list dir: rclone lsd AMC:
 
+########## Rclone: Prefetch/Preload files into VFS cache in background process ###########
+$ nohup find /path/to/mount/folder-you-want-to-prefetch-files -type f -exec cat {} \; > /dev/null 2>&1 &
+# check background process:
+$ pgrep -a find && ps -ef | grep "cat "
+
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 ! Install Code Server - VS Code in the browser (GAK PERLU)
 !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
