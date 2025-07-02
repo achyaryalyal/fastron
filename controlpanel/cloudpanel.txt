@@ -328,6 +328,11 @@ https://rclone.org/drive/#making-your-own-client-id
 # Sometimes Google ask you to "submit your app for verification" and then wait a few weeks for their response
 # But in practice, you can go right ahead and use the client ID and client secret with rclone, the only issue will be a very scary confirmation screen shown when you connect via your browser for rclone to be able to get its token-id
 # If you don't want to go through verification process, you can choose Internal type (not External). But with Internal mode, your app is limited to Google Workspace users within your organization
+###
+	# If you want to Prefetch/Preload files into VFS cache in background process, run this command:
+	$ nohup find /path/to/mount/folder-you-want-to-prefetch-files -type f -exec cat {} \; > /dev/null 2>&1 &
+	# check background process:
+	$ pgrep -a find && ps -ef | grep "cat "
 
 ===============
 EDIT SSH CONFIG
