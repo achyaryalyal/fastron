@@ -213,6 +213,27 @@ systemctl restart mariadb
 # view your slow query log:
 	sudo tail -f /var/log/mysql/slow.log
 
+=======
+MARIADB BACKUP
+=======
+# install mariadb-backup, you must use a version of mariadb-backup that is compatible with current mariadb-server version
+	$ sudo apt install mariadb-backup
+# full backup and restore
+	$ mariadb-backup --backup --target-dir=/var/mariadb/backup/ --user=mariadb-backup --password=mypassword
+	$ ls /var/mariadb/backup/
+# restoring the backup
+# step 1: stop the MariaDB Server process.
+	$ systemctl stop mariadb
+# step 2: ensure that the datadir is empty.
+# step 3: preparing the backup for restoration to make the data files consistent.
+	$ mariadb-backup --prepare --target-dir=/var/mariadb/backup/
+# step 3: restore.
+	$ mariadb-backup --copy-back --target-dir=/var/mariadb/backup/
+# step 4: fix the file permissions.
+	$ chown -R mysql:mysql /var/lib/mysql/
+# step 5: start the MariaDB Server process.
+	$ systemctl start mariadb
+
 ================
 MYSQLTUNNER (a script written in Perl that will assist you with your MySQL configuration and make recommendations for increased performance and stability)
 ================
