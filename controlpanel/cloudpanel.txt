@@ -214,7 +214,7 @@ systemctl restart mariadb
 	sudo tail -f /var/log/mysql/slow.log
 
 =======
-MARIADB BACKUP
+FULL BACKUP & FULL RESTORE WITH MARIADB BACKUP
 =======
 # install mariadb-backup, you must use a version of mariadb-backup that is compatible with current mariadb-server version
 	$ sudo apt install mariadb-backup
