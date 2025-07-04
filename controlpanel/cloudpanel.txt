@@ -246,7 +246,9 @@ MANUAL UPGRADE MARIADB
 # NOTE: doing upgrade must step by step
 # migrate from one LTS to next one, so you arrived to latest LTS version.
 # read this: https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/upgrading/upgrading-from-to-specific-versions
-# check supported mariadb upgrade version with supported OS version at: https://mariadb.com/downloads/
+# check supported mariadb upgrade version with supported OS version at:
+	https://mariadb.com/downloads/
+	https://mariadb.org/download/
 ###
 # read https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage
 # run download script, to provide options to the script, you must tell your to expect them by executing bash with the options -s --, for example:
