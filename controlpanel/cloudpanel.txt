@@ -243,7 +243,6 @@ MANUAL UPGRADE MARIADB
 # check installed mariadb version
 	$ sudo apt list --installed | grep "^mariadb"
 # check supported mariadb upgrade version with supported OS version at: https://mariadb.com/downloads/
-# read https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/upgrading/upgrading-from-to-specific-versions
 # read https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/installing-mariadb/binary-packages/mariadb-package-repository-setup-and-usage
 # run download script, to provide options to the script, you must tell your to expect them by executing bash with the options -s --, for example:
 	$ curl -LsS https://r.mariadb.com/downloads/mariadb_repo_setup | sudo bash -s -- --mariadb-server-version=10.11
@@ -251,7 +250,10 @@ MANUAL UPGRADE MARIADB
 	$ sudo apt list --installed | grep "^mariadb"
 	$ sudo mariadb --version
 # check your data in database (need restore or not)
-# NOTE: doing upgrade must step by step, migrate from one LTS to next one, so your arrived to latest LTS version.
+###
+# NOTE: doing upgrade must step by step
+# migrate from one LTS to next one, so you arrived to latest LTS version.
+# read this: https://mariadb.com/docs/server/server-management/install-and-upgrade-mariadb/upgrading/upgrading-from-to-specific-versions
 
 ================
 MYSQLTUNNER (a script written in Perl that will assist you with your MySQL configuration and make recommendations for increased performance and stability)
