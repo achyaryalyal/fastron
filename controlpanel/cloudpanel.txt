@@ -923,10 +923,10 @@ WILDCARD TLS/SSL USING ACME.SH & CLOUDFLARE DNS API
 # Go to My Profile > API Tokens > Create Token > Edit Zone DNS > Use template
 # Permissions = Edit; Zone Resources = Select your domain; click "Continue to summary"; click "Create token"
 # Verify it's installed: acme.sh --version
-# Install acme.sh:
+# Install acme.sh with --force (replace old cert) and without --ocsp-must-staple (no longer supported)
 curl https://get.acme.sh | sh -s email=[YOUR_EMAIL_DOMAIN_HERE]
 export CF_Token="[YOUR_CLOUDFLARE_DNS_API_KEY_HERE]"
-bash /root/.acme.sh/acme.sh --issue --dns dns_cf --ocsp-must-staple --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
+bash /root/.acme.sh/acme.sh --issue --force --dns dns_cf --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
 # Your Cloudflare DNS API key is stored in /root/.acme.sh/account.conf file and we can see it using the cat
 cat /root/.acme.sh/account.conf
 # Display the content of the CSR
@@ -941,7 +941,9 @@ DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /r
 crontab -l
 	# automatic certificates renewal every day at 00:35 WIB
 	35 0 * * * "/root/.acme.sh"/acme.sh --cron --home "/root/.acme.sh" > /dev/null
-# we can also do the manual TLS/SSL cert renewal: bash /root/.acme.sh/acme.sh --renew --force --dns dns_cf --ocsp-must-staple --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
+###
+# we can also do the "manual" TLS/SSL cert renewal:
+$ bash /root/.acme.sh/acme.sh --renew --force --dns dns_cf --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
 
 ============================
 Plus Minus CloudPanel
