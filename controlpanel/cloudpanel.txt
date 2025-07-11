@@ -315,7 +315,7 @@ ANOTHER PROJECT SUBDOMAIN TLS/SSL USING ACME.SH
 # Install acme.sh WITH NO API
 curl https://get.acme.sh | sh -s email=[YOUR_EMAIL_DOMAIN_HERE]
 # Set ACME client maintained by Let's Encrypt (not ZeroSSL by default since August-1st 2021)
-bash /root/.acme.sh/acme.sh --server letsencrypt --set-default-ca
+acme.sh --server letsencrypt --set-default-ca
 ### Issue certificate use nginx mode ###
 acme.sh --issue --nginx -d example.com -d www.example.com -d cp.example.com
 # Use example.key for ssl_certificate_key
@@ -923,27 +923,27 @@ WILDCARD TLS/SSL USING ACME.SH & CLOUDFLARE DNS API
 # Go to My Profile > API Tokens > Create Token > Edit Zone DNS > Use template
 # Permissions = Edit; Zone Resources = Select your domain; click "Continue to summary"; click "Create token"
 # Verify it's installed: acme.sh --version
-# Install acme.sh with --force (replace old cert) and without --ocsp-must-staple (no longer supported)
+# Install wildcard cert with --force (replace old cert) and without --ocsp-must-staple (no longer supported)
 curl https://get.acme.sh | sh -s email=[YOUR_EMAIL_DOMAIN_HERE]
 export CF_Token="[YOUR_CLOUDFLARE_DNS_API_KEY_HERE]"
-bash /root/.acme.sh/acme.sh --issue --force --dns dns_cf --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
+acme.sh --issue --force --dns dns_cf --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
 # Your Cloudflare DNS API key is stored in /root/.acme.sh/account.conf file and we can see it using the cat
 cat /root/.acme.sh/account.conf
 # Display the content of the CSR
-DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh --showcsr --csr "${CONFIG_ROOT}/$DOMAIN.csr"
+DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && acme.sh --showcsr --csr "${CONFIG_ROOT}/$DOMAIN.csr"
 # Set ACME client maintained by Let's Encrypt (not ZeroSSL by default since August-1st 2021)
-bash /root/.acme.sh/acme.sh --server letsencrypt --set-default-ca
+acme.sh --server letsencrypt --set-default-ca
 # Issue a cert (CRT file) from existing CSR
-DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh --signcsr --csr "${CONFIG_ROOT}/$DOMAIN.csr" --dns dns_cf
+DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && acme.sh --signcsr --csr "${CONFIG_ROOT}/$DOMAIN.csr" --dns dns_cf
 # Installing Let's Encrypt wildcard certificate
-DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && bash /root/.acme.sh/acme.sh -d "$DOMAIN" --install-cert --reloadcmd "systemctl reload nginx" --fullchain-file "${CONFIG_ROOT}/fullchain.cer" --key-file "${CONFIG_ROOT}/$DOMAIN.key" --cert-file "${CONFIG_ROOT}/$DOMAIN.cer"
+DOMAIN="[YOUR_DOMAIN_HERE]" && CONFIG_ROOT="/root/.acme.sh/${DOMAIN}" && acme.sh -d "$DOMAIN" --install-cert --reloadcmd "systemctl reload nginx" --fullchain-file "${CONFIG_ROOT}/fullchain.cer" --key-file "${CONFIG_ROOT}/$DOMAIN.key" --cert-file "${CONFIG_ROOT}/$DOMAIN.cer"
 # It's automatically configure a cron jobs to renew our wildcard based certificate
 crontab -l
 	# automatic certificates renewal every day at 00:35 WIB
 	35 0 * * * "/root/.acme.sh"/acme.sh --cron --home "/root/.acme.sh" > /dev/null
 ###
 # we can also do the "manual" TLS/SSL cert renewal:
-$ bash /root/.acme.sh/acme.sh --renew --force --dns dns_cf --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
+$ acme.sh --renew --force --dns dns_cf --keylength 4096 -d [YOUR_DOMAIN_HERE] -d '*.[YOUR_DOMAIN_HERE]'
 
 ============================
 Plus Minus CloudPanel
