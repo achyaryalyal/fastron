@@ -150,6 +150,28 @@ nano /etc/dphys-swapfile
 # create and enable it
 dphys-swapfile setup && dphys-swapfile swapon && swapon --show
 
+=======================================
+DISPLAY CURRENT SWAP CONSUMING PROCESSES
+=======================================
+sudo apt update && sudo apt install smem
+smem -rs swap
+
+=======================================
+DISPLAY CURRENT RAM CONSUMING PROCESSES
+=======================================
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/ramstat.sh > /etc/ramstat.sh
+chmod +x /etc/ramstat.sh && chmod 0755 /etc/ramstat.sh
+cp /etc/ramstat.sh /usr/bin/.
+ramstat.sh
+
+====================================
+DISPLAY CURRENT CPU USAGE PERCENTAGE
+====================================
+curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/cpustat.sh > /etc/cpustat.sh
+chmod +x /etc/cpustat.sh && chmod 0755 /etc/cpustat.sh
+cp /etc/cpustat.sh /usr/bin/.
+cpustat.sh
+
 =======
 IMAGICK
 =======
@@ -872,22 +894,6 @@ chown -R clp:clp atheos && chmod -R 775 atheos
     # after install plugin, refresh this file from URL to flush cache
 	atheos/public/plugins.min.js
 	atheos/public/plugins.min.css
-
-====================================
-DISPLAY CURRENT CPU USAGE PERCENTAGE
-====================================
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/cpustat.sh > /etc/cpustat.sh
-chmod +x /etc/cpustat.sh && chmod 0755 /etc/cpustat.sh
-cp /etc/cpustat.sh /usr/bin/.
-cpustat.sh
-
-=======================================
-DISPLAY CURRENT RAM CONSUMING PROCESSES
-=======================================
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/ramstat.sh > /etc/ramstat.sh
-chmod +x /etc/ramstat.sh && chmod 0755 /etc/ramstat.sh
-cp /etc/ramstat.sh /usr/bin/.
-ramstat.sh
 
 =======================================
 DOWNLOAD FILE FROM GOOGLE DRIVE
