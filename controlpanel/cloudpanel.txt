@@ -161,23 +161,26 @@ sudo sysctl vm.swappiness=20
 DISPLAY CURRENT SWAP CONSUMING PROCESSES
 =======================================
 sudo apt update && sudo apt install smem
-sudo smem -rs swap | head -n 10
+sudo smem -ars swap -c "name user swap command" | head -n 17
 
 =======================================
 DISPLAY CURRENT RAM CONSUMING PROCESSES
 =======================================
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/ramstat.sh > /etc/ramstat.sh
-chmod +x /etc/ramstat.sh && chmod 0755 /etc/ramstat.sh
-cp /etc/ramstat.sh /usr/bin/.
-ramstat.sh
+ps aux --sort=-%mem | head -n 5 | awk '{print $4"%", "\t"$1, "\t"$11}'
+###curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/ramstat.sh > /etc/ramstat.sh
+###chmod +x /etc/ramstat.sh && chmod 0755 /etc/ramstat.sh
+###cp /etc/ramstat.sh /usr/bin/.
+###ramstat.sh
 
 ====================================
 DISPLAY CURRENT CPU USAGE PERCENTAGE
 ====================================
-curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/cpustat.sh > /etc/cpustat.sh
-chmod +x /etc/cpustat.sh && chmod 0755 /etc/cpustat.sh
-cp /etc/cpustat.sh /usr/bin/.
-cpustat.sh
+grep 'cpu[0-9]' /proc/stat | awk '{usage=($2+$4)*100/($2+$4+$5); printf "%s\t %.0f%%\n", $1, usage}'
+ps -eo pcpu,comm,user:20,cmd --sort=-pcpu | awk '{print $1"%", "\t"$2" ("$3") "$4}' | head -n 15
+###curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/cpustat.sh > /etc/cpustat.sh
+###chmod +x /etc/cpustat.sh && chmod 0755 /etc/cpustat.sh
+###cp /etc/cpustat.sh /usr/bin/.
+###cpustat.sh
 
 =======
 IMAGICK
