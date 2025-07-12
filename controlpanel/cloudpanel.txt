@@ -161,7 +161,7 @@ sudo sysctl vm.swappiness=20
 DISPLAY CURRENT SWAP CONSUMING PROCESSES
 =======================================
 sudo apt update && sudo apt install smem
-smem -rs swap
+sudo smem -rs swap | head -n 10
 
 =======================================
 DISPLAY CURRENT RAM CONSUMING PROCESSES
