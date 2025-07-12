@@ -48,9 +48,8 @@ for ip, count in counter.most_common():
             if ip_obj in net:
                 found = '✅ sudah di-deny'
                 break
-        # Tampilkan semua atau hanya yang belum di-deny, sesuai kebutuhan
-        # if found == '❌ belum di-deny':
-        print(f'https://ipinfo.io/{ip:<20}: {count:5} kali - {found}')
-        #print(f"{ip:<40} : {count:5} kali - {found}")
+        if found == '❌ belum di-deny':
+            print(f'https://ipinfo.io/{ip:<20}: {count:5} kali - {found}')
+            #print(f"{ip:<40} : {count:5} kali - {found}")
     except Exception:
         print(f'{ip}\t: {count:5} kali - ⚠ invalid IP')
