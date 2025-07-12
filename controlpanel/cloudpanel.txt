@@ -182,6 +182,25 @@ ps -eo pcpu,comm,user:20,cmd --sort=-pcpu | awk '{print $1"%", "\t"$2" ("$3") "$
 ###cp /etc/cpustat.sh /usr/bin/.
 ###cpustat.sh
 
+====================================
+NGINX DENY IP
+====================================
+cd /etc/nginx && mkdir daftarblokir && cd daftarblokir
+# put downloaden asn file for nginx deny at https://www.ip2location.com/free/visitor-blocker-asn
+# give comment on #location / {
+# give comment on #}
+nano /etc/nginx/nginx.conf
+	# Include blocklist deny IP
+	include /etc/nginx/daftarblokir/custom_deny_ip.conf;
+	include /etc/nginx/daftarblokir/asn_deny_14061_ipv4_digital_ocean.conf;
+	include /etc/nginx/daftarblokir/asn_deny_14061_ipv6_digital_ocean.conf;
+# compare nginx log with file deny IP
+cd /var/www/logs
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/refs/heads/master/nginx/cek_ip_belum_deny.py && chmod +x cek_ip_belum_deny.py
+/usr/bin/python3 /var/www/logs/cek_ip_belum_deny.py
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/refs/heads/master/nginx/cek_ip_sudah_dan_belum_deny.py && chmod +x cek_ip_sudah_dan_belum_deny.py
+/usr/bin/python3 /var/www/logs/cek_ip_sudah_dan_belum_deny.py
+
 =======
 IMAGICK
 =======
