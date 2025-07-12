@@ -47,5 +47,6 @@ for ip, count in counter.most_common():
                 found = '✅ sudah di-deny'
                 break
         print(f'https://ipinfo.io/{ip:<20}: {count:5} kali - {found}')
+        #print(f"{ip:<40} : {count:5} kali - {found}")
     except Exception:
         print(f"{ip:<40} : {count:5} kali - ⚠ invalid IP")
