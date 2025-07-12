@@ -196,10 +196,14 @@ nano /etc/nginx/nginx.conf
 	include /etc/nginx/daftarblokir/asn_deny_14061_ipv6_digital_ocean.conf;
 # compare nginx log with file deny IP
 cd /var/www/logs
-wget https://raw.githubusercontent.com/achyaryalyal/fastron/refs/heads/master/nginx/cek_ip_belum_deny.py && chmod +x cek_ip_belum_deny.py
-/usr/bin/python3 /var/www/logs/cek_ip_belum_deny.py
-wget https://raw.githubusercontent.com/achyaryalyal/fastron/refs/heads/master/nginx/cek_ip_sudah_dan_belum_deny.py && chmod +x cek_ip_sudah_dan_belum_deny.py
-/usr/bin/python3 /var/www/logs/cek_ip_sudah_dan_belum_deny.py
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/refs/heads/master/nginx/cek_ip_access_belum_deny.py && chmod +x cek_ip_access_belum_deny.py
+	/usr/bin/python3 /var/www/logs/cek_ip_access_belum_deny.py
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/refs/heads/master/nginx/cek_ip_access_sudah_dan_belum_deny.py && chmod +x cek_ip_access_sudah_dan_belum_deny.py
+	/usr/bin/python3 /var/www/logs/cek_ip_access_sudah_dan_belum_deny.py
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/refs/heads/master/nginx/cek_ip_error_belum_deny.py && chmod +x cek_ip_error_belum_deny.py
+	/usr/bin/python3 /var/www/logs/cek_ip_error_belum_deny.py
+wget https://raw.githubusercontent.com/achyaryalyal/fastron/refs/heads/master/nginx/cek_ip_error_sudah_dan_belum_deny.py && chmod +x cek_ip_error_sudah_dan_belum_deny.py
+	/usr/bin/python3 /var/www/logs/cek_ip_error_sudah_dan_belum_deny.py
 
 =======
 IMAGICK
