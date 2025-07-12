@@ -149,6 +149,13 @@ dphys-swapfile swapoff && dphys-swapfile uninstall
 nano /etc/dphys-swapfile
 # create and enable it
 dphys-swapfile setup && dphys-swapfile swapon && swapon --show
+###
+# change swappiness value because default 60 is aggressive
+# fine-tuning swappiness in Linux can improve system performance
+sudo sysctl vm.swappiness=20
+# make it permanent: sudo nano /etc/sysctl.conf
+# add this line, exit, save: vm.swappiness=20
+# apply: sudo sysctl -p
 
 =======================================
 DISPLAY CURRENT SWAP CONSUMING PROCESSES
