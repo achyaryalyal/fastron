@@ -20,7 +20,7 @@ for filename in glob.glob(DENY_DIR):
                 except Exception:
                     pass
 
-print(f"Loaded {len(subnets)} deny subnets")
+#print(f"Loaded {len(subnets)} deny subnets")
 
 # 2. Baca log access & ambil IP (kolom ke-3)
 ips = []
@@ -35,10 +35,15 @@ with open(ACCESS_LOG) as f:
 # 3. Hitung IP terbanyak
 counter = Counter(ips)
 
-print("\nDaftar IP terbanyak di access log Nginx:")
-print("----------------------------------------")
+minimal = 20
+printed = 0
+
+print(f"\nDaftar IP terbanyak di access log Nginx (minimal {minimal}):")
+print("-----------------------------------------------------")
 
 for ip, count in counter.most_common():
+    if count < minimal:
+        continue
     try:
         ip_obj = ipaddress.ip_address(ip)
         found = '❌ belum di-deny'
@@ -49,6 +54,10 @@ for ip, count in counter.most_common():
                 found = '✅ sudah di-deny'
                 break
         print(f'https://ipinfo.io/{ip:<20}: {count:5} kali - {found}')
-        #print(f"{ip:<40} : {count:5} kali - {found}")
+        printed += 1
     except Exception:
         print(f'{ip}\t: {count:5} kali - ⚠ invalid IP')
+        printed += 1
+
+if printed == 0:
+    print("Tidak ada IP yang memenuhi syarat.")
