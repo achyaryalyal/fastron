@@ -24,8 +24,8 @@ for filename in glob.glob(DENY_DIR):
 ips = []
 with open(LOG_FILE) as f:
     for line in f:
-        if 'access forbidden by rule' in line:
-            continue
+        #if 'access forbidden by rule' in line:
+        #    continue
         m = re.search(r'client: ([0-9a-fA-F:.]+)', line)
         if m:
             ips.append(m.group(1))
