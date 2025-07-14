@@ -838,6 +838,8 @@ if(isset($_GET)) {
   .bg-white {background-color:#e5f4ffd9!important;}
   .form-control {font-size:1.3rem!important;}
   </style>
+###
+# if createthumb.php has error, edit width=120 to 150 at /api/v1/helpers/Image.php
 
 ===================================================
 INSTALL IDE ATHEOS 5.5.6 https://github.com/Atheos/Atheos
