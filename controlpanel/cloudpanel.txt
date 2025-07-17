@@ -352,7 +352,7 @@ nano /home/clp/htdocs/app/files/public/phpmyadmin/config.inc.php
 # comment out this line to allow create database manually
 	//$cfg['ShowCreateDb'] = false;
 # put this line to change maximum viewable tables from default 250
-	$cfg['MaxTableList'] = 500;
+	$cfg['MaxTableList'] = 600;
 # Manual import database:
 	gunzip < file.sql.gz | mysql -u [DB_USER] -p [DB_NAME]
 	mysql -u [DB_USER] -p [DB_NAME] < file.sql
