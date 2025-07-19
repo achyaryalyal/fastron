@@ -446,8 +446,71 @@ service ssh restart
 # access CloudPanel menu Adnmin Area > Security
 # change SSH port from 22 to 10022 in ipv4 and ipv6, type "SSH" at description
 
+##################################
+# Install Crowdsec: a free, modern, and collaborative behavior detection engine coupled with a global IP reputation network.
+##################################
+curl -s https://packagecloud.io/install/repositories/crowdsec/crowdsec/script.deb.sh | sudo bash
+sudo apt install crowdsec crowdsec-firewall-bouncer-iptables
+sudo systemctl status crowdsec && sudo systemctl status crowdsec-firewall-bouncer
+sudo cscli parsers list
+sudo cscli scenarios list
+sudo cscli bouncers list
+sudo cscli collections list
+sudo cscli metrics
+sudo cscli decisions list
+# get your ??? at 
+sudo cscli console enroll -e context cmd8yzesq000bjp02el87k2iu
+sudo systemctl restart crowdsec && sudo systemctl restart crowdsec-firewall-bouncer
+sudo systemctl status crowdsec && sudo systemctl status crowdsec-firewall-bouncer
+# pastikan CrowdSec tidak error:
+sudo journalctl -u crowdsec -n 20
+# change port 8080 to 7777
+sudo nano /etc/crowdsec/config.yaml
+sudo nano /etc/crowdsec/local_api_credentials.yaml
+sudo nano /etc/crowdsec/bouncers/crowdsec-firewall-bouncer.yaml
+sudo systemctl restart crowdsec && sudo systemctl restart crowdsec-firewall-bouncer
+sudo systemctl status crowdsec && sudo systemctl status crowdsec-firewall-bouncer
+# make sure no error:
+sudo journalctl -u crowdsec -n 20
+###
+# create whitelist
+nano /etc/crowdsec/parsers/s02-enrich/mywhitelists.yaml
+==================
+name: my/whitelist
+description: "Custom whitelist IP agar tidak dianalisis"
+whitelist:
+  reason: "trusted ip"
+  ip:
+    # ip A
+    - "X.X.X.X"
+    # ip B
+    - "X.X.X.X"
+    # ip C
+    - "X.X.X.X"
+==================
+sudo systemctl reload crowdsec
+sudo cscli parsers list | grep whitelist
+### useful command:
+# ip
+sudo cscli decisions add --reason "permanent malicious ip" --duration 1000d --ip <IP>
+sudo cscli decisions list --scope ip --value <IP>
+sudo cscli decisions list --ip <IP>
+sudo cscli decisions delete --ip <IP>
+# range (subnet)
+sudo cscli decisions add --reason "permanent malicious subnet" --duration 1000d --range <SUBNET.0/24>
+sudo cscli decisions list --scope range --value <SUBNET.0/24>
+sudo cscli decisions list --range <SUBNET.0/24>
+sudo cscli decisions delete --range <SUBNET.0/24>
+# ssh scenario
+sudo cscli decisions list --scenario crowdsecurity/ssh-bf
+sudo cscli decisions list | grep ssh
+sudo cscli scenarios list | grep ssh
+sudo cscli decisions add --reason "manual ssh brute force" --scenario crowdsecurity/ssh-bf --duration 4h --ip <IP>
+sudo cscli decisions list --ip <IP>
+sudo cscli decisions delete --ip <IP>
+
 =========================
-ACTIVATE FAIL2BAN FOR SSH
+ACTIVATE FAIL2BAN FOR SSH (NOT USED, YOU CAN USE CROWDSEC)
 =========================
 # CloudPanel on a fresh install has fail2ban but it’s inactive
 # To see the status of Fail2ban run:
@@ -477,7 +540,6 @@ curl -sSL https://raw.githubusercontent.com/achyaryalyal/fastron/master/fail2ban
 chmod +x /etc/fail2ban/fail2ban-allstatus.sh && chmod 0755 /etc/fail2ban/fail2ban-allstatus.sh
 cp /etc/fail2ban/fail2ban-allstatus.sh /usr/bin/.
 fail2ban-allstatus.sh
-
 # If you are using Cloudflare proxy, you can set up a couple of rules at /etc/fail2ban/action.d/cloudflare.conf
 
 ===========================
