@@ -5,9 +5,16 @@ from collections import Counter
 import urllib.request
 import subprocess
 import requests
+from datetime import datetime
+import time
 
 LOG_FILE = "/var/www/logs/nginx/error.log"
 IPINFO_TOKEN = 'xxxxxxxxxx'  # Ganti token di sini
+
+now = datetime.now()
+formatted_time = now.strftime("%A, %d %B %Y %H:%M:%S")
+timezone = time.tzname[0]
+print(f"{formatted_time} {timezone}")
 
 # Fungsi untuk mendapatkan IP publik server
 def get_public_ip():
