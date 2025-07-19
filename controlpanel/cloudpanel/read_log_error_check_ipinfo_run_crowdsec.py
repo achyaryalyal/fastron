@@ -9,7 +9,7 @@ from datetime import datetime
 import time
 
 LOG_FILE = "/var/www/logs/nginx/error.log"
-IPINFO_TOKEN = 'xxxxxxxxxx'  # Ganti token di sini
+IPINFO_TOKEN = 'd05a4bc58d5a9f'  # Ganti token di sini
 
 now = datetime.now()
 formatted_time = now.strftime("%A, %d %B %Y %H:%M:%S")
@@ -74,7 +74,7 @@ else:
     my_ip = None
 
 # 4. Tampilkan IP yang sering muncul & status blokir subnetnya
-minimal = 500
+minimal = 300
 printed = 0
 
 print(f"\nDaftar IP terbanyak di error log Nginx (minimal {minimal}):")
@@ -102,10 +102,12 @@ for ip, count in counter.most_common():
 
         if blocked:
             status = '✅ sudah diblokir'
+            action = ''
         else:
             if 'google' in org.lower():
-                status = (
-                    '🔎 ASN Google – silakan review manual\n'
+                status = '🔎 perlu ditinjau'
+                action = (
+                    '\n\tASN Google – silakan review manual\n'
                     f'\t→ Jalankan untuk blokir jika perlu:\n'
                     f'\t  sudo cscli decisions add --reason "permanent malicious subnet" '
                     f'--duration 1000d --range {subnet}'
@@ -118,16 +120,18 @@ for ip, count in counter.most_common():
                     "--range", subnet
                 ])
                 status = '🚫 diblokir otomatis (bukan Indonesia/Google)'
+                action = ''
             else:
-                status = (
-                    '🇮🇩 IP dari Indonesia – silakan review manual\n'
+                status = '🔎 perlu ditinjau'
+                action = (
+                    '\n\tIP dari Indonesia – silakan review manual\n'
                     f'\t→ Jalankan untuk blokir jika perlu:\n'
                     f'\t  sudo cscli decisions add --reason "permanent malicious subnet" '
                     f'--duration 1000d --range {subnet}'
                 )
 
         icon_khusus = "📌" if negara == "ID" else "🛡"
-        print(f"https://ipinfo.io/{ip:<15} | {count:5} kali | {status} |  Negara: {negara} {icon_khusus} | {org} ({city}, {region})")
+        print(f"https://ipinfo.io/{ip:<15} | {count:5} kali | {status} | Negara: {negara} {icon_khusus} | {org} ({city}, {region}) {action}")
         printed += 1
 
     except Exception as e:
