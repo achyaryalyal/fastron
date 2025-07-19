@@ -9,7 +9,7 @@ from datetime import datetime
 import time
 
 LOG_FILE = "/var/www/logs/nginx/error.log"
-IPINFO_TOKEN = 'd05a4bc58d5a9f'  # Ganti token di sini
+IPINFO_TOKEN = 'xxxxxxxxx'  # Ganti token di sini
 
 now = datetime.now()
 formatted_time = now.strftime("%A, %d %B %Y %H:%M:%S")
