@@ -512,6 +512,9 @@ sudo cscli scenarios list | grep ssh
 sudo cscli decisions add --reason "manual ssh brute force" --scenario crowdsecurity/ssh-bf --duration 4h --ip <IP>
 sudo cscli decisions list --ip <IP>
 sudo cscli decisions delete --ip <IP>
+### add cron job
+# autoblock naughty IP range (not Indonesia/Google) every 1 hour at the 50th minute
+50 * * * * /usr/bin/python3 /var/www/logs/read_log_error_check_ipinfo_run_crowdsec.py >> /var/www/logs/ipinfo_cron.log 2>&1 && /usr/bin/python3 /var/www/logs/read_log_access_check_ipinfo_run_crowdsec.py >> /var/www/logs/ipinfo_cron.log
 
 =========================
 ACTIVATE FAIL2BAN FOR SSH (NOT USED, YOU CAN USE CROWDSEC)
