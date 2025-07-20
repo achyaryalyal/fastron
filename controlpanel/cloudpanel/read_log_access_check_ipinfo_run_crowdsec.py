@@ -42,18 +42,35 @@ def get_public_ip():
     except:
         return None
 
-# --- Fungsi: Cek apakah subnet sudah diblokir CrowdSec ---
-def is_subnet_blocked_by_crowdsec(subnet):
+# --- Fungsi: Cek apakah subnet atau IP sudah diblokir CrowdSec ---
+def is_subnet_blocked_by_crowdsec(subnet, ip):
     try:
+        # Cek blokir subnet
         result = subprocess.run(
             ["sudo", "cscli", "decisions", "list", "--scope", "range", "--value", subnet],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
             text=True
         )
-        return result.returncode == 0 and "No active decisions" not in result.stdout
+
+        if result.returncode == 0 and "No active decisions" not in result.stdout:
+            return True  # Subnet diblokir
+
+        # Jika subnet tidak diblokir, cek apakah IP-nya diblokir
+        result_ip = subprocess.run(
+            ["sudo", "cscli", "decisions", "list", "--ip", ip],
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True
+        )
+
+        if result_ip.returncode == 0 and "No active decisions" not in result_ip.stdout:
+            return True  # IP diblokir
+
+        return False  # Tidak diblokir sama sekali
+
     except Exception as e:
-        print(f"⚠ Error saat cek subnet {subnet}: {e}")
+        print(f"⚠ Error saat cek blokir CrowdSec untuk subnet {subnet} / IP {ip}: {e}")
         return False
 
 # --- Fungsi: Ambil GeoIP dan ASN, gunakan cache ---
@@ -116,7 +133,7 @@ for ip, count in counter.most_common():
         subnet = str(subnet_obj)
 
         if subnet not in checked_subnets:
-            blocked = is_subnet_blocked_by_crowdsec(subnet)
+            blocked = is_subnet_blocked_by_crowdsec(subnet, ip)
             checked_subnets[subnet] = blocked
         else:
             blocked = checked_subnets[subnet]
@@ -150,7 +167,8 @@ for ip, count in counter.most_common():
                     '\n\tIP dari Indonesia – silakan review manual\n'
                     f'\t→ Jalankan untuk blokir jika perlu:\n'
                     f'\t  sudo cscli decisions add --reason "permanent malicious subnet" '
-                    f'--duration 1000d --range {subnet}'
+                    f'--duration 1000d --range {subnet}\n'
+                    f'\t→ Jika ISP, pertimbangkan IP yang diblok, bukan subnet: Ganti --range subnet menjadi --ip {ip}\n'
                 )
 
         icon_khusus = "📌" if negara == "ID" else "🛡"
