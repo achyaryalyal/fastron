@@ -168,7 +168,7 @@ for ip, count in counter.most_common():
                     f'\t→ Jalankan untuk blokir jika perlu:\n'
                     f'\t  sudo cscli decisions add --reason "permanent malicious subnet" '
                     f'--duration 1000d --range {subnet}\n'
-                    f'\t→ Jika ISP, pertimbangkan IP yang diblok, bukan subnet: Ganti --range subnet menjadi --ip {ip}\n'
+                    f'\t→ Jika ISP (bukan hosting), pertimbangkan blok IP-nya (bukan subnet): Ganti --range {subnet} menjadi --ip {ip}\n'
                 )
 
         icon_khusus = "📌" if negara == "ID" else "🛡"
