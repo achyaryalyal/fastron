@@ -149,13 +149,13 @@ for ip, count in counter.most_common():
                 action = (
                     '\n\tASN Google – silakan review manual\n'
                     f'\t→ Jalankan untuk blokir jika perlu:\n'
-                    f'\t  sudo cscli decisions add --reason "permanent malicious subnet" '
+                    f'\t  sudo cscli decisions add --reason "malicious subnet" '
                     f'--duration 1000d --range {subnet}'
                 )
             elif negara != 'ID':
                 subprocess.run([
                     "sudo", "cscli", "decisions", "add",
-                    "--reason", "permanent malicious subnet",
+                    "--reason", "malicious subnet",
                     "--duration", "1000d",
                     "--range", subnet
                 ])
@@ -166,9 +166,9 @@ for ip, count in counter.most_common():
                 action = (
                     '\n\tIP dari Indonesia – silakan review manual\n'
                     f'\t→ Jalankan untuk blokir jika perlu:\n'
-                    f'\t  sudo cscli decisions add --reason "permanent malicious subnet" '
-                    f'--duration 1000d --range {subnet}\n'
-                    f'\t→ Jika ISP (bukan hosting), pertimbangkan blok IP-nya (bukan subnet): Ganti --range {subnet} menjadi --ip {ip}\n'
+                    f'\t  sudo cscli decisions add --reason "malicious subnet" --duration 1000d --range {subnet}\n'
+                    f'\t→ Jika ISP (bukan hosting), pertimbangkan blok IP-nya (bukan subnet), commandnya begini:\n'
+                    f'\t  sudo cscli decisions add --reason "malicious ip" --duration 24h --ip {ip}\n'
                 )
 
         icon_khusus = "📌" if negara == "ID" else "🛡"
