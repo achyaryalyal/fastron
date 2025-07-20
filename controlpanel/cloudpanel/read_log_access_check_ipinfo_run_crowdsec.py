@@ -12,7 +12,7 @@ from pathlib import Path
 
 # --- Konfigurasi ---
 LOG_FILE = "/var/www/logs/nginx/access.log"
-IPINFO_TOKEN = 'xxxxxxxxxx'  # Ganti token di sini
+IPINFO_TOKEN = "xxxxxxxxx"  # Ganti token di sini
 CACHE_FILE = "/var/www/logs/ipinfo_cache.json"
 MINIMAL = 300
 
